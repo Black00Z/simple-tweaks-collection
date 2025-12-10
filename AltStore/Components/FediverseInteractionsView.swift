@@ -99,7 +99,7 @@ struct FediverseInteractions: View
                         HStack(spacing: avatarSpacing) {
                             if let accounts
                             {
-                                ForEach(accounts, id: \.id) { account in
+                                ForEach(Array(accounts.enumerated()), id: \.element) { index, account in
                                     AsyncImage(url: account.avatar_static) { image in
                                         image
                                             .resizable()
@@ -109,6 +109,7 @@ struct FediverseInteractions: View
                                     } placeholder: {
                                         avatarPlaceholder
                                     }
+                                    .zIndex(Double(-index))
                                 }
                             }
                             else
