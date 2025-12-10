@@ -77,6 +77,8 @@ class AppCardCollectionViewCell: UICollectionViewCell
         self.fediverseInteractionsView = FediverseInteractionsView(frame: .zero)
         self.fediverseInteractionsView.layoutMargins.left = inset
         self.fediverseInteractionsView.layoutMargins.right = inset
+        self.fediverseInteractionsView.layoutMargins.top = 1
+        self.fediverseInteractionsView.layoutMargins.bottom = 1
         self.fediverseInteractionsView.isHidden = true
         
         self.stackView = UIStackView(arrangedSubviews: [self.bannerView, captionVibrancyView, self.screenshotsCollectionView, self.fediverseInteractionsView])
