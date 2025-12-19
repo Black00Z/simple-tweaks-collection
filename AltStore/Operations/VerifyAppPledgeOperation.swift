@@ -7,6 +7,7 @@
 //
 
 import Combine
+import MarketplaceKit
 
 import AltStoreCore
 
@@ -103,6 +104,18 @@ class VerifyAppPledgeOperation: ResultOperation<Void>, @unchecked Sendable
                         checkoutURL = patreonURL
                     }
                     
+                    let sourceID = await self.$storeApp.sourceIdentifier
+                    
+                    var token: String?
+                    
+                    #if MARKETPLACE
+                    if sourceID == Source.altStoreIdentifier, #available(iOS 26, *)
+                    {
+                        // Limit to just our first party apps
+                        token = try await CommissionManager.shared.requestCoreTechnologyToken()
+                    }
+                    #endif
+                    
                     // Direct user to Patreon page if they're not already pledged.
                     await self.openPatreonPage(checkoutURL, presentingViewController: presentingViewController)
                                         
@@ -128,6 +141,22 @@ class VerifyAppPledgeOperation: ResultOperation<Void>, @unchecked Sendable
                         // Ignore error, but cancel remainder of operation.
                         throw CancellationError()
                     }
+                    
+                    #if MARKETPLACE
+                    if let token, #available(iOS 26.0, *)
+                    {
+                        let accountContext = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+                        let account = await accountContext.perform {
+                            let account = DatabaseManager.shared.patreonAccount(in: accountContext)
+                            return account
+                        }
+                        
+                        if let account
+                        {
+                            try await CommissionManager.shared.link(token: token, with: account)
+                        }
+                    }
+                    #endif
                 }
                 
                 self.finish(.success(()))

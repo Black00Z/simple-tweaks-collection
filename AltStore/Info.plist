@@ -122,6 +122,8 @@
 		<string>RefreshAllIntent</string>
 		<string>ViewAppIntent</string>
 	</array>
+	<key>MKSellsDigitalGoods</key>
+	<true/>
 	<key>OSLogPreferences</key>
 	<dict>
 		<key>com.rileytestut.AltStore</key>
