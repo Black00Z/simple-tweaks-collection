@@ -64,6 +64,16 @@ class InsetGroupTableViewCell: UITableViewCell
         self.update()
     }
     
+    override func layoutSubviews()
+    {
+        super.layoutSubviews()
+        
+        if #available(iOS 26, *)
+        {
+            self.insetView.layer.cornerRadius = self.insetView.bounds.height / 2
+        }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool)
     {
         super.setSelected(selected, animated: animated)
