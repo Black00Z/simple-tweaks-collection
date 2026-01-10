@@ -344,6 +344,7 @@
 		D50652562BA358C50055ABBE /* Task+Timeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FB7A202AA284ED00EF863D /* Task+Timeout.swift */; };
 		D5084CCC2B1EA80100C02160 /* FeaturedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5084CCB2B1EA80100C02160 /* FeaturedComponents.swift */; };
 		D50A33B82EF474360020665D /* CommissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A33B72EF474360020665D /* CommissionManager.swift */; };
+		D50B88732F10546400BCD79C /* FederationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50B88722F10546400BCD79C /* FederationManager.swift */; };
 		D50F7FF12C5BFEE70064F7CE /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D50F7FF02C5BFEE70064F7CE /* PrivacyInfo.xcprivacy */; };
 		D513F6162A12CE4E0061EAA1 /* SourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D571ADCD2A02FA7400B24B63 /* SourceError.swift */; };
 		D5144BA82B8684EF00738A5C /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5144BA72B8684EF00738A5C /* Icons.xcassets */; };
@@ -469,6 +470,7 @@
 		D5BA9E9B2A9FE1E8007C0661 /* JITManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA9E9A2A9FE1E8007C0661 /* JITManager.swift */; };
 		D5BD17D32B6474FF00BAE633 /* AltMarketplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BD17D22B6474FF00BAE633 /* AltMarketplace.swift */; };
 		D5BD17D72B6474FF00BAE633 /* AltMarketplace.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = D5BD17D02B6474FF00BAE633 /* AltMarketplace.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D5BD46572F0DC48000D26AB5 /* SocialWebAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BD46562F0DC48000D26AB5 /* SocialWebAccount.swift */; };
 		D5BE12392B89372E009C026C /* InstallAppRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BE12382B89372E009C026C /* InstallAppRequest.swift */; };
 		D5BE123D2B893ABF009C026C /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BE123C2B893ABF009C026C /* HTTPHeader.swift */; };
 		D5BE123F2B893D66009C026C /* Logger+AltMarketplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BE123E2B893D66009C026C /* Logger+AltMarketplace.swift */; };
@@ -1042,6 +1044,7 @@
 		D50107EB2ADF2E1A0069F2A1 /* AddSourceTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSourceTextFieldCell.swift; sourceTree = "<group>"; };
 		D5084CCB2B1EA80100C02160 /* FeaturedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedComponents.swift; sourceTree = "<group>"; };
 		D50A33B72EF474360020665D /* CommissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommissionManager.swift; sourceTree = "<group>"; };
+		D50B88722F10546400BCD79C /* FederationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederationManager.swift; sourceTree = "<group>"; };
 		D50F7FF02C5BFEE70064F7CE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D5144BA72B8684EF00738A5C /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		D5151BD82A8FF64300C96F28 /* RefreshAllAppsIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAllAppsIntent.swift; sourceTree = "<group>"; };
@@ -1170,6 +1173,7 @@
 		D5BD17D02B6474FF00BAE633 /* AltMarketplace.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = AltMarketplace.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5BD17D22B6474FF00BAE633 /* AltMarketplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltMarketplace.swift; sourceTree = "<group>"; };
 		D5BD17D42B6474FF00BAE633 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5BD46562F0DC48000D26AB5 /* SocialWebAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialWebAccount.swift; sourceTree = "<group>"; };
 		D5BE12382B89372E009C026C /* InstallAppRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallAppRequest.swift; sourceTree = "<group>"; };
 		D5BE123C2B893ABF009C026C /* HTTPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
 		D5BE123E2B893D66009C026C /* Logger+AltMarketplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+AltMarketplace.swift"; sourceTree = "<group>"; };
@@ -1714,6 +1718,7 @@
 				BF66EEAB2501AECA007EE018 /* Source.swift */,
 				BF66EEC42501AECA007EE018 /* StoreApp.swift */,
 				BF66EEC22501AECA007EE018 /* Team.swift */,
+				D5BD46552F0DC45900D26AB5 /* Fediverse */,
 				D557A4862AE88232007D0DCF /* Patreon */,
 				BF66EEAC2501AECA007EE018 /* Migrations */,
 			);
@@ -2346,6 +2351,7 @@
 		D526A40D2E32F74D00D2E768 /* Fediverse */ = {
 			isa = PBXGroup;
 			children = (
+				D50B88722F10546400BCD79C /* FederationManager.swift */,
 				D526A40E2E32F75D00D2E768 /* MastodonAPI.swift */,
 				D526A4102E32F80700D2E768 /* MastodonAPI+Types.swift */,
 				D54D13C32E5CEEB800FEC355 /* iCloudAPI.swift */,
@@ -2467,6 +2473,14 @@
 				D5BD17D42B6474FF00BAE633 /* Info.plist */,
 			);
 			path = AltMarketplace;
+			sourceTree = "<group>";
+		};
+		D5BD46552F0DC45900D26AB5 /* Fediverse */ = {
+			isa = PBXGroup;
+			children = (
+				D5BD46562F0DC48000D26AB5 /* SocialWebAccount.swift */,
+			);
+			path = Fediverse;
 			sourceTree = "<group>";
 		};
 		D5BDD9712B1FC8FA001F84DE /* Permissions */ = {
@@ -3351,6 +3365,7 @@
 				BF66EEDE2501AECA007EE018 /* AppID.swift in Sources */,
 				BF66EECF2501AECA007EE018 /* AltStoreToAltStore2.xcmappingmodel in Sources */,
 				BF66EEA82501AEC5007EE018 /* Patron.swift in Sources */,
+				D5BD46572F0DC48000D26AB5 /* SocialWebAccount.swift in Sources */,
 				BF66EEDD2501AECA007EE018 /* AppPermission.swift in Sources */,
 				D58916FE28C7C55C00E39C8B /* LoggedError.swift in Sources */,
 				BFBF331B2526762200B7B8C9 /* AltStore8ToAltStore9.xcmappingmodel in Sources */,
@@ -3522,6 +3537,7 @@
 				BFD52BD422A0800A000B7ED1 /* ServerManager.swift in Sources */,
 				D57FE84428C7DB7100216002 /* ErrorLogViewController.swift in Sources */,
 				D50107EC2ADF2E1A0069F2A1 /* AddSourceTextFieldCell.swift in Sources */,
+				D50B88732F10546400BCD79C /* FederationManager.swift in Sources */,
 				D5151BD92A8FF64300C96F28 /* RefreshAllAppsIntent.swift in Sources */,
 				BFBE0007250AD0E70080826E /* ViewAppIntentHandler.swift in Sources */,
 				BFDB6A0822AAED73007EA6D6 /* ResignAppOperation.swift in Sources */,

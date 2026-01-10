@@ -37,7 +37,10 @@ extension iCloudAPI
             self.record = record
         }
     }
+}
 
+extension iCloudAPI
+{
     typealias SourceRecord = CloudRecord<SourceFields>
     typealias NewsItemRecord = CloudRecord<NewsItemFields>
     typealias AppRecord = CloudRecord<AppFields>
@@ -87,6 +90,23 @@ extension iCloudAPI
         var appBundleID: String
         
         var statusID: String?
+    }
+}
+
+extension iCloudAPI
+{
+    typealias ServerRecord = CloudRecord<ServerFields>
+
+    @objcMembers
+    class ServerFields: CloudRecordFields
+    {
+        static var recordType: CKRecord.RecordType { "Server" }
+        
+        var domain: String
+        
+        var appID: String
+        var appClientID: String
+        var appClientSecret: String
     }
 }
 

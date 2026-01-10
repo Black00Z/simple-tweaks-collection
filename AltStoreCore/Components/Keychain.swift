@@ -101,6 +101,14 @@ public class Keychain
     @KeychainItem(key: "palPromoExpiration")
     public var palPromoExpiration: Date?
     
+    
+    // Open Social Web
+    @KeychainItem(key: "mastodonAccessToken")
+    public var mastodonAccessToken: String?
+    
+    @KeychainItem(key: "socialWebAccountID")
+    public var socialWebAccountID: String?
+    
     private init()
     {
     }

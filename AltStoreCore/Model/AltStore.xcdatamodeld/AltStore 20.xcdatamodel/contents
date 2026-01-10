@@ -231,6 +231,22 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="SocialWebAccount" representedClassName="SocialWebAccount" syncable="YES">
+        <attribute name="domain" attributeType="String"/>
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="type" attributeType="String"/>
+        <attribute name="url" attributeType="URI"/>
+        <attribute name="username" attributeType="String"/>
+        <fetchIndex name="byIdentifier">
+            <fetchIndexElement property="identifier" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="identifier"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
     <entity name="Source" representedClassName="Source" syncable="YES">
         <attribute name="error" optional="YES" attributeType="Transformable" valueTransformerName="ALTSecureValueTransformer"/>
         <attribute name="featuredSortID" optional="YES" attributeType="String"/>

@@ -11,11 +11,21 @@ import CloudKit
 
 import AltStoreCore
 
+extension iCloudAPI
+{
+    enum Container
+    {
+        case sources
+        case mastodon
+    }
+}
+
 final class iCloudAPI
 {
     static let shared = iCloudAPI()
     
-    private let container = CKContainer(identifier: "iCloud.io.altstore.AltStore.Sources")
+    private let sourcesContainer = CKContainer(identifier: "iCloud.io.altstore.AltStore.Sources")
+    private let mastodonContainer = CKContainer(identifier: "iCloud.io.altstore.AltStore.Mastodon")
     
     private init()
     {
@@ -29,7 +39,7 @@ extension iCloudAPI
         let predicate = NSPredicate(format: "%K == %@", #keyPath(SourceFields.sourceID), id)
         let query = CKQuery(recordType: SourceRecord.recordType, predicate: predicate)
         
-        let results = try await self._fetchRecords(of: SourceRecord.self, query: query)
+        let results = try await self._fetchRecords(of: SourceRecord.self, query: query, container: .sources)
         return results.first
     }
     
@@ -43,7 +53,7 @@ extension iCloudAPI
         let query = CKQuery(recordType: NewsItemRecord.recordType, predicate: predicate)
         query.sortDescriptors = [sortDescriptor]
         
-        let results = try await self._fetchRecords(of: NewsItemRecord.self, query: query)
+        let results = try await self._fetchRecords(of: NewsItemRecord.self, query: query, container: .sources)
         return results
     }
     
@@ -57,7 +67,7 @@ extension iCloudAPI
         let query = CKQuery(recordType: AppRecord.recordType, predicate: predicate)
         query.sortDescriptors = [sortDescriptor]
         
-        let results = try await self._fetchRecords(of: AppRecord.self, query: query)
+        let results = try await self._fetchRecords(of: AppRecord.self, query: query, container: .sources)
         return results
     }
     
@@ -71,17 +81,48 @@ extension iCloudAPI
         let query = CKQuery(recordType: AppVersionRecord.recordType, predicate: predicate)
         query.sortDescriptors = [sortDescriptor]
         
-        let results = try await self._fetchRecords(of: AppVersionRecord.self, query: query)
+        let results = try await self._fetchRecords(of: AppVersionRecord.self, query: query, container: .sources)
         return results
+    }
+}
+
+extension iCloudAPI
+{
+    func fetchMastodonServer(domain: String) async throws -> ServerRecord?
+    {
+        let predicate = NSPredicate(format: "%K == %@", #keyPath(ServerFields.domain), domain.lowercased())
+        let query = CKQuery(recordType: ServerRecord.recordType, predicate: predicate)
+        
+        let results = try await self._fetchRecords(of: ServerRecord.self, query: query, container: .mastodon)
+        return results.first
+    }
+    
+    func registerApp(id: String, clientID: String, clientSecret: String, domain: String) async throws -> ServerRecord
+    {
+        let record = CKRecord(recordType: ServerFields.recordType)
+        record[#keyPath(ServerFields.domain)] = domain.lowercased()
+        record[#keyPath(ServerFields.appID)] = id
+        record[#keyPath(ServerFields.appClientID)] = clientID
+        record[#keyPath(ServerFields.appClientSecret)] = clientSecret
+        
+        let savedRecord = try await self.mastodonContainer.publicCloudDatabase.save(record)
+        
+        let serverRecord = ServerRecord(record: savedRecord)
+        return serverRecord
     }
 }
 
 private extension iCloudAPI
 {
-    func _fetchRecords<Fields: CloudRecordFields>(of recordType: CloudRecord<Fields>.Type, query: CKQuery) async throws -> [CloudRecord<Fields>]
+    func _fetchRecords<Fields: CloudRecordFields>(of recordType: CloudRecord<Fields>.Type, query: CKQuery, container: Container) async throws -> [CloudRecord<Fields>]
     {
         var results: [(CKRecord.ID, Result<CKRecord, Error>)] = []
         var fetchCursor: CKQueryOperation.Cursor? = nil
+        
+        let container = switch container {
+        case .sources: self.sourcesContainer
+        case .mastodon: self.mastodonContainer
+        }
         
         repeat
         {
@@ -90,7 +131,7 @@ private extension iCloudAPI
             if let tempCursor = fetchCursor
             {
                 let (results, cursor) = try await withCheckedThrowingContinuation { continuation in
-                    self.container.publicCloudDatabase.fetch(withCursor: tempCursor) { result in
+                    container.publicCloudDatabase.fetch(withCursor: tempCursor) { result in
                         continuation.resume(with: result)
                     }
                 }
@@ -101,7 +142,7 @@ private extension iCloudAPI
             else
             {
                 let (results, cursor) = try await withCheckedThrowingContinuation { continuation in
-                    self.container.publicCloudDatabase.fetch(withQuery: query) { result in
+                    container.publicCloudDatabase.fetch(withQuery: query) { result in
                         continuation.resume(with: result)
                     }
                 }
