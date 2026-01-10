@@ -14,11 +14,13 @@ extension SocialWebAccount
     public enum AccountType: String
     {
         case mastodon
+        case bluesky
         
         public var localizedName: String {
             switch self
             {
             case .mastodon: return String(localized: "Mastodon")
+            case .bluesky: return String(localized: "Bluesky")
             }
         }
     }

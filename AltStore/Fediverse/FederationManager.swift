@@ -25,9 +25,24 @@ extension FederationManager
     func authenticate(presentingViewController: UIViewController) async throws -> SocialWebAccount
     {
         let mastodonAction = UIAlertAction(title: NSLocalizedString("Mastodon", comment: ""), style: .default)
-        _ = try await presentingViewController.presentConfirmationAlert(title: NSLocalizedString("Sign in with…", comment: ""), message: "", actions: [mastodonAction])
+        let blueskyAction = UIAlertAction(title: NSLocalizedString("Bluesky", comment: ""), style: .default)
         
-        let account = try await MastodonAPI.shared.authenticate(presentingViewController: presentingViewController)
+        let selectedAction = try await presentingViewController.presentConfirmationAlert(title: NSLocalizedString("Sign in with…", comment: ""), message: "", actions: [mastodonAction, blueskyAction])
+        
+        let account: SocialWebAccount
+        if selectedAction == mastodonAction
+        {
+            account = try await MastodonAPI.shared.authenticate(presentingViewController: presentingViewController)
+        }
+        else if selectedAction == blueskyAction
+        {
+            account = try await BlueskyAPI.shared.authenticate(presentingViewController: presentingViewController)
+        }
+        else
+        {
+            throw CancellationError()
+        }
+        
         Logger.main.info("Authenticated \(account.type.rawValue) account: \(account.name)")
         
         return account
@@ -55,5 +70,6 @@ extension FederationManager
         
         // Must go AFTER deleting saved social web accounts (or else we'll lose cached account identifier).
         MastodonAPI.shared.signOut()
+        BlueskyAPI.shared.signOut()
     }
 }

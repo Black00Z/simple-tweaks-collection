@@ -388,6 +388,8 @@
 		D5409F6D2E3AA75900EE8AD1 /* InstallationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5409F6C2E3AA74B00EE8AD1 /* InstallationError.swift */; };
 		D540E93828EE1BDE000F1B0F /* ErrorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D540E93728EE1BDE000F1B0F /* ErrorDetailsViewController.swift */; };
 		D5418F172AD740890014ABD6 /* AppScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5418F162AD740890014ABD6 /* AppScreenshotCollectionViewCell.swift */; };
+		D548D4D52F0F013C00CAE432 /* BlueskyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D548D4D42F0F013C00CAE432 /* BlueskyAPI.swift */; };
+		D548D4D72F0F014800CAE432 /* BlueskyAPI+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D548D4D62F0F014800CAE432 /* BlueskyAPI+Types.swift */; };
 		D54D13C42E5CEEB800FEC355 /* iCloudAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D13C32E5CEEB800FEC355 /* iCloudAPI.swift */; };
 		D54D13E62E5D19FD00FEC355 /* Federatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D13E52E5D19FD00FEC355 /* Federatable.swift */; };
 		D54DED1428CBC44B008B27A0 /* ErrorLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54DED1328CBC44B008B27A0 /* ErrorLogTableViewCell.swift */; };
@@ -1087,6 +1089,8 @@
 		D5409F6C2E3AA74B00EE8AD1 /* InstallationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallationError.swift; sourceTree = "<group>"; };
 		D540E93728EE1BDE000F1B0F /* ErrorDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDetailsViewController.swift; sourceTree = "<group>"; };
 		D5418F162AD740890014ABD6 /* AppScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
+		D548D4D42F0F013C00CAE432 /* BlueskyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueskyAPI.swift; sourceTree = "<group>"; };
+		D548D4D62F0F014800CAE432 /* BlueskyAPI+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueskyAPI+Types.swift"; sourceTree = "<group>"; };
 		D54D13C32E5CEEB800FEC355 /* iCloudAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudAPI.swift; sourceTree = "<group>"; };
 		D54D13C52E5CEF2200FEC355 /* iCloudAPI+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iCloudAPI+Types.swift"; sourceTree = "<group>"; };
 		D54D13E52E5D19FD00FEC355 /* Federatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Federatable.swift; sourceTree = "<group>"; };
@@ -2354,6 +2358,8 @@
 				D50B88722F10546400BCD79C /* FederationManager.swift */,
 				D526A40E2E32F75D00D2E768 /* MastodonAPI.swift */,
 				D526A4102E32F80700D2E768 /* MastodonAPI+Types.swift */,
+				D548D4D42F0F013C00CAE432 /* BlueskyAPI.swift */,
+				D548D4D62F0F014800CAE432 /* BlueskyAPI+Types.swift */,
 				D54D13C32E5CEEB800FEC355 /* iCloudAPI.swift */,
 				D54D13C52E5CEF2200FEC355 /* iCloudAPI+Types.swift */,
 			);
@@ -3465,6 +3471,7 @@
 				BF56D2AC23DF8E170006506D /* FetchAppIDsOperation.swift in Sources */,
 				BFC1F38D22AEE3A4003AC21A /* DownloadAppOperation.swift in Sources */,
 				BFE6073A231ADF82002B0E8E /* SettingsViewController.swift in Sources */,
+				D548D4D72F0F014800CAE432 /* BlueskyAPI+Types.swift in Sources */,
 				D57F2C9126E0070200B9FA39 /* EnableJITOperation.swift in Sources */,
 				BF8CAE4E248AEABA004D6CCE /* UIDevice+Jailbreak.swift in Sources */,
 				D5E1E7C128077DE90016FC96 /* UpdateKnownSourcesOperation.swift in Sources */,
@@ -3483,6 +3490,7 @@
 				D5B15D4B2ECE8ED800F8E797 /* FediverseInteractionsView.swift in Sources */,
 				BF0DCA662433BDF500E3A595 /* AnalyticsManager.swift in Sources */,
 				D5418F172AD740890014ABD6 /* AppScreenshotCollectionViewCell.swift in Sources */,
+				D548D4D52F0F013C00CAE432 /* BlueskyAPI.swift in Sources */,
 				BFCCB51A245E3401001853EA /* VerifyAppOperation.swift in Sources */,
 				BFF0B6982322CAB8007A79E1 /* InstructionsViewController.swift in Sources */,
 				D526A4112E32F80800D2E768 /* MastodonAPI+Types.swift in Sources */,
