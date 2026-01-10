@@ -4296,7 +4296,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.3.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -4360,7 +4360,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.3.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -4393,7 +4393,6 @@
 				DEVELOPMENT_TEAM = 6P6G44MPGD;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AltStore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4430,7 +4429,6 @@
 				DEVELOPMENT_TEAM = 6P6G44MPGD;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AltStore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4582,7 +4580,6 @@
 				INFOPLIST_FILE = AltMarketplace/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AltMarketplace;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Riley Testut. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4617,7 +4614,6 @@
 				INFOPLIST_FILE = AltMarketplace/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AltMarketplace;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Riley Testut. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
