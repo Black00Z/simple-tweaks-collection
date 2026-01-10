@@ -73,6 +73,9 @@ struct FediverseInteractions: View
     @State
     private var accounts: [MastodonAPI.Account]?
     
+    @State
+    private var isShowingLikes = false
+
     @Namespace
     private var unionNamespace
     
@@ -94,7 +97,7 @@ struct FediverseInteractions: View
                     
                     // Avatars
                     SwiftUI.Button {
-                        showLikes(for: item)
+                        isShowingLikes = true
                     } label: {
                         HStack(spacing: avatarSpacing) {
                             if let accounts
@@ -143,6 +146,13 @@ struct FediverseInteractions: View
                 Logger.main.error("Failed to fetch Fediverse interactions for \(String(describing: item), privacy: .public): \(error.localizedDescription, privacy: .public)")
             }
         }
+        .sheet(isPresented: $isShowingLikes) {
+            if let rawStatusID = item.statusID, let statusID = Int(rawStatusID), let federatedURL = item.federatedURL
+            {
+                FediverseLikesView(statusURL: federatedURL, statusID: statusID)
+                    .presentationDetents([.medium, .large])
+            }
+        }
     }
     
     private var socialButtonContent: some View {
@@ -162,7 +172,7 @@ struct FediverseInteractions: View
             
             // Like button
             SwiftUI.Button {
-                showLikes(for: item)
+                isShowingLikes = true
             } label: {
                 HStack(spacing: 2) {
                     Image(systemName: "heart")
@@ -305,13 +315,6 @@ private extension FediverseInteractions
         UIApplication.shared.open(federatedURL, options: [:])
     }
     
-    func showLikes(for item: some Federatable)
-    {
-        guard var federatedURL = item.federatedURL else { return }
-        federatedURL.append(component: "favourites")
-        
-        UIApplication.shared.open(federatedURL, options: [:])
-    }
     
     func show(_ account: MastodonAPI.Account)
     {
