@@ -14,7 +14,7 @@ import Roxas
 
 import Nuke
 
-private extension UIAction.Identifier
+extension UIAction.Identifier
 {
     static let addSource = UIAction.Identifier("io.altstore.AddSource")
 }
@@ -28,6 +28,7 @@ extension AddSourceViewController
         case add
         case preview
         case featured
+        case collections
         case moreApps
     }
     
@@ -36,6 +37,7 @@ extension AddSourceViewController
         case textFieldCell = "TextFieldCell"
         case placeholderFooter = "PlaceholderFooter"
         case moreAppsFooter = "MoreAppsFooter"
+        case collectionCell = "CollectionCell"
     }
     
     private enum ElementKind: String
@@ -71,8 +73,10 @@ class AddSourceViewController: UICollectionViewController
     private lazy var addSourceDataSource = self.makeAddSourceDataSource()
     private lazy var sourcePreviewDataSource = self.makeSourcePreviewDataSource()
     private lazy var featuredSourcesDataSource = self.makeFeaturedSourcesDataSource()
+    private lazy var sourceCollectionsDataSource = self.makeSourceCollectionsDataSource()
     private lazy var moreAppsDataSource = self.makeMoreAppsDataSource()
     
+    private var fetchSourceCollectionsTask: Task<Void, Never>?
     private var fetchRecommendedSourcesOperation: UpdateKnownSourcesOperation?
     private var fetchRecommendedSourcesResult: Result<Void, Error>?
     private var _fetchRecommendedSourcesContext: NSManagedObjectContext?
@@ -159,8 +163,9 @@ class AddSourceViewController: UICollectionViewController
     {
         super.viewWillAppear(animated)
         
-        if self.fetchRecommendedSourcesOperation == nil
+        if self.fetchSourceCollectionsTask == nil
         {
+            self.fetchSourceCollections()
             self.fetchFeaturedSources()
         }
         
@@ -272,6 +277,25 @@ private extension AddSourceViewController
                 
                 return layoutSection
                 
+            case .collections:
+                var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+                configuration.showsSeparators = false
+                configuration.backgroundColor = .clear
+                
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
+                
+                sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: -8, bottom: 0, trailing: 0)
+                                
+                let layoutSection = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
+                
+                layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 30, trailing: 16)
+                layoutSection.interGroupSpacing = 10
+                
+                layoutSection.boundarySupplementaryItems = [sectionHeader]
+                
+                return layoutSection
+                
             case .moreApps:
                 var configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
                 configuration.showsSeparators = false
@@ -305,12 +329,15 @@ private extension AddSourceViewController
         return layout
     }
     
-    func makeDataSource() -> RSTCompositeCollectionViewPrefetchingDataSource<Source, UIImage>
+    func makeDataSource() -> RSTCompositeCollectionViewPrefetchingDataSource<NSObject, UIImage>
     {
-        let dataSource = RSTCompositeCollectionViewPrefetchingDataSource<Source, UIImage>(dataSources: [self.addSourceDataSource,
-                                                                                                        self.sourcePreviewDataSource,
-                                                                                                        self.featuredSourcesDataSource,
-                                                                                                        self.moreAppsDataSource])
+        let dataSource = RSTCompositeCollectionViewPrefetchingDataSource<NSObject, UIImage>(dataSources: [
+            self.addSourceDataSource as! RSTDynamicCollectionViewPrefetchingDataSource<NSObject, UIImage>,
+            self.sourcePreviewDataSource as! RSTArrayCollectionViewPrefetchingDataSource<NSObject, UIImage>,
+            self.featuredSourcesDataSource as! RSTArrayCollectionViewPrefetchingDataSource<NSObject, UIImage>,
+            self.sourceCollectionsDataSource as! RSTArrayCollectionViewPrefetchingDataSource<NSObject, UIImage>,
+            self.moreAppsDataSource as! RSTDynamicCollectionViewPrefetchingDataSource<NSObject, UIImage>
+        ])
         dataSource.proxy = self
         return dataSource
     }
@@ -421,6 +448,74 @@ private extension AddSourceViewController
             {
                 cell.bannerView.iconImageView.backgroundColor = .clear
             }
+        }
+        
+        return dataSource
+    }
+    
+    func makeSourceCollectionsDataSource() -> RSTArrayCollectionViewPrefetchingDataSource<SourceCollection, UIImage>
+    {
+        let dataSource = RSTArrayCollectionViewPrefetchingDataSource<SourceCollection, UIImage>(items: [])
+        dataSource.cellIdentifierHandler = { _ in ReuseID.collectionCell.rawValue }
+        dataSource.cellConfigurationHandler = { cell, collection, indexPath in
+            let cell = cell as! UICollectionViewListCell
+            
+            var config = UIListContentConfiguration.cell()
+            config.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 14, leading: 16, bottom: 14, trailing: 16)
+            
+            config.text = collection.localizedTitle
+            config.textProperties.font = .boldSystemFont(ofSize: 19)
+            
+            // Icon background
+            let iconSize: CGFloat = 38
+            let iconView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize, height: iconSize))
+            iconView.backgroundColor = collection.tintColor.withAlphaComponent(0.2)
+            iconView.layer.cornerRadius = iconSize / 2
+            iconView.layer.masksToBounds = true
+            
+            // Emoji
+            let icon = UILabel(frame: iconView.bounds)
+            icon.text = collection.emoji
+            icon.font = .preferredFont(forTextStyle: .body)
+            icon.textAlignment = .center
+            iconView.addSubview(icon)
+            
+            let renderer = UIGraphicsImageRenderer(bounds: iconView.bounds)
+            let iconImage = renderer.image { context in
+                iconView.layer.render(in: context.cgContext)
+            }
+            
+            config.image = iconImage
+            config.imageProperties.maximumSize = CGSize(width: iconSize, height: iconSize)
+            config.imageProperties.cornerRadius = iconSize / 2
+            
+            cell.contentConfiguration = config
+            
+            var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
+            backgroundConfig.backgroundColor = .tertiarySystemBackground
+            backgroundConfig.cornerRadius = 26
+            backgroundConfig.strokeWidth = 0
+                        
+            if #available(iOS 18, *)
+            {
+                backgroundConfig.shadowProperties.color = UIColor.black
+                backgroundConfig.shadowProperties.opacity = 0.2
+                backgroundConfig.shadowProperties.radius = 10
+                backgroundConfig.shadowProperties.offset = CGSize(width: 0, height: 5)
+            }
+            else
+            {
+                cell.layer.shadowOffset = CGSize(width: 0, height: 5)
+                cell.layer.shadowOpacity = 0.15
+                cell.layer.shadowRadius = 5
+                cell.layer.shadowColor = UIColor.black.cgColor
+            }
+            
+            cell.backgroundConfiguration = backgroundConfig
+            
+            cell.contentView.clipsToBounds = false
+
+            cell.accessories = [.disclosureIndicator()]
         }
         
         return dataSource
@@ -759,6 +854,28 @@ private extension AddSourceViewController
         }
     }
     
+    func fetchSourceCollections()
+    {
+        self.fetchSourceCollectionsTask = Task {
+            do
+            {
+                let collections = try await AppManager.shared.fetchSourceCollections()
+                
+                let sectionUpdate = RSTCellContentChange(type: .update, sectionIndex: 0)
+                self.sourceCollectionsDataSource.setItems(collections, with: [sectionUpdate])
+            }
+            catch
+            {
+                Logger.main.error("Error fetching recommended sources: \(error.localizedDescription, privacy: .public)")
+                
+                let sectionUpdate = RSTCellContentChange(type: .update, sectionIndex: 0)
+                self.featuredSourcesDataSource.setItems([], with: [sectionUpdate])
+            }
+            
+            self.update()
+        }
+    }
+    
     func fetchFeaturedSources()
     {
         // Closure instead of local function so we can capture `self` weakly.
@@ -924,7 +1041,7 @@ private extension AddSourceViewController
                 }
                 
                 let title = NSLocalizedString("Some Sources Added", comment: "")
-                let message = AttributedString(localized: "Successfully added ^[\(successes.count) source](inflect: true), but ^[\(failures.count) source](inflect: true) failed. \n\nFor more details, check the Error Log in settings.")
+                let message = AttributedString(localized: "Successfully added ^[\(successes.count) source](inflect: true), but ^[\(failures.count) source](inflect: true) failed.\n\nFor more details, check the Error Log in settings.")
                 await self.presentAlert(title: title, message: String(message.characters))
             }
         }
@@ -965,18 +1082,29 @@ extension AddSourceViewController
 {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) 
     {
-        guard Section(rawValue: indexPath.section) != .add else { return }
-        
-        var source = self.dataSource.item(at: indexPath)
-        
-        let predicate = NSPredicate(format: "%K == %@", #keyPath(Source.identifier), source.identifier)
-        if let localSource = Source.first(satisfying: predicate, in: DatabaseManager.shared.viewContext)
+        let section = Section(rawValue: indexPath.section)!
+        switch section
         {
-            // This source exists locally, so show local version instead.
-            source = localSource
+        case .preview, .featured:
+            var source = self.dataSource.item(at: indexPath) as! Source
+            
+            let predicate = NSPredicate(format: "%K == %@", #keyPath(Source.identifier), source.identifier)
+            if let localSource = Source.first(satisfying: predicate, in: DatabaseManager.shared.viewContext)
+            {
+                // This source exists locally, so show local version instead.
+                source = localSource
+            }
+            
+            self.performSegue(withIdentifier: "showSourceDetails", sender: source)
+            
+        case .collections:
+            let sourceCollection = self.sourceCollectionsDataSource.item(at: IndexPath(item: indexPath.item, section: 0))
+            let sourceCollectionViewController = SourceCollectionViewController(sourceCollection: sourceCollection)
+            
+            self.navigationController?.pushViewController(sourceCollectionViewController, animated: true)
+            
+        case .add, .moreApps: break
         }
-        
-        self.performSegue(withIdentifier: "showSourceDetails", sender: source)
     }
 }
 
@@ -1070,6 +1198,17 @@ extension AddSourceViewController: UICollectionViewDelegateFlowLayout
             }
             
             return footerView
+            
+        case (.collections, UICollectionView.elementKindSectionHeader):
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kind, for: indexPath) as! UICollectionViewListCell
+            
+            var configuration = UIListContentConfiguration.prominentInsetGroupedHeader()
+            let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title2).bolded()
+            configuration.textProperties.font = UIFont(descriptor: fontDescriptor, size: 0.0)
+            configuration.text = NSLocalizedString("Collections", comment: "")
+            headerView.contentConfiguration = configuration
+            
+            return headerView
             
         case (.moreApps, UICollectionView.elementKindSectionHeader): // Despite being called MoreAppsFooterView, we use as header to minimize spacing.
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ReuseID.moreAppsFooter.rawValue, for: indexPath) as! MoreAppsFooterView

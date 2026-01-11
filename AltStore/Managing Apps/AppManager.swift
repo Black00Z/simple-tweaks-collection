@@ -641,6 +641,19 @@ extension AppManager
         self.run([fetchAppIDsOperation], context: authenticationOperation.context)
     }
     
+    func fetchSourceCollections() async throws -> [SourceCollection]
+    {
+        let collections = try await withCheckedThrowingContinuation { continuation in
+            let fetchSourceCollectionsOperation = FetchSourceCollectionsOperation()
+            fetchSourceCollectionsOperation.resultHandler = { result in
+                continuation.resume(with: result)
+            }
+            self.run([fetchSourceCollectionsOperation], context: nil)
+        }
+        
+        return collections
+    }
+    
     @discardableResult
     func updateKnownSources(completionHandler: @escaping (Result<([KnownSource], [KnownSource]), Error>) -> Void) -> UpdateKnownSourcesOperation
     {
