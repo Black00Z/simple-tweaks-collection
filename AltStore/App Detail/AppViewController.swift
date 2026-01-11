@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 import AltStoreCore
 import Roxas
@@ -41,10 +42,19 @@ class AppViewController: UIViewController
     @IBOutlet private var navigationBarAppIconImageView: UIImageView!
     @IBOutlet private var navigationBarAppNameLabel: UILabel!
     
+    private var likesButton: UIButton!
+    private var moreButton: UIButton!
+    
+    private var likesButtonContainerView: UIVisualEffectView!
+    private var moreButtonContainerView: UIVisualEffectView!
+    
     private var _shouldResetLayout = false
     private var _viewDidAppear = false
     private var _backgroundBlurEffect: UIBlurEffect?
     private var _backgroundBlurTintColor: UIColor?
+    
+    private var _isLiked: Bool = false
+    private var _likesCount: Int = 0
     
     private var _preferredStatusBarStyle: UIStatusBarStyle = .default
     
@@ -111,6 +121,10 @@ class AppViewController: UIViewController
             self?.view.layoutIfNeeded()
         }
         
+        // Set before update()
+        self._likesCount = Int(self.app.likesCount)
+        
+        self.prepareSocialButtons()
         self.update()
         
         NotificationCenter.default.addObserver(self, selector: #selector(AppViewController.didChangeApp(_:)), name: .NSManagedObjectContextObjectsDidChange, object: DatabaseManager.shared.viewContext)
@@ -170,6 +184,8 @@ class AppViewController: UIViewController
         
         // Prevent banner temporarily flashing a color due to being added back to self.view.
         self.bannerView.backgroundEffectView.backgroundColor = .clear
+        
+        self.updateFediverseInteractions()
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -245,6 +261,14 @@ class AppViewController: UIViewController
         let backButtonSize = self.backButton.sizeThatFits(CGSize(width: 1000, height: 1000))
         var backButtonFrame = CGRect(x: inset, y: statusBarHeight,
                                      width: backButtonSize.width + 20, height: backButtonSize.height + 20)
+        
+        let moreButtonSize = self.moreButton.bounds.size
+        var moreButtonFrame = CGRect(x: self.view.bounds.width - inset - moreButtonSize.width, y: statusBarHeight,
+                                     width: moreButtonSize.width, height: moreButtonSize.height)
+        
+        let likesButtonSize = self.likesButton.bounds.size
+        var likesButtonFrame = CGRect(x: self.view.bounds.width - inset - moreButtonSize.width - inset - likesButtonSize.width, y: statusBarHeight,
+                                      width: likesButtonSize.width, height: likesButtonSize.height)
         
         var headerFrame = CGRect(x: inset, y: 0, width: self.view.bounds.width - inset * 2, height: self.bannerView.bounds.height)
         var contentFrame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
@@ -322,6 +346,8 @@ class AppViewController: UIViewController
         {
             let difference = self.scrollView.contentOffset.y - beginMovingBackButtonThreshold
             backButtonFrame.origin.y -= difference
+            moreButtonFrame.origin.y -= difference
+            likesButtonFrame.origin.y -= difference
         }
         
         let pinContentToTopThreshold = maximumContentY
@@ -349,9 +375,18 @@ class AppViewController: UIViewController
         self.backgroundBlurView.frame = backgroundIconFrame
         self.backButtonContainerView.frame = backButtonFrame
         
+        self.moreButton.frame = CGRect(origin: .zero, size: moreButtonSize)
+        self.moreButtonContainerView.frame = moreButtonFrame
+        
+        self.likesButton.frame = CGRect(origin: .zero, size: likesButtonSize)
+        self.likesButtonContainerView.frame = likesButtonFrame
+        
         self.contentViewControllerShadowView.frame = self.contentViewController.view.frame
         
         self.backButtonContainerView.layer.cornerRadius = self.backButtonContainerView.bounds.midY
+        
+        self.likesButtonContainerView.layer.cornerRadius = self.likesButtonContainerView.bounds.height / 2
+        self.moreButtonContainerView.layer.cornerRadius = self.moreButtonContainerView.bounds.height / 2
         
         self.scrollView.verticalScrollIndicatorInsets.top = statusBarHeight
         
@@ -427,6 +462,64 @@ private extension AppViewController
         let barButtonItem = self.navigationItem.rightBarButtonItem
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = barButtonItem
+        
+        if self._likesCount > 0
+        {
+            self.likesButton.configuration?.title = String(self._likesCount)
+        }
+        else
+        {
+            self.likesButton.configuration?.title = nil
+        }
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .semibold)
+        if self._isLiked
+        {
+            self.likesButton.configuration?.image = UIImage(systemName: "heart.fill", withConfiguration: imageConfig)
+        }
+        else
+        {
+            self.likesButton.configuration?.image = UIImage(systemName: "heart", withConfiguration: imageConfig)
+        }
+    }
+    
+    func updateFediverseInteractions()
+    {
+        guard let statusID = self.app.statusID else { return }
+        
+        Task<Void, Never>(priority: .userInitiated) { @MainActor in
+            do
+            {
+                async let isTootLiked = FederationManager.shared.isPostLiked(for: self.app)
+                async let toots = MastodonAPI.shared.fetchToots(ids: [statusID])
+                
+                defer {
+                    // Upate UI even if fetching fails.
+                    self.update()
+                }
+                
+                self._isLiked = try await isTootLiked
+                                
+                guard let toot = try await toots.first else { return }
+                self._likesCount = toot.favourites_count
+                
+                let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+                try await context.perform {
+                    let storeApp = context.object(with: self.app.objectID) as! StoreApp
+
+                    storeApp.federatedURL = toot.url
+                    storeApp.likesCount = Int32(toot.favourites_count)
+                    storeApp.boostsCount = Int32(toot.reblogs_count)
+                    storeApp.commentsCount = Int32(toot.replies_count)
+                    
+                    try context.save()
+                }
+            }
+            catch
+            {
+                Logger.main.error("Failed to fetch Fediverse interactions for app. \(error.localizedDescription, privacy: .public)")
+            }
+        }
     }
     
     func showNavigationBar()
@@ -435,14 +528,7 @@ private extension AppViewController
         self.navigationBarAppNameLabel.alpha = 1.0
         self.navigationBarDownloadButton.alpha = 1.0
         
-        if #available(iOS 26, *)
-        {
-            self.navigationItem.rightBarButtonItem?.isHidden = false
-        }
-        else
-        {
-            self.updateNavigationBarAppearance(isHidden: false)
-        }
+        self.updateNavigationBarAppearance(isHidden: false)
         
         if self.traitCollection.userInterfaceStyle == .dark
         {
@@ -465,14 +551,7 @@ private extension AppViewController
         self.navigationBarAppNameLabel.alpha = 0.0
         self.navigationBarDownloadButton.alpha = 0.0
         
-        if #available(iOS 26, *)
-        {
-            self.navigationItem.rightBarButtonItem?.isHidden = true
-        }
-        else
-        {
-            self.updateNavigationBarAppearance(isHidden: true)
-        }
+        self.updateNavigationBarAppearance(isHidden: true)
         
         self._preferredStatusBarStyle = .lightContent
         
@@ -486,22 +565,28 @@ private extension AppViewController
     func updateNavigationBarAppearance(isHidden: Bool)
     {
         let barAppearance = self.navigationItem.standardAppearance as? NavigationBarAppearance ?? NavigationBarAppearance()
+        barAppearance.ignoresUserInteraction = isHidden
         
-        if isHidden
+        if #available(iOS 26, *)
         {
-            barAppearance.configureWithTransparentBackground()
-            barAppearance.ignoresUserInteraction = true
+            self.navigationItem.rightBarButtonItem?.isHidden = isHidden
         }
         else
         {
-            barAppearance.configureWithDefaultBackground()
-            barAppearance.ignoresUserInteraction = false
+            if isHidden
+            {
+                barAppearance.configureWithTransparentBackground()
+            }
+            else
+            {
+                barAppearance.configureWithDefaultBackground()
+            }
+            
+            barAppearance.titleTextAttributes = [.foregroundColor: UIColor.clear]
+            
+            let tintColor = isHidden ? UIColor.clear : self.app.tintColor ?? .altPrimary
+            barAppearance.configureWithTintColor(tintColor)
         }
-        
-        barAppearance.titleTextAttributes = [.foregroundColor: UIColor.clear]
-        
-        let tintColor = isHidden ? UIColor.clear : self.app.tintColor ?? .altPrimary
-        barAppearance.configureWithTintColor(tintColor)
         
         self.navigationItem.standardAppearance = barAppearance
         self.navigationItem.scrollEdgeAppearance = barAppearance
@@ -524,6 +609,81 @@ private extension AppViewController
 
         self.blurAnimator?.startAnimation()
         self.blurAnimator?.pauseAnimation()
+    }
+    
+    func prepareSocialButtons()
+    {
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .semibold)
+        
+        // Containers
+        if #available(iOS 26, *)
+        {
+            self.likesButtonContainerView = UIVisualEffectView(effect: UIGlassEffect(style: .regular))
+            self.moreButtonContainerView = UIVisualEffectView(effect: UIGlassEffect(style: .regular))
+
+            self.likesButtonContainerView.cornerConfiguration = .capsule()
+            self.moreButtonContainerView.cornerConfiguration = .capsule()
+        }
+        else
+        {
+            self.likesButtonContainerView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+            self.moreButtonContainerView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+            
+            self.likesButtonContainerView.tintColor = self.app.tintColor
+            self.moreButtonContainerView.tintColor = self.app.tintColor
+        }
+        
+        self.likesButtonContainerView.clipsToBounds = true
+        self.moreButtonContainerView.clipsToBounds = true
+        
+        // Likes button
+        self.likesButton = UIButton(type: .system)
+        
+        var likesConfig = UIButton.Configuration.plain()
+        likesConfig.image = UIImage(systemName: "heart", withConfiguration: imageConfig)
+        likesConfig.imagePadding = 2
+        
+        if self._likesCount > 0
+        {
+            likesConfig.title = String(self._likesCount)
+        }
+        
+        likesConfig.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
+        
+        self.likesButton.configuration = likesConfig
+        self.likesButton.addTarget(self, action: #selector(AppViewController.likeApp), for: .touchUpInside)
+        self.likesButton.sizeToFit()
+        
+        // More button
+        self.moreButton = UIButton(type: .system)
+        
+        var moreConfig = UIButton.Configuration.plain()
+        moreConfig.image = UIImage(systemName: "ellipsis", withConfiguration: imageConfig)
+        moreConfig.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 10, bottom: 12, trailing: 10)
+        
+        self.moreButton.configuration = moreConfig
+        self.moreButton.showsMenuAsPrimaryAction = true
+        
+        let openURLAction = UIAction(title: NSLocalizedString("Open in Browser", comment: ""), image: UIImage(systemName: "safari"), handler: { [weak self] _ in
+            guard let federatedURL = self?.app.federatedURL else { return }
+            UIApplication.shared.open(federatedURL)
+        })
+        let showLikesAction = UIAction(title: NSLocalizedString("View Likes", comment: ""), image: UIImage(systemName: "heart"), handler: { [weak self] _ in
+            self?.showLikes()
+        })
+        let shareAction = UIAction(title: NSLocalizedString("Share", comment: ""), image: UIImage(systemName: "square.and.arrow.up"), handler: { [weak self] _ in
+            self?.shareApp()
+        })
+
+        self.moreButton.menu = UIMenu(children: [shareAction, showLikesAction, openURLAction])
+        self.moreButton.sizeToFit()
+        
+        // Add buttons to their containers
+        self.likesButtonContainerView.contentView.addSubview(self.likesButton)
+        self.moreButtonContainerView.contentView.addSubview(self.moreButton)
+        
+        self.view.addSubview(self.likesButtonContainerView)
+        self.view.addSubview(self.moreButtonContainerView)
     }
     
     func prepareNavigationBarAnimation()
@@ -646,6 +806,63 @@ extension AppViewController
                 let toastView = ToastView(error: error)
                 toastView.opensErrorLog = true
                 toastView.show(in: self)
+            }
+            
+            self.update()
+        }
+    }
+    
+    @objc func showLikes()
+    {
+        guard let rawStatusID = self.app.statusID, let statusID = Int(rawStatusID), let federatedURL = self.app.federatedURL else { return }
+        
+        let hostingController = UIHostingController(rootView: FediverseLikesView(statusURL: federatedURL, statusID: statusID))
+        
+        if let sheetController = hostingController.sheetPresentationController
+        {
+            sheetController.detents = [.medium(), .large()]
+            sheetController.prefersGrabberVisible = true
+        }
+        
+        self.present(hostingController, animated: true)
+    }
+    
+    @objc func shareApp()
+    {
+        guard let federatedURL = self.app.federatedURL else { return }
+        
+        let activityViewController = UIActivityViewController(activityItems: [federatedURL], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.moreButton
+        activityViewController.popoverPresentationController?.sourceRect = self.moreButton.bounds
+        self.present(activityViewController, animated: true)
+    }
+    
+    @objc func likeApp()
+    {
+        Task<Void, Never> {
+            let previousState = self._isLiked
+            
+            self._isLiked.toggle()
+            self.update()
+            
+            do
+            {
+                if self._isLiked
+                {
+                    try await FederationManager.shared.like(self.app, presentingViewController: self)
+                    self._likesCount += 1
+                }
+                else
+                {
+                    try await FederationManager.shared.unlike(self.app, presentingViewController: self)
+                    self._likesCount -= 1
+                }
+            }
+            catch
+            {
+                Logger.main.error("Failed to like app \(self.app.bundleIdentifier). \(error.localizedDescription, privacy: .public)")
+                
+                self._isLiked = previousState
             }
             
             self.update()
