@@ -81,6 +81,12 @@ struct FediverseInteractions: View
     @State
     private var isLiked: Bool = false
     
+    @State
+    private var likesCount: Int = 0
+    
+    @State
+    private var likesID: UUID = UUID()
+    
     @Namespace
     private var unionNamespace
     
@@ -122,7 +128,7 @@ struct FediverseInteractions: View
                             }
                             else
                             {
-                                let avatarsCount = min(Int(item.likesCount), maximumAvatars)
+                                let avatarsCount = min(Int(likesCount), maximumAvatars)
                                 ForEach(0..<avatarsCount, id: \.self) { _ in
                                     avatarPlaceholder
                                 }
@@ -138,7 +144,10 @@ struct FediverseInteractions: View
             .frame(height: preferredHeight)
             .frame(minWidth: 100, maxWidth: .infinity)
         }
-        .task(priority: .medium) { @MainActor in
+        .onAppear {
+            likesCount = Int(item.likesCount)
+        }
+        .task(id: likesID, priority: .medium) { @MainActor in
             do
             {
                 guard let rawStatusID = item.statusID, let statusID = Int(rawStatusID) else { return }
@@ -199,9 +208,9 @@ struct FediverseInteractions: View
                         Image(systemName: "heart")
                     }
                     
-                    if item.likesCount > 0
+                    if likesCount > 0
                     {
-                        Text("\(item.likesCount)")
+                        Text("\(likesCount)")
                     }
                 }
             }
@@ -341,29 +350,26 @@ private extension FediverseInteractions
     func like(_ item: some Federatable)
     {
         guard let federatedURL = item.federatedURL, let presentingViewController = fediverseInteractionsView.presentingViewController else { return }
-                
+        
         Task<Void, Never> {
             let previousState = self.isLiked
+            self.isLiked.toggle()
             
             do
             {
                 if self.isLiked
                 {
-                    self.isLiked = false
-                    try await FederationManager.shared.unlike(item, presentingViewController: presentingViewController)
+                    try await FederationManager.shared.like(item, presentingViewController: presentingViewController)
+                    self.likesCount += 1
                 }
                 else
                 {
-                    if Keychain.shared.socialWebAccountID != nil
-                    {
-                        // Only show like status immediately if we're already authenticated.
-                        self.isLiked = true
-                    }
-                    
-                    try await FederationManager.shared.like(item, presentingViewController: presentingViewController)
-                    
-                    self.isLiked = true
+                    try await FederationManager.shared.unlike(item, presentingViewController: presentingViewController)
+                    self.likesCount -= 1
                 }
+                
+                // Re-fetch avatars
+                likesID = UUID()
             }
             catch is CancellationError
             {
