@@ -14,7 +14,9 @@ extension MastodonAPI
     {
         var id: String
         
-        var created_at: Date
+        // Date fails to decode on iOS 18
+        // var created_at: Date
+        
         var url: URL // Web URL
         
         var replies_count: Int
