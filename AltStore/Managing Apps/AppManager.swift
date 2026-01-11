@@ -345,16 +345,19 @@ extension AppManager
         }
     }
     
-    func add(@AsyncManaged _ source: Source, message: String? = NSLocalizedString("Make sure to only add sources that you trust.", comment: ""), presentingViewController: UIViewController) async throws
+    func add(@AsyncManaged _ source: Source, message: String? = NSLocalizedString("Make sure to only add sources that you trust.", comment: ""), showConfirmationAlert: Bool = true, presentingViewController: UIViewController) async throws
     {
         let (sourceName, sourceURL) = await $source.perform { ($0.name, $0.sourceURL) }
         
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
         async let fetchedSource = try await self.fetchSource(sourceURL: sourceURL, managedObjectContext: context) // Fetch source async while showing alert.
 
-        let title = String(format: NSLocalizedString("Would you like to add the source “%@”?", comment: ""), sourceName)
-        let action = await UIAlertAction(title: NSLocalizedString("Add Source", comment: ""), style: .default)
-        try await presentingViewController.presentConfirmationAlert(title: title, message: message ?? "", primaryAction: action)
+        if showConfirmationAlert
+        {
+            let title = String(format: NSLocalizedString("Would you like to add the source “%@”?", comment: ""), sourceName)
+            let action = await UIAlertAction(title: NSLocalizedString("Add Source", comment: ""), style: .default)
+            try await presentingViewController.presentConfirmationAlert(title: title, message: message ?? "", primaryAction: action)
+        }
 
         // Wait for fetch to finish before saving context to make
         // sure there isn't already a source with this identifier.

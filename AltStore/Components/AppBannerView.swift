@@ -90,6 +90,7 @@ class AppBannerView: RSTNibView
     @IBOutlet private var accessibilityView: UIView!
     
     @IBOutlet private var iconImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var pillButtonHeightConstraint: NSLayoutConstraint!
     
     override init(frame: CGRect)
     {
@@ -370,6 +371,8 @@ extension AppBannerView
         {
             self.button.progress = nil
         }
+        
+        self.pillButtonHeightConstraint.constant = PillButton.minimumSize.height
     }
     
     func configure(for source: Source)
@@ -398,6 +401,8 @@ extension AppBannerView
         
         let accessibilityLabel = source.name + "\n" + subtitle
         self.accessibilityLabel = accessibilityLabel
+        
+        self.pillButtonHeightConstraint.constant = 36
     }
 }
 
