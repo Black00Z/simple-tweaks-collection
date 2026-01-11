@@ -12,9 +12,17 @@ extension BlueskyAPI
 {
     struct Account: Decodable
     {
+        struct Viewer: Decodable
+        {
+            var following: String?
+            var followedBy: String?
+        }
+        
         var did: String
         var handle: String
         var displayName: String?
+        
+        var viewer: Viewer?
     }
     
     struct DIDDocument: Decodable
@@ -74,7 +82,7 @@ extension BlueskyAPI
         var subject: Subject
     }
     
-    struct CreateRecordRequest: Encodable
+    struct LikeRequest: Encodable
     {
         struct Record: Encodable
         {
@@ -86,6 +94,20 @@ extension BlueskyAPI
             
             var createdAt: Date
             var subject: Subject
+        }
+        
+        var repo: String
+        var collection: String
+        
+        var record: Record
+    }
+    
+    struct FollowRequest: Encodable
+    {
+        struct Record: Encodable
+        {
+            var createdAt: Date
+            var subject: String
         }
         
         var repo: String

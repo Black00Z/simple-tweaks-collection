@@ -14,6 +14,8 @@ import AltStoreCore
 extension BlueskyAPI
 {
     private static let baseURL = URL(string: "https://bsky.social")!
+    
+    static let bridgyFedHandle = "ap.brid.gy"
 }
 
 fileprivate extension BlueskyAPI
@@ -209,7 +211,7 @@ extension BlueskyAPI
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         
-        let requestBody = CreateRecordRequest(repo: did, collection: "app.bsky.feed.like", record: .init(createdAt: .now, subject: .init(uri: post.uri, cid: post.cid)))
+        let requestBody = LikeRequest(repo: did, collection: "app.bsky.feed.like", record: .init(createdAt: .now, subject: .init(uri: post.uri, cid: post.cid)))
         
         let bodyData = try encoder.encode(requestBody)
         request.httpBody = bodyData
@@ -249,6 +251,67 @@ extension BlueskyAPI
         request.httpBody = bodyData
         
         let _: EmptyResponse = try await self.send(request, authorizationType: .user)
+    }
+}
+
+extension BlueskyAPI
+{
+    func isFollowingAccount(handle: String) async throws -> Bool
+    {
+        let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+        let serverURL = try await context.perform {
+            guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context) else { throw BlueskyError.unauthorized() }
+            return socialWebAccount.serverURL
+        }
+        
+        guard let serverURL else { throw BlueskyError.unknown() }
+        
+        var components = URLComponents(string: "/xrpc/app.bsky.actor.getProfile")!
+        components.queryItems = [
+            URLQueryItem(name: "actor", value: handle),
+        ]
+        
+        let requestURL = components.url(relativeTo: serverURL)!
+        let request = URLRequest(url: requestURL)
+        
+        let response: Account = try await self.send(request, authorizationType: .user)
+        
+        let isFollowing = (response.viewer?.following != nil)
+        return isFollowing
+    }
+    
+    func followAccount(handle: String) async throws
+    {
+        let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+        let (did, domain) = try await context.perform {
+            guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context) else { throw BlueskyError.unauthorized() }
+            return (socialWebAccount.identifier, socialWebAccount.domain)
+        }
+        
+        let destinationAccountHandle = try await self.resolveHandle(handle)
+                
+        guard let requestURL = URL(string: "https://\(domain)/xrpc/com.atproto.repo.createRecord") else { throw BlueskyError.unknown() } // Invalid account
+               
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        
+        let requestBody = FollowRequest(repo: did, collection: "app.bsky.graph.follow", record: .init(createdAt: .now, subject: destinationAccountHandle))
+        
+        let bodyData = try encoder.encode(requestBody)
+        request.httpBody = bodyData
+        
+        struct Response: Decodable
+        {
+            var uri: String
+            var cid: String
+        }
+        
+        let response: Response = try await self.send(request, authorizationType: .user)
+        Logger.main.debug("Successfully followed Bluesky account @\(handle) (\(response.uri))!")
     }
 }
 

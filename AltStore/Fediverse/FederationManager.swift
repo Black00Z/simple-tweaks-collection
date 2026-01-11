@@ -39,6 +39,28 @@ extension FederationManager
         else if selectedAction == blueskyAction
         {
             account = try await BlueskyAPI.shared.authenticate(presentingViewController: presentingViewController)
+            
+            // Bluesky users must be bridged to the Fediverse via Bridgy Fed.
+            let isBridged = try await BlueskyAPI.shared.isFollowingAccount(handle: BlueskyAPI.bridgyFedHandle)
+            if !isBridged
+            {
+                let title = String(localized: "Would you like to bridge your Bluesky account to the fediverse?")
+                let message = String(localized: "This will allow you to like apps in AltStore.")
+                
+                let bridgeAction = UIAlertAction(title: String(localized: "Bridge Account"), style: .default)
+                let laterAction = UIAlertAction(title: String(localized: "Later"), style: .cancel)
+                
+                do
+                {
+                    _ = try await presentingViewController.presentConfirmationAlert(title: title, message: message, primaryAction: bridgeAction, cancelAction: laterAction)
+                    
+                    try await BlueskyAPI.shared.followAccount(handle: BlueskyAPI.bridgyFedHandle)
+                }
+                catch is CancellationError
+                {
+                    // Ignore if cancelled, we'll prompt them to bridge later.
+                }
+            }
         }
         else
         {
