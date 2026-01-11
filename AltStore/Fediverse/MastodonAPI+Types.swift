@@ -32,6 +32,9 @@ extension MastodonAPI
         var id: String
         var username: String
         var acct: String
+        var note: String // Bio or description
+        
+        var followers_count: Int
         
         var url: URL
         var uri: URL // Use for domain
