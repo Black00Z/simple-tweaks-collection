@@ -49,6 +49,7 @@ struct MastodonError: ALTLocalizedError
         case http
         
         case invalidServer
+        case tootNotFound
     }
     
     static func unknown(file: String = #fileID, line: UInt = #line) -> MastodonError { MastodonError(code: .unknown, sourceFile: file, sourceLine: line) }
@@ -56,6 +57,7 @@ struct MastodonError: ALTLocalizedError
     static func http(statusCode: Int, file: String = #fileID, line: UInt = #line) -> MastodonError { MastodonError(code: .http, statusCode: statusCode, sourceFile: file, sourceLine: line) }
     
     static func invalidServer(domain: String, file: String = #fileID, line: UInt = #line) -> MastodonError { MastodonError(code: .invalidServer, domain: domain, sourceFile: file, sourceLine: line) }
+    static func tootNotFound(file: String = #fileID, line: UInt = #line) -> MastodonError { MastodonError(code: .tootNotFound, sourceFile: file, sourceLine: line) }
     
     let code: Code
     
@@ -81,6 +83,8 @@ struct MastodonError: ALTLocalizedError
         case .invalidServer:
             guard let domain else { return String(localized: "The provided domain is not a valid Mastodon server.") }
             return String(format: String(localized: "%@ is not a valid Mastodon server."), domain)
+            
+        case .tootNotFound: return String(localized: "The requested post could not be found.")
         }
     }
 }
@@ -329,6 +333,55 @@ extension MastodonAPI
             // Tweet failed to resolve or user isn't authenticated, so return false.
             return false
         }
+    }
+}
+
+extension MastodonAPI
+{
+    func favorite(tootID: String, tootURL: URL) async throws
+    {
+        let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+        let serverURL = try await context.perform {
+            guard let account = DatabaseManager.shared.socialWebAccount(in: context) else { throw MastodonError.unauthorized() }
+            return account.serverURL
+        }
+        
+        guard let serverURL else { throw MastodonError.unknown() }
+
+        guard let resolvedToot = try await self.resolve(tootURL, toServer: serverURL) else { throw MastodonError.tootNotFound() }
+        
+        let components = URLComponents(string: "/api/v1/statuses/\(resolvedToot.id)/favourite")!
+        
+        let requestURL = components.url(relativeTo: serverURL)!
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "POST"
+        
+        let toot: Toot = try await self.send(request, authorizationType: .user)
+        Logger.main.debug("Favorited Toot: \(toot.id)")
+    }
+    
+    func unfavorite(tootID: String, tootURL: URL) async throws
+    {
+        let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+        let serverURL = try await context.perform {
+            guard let account = DatabaseManager.shared.socialWebAccount(in: context) else { throw MastodonError.unauthorized() }
+            return account.serverURL
+        }
+        
+        guard let serverURL else { throw MastodonError.unknown() }
+        
+        guard let resolvedToot = try await self.resolve(tootURL, toServer: serverURL) else { throw MastodonError.tootNotFound() }
+        
+        let components = URLComponents(string: "/api/v1/statuses/\(resolvedToot.id)/unfavourite")!
+        
+        let requestURL = components.url(relativeTo: serverURL)!
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "POST"
+        
+        let toot: Toot = try await self.send(request, authorizationType: .user)
+        Logger.main.debug("Unfavorited Toot: \(toot.id)")
     }
 }
 

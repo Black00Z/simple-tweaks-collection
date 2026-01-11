@@ -290,6 +290,7 @@ private extension MyAppsViewController
                 cell.fediverseInteractionsView.isHidden = false
                 cell.fediverseInteractionsView.tintColor = app.tintColor ?? .altPrimary
                 cell.fediverseInteractionsView.shareHandler = { [weak self] _ in self }
+                cell.fediverseInteractionsView.presentingViewController = self
                 cell.fediverseInteractionsView.configure(with: latestSupportedVersion)
             }
             else

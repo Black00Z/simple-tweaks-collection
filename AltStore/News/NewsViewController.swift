@@ -207,6 +207,7 @@ private extension NewsViewController
                 cell.fediverseInteractionsView.isHidden = false
                 cell.fediverseInteractionsView.tintColor = newsItem.tintColor
                 cell.fediverseInteractionsView.shareHandler = { [weak self] _ in self }
+                cell.fediverseInteractionsView.presentingViewController = self
                 cell.fediverseInteractionsView.configure(with: newsItem, isOpaque: true)
             }
             else

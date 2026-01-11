@@ -118,4 +118,107 @@ extension FederationManager
         return isLiked
     }
     
+    func like(@AsyncManaged _ item: Federatable, presentingViewController: UIViewController?) async throws
+    {
+        do
+        {
+            let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+            let accountType = try await context.perform {
+                guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context) else { throw BlueskyError.unauthorized() }
+                return socialWebAccount.type
+            }
+            
+            guard let statusID = await $item.statusID, let federatedURL = await $item.federatedURL else { throw OperationError.unknown() } // Invalid item
+            
+            switch accountType
+            {
+            case .mastodon: try await MastodonAPI.shared.favorite(tootID: statusID, tootURL: federatedURL)
+            case .bluesky: try await BlueskyAPI.shared.like(tootID: statusID, tootURL: federatedURL)
+            }
+            
+            Logger.main.debug("Successfully liked status at URL \(federatedURL)")
+        }
+        catch let error as MastodonError where error.code == .unauthorized
+        {
+            if let presentingViewController
+            {
+                // Prompt to log in
+                try await self.authenticate(presentingViewController: presentingViewController)
+            }
+            else
+            {
+                throw MastodonError.unauthorized()
+            }
+            
+            // Try again
+            try await self.like(item, presentingViewController: presentingViewController)
+        }
+        catch let error as BlueskyError where error.code == .unauthorized
+        {
+            if let presentingViewController
+            {
+                // Prompt to log in
+                try await self.authenticate(presentingViewController: presentingViewController)
+            }
+            else
+            {
+                throw BlueskyError.unauthorized()
+            }
+            
+            // Try again
+            try await self.like(item, presentingViewController: presentingViewController)
+        }
+    }
+    
+    func unlike(@AsyncManaged _ item: Federatable, presentingViewController: UIViewController?) async throws
+    {
+        do
+        {
+            let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+            let accountType = try await context.perform {
+                guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context) else { throw BlueskyError.unauthorized() }
+                return socialWebAccount.type
+            }
+            
+            guard let statusID = await $item.statusID, let federatedURL = await $item.federatedURL else { throw OperationError.unknown() } // Invalid item
+            
+            switch accountType
+            {
+            case .mastodon: try await MastodonAPI.shared.unfavorite(tootID: statusID, tootURL: federatedURL)
+            case .bluesky: try await BlueskyAPI.shared.unlike(tootID: statusID, tootURL: federatedURL)
+            }
+            
+            Logger.main.debug("Successfully unliked status at URL \(federatedURL)")
+        }
+        catch let error as MastodonError where error.code == .unauthorized
+        {
+            if let presentingViewController
+            {
+                // Prompt to log in
+                try await self.authenticate(presentingViewController: presentingViewController)
+            }
+            else
+            {
+                throw MastodonError.unauthorized()
+            }
+            
+            // Try again
+            try await self.unlike(item, presentingViewController: presentingViewController)
+        }
+        catch let error as BlueskyError where error.code == .unauthorized
+        {
+            if let presentingViewController
+            {
+                // Prompt to log in
+                try await self.authenticate(presentingViewController: presentingViewController)
+            }
+            else
+            {
+                throw BlueskyError.unauthorized()
+            }
+            
+            // Try again
+            try await self.unlike(item, presentingViewController: presentingViewController)
+        }
+    }
 }

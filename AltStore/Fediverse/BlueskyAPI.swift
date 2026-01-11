@@ -189,6 +189,67 @@ extension BlueskyAPI
         let isLiked = (post.viewer?.like != nil)
         return isLiked
     }
+    
+    func like(tootID: String, tootURL: URL) async throws
+    {
+        guard let post = try await self.bridgedPost(forTootAtURL: tootURL) else { throw BlueskyError.postNotFound() }
+        
+        let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+        let (did, domain) = try await context.perform {
+            guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context) else { throw BlueskyError.unauthorized() }
+            return (socialWebAccount.identifier, socialWebAccount.domain)
+        }
+                
+        guard let requestURL = URL(string: "https://\(domain)/xrpc/com.atproto.repo.createRecord") else { throw BlueskyError.unknown() } // Invalid account
+               
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        
+        let requestBody = CreateRecordRequest(repo: did, collection: "app.bsky.feed.like", record: .init(createdAt: .now, subject: .init(uri: post.uri, cid: post.cid)))
+        
+        let bodyData = try encoder.encode(requestBody)
+        request.httpBody = bodyData
+        
+        struct Response: Decodable
+        {
+            var uri: String
+            var cid: String
+        }
+        
+        let _: Response = try await self.send(request, authorizationType: .user)
+    }
+    
+    func unlike(tootID: String, tootURL: URL) async throws
+    {
+        guard let post = try await self.bridgedPost(forTootAtURL: tootURL) else { throw BlueskyError.postNotFound() }
+        
+        guard let likeLink = post.viewer?.like else { return } // Not an error, the status is already unliked so just return.
+        
+        let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+        let (did, domain) = try await context.perform {
+            guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context) else { throw BlueskyError.unauthorized() }
+            return (socialWebAccount.identifier, socialWebAccount.domain)
+        }
+        
+        let pdsURL = URL(string: "https://\(domain)")!
+        let rkey = (likeLink as NSString).lastPathComponent
+                
+        let requestURL = pdsURL.appending(path: "/xrpc/com.atproto.repo.deleteRecord")
+        
+        let requestBody = DeleteRecordRequest(repo: did, collection: "app.bsky.feed.like", rkey: rkey)
+        let bodyData = try JSONEncoder().encode(requestBody)
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = bodyData
+        
+        let _: EmptyResponse = try await self.send(request, authorizationType: .user)
+    }
 }
 
 private extension BlueskyAPI
@@ -394,6 +455,12 @@ private extension BlueskyAPI
             switch httpResponse.statusCode
             {
             case 200...299:
+                if ResponseType.self is EmptyResponse.Type
+                {
+                    // Skip decoding for empty responses
+                    return EmptyResponse() as! ResponseType
+                }
+                
                 let response = try decoder.decode(ResponseType.self, from: data)
                 return response
                 

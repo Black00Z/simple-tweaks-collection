@@ -63,6 +63,44 @@ extension BlueskyAPI
         var viewer: Viewer?
     }
     
+    struct Like: Decodable
+    {
+        struct Subject: Decodable
+        {
+            var uri: String
+        }
+        
+        var uri: String
+        var subject: Subject
+    }
+    
+    struct CreateRecordRequest: Encodable
+    {
+        struct Record: Encodable
+        {
+            struct Subject: Encodable
+            {
+                var uri: String
+                var cid: String
+            }
+            
+            var createdAt: Date
+            var subject: Subject
+        }
+        
+        var repo: String
+        var collection: String
+        
+        var record: Record
+    }
+    
+    struct DeleteRecordRequest: Encodable
+    {
+        var repo: String
+        var collection: String
+        var rkey: String
+    }
+    
     struct FeedResponse: Decodable
     {
         struct FeedItem: Decodable
@@ -72,6 +110,10 @@ extension BlueskyAPI
         
         var feed: [FeedItem]
         var cursor: String?
+    }
+    
+    struct EmptyResponse: Decodable
+    {
     }
         
     struct ErrorResponse: LocalizedError, Decodable

@@ -16,6 +16,8 @@ class FediverseInteractionsView: UIView
 {
     var shareHandler: ((URL) -> UIViewController?)?
     
+    weak var presentingViewController: UIViewController?
+    
     private var contentView: UIView!
     
     override init(frame: CGRect)
@@ -185,7 +187,7 @@ struct FediverseInteractions: View
             
             // Like button
             SwiftUI.Button {
-                isShowingLikes = true
+                like(item)
             } label: {
                 HStack(spacing: 2) {
                     if isLiked
@@ -336,6 +338,48 @@ private extension FediverseInteractions
         UIApplication.shared.open(federatedURL, options: [:])
     }
     
+    func like(_ item: some Federatable)
+    {
+        guard let federatedURL = item.federatedURL, let presentingViewController = fediverseInteractionsView.presentingViewController else { return }
+                
+        Task<Void, Never> {
+            let previousState = self.isLiked
+            
+            do
+            {
+                if self.isLiked
+                {
+                    self.isLiked = false
+                    try await FederationManager.shared.unlike(item, presentingViewController: presentingViewController)
+                }
+                else
+                {
+                    if Keychain.shared.socialWebAccountID != nil
+                    {
+                        // Only show like status immediately if we're already authenticated.
+                        self.isLiked = true
+                    }
+                    
+                    try await FederationManager.shared.like(item, presentingViewController: presentingViewController)
+                    
+                    self.isLiked = true
+                }
+            }
+            catch is CancellationError
+            {
+                // Ignore
+                self.isLiked = previousState
+            }
+            catch
+            {
+                self.isLiked = previousState
+                Logger.main.error("Failed to favorite status \(federatedURL). Error: \(error.localizedDescription, privacy: .public)")
+                
+                let toastView = ToastView(text: String(localized: "Unable to Like Item"), detailText: error.localizedDescription)
+                toastView.show(in: presentingViewController)
+            }
+        }
+    }
     
     func show(_ account: MastodonAPI.Account)
     {
