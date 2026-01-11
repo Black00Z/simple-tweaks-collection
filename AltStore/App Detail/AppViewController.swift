@@ -862,6 +862,8 @@ extension AppViewController
             {
                 Logger.main.error("Failed to like app \(self.app.bundleIdentifier). \(error.localizedDescription, privacy: .public)")
                 
+                await self.presentAlert(title: String(localized: "Unable to Like App"), message: error.localizedDescription)
+                
                 self._isLiked = previousState
             }
             
