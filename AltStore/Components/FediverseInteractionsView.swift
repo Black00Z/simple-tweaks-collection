@@ -76,6 +76,9 @@ struct FediverseInteractions: View
     @State
     private var isShowingLikes = false
 
+    @State
+    private var isLiked: Bool = false
+    
     @Namespace
     private var unionNamespace
     
@@ -153,6 +156,16 @@ struct FediverseInteractions: View
                     .presentationDetents([.medium, .large])
             }
         }
+        .task(priority: .high) { @MainActor in
+            do
+            {
+                isLiked = try await FederationManager.shared.isPostLiked(for: item)
+            }
+            catch
+            {
+                Logger.main.error("Failed to fetch liked status for \(String(describing: item), privacy: .public): \(error.localizedDescription, privacy: .public)")
+            }
+        }
     }
     
     private var socialButtonContent: some View {
@@ -175,7 +188,15 @@ struct FediverseInteractions: View
                 isShowingLikes = true
             } label: {
                 HStack(spacing: 2) {
-                    Image(systemName: "heart")
+                    if isLiked
+                    {
+                        Image(systemName: "heart.fill")
+                    }
+                    else
+                    {
+                        Image(systemName: "heart")
+                    }
+                    
                     if item.likesCount > 0
                     {
                         Text("\(item.likesCount)")

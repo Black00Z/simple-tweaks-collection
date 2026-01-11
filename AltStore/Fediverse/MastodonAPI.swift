@@ -282,6 +282,28 @@ extension MastodonAPI
         let accounts = try decoder.decode([Account].self, from: data)
         return accounts
     }
+    
+    func isTootFavorited(tootID: Int, tootURL: URL) async throws -> Bool
+    {
+        let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+        let serverURL = try await context.perform {
+            guard let account = DatabaseManager.shared.socialWebAccount(in: context) else { throw MastodonError.unauthorized() }
+            return account.serverURL
+        }
+        
+        guard let serverURL else { throw MastodonError.unknown() }
+        
+        if let resolvedToot = try await self.resolve(tootURL, toServer: serverURL), let isFavorited = resolvedToot.favourited
+        {
+            // Resolved tweet and have correct isFavorited state.
+            return isFavorited
+        }
+        else
+        {
+            // Tweet failed to resolve or user isn't authenticated, so return false.
+            return false
+        }
+    }
 }
 
 private extension MastodonAPI

@@ -180,6 +180,17 @@ extension BlueskyAPI
     }
 }
 
+extension BlueskyAPI
+{
+    func isTootLiked(tootID: Int, tootURL: URL) async throws -> Bool
+    {
+        guard let post = try await self.bridgedPost(forTootAtURL: tootURL) else { throw BlueskyError.postNotFound() }
+        
+        let isLiked = (post.viewer?.like != nil)
+        return isLiked
+    }
+}
+
 private extension BlueskyAPI
 {
     func resolveHandle(_ handle: String) async throws -> String
@@ -286,6 +297,32 @@ private extension BlueskyAPI
         let response: UserTokens = try await self.send(request, authorizationType: .refresh)
         Keychain.shared.blueskyAccessToken = response.accessJwt
         Keychain.shared.blueskyRefreshToken = response.refreshJwt
+    }
+    
+    func bridgedPost(forTootAtURL tootURL: URL) async throws -> Post?
+    {        
+        let username = tootURL.pathComponents[1].dropFirst() // Remove @
+        
+        let blueskyUsername: String
+        
+        if username == "altstore"
+        {
+            blueskyUsername = "alt.store"
+        }
+        else if username == "stikdebug"
+        {
+            blueskyUsername = "stikdebug.alt.store"
+        }
+        else
+        {
+            blueskyUsername = "\(username).alt.store.ap.brid.gy"
+        }
+        
+        let did = try await self.resolveHandle(blueskyUsername)
+        let posts = try await self.fetchAccountPosts(did: did)
+        
+        let bridgedPost = posts.first { $0.record.bridgyOriginalUrl == tootURL }
+        return bridgedPost
     }
 }
 
