@@ -343,6 +343,7 @@
 		BFF7C9342578492100E55F36 /* ALTAnisetteData.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB49AA823834CF900D542D9 /* ALTAnisetteData.m */; };
 		D50107EC2ADF2E1A0069F2A1 /* AddSourceTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50107EB2ADF2E1A0069F2A1 /* AddSourceTextFieldCell.swift */; };
 		D50652562BA358C50055ABBE /* Task+Timeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FB7A202AA284ED00EF863D /* Task+Timeout.swift */; };
+		D5066FC22F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5066FC12F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel */; };
 		D5084CCC2B1EA80100C02160 /* FeaturedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5084CCB2B1EA80100C02160 /* FeaturedComponents.swift */; };
 		D50A33B82EF474360020665D /* CommissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A33B72EF474360020665D /* CommissionManager.swift */; };
 		D50B88732F10546400BCD79C /* FederationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50B88722F10546400BCD79C /* FederationManager.swift */; };
@@ -1047,6 +1048,8 @@
 		BFFCFA45248835530077BFCE /* AltDaemon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AltDaemon.entitlements; sourceTree = "<group>"; };
 		C9EEAA842DA87A88A870053B /* Pods_AltStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AltStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50107EB2ADF2E1A0069F2A1 /* AddSourceTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSourceTextFieldCell.swift; sourceTree = "<group>"; };
+		D5066FC02F1393DA0055B38A /* AltStore 21.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 21.xcdatamodel"; sourceTree = "<group>"; };
+		D5066FC12F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = AltStore20ToAltStore21.xcmappingmodel; sourceTree = "<group>"; };
 		D5084CCB2B1EA80100C02160 /* FeaturedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedComponents.swift; sourceTree = "<group>"; };
 		D50A33B72EF474360020665D /* CommissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommissionManager.swift; sourceTree = "<group>"; };
 		D50B88722F10546400BCD79C /* FederationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederationManager.swift; sourceTree = "<group>"; };
@@ -1774,6 +1777,7 @@
 				D51540562C7E7BDE00DB6C44 /* AltStore17ToAltStore18.xcmappingmodel */,
 				D5557B6B2D56B5ED008839A1 /* AltStore18ToAltStore19.xcmappingmodel */,
 				D5D574C72ED1536700FBEE87 /* AltStore19ToAltStore20.xcmappingmodel */,
+				D5066FC12F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel */,
 			);
 			path = "Mapping Models";
 			sourceTree = "<group>";
@@ -3410,6 +3414,7 @@
 				BF66EED52501AECA007EE018 /* AltStore.xcdatamodeld in Sources */,
 				BFAECC582501B0A400528F27 /* ALTConstants.m in Sources */,
 				D5F99A1A28D12B1400476A16 /* StoreApp10ToStoreApp11Policy.swift in Sources */,
+				D5066FC22F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel in Sources */,
 				D5177B0D2A26944600270065 /* AltStore12ToAltStore13.xcmappingmodel in Sources */,
 				BFAECC562501B0A400528F27 /* ALTServerError+Conveniences.swift in Sources */,
 				D56915072AD5E91B00A2B747 /* Regex+Permissions.swift in Sources */,
@@ -4956,6 +4961,7 @@
 		BF66EEB72501AECA007EE018 /* AltStore.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				D5066FC02F1393DA0055B38A /* AltStore 21.xcdatamodel */,
 				D5D574C62ED1531500FBEE87 /* AltStore 20.xcdatamodel */,
 				D5557B6A2D56B559008839A1 /* AltStore 19.xcdatamodel */,
 				D51540552C7E7A2000DB6C44 /* AltStore 18.xcdatamodel */,
@@ -4977,7 +4983,7 @@
 				BF66EEBD2501AECA007EE018 /* AltStore 2.xcdatamodel */,
 				BF66EEBE2501AECA007EE018 /* AltStore 4.xcdatamodel */,
 			);
-			currentVersion = D5D574C62ED1531500FBEE87 /* AltStore 20.xcdatamodel */;
+			currentVersion = D5066FC02F1393DA0055B38A /* AltStore 21.xcdatamodel */;
 			path = AltStore.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
