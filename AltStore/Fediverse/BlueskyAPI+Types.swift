@@ -29,6 +29,50 @@ extension BlueskyAPI
         var id: String
         var service: [Service]?
     }
+    
+    struct Post: Decodable
+    {
+        struct Record: Decodable
+        {
+            var type: String
+            var text: String
+            var createdAt: Date
+            
+            var bridgyOriginalUrl: URL?
+            var bridgyOriginalText: String?
+            
+            private enum CodingKeys: String, CodingKey
+            {
+                case type = "$type"
+                case text
+                case createdAt
+                case bridgyOriginalUrl
+                case bridgyOriginalText
+            }
+        }
+        
+        struct Viewer: Decodable
+        {
+            var like: String?
+            var bookmarked: Bool?
+        }
+        
+        var uri: String
+        var cid: String
+        var record: Record
+        var viewer: Viewer?
+    }
+    
+    struct FeedResponse: Decodable
+    {
+        struct FeedItem: Decodable
+        {
+            var post: Post
+        }
+        
+        var feed: [FeedItem]
+        var cursor: String?
+    }
         
     struct ErrorResponse: LocalizedError, Decodable
     {
