@@ -71,7 +71,7 @@ extension FederationManager
         }
         
         // Must go AFTER deleting saved social web accounts (or else we'll lose cached account identifier).
-        MastodonAPI.shared.signOut()
+        await MastodonAPI.shared.signOut()
         BlueskyAPI.shared.signOut()
     }
 }

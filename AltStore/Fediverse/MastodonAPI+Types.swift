@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AuthenticationServices
 
 extension MastodonAPI
 {
@@ -57,6 +58,33 @@ extension MastodonAPI
         {
             case errorName = "error"
             case errorDescription = "error_description"
+        }
+    }
+    
+    class PresentationContextProvider: NSObject, ASWebAuthenticationPresentationContextProviding
+    {
+        nonisolated override init()
+        {
+        }
+        
+        func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor
+        {
+            //TODO: Properly support multiple scenes.
+            
+            guard let windowScene = UIApplication.alt_shared?.connectedScenes.lazy.compactMap({ $0 as? UIWindowScene }).first else { return UIWindow() }
+
+            if #available(iOS 15, *), let keyWindow = windowScene.keyWindow
+            {
+                return keyWindow
+            }
+            else if let delegate = windowScene.delegate as? UIWindowSceneDelegate,
+                    let optionalWindow = delegate.window,
+                    let window = optionalWindow
+            {
+                return window
+            }
+
+            return UIWindow()
         }
     }
 }

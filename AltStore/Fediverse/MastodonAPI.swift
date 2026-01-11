@@ -85,11 +85,15 @@ struct MastodonError: ALTLocalizedError
     }
 }
 
-final class MastodonAPI: NSObject
+// Actor to avoid race conditions when caching tasks to avoid duplicate requests.
+final actor MastodonAPI: NSObject
 {
     static let shared = MastodonAPI()
     
     private let session = URLSession(configuration: .default)
+    private let contextProvider = PresentationContextProvider()
+    
+    private var fetchFavoritesTask: [Int: (Date, Task<[Account], Error>)] = [:]
     
     private override init()
     {
@@ -150,7 +154,7 @@ extension MastodonAPI
                 continuation.resume(with: result)
             }
             
-            authSession.presentationContextProvider = self
+            authSession.presentationContextProvider = self.contextProvider
             authSession.start()
         }
         
@@ -250,36 +254,58 @@ extension MastodonAPI
 
 extension MastodonAPI
 {
-    func fetchFavorites(tootID: Int, limit: Int? = 20) async throws -> [Account]
+    func fetchFavorites(tootID: Int, limit: Int? = 80) async throws -> [Account]
     {
-        // TODO: Handle rate/fetch limits
+        let startTime = CFAbsoluteTimeGetCurrent()
         
-        var endpoint = MastodonAPI.instanceURL.appendingPathComponent("api/v1/statuses/\(tootID)/favourited_by").absoluteString
-        if let limit
+        if let (date, task) = self.fetchFavoritesTask[tootID], date > Date.now.addingTimeInterval(-5)
         {
-            endpoint += "?limit=\(limit)"
+            // Avoid creating multiple tasks for same status within 5 seconds.
+                        
+            let accounts = try await task.value
+            return accounts
         }
         
-        guard let requestURL = URL(string: endpoint) else { throw MastodonError.unknown() }
-        
-        var request = URLRequest(url: requestURL)
-        request.httpMethod = "GET"
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        if let httpResponse = response as? HTTPURLResponse
-        {
-            switch httpResponse.statusCode
+        let task = Task<[Account], Error> {
+            // TODO: Handle rate/fetch limits
+            // TODO: Support more than 80 likes per status via Link HTTP Header
+            // https://github.com/apple/swift-http-structured-headers
+            
+            var endpoint = MastodonAPI.instanceURL.appendingPathComponent("api/v1/statuses/\(tootID)/favourited_by").absoluteString
+            if let limit
             {
-            case 200...299: break
-            case 401: throw MastodonError.unauthorized()
-            default: throw MastodonError.http(statusCode: httpResponse.statusCode)
+                endpoint += "?limit=\(limit)"
             }
+            
+            guard let requestURL = URL(string: endpoint) else { throw MastodonError.unknown() }
+            
+            var request = URLRequest(url: requestURL)
+            request.httpMethod = "GET"
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse
+            {
+                switch httpResponse.statusCode
+                {
+                case 200...299: break
+                case 401: throw MastodonError.unauthorized()
+                default: throw MastodonError.http(statusCode: httpResponse.statusCode)
+                }
+            }
+            
+            let decoder = Foundation.JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            
+            let accounts = try decoder.decode([Account].self, from: data)
+            return accounts
         }
         
-        let decoder = Foundation.JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        self.fetchFavoritesTask[tootID] = (.now, task)
+                
+        let accounts = try await task.value
         
-        let accounts = try decoder.decode([Account].self, from: data)
+        Logger.main.debug("Fetched all favorites for post \(tootID) in \(CFAbsoluteTimeGetCurrent() - startTime) seconds.")
+                
         return accounts
     }
     
@@ -477,28 +503,5 @@ private extension MastodonAPI
             let response = try decoder.decode(ErrorResponse.self, from: data)
             throw response
         }
-    }
-}
-
-extension MastodonAPI: ASWebAuthenticationPresentationContextProviding
-{
-    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor
-    {
-        //TODO: Properly support multiple scenes.
-        
-        guard let windowScene = UIApplication.alt_shared?.connectedScenes.lazy.compactMap({ $0 as? UIWindowScene }).first else { return UIWindow() }
-
-        if #available(iOS 15, *), let keyWindow = windowScene.keyWindow
-        {
-            return keyWindow
-        }
-        else if let delegate = windowScene.delegate as? UIWindowSceneDelegate,
-                let optionalWindow = delegate.window,
-                let window = optionalWindow
-        {
-            return window
-        }
-
-        return UIWindow()
     }
 }
