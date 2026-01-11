@@ -324,6 +324,46 @@ private extension BlueskyAPI
         let bridgedPost = posts.first { $0.record.bridgyOriginalUrl == tootURL }
         return bridgedPost
     }
+    
+    func fetchAccountPosts(did: String) async throws -> [Post]
+    {
+        var allPosts: [Post] = []
+        var fetchCursor: String?
+        
+        repeat
+        {
+            var components = URLComponents(string: "/xrpc/app.bsky.feed.getAuthorFeed")!
+            components.queryItems = [
+                URLQueryItem(name: "actor", value: did),
+                URLQueryItem(name: "filter", value: "posts_no_replies"),
+                URLQueryItem(name: "limit", value: "100"),
+            ]
+            
+            if let fetchCursor
+            {
+                components.queryItems?.append(URLQueryItem(name: "cursor", value: fetchCursor))
+            }
+            
+            let requestURL = components.url(relativeTo: BlueskyAPI.baseURL)!
+            let request = URLRequest(url: requestURL)
+            
+            let response: FeedResponse = try await self.send(request, authorizationType: .user)
+            
+            let posts = response.feed.map(\.post)
+            allPosts.append(contentsOf: posts)
+            
+            fetchCursor = response.cursor
+            
+            if response.feed.isEmpty
+            {
+                // Stop pagination if empty array is returned.
+                break
+            }
+        }
+        while (fetchCursor != nil);
+        
+        return allPosts
+    }
 }
 
 private extension BlueskyAPI
