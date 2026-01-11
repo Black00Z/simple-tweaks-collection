@@ -210,21 +210,21 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Sge-cM-Fw9" detailTextLabel="434-MW-Den" rowHeight="51" style="IBUITableViewCellStyleValue1" id="RpW-a2-hOq" customClass="InsetGroupTableViewCell" customModule="AltStore" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="ROk-gc-xRu" detailTextLabel="yoA-uu-f9R" rowHeight="51" style="IBUITableViewCellStyleValue1" id="XXg-gn-5fK" customClass="InsetGroupTableViewCell" customModule="AltStore" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="206" width="375" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RpW-a2-hOq" id="tcn-Xe-i05">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XXg-gn-5fK" id="PTW-Wd-NIJ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" alpha="0.80000001192092896" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WSv-mP-G4P">
+                                                <label opaque="NO" multipleTouchEnabled="YES" alpha="0.80000001192092896" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ROk-gc-xRu">
                                                     <rect key="frame" x="30" y="16" width="78.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="@rileytestut@mastodon.social" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="H6c-eP-NE0">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="@rileytestut@mastodon.social" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="yoA-uu-f9R">
                                                     <rect key="frame" x="114.5" y="16" width="230.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
@@ -971,7 +971,7 @@
                         <outlet property="accountEmailLabel" destination="0uP-Cd-tNX" id="14b-aL-yE3"/>
                         <outlet property="accountNameLabel" destination="CnN-M1-AYK" id="Ldc-Py-Bix"/>
                         <outlet property="accountTypeLabel" destination="434-MW-Den" id="mNB-QE-4Jg"/>
-                        <outlet property="accountUsernameLabel" destination="H6c-eP-NE0" id="2la-mk-Mjc"/>
+                        <outlet property="accountUsernameLabel" destination="yoA-uu-f9R" id="LvI-0L-lYH"/>
                         <outlet property="backgroundRefreshSwitch" destination="DPu-zD-Als" id="eiG-Hv-Vko"/>
                         <outlet property="blueskyButton" destination="KtF-c1-462" id="coJ-m1-YNe"/>
                         <outlet property="disableResponseCachingSwitch" destination="e30-w4-5fk" id="Duy-Yb-eo1"/>
