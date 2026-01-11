@@ -188,9 +188,7 @@ private extension SourceDetailContentViewController
             cell.layoutMargins = .zero
             cell.contentView.layoutMargins = .zero
             
-            cell.titleLabel.text = newsItem.title
-            cell.captionLabel.text = newsItem.caption
-            cell.contentBackgroundView.backgroundColor = newsItem.tintColor
+            cell.configure(with: newsItem)
             
             cell.imageView.image = nil
             cell.imageView.isHidden = true

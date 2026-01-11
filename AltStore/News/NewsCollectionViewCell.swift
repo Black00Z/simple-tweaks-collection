@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AltStoreCore
 
 class NewsCollectionViewCell: UICollectionViewCell
 {
@@ -33,5 +34,17 @@ class NewsCollectionViewCell: UICollectionViewCell
         self.imageView.clipsToBounds = true
         
         self.fediverseInteractionsView.layoutMargins = .zero
+    }
+    
+    func configure(with newsItem: NewsItem)
+    {
+        self.titleLabel.text = newsItem.title
+        self.captionLabel.text = newsItem.caption
+        self.contentBackgroundView.backgroundColor = newsItem.tintColor
+        
+        // Set text color to default iOS text color if tintColor is undefined
+        let textColor = newsItem.tintColor != nil ? UIColor.white : UIColor.label
+        self.titleLabel.textColor = textColor
+        self.captionLabel.textColor = textColor
     }
 }
