@@ -24,6 +24,8 @@ extension MastodonAPI
         var reblogs_count: Int
         var favourites_count: Int
         
+        var favourited: Bool? // Only if authenticated
+        
         var account: Account
     }
     
