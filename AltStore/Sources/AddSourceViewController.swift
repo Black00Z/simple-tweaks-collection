@@ -380,6 +380,10 @@ private extension AddSourceViewController
             
             let cell = cell as! AppBannerCollectionViewCell
             self.configure(cell, with: source)
+            
+            // Fixes incorrect insets after calling configure().
+            cell.contentView.layoutMargins.left = self.view.layoutMargins.left
+            cell.contentView.layoutMargins.right = self.view.layoutMargins.right
         }
         dataSource.prefetchHandler = { (source, indexPath, completionHandler) in
             guard let imageURL = source.effectiveIconURL else { return nil }
