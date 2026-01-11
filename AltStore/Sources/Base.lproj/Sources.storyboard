@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7We-99-yEv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7We-99-yEv">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,7 +18,7 @@
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="xWh-1U-u0q" customClass="NavigationBar" customModule="AltStore" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
+                        <rect key="frame" x="0.0" y="118" width="393" height="106"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -35,7 +35,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="browseViewController" id="Nhf-Gw-Ukx" customClass="BrowseViewController" customModule="AltStore" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="oBI-6P-Lm3">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="50" minimumInteritemSpacing="10" id="pSh-Xl-aNg">
@@ -61,7 +61,7 @@
             <objects>
                 <viewController storyboardIdentifier="sourceDetailViewController" id="7XE-Wv-lf9" customClass="SourceDetailViewController" customModule="AltStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eIv-0H-ZIq">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="GND-ro-Anp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -124,7 +124,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="newsViewController" id="MVH-oB-c8m" customClass="NewsViewController" customModule="AltStore" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="p9p-rr-fbF">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="40" minimumInteritemSpacing="40" id="3cD-ax-3h6">
@@ -194,7 +194,7 @@
             <objects>
                 <collectionViewController id="bbz-wy-kaK" customClass="AddSourceViewController" customModule="AltStore" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="lXl-N1-6cT">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Xgg-0U-PlW">
@@ -209,9 +209,9 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9aU-eh-iwq">
-                                    <rect key="frame" x="8" y="0.0" width="377" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="Discover more apps on altstore.io" imagePadding="4" titleAlignment="automatic">
+                                    <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="Discover more sources on explore.alt.store" imagePadding="4" titleAlignment="automatic">
                                         <imageReference key="image" image="LinkOut" symbolScale="default"/>
                                         <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="font" scale="default">
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -220,9 +220,9 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="trailingMargin" secondItem="9aU-eh-iwq" secondAttribute="trailing" id="GqM-gP-nKk"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="9aU-eh-iwq" secondAttribute="trailing" constant="-8" id="GqM-gP-nKk"/>
                                 <constraint firstItem="9aU-eh-iwq" firstAttribute="top" secondItem="Su5-Hn-zf3" secondAttribute="top" id="Mtg-Ma-6FR"/>
-                                <constraint firstAttribute="leadingMargin" secondItem="9aU-eh-iwq" secondAttribute="leading" id="S2X-0o-FuH"/>
+                                <constraint firstAttribute="leadingMargin" secondItem="9aU-eh-iwq" secondAttribute="leading" constant="8" id="S2X-0o-FuH"/>
                                 <constraint firstAttribute="bottom" secondItem="9aU-eh-iwq" secondAttribute="bottom" id="qSA-a8-IVy"/>
                             </constraints>
                             <connections>
@@ -258,7 +258,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Opx-Pr-Tyy"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="HLe-3g-P8I" customClass="NavigationBar" customModule="AltStore" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="108"/>
+                        <rect key="frame" x="0.0" y="16" width="393" height="106"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

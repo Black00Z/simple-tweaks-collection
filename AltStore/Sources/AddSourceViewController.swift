@@ -1062,7 +1062,7 @@ private extension AddSourceViewController
     
     @objc func viewMoreApps()
     {
-        let openURL = URL(string: "https://altstore.io/discover-apps")!
+        let openURL = URL(string: "https://explore.alt.store/directory")!
         UIApplication.shared.open(openURL)
     }
 }
