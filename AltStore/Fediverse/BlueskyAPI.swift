@@ -114,7 +114,7 @@ extension BlueskyAPI
     @MainActor
     func authenticate(presentingViewController: UIViewController) async throws -> SocialWebAccount
     {
-        let alertController = UIAlertController(title: String(localized: "Sign in with your Bluesky account."), message: String(localized: "You'll need to generate an app-specific password in your Bluesky settings."), preferredStyle: .alert)
+        let alertController = UIAlertController(title: String(localized: "Sign in with your Bluesky account"), message: String(localized: "You'll need to generate an app-specific password in your Bluesky settings."), preferredStyle: .alert)
         
         alertController.addTextField { textField in
             textField.placeholder = String(localized: "Username")
@@ -125,7 +125,7 @@ extension BlueskyAPI
         }
         
         alertController.addTextField { textField in
-            textField.placeholder = String(localized: "Password")
+            textField.placeholder = String(localized: "App Password")
             textField.textContentType = .password
             textField.keyboardType = .default
             textField.autocorrectionType = .no
