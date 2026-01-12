@@ -839,6 +839,8 @@ extension AppViewController
     
     @objc func likeApp()
     {
+        let hapticGenerator = UINotificationFeedbackGenerator()
+        
         Task<Void, Never> {
             let previousState = self._isLiked
             
@@ -857,10 +859,13 @@ extension AppViewController
                     try await FederationManager.shared.unlike(self.app, presentingViewController: self)
                     self._likesCount -= 1
                 }
+                
+                hapticGenerator.notificationOccurred(.success)
             }
             catch
             {
                 Logger.main.error("Failed to like app \(self.app.bundleIdentifier). \(error.localizedDescription, privacy: .public)")
+                hapticGenerator.notificationOccurred(.error)
                 
                 await self.presentAlert(title: String(localized: "Unable to Like App"), message: error.localizedDescription)
                 

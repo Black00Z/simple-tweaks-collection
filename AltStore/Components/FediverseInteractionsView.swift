@@ -351,6 +351,8 @@ private extension FediverseInteractions
     {
         guard let federatedURL = item.federatedURL, let presentingViewController = fediverseInteractionsView.presentingViewController else { return }
         
+        let hapticGenerator = UINotificationFeedbackGenerator()
+        
         Task<Void, Never> {
             let previousState = self.isLiked
             self.isLiked.toggle()
@@ -368,6 +370,8 @@ private extension FediverseInteractions
                     self.likesCount -= 1
                 }
                 
+                hapticGenerator.notificationOccurred(.success)
+                
                 // Re-fetch avatars
                 likesID = UUID()
             }
@@ -380,6 +384,7 @@ private extension FediverseInteractions
             {
                 self.isLiked = previousState
                 Logger.main.error("Failed to favorite status \(federatedURL). Error: \(error.localizedDescription, privacy: .public)")
+                hapticGenerator.notificationOccurred(.error)
                 
                 let toastView = ToastView(text: String(localized: "Unable to Like Item"), detailText: error.localizedDescription)
                 toastView.show(in: presentingViewController)
