@@ -98,11 +98,15 @@ struct BlueskyError: ALTLocalizedError
     }
 }
 
-struct BlueskyAPI
+class BlueskyAPI
 {
     static let shared = BlueskyAPI()
     
     private let session = URLSession(configuration: .default)
+    
+    private weak var usernameTextField: UITextField?
+    private weak var passwordTextField: UITextField?
+    private weak var signInAction: UIAlertAction?
     
     private init()
     {
@@ -134,12 +138,25 @@ extension BlueskyAPI
         }
         
         let usernameTextField = alertController.textFields![0]
+        self.usernameTextField = usernameTextField
+        
         let passwordTextField = alertController.textFields![1]
+        self.passwordTextField = passwordTextField
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(BlueskyAPI.textFieldDidChange), name: UITextField.textDidChangeNotification, object: usernameTextField)
+        NotificationCenter.default.addObserver(self, selector: #selector(BlueskyAPI.textFieldDidChange), name: UITextField.textDidChangeNotification, object: passwordTextField)
+        
+        defer {
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: usernameTextField)
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: passwordTextField)
+        }
         
         try await withCheckedThrowingContinuation { continuation in
             let signInAction = UIAlertAction(title: String(localized: "Sign in"), style: .default) { _ in
                 continuation.resume()
             }
+            signInAction.isEnabled = false
+            self.signInAction = signInAction
             alertController.addAction(signInAction)
             
             let cancelAction = UIAlertAction(title: UIAlertAction.cancel.title, style: UIAlertAction.cancel.style) { _ in
@@ -172,6 +189,17 @@ extension BlueskyAPI
         
         guard let socialWebAccount = DatabaseManager.shared.socialWebAccount() else { throw BlueskyError.unknown() }
         return socialWebAccount
+    }
+    
+    @objc func textFieldDidChange(_ notification: Notification)
+    {
+        let usernameHasText = !(self.usernameTextField?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
+        let passwordHasText = !(self.passwordTextField?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
+        
+        if let signIn = self.signInAction
+        {
+            signIn.isEnabled = usernameHasText && passwordHasText
+        }
     }
     
     func signOut()
