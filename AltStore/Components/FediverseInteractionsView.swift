@@ -163,8 +163,10 @@ struct FediverseInteractions: View
         .sheet(isPresented: $isShowingLikes) {
             if let rawStatusID = item.statusID, let statusID = Int(rawStatusID), let federatedURL = item.federatedURL
             {
-                FediverseLikesView(statusURL: federatedURL, statusID: statusID)
-                    .presentationDetents([.medium, .large])
+                NavigationStack {
+                    FediverseLikesView(statusURL: federatedURL, statusID: statusID)
+                }
+                .presentationDetents([.medium, .large])
             }
         }
         .task(priority: .high) { @MainActor in

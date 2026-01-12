@@ -24,57 +24,55 @@ struct FediverseLikesView: View
     private var dismiss
     
     var body: some View {
-        NavigationStack {
-            Group {
-                if accounts != nil
+        Group {
+            if accounts != nil
+            {
+                listBody
+            }
+            else
+            {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(Text("Likes"))
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                if #available(iOS 26, *)
                 {
-                    listBody
+                    SwiftUI.Button(role: .close) {
+                        dismiss()
+                    }
                 }
                 else
                 {
-                    ProgressView()
-                        .progressViewStyle(.circular)
+                    SwiftUI.Button {
+                        openURL(statusURL)
+                    } label: {
+                        Image(systemName: "globe")
+                    }
+                    .tint(Color(uiColor: .altPrimary))
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(Text("Likes"))
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    if #available(iOS 26, *)
-                    {
-                        SwiftUI.Button(role: .close) {
-                            dismiss()
-                        }
+            
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26, *)
+                {
+                    SwiftUI.Button {
+                        openURL(statusURL)
+                    } label: {
+                        Image(systemName: "globe")
                     }
-                    else
-                    {
-                        SwiftUI.Button {
-                            openURL(statusURL)
-                        } label: {
-                            Image(systemName: "globe")
-                        }
-                        .tint(Color(uiColor: .altPrimary))
-                    }
+                    .buttonStyle(.glassProminent)
+                    .tint(Color(uiColor: .altPrimary))
                 }
-                
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26, *)
-                    {
-                        SwiftUI.Button {
-                            openURL(statusURL)
-                        } label: {
-                            Image(systemName: "globe")
-                        }
-                        .buttonStyle(.glassProminent)
-                        .tint(Color(uiColor: .altPrimary))
+                else
+                {
+                    SwiftUI.Button("Done") {
+                        dismiss()
                     }
-                    else
-                    {
-                        SwiftUI.Button("Done") {
-                            dismiss()
-                        }
-                        .tint(Color(uiColor: .altPrimary))
-                    }
+                    .tint(Color(uiColor: .altPrimary))
                 }
             }
         }

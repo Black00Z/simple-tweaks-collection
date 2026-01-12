@@ -817,14 +817,19 @@ extension AppViewController
         guard let rawStatusID = self.app.statusID, let statusID = Int(rawStatusID), let federatedURL = self.app.federatedURL else { return }
         
         let hostingController = UIHostingController(rootView: FediverseLikesView(statusURL: federatedURL, statusID: statusID))
+        hostingController.view.backgroundColor = .clear
         
-        if let sheetController = hostingController.sheetPresentationController
+        let navigationController = UINavigationController(rootViewController: hostingController)
+        
+        if let sheetController = navigationController.sheetPresentationController
         {
+            sheetController.presentedViewController.view.backgroundColor = .clear
+            
             sheetController.detents = [.medium(), .large()]
             sheetController.prefersGrabberVisible = true
         }
         
-        self.present(hostingController, animated: true)
+        self.present(navigationController, animated: true)
     }
     
     @objc func shareApp()
