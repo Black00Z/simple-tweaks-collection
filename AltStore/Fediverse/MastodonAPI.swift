@@ -99,6 +99,8 @@ final actor MastodonAPI: NSObject
     
     private var fetchFavoritesTask: [Int: (Date, Task<[Account], Error>)] = [:]
     
+    private nonisolated(unsafe) weak var signInAction: UIAlertAction?
+    
     private override init()
     {
     }
@@ -122,10 +124,17 @@ extension MastodonAPI
         
         let domainTextField = alertController.textFields![0]
         
+        NotificationCenter.default.addObserver(self, selector: #selector(MastodonAPI.textFieldDidChange), name: UITextField.textDidChangeNotification, object: domainTextField)
+        defer {
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: domainTextField)
+        }
+        
         try await withCheckedThrowingContinuation { continuation in
             let signInAction = UIAlertAction(title: String(localized: "Sign in"), style: .default) { _ in
                 continuation.resume()
             }
+            signInAction.isEnabled = false
+            self.signInAction = signInAction
             alertController.addAction(signInAction)
             
             let cancelAction = UIAlertAction(title: UIAlertAction.cancel.title, style: UIAlertAction.cancel.style) { _ in
@@ -187,6 +196,19 @@ extension MastodonAPI
         // On MainActor already, so fetch from view context.
         guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: DatabaseManager.shared.viewContext) else { throw MastodonError.unknown() }
         return socialWebAccount
+    }
+    
+    @MainActor
+    @objc func textFieldDidChange(_ notification: Notification)
+    {
+        guard let textField = notification.object as? UITextField else { return }
+        
+        let domainIsValid = textField.text?.contains(".") ?? false
+        
+        if let signIn = self.signInAction
+        {
+            signIn.isEnabled = domainIsValid
+        }
     }
     
     func signOut()
