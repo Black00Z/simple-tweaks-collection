@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2A77E3D272F3D92436FAC272 /* Pods_AltStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EEAA842DA87A88A870053B /* Pods_AltStore.framework */; };
 		825DAD9E2F0C329C00E0EDF1 /* FediverseLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825DAD9D2F0C329C00E0EDF1 /* FediverseLikesView.swift */; };
+		82BBB9342F185B33005A472E /* AppIcon_Japan.icon in Resources */ = {isa = PBXBuildFile; fileRef = 82BBB9332F185B33005A472E /* AppIcon_Japan.icon */; };
 		82CB1FB32EBABB0100C8E822 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 82CB1FB22EBABB0100C8E822 /* AppIcon.icon */; };
 		82D6ED882EE9E62D009DC668 /* SourceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6ED872EE9E62D009DC668 /* SourceCollectionViewController.swift */; };
 		82D6ED8A2EEA137A009DC668 /* TaskGroup+Collated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6ED892EEA137A009DC668 /* TaskGroup+Collated.swift */; };
@@ -709,6 +710,7 @@
 		11611D46F8A7C8B928E8156B /* Pods-AltServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltServer.debug.xcconfig"; path = "Target Support Files/Pods-AltServer/Pods-AltServer.debug.xcconfig"; sourceTree = "<group>"; };
 		589BA531D903B28F292063E5 /* Pods-AltServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltServer.release.xcconfig"; path = "Target Support Files/Pods-AltServer/Pods-AltServer.release.xcconfig"; sourceTree = "<group>"; };
 		825DAD9D2F0C329C00E0EDF1 /* FediverseLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FediverseLikesView.swift; sourceTree = "<group>"; };
+		82BBB9332F185B33005A472E /* AppIcon_Japan.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon_Japan.icon; sourceTree = "<group>"; };
 		82CB1FB22EBABB0100C8E822 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		82D6ED872EE9E62D009DC668 /* SourceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCollectionViewController.swift; sourceTree = "<group>"; };
 		82D6ED892EEA137A009DC668 /* TaskGroup+Collated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskGroup+Collated.swift"; sourceTree = "<group>"; };
@@ -2111,6 +2113,7 @@
 				D5784E3E2CC2E67B00DAC00E /* AltMarketplace.cer */,
 				82CB1FB22EBABB0100C8E822 /* AppIcon.icon */,
 				D5B15D422ECE664000F8E797 /* Localizable.xcstrings */,
+				82BBB9332F185B33005A472E /* AppIcon_Japan.icon */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3028,6 +3031,7 @@
 				BFB4323F22DE852000B7F8BC /* UpdateCollectionViewCell.xib in Resources */,
 				D59162AD29BA616A005CBF47 /* SourceHeaderView.xib in Resources */,
 				D56091892EEA2DD60090FEDF /* Settings.storyboard in Resources */,
+				82BBB9342F185B33005A472E /* AppIcon_Japan.icon in Resources */,
 				D5144BA82B8684EF00738A5C /* Icons.xcassets in Resources */,
 				82CB1FB32EBABB0100C8E822 /* AppIcon.icon in Resources */,
 				D57DF638271E32F000677701 /* PatchApp.storyboard in Resources */,
