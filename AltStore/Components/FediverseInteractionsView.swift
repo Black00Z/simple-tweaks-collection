@@ -402,9 +402,46 @@ private extension FediverseInteractions
     func share(_ url: URL)
     {
         guard let presentingViewController = fediverseInteractionsView.shareHandler?(url) else { return }
+                
+        let safariActivity = SafariActivity()
         
-        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: [safariActivity])
         presentingViewController.present(activityViewController, animated: true)
+    }
+}
+
+class SafariActivity: UIActivity
+{
+    private var url: URL?
+    
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType("com.altstore.safari-activity")
+    }
+    
+    override var activityTitle: String? {
+        return String(localized: "Open in Safari")
+    }
+    
+    override var activityImage: UIImage? {
+        return UIImage(systemName: "safari")
+    }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool
+    {
+        url = activityItems.first as? URL
+        return url != nil
+    }
+    
+    override func perform()
+    {
+        guard let url else {
+            activityDidFinish(false)
+            return
+        }
+        
+        UIApplication.shared.open(url, options: [:]) { _ in
+            self.activityDidFinish(true)
+        }
     }
 }
 
