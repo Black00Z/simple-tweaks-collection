@@ -88,6 +88,7 @@
                 <outlet property="bannerView" destination="Nop-pL-Icx" id="GiX-K1-5oz"/>
                 <outlet property="blurView" destination="1xN-9h-DFd" id="HBI-nT-xYh"/>
                 <outlet property="fediverseInteractionsView" destination="EqP-i9-mf1" id="JTo-Fu-bfp"/>
+                <outlet property="stackView" destination="uYl-PH-DuP" id="Sff-c5-tlJ"/>
                 <outlet property="versionDescriptionTextView" destination="rNs-2O-k3V" id="4TC-A3-oxb"/>
             </connections>
             <point key="canvasLocation" x="618.39999999999998" y="96.251874062968525"/>
