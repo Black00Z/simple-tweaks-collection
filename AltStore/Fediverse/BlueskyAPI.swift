@@ -569,6 +569,28 @@ private extension BlueskyAPI
                     try await self.refreshAccessToken()
                     continue // Try again
                 }
+            
+            case 429:
+                // Rate Limited
+                let rateLimitDelay: TimeInterval
+                if let delayString = httpResponse.value(forHTTPHeaderField: "Retry-After"), let delay = TimeInterval(delayString)
+                {
+                    rateLimitDelay = delay
+                }
+                else
+                {
+                    rateLimitDelay = 1.0
+                }
+                
+                guard rateLimitDelay <= 60 else {
+                    // Assume request failed
+                    Logger.main.error("Bluesky API rate limit exceeded. Reset time too far in future: \(rateLimitDelay) seconds")
+                    throw BlueskyError.http(statusCode: 429)
+                }
+                
+                Logger.main.info("Bluesky API rate limit exceeded. Retrying request after delay: \(rateLimitDelay) seconds")
+                
+                try await Task.sleep(for: .seconds(rateLimitDelay))
                 
             default:
                 let response = try decoder.decode(ErrorResponse.self, from: data)
