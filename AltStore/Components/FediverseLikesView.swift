@@ -104,13 +104,43 @@ struct FediverseLikesView: View
         {
             let likedBy = try await MastodonAPI.shared.fetchFavorites(tootID: statusID)
             Logger.main.debug("Fetched likes: \(likedBy, privacy: .public)")
-            
-            self.accounts = likedBy
+                        
+            await fetchBlueskyProfiles(for: likedBy)
         }
         catch
         {
             Logger.main.error("Failed to fetch likes for toot. \(error.localizedDescription, privacy: .public)")
         }
+    }
+    
+    private func fetchBlueskyProfiles(for accounts: [MastodonAPI.Account]) async
+    {
+        var accounts = accounts
+        
+        for (index, account) in accounts.enumerated()
+        {
+            if account.uri.host() == "bsky.brid.gy"
+            {
+                do
+                {
+                    let did = account.uri.lastPathComponent
+                    let blueskyAccount = try await BlueskyAPI.shared.fetchProfile(did: did)
+                    
+                    accounts[index].followers_count = blueskyAccount.followersCount
+                                        
+                    if let description = blueskyAccount.description, !description.isEmpty
+                    {
+                        accounts[index].note = description
+                    }
+                }
+                catch
+                {
+                    Logger.main.error("Failed to fetch Bluesky profile for \(account.username): \(error.localizedDescription, privacy: .public)")
+                }
+            }
+        }
+        
+        self.accounts = accounts
     }
 }
 

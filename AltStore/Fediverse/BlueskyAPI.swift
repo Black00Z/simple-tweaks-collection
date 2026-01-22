@@ -284,6 +284,24 @@ extension BlueskyAPI
 
 extension BlueskyAPI
 {
+    func fetchProfile(did: String) async throws -> Account
+    {
+        // TODO: figure out definitively which endpoint to use
+        // let pdsURL = try await resolvePDS(did: did)
+        let publicURL = URL(string: "https://public.api.bsky.app")!
+        
+        var components = URLComponents(string: "/xrpc/app.bsky.actor.getProfile")!
+        components.queryItems = [
+            URLQueryItem(name: "actor", value: did),
+        ]
+        
+        let requestURL = components.url(relativeTo: publicURL)!
+        let request = URLRequest(url: requestURL)
+        
+        let account: Account = try await self.send(request, authorizationType: .none)
+        return account
+    }
+    
     func isFollowingAccount(handle: String) async throws -> Bool
     {
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()

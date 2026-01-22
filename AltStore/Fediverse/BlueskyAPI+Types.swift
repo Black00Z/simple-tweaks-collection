@@ -22,6 +22,9 @@ extension BlueskyAPI
         var handle: String
         var displayName: String?
         
+        var description: String?
+        var followersCount: Int
+        
         var viewer: Viewer?
     }
     
