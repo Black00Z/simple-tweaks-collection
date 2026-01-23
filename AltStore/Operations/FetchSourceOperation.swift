@@ -52,6 +52,13 @@ class FetchSourceOperation: ResultOperation<Source>, @unchecked Sendable
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         configuration.urlCache = nil
         
+        let bundleVersion = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String ?? "1"
+        #if MARKETPLACE
+        configuration.httpAdditionalHeaders = ["ALT_PAL_VER": bundleVersion]
+        #else
+        configuration.httpAdditionalHeaders = ["ALT_CLASSIC_VER": bundleVersion]
+        #endif
+        
         self.session = URLSession(configuration: configuration)
     }
     
