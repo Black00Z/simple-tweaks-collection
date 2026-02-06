@@ -68,7 +68,7 @@ fileprivate extension NSManagedObject
         appVersion.setValue(date, forKey: #keyPath(AppVersion.date))
         appVersion.setValue(localizedDescription, forKey: #keyPath(AppVersion.localizedDescription))
         appVersion.setValue(downloadURL, forKey: #keyPath(AppVersion.downloadURL))
-        appVersion.setValue(size, forKey: #keyPath(AppVersion.size))
+        appVersion.setValue(size, forKey: #keyPath(AppVersion._size))
         appVersion.setValue(appBundleID, forKey: #keyPath(AppVersion.appBundleID))
         appVersion.setValue(sourceID, forKey: #keyPath(AppVersion.sourceID))
         return appVersion

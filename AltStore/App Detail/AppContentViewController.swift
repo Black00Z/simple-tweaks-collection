@@ -68,14 +68,22 @@ class AppContentViewController: UITableViewController
             self.versionDescriptionTextView.text = version.localizedDescription
             self.versionLabel.text = String(format: NSLocalizedString("Version %@", comment: ""), version.localizedVersion)
             self.versionDateLabel.text = Date().relativeDateString(since: version.date)
-            self.sizeLabel.text = self.byteCountFormatter.string(fromByteCount: version.size)
+            
+            if let size = version.size
+            {
+                self.sizeLabel.text = self.byteCountFormatter.string(fromByteCount: size)
+            }
+            else
+            {
+                self.sizeLabel.isHidden = true
+            }
         }
         else
         {
             self.versionDescriptionTextView.text = nil
             self.versionLabel.text = nil
             self.versionDateLabel.text = nil
-            self.sizeLabel.text = self.byteCountFormatter.string(fromByteCount: 0)
+            self.sizeLabel.isHidden = true
         }
         
         self.descriptionTextView.maximumNumberOfLines = 5

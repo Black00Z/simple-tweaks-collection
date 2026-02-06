@@ -25,8 +25,13 @@ public class AppVersion: NSManagedObject, Decodable, Fetchable, Federatable
     
     @NSManaged public var date: Date
     @NSManaged public var localizedDescription: String?
-    @NSManaged public var size: Int64
     @NSManaged public var sha256: String?
+    
+    @nonobjc public var size: Int64? {
+        get { _size?.int64Value }
+        set { _size = newValue as? NSNumber }
+    }
+    @NSManaged @objc(size) private(set) var _size: NSNumber?
     
     @NSManaged public var downloadURL: URL
     @NSManaged public internal(set) var normalizedDownloadURL: String?
@@ -133,7 +138,7 @@ public class AppVersion: NSManagedObject, Decodable, Fetchable, Federatable
             self.normalizedDownloadURL = downloadURL.normalizedForInstallURL()
             self.assetURLs = try container.decodeIfPresent([String: URL].self, forKey: .assetURLs)
             
-            self.size = try container.decode(Int64.self, forKey: .size)
+            self.size = try container.decodeIfPresent(Int64.self, forKey: .size)
             self.sha256 = try container.decodeIfPresent(String.self, forKey: .sha256)?.lowercased()
             
             self._minOSVersion = try container.decodeIfPresent(String.self, forKey: .minOSVersion)

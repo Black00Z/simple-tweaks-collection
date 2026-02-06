@@ -516,8 +516,14 @@ internal extension StoreApp
         
         // Use Int32(exactly:) initializer to avoid crash when size is larger than 2GB.
         // This is purely for backwards compatibility, so just fall back to 0 if size is too large.
-        let size = Int32(exactly: NSNumber(value: latestVersion.size))
-        self._size = size ?? 0
+        if let versionSize = latestVersion.size, let size = Int32(exactly: NSNumber(value: versionSize))
+        {
+            self._size = size
+        }
+        else
+        {
+            self._size = 0
+        }
     }
     
     func setPermissions(_ permissions: Set<AppPermission>)

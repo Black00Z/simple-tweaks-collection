@@ -75,7 +75,7 @@
         <attribute name="minOSVersion" optional="YES" attributeType="String"/>
         <attribute name="normalizedDownloadURL" optional="YES" attributeType="String"/>
         <attribute name="sha256" optional="YES" attributeType="String"/>
-        <attribute name="size" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="sourceID" optional="YES" attributeType="String"/>
         <attribute name="statusID" optional="YES" attributeType="String"/>
         <attribute name="version" attributeType="String"/>
