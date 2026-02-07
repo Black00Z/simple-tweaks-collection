@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A77E3D272F3D92436FAC272 /* Pods_AltStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EEAA842DA87A88A870053B /* Pods_AltStore.framework */; };
+		820059C32F36BBAA00C22365 /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820059C22F36BBAA00C22365 /* SafariActivity.swift */; };
 		825DAD9E2F0C329C00E0EDF1 /* FediverseLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825DAD9D2F0C329C00E0EDF1 /* FediverseLikesView.swift */; };
 		82BBB9342F185B33005A472E /* AppIcon_Japan.icon in Resources */ = {isa = PBXBuildFile; fileRef = 82BBB9332F185B33005A472E /* AppIcon_Japan.icon */; };
 		82CB1FB32EBABB0100C8E822 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 82CB1FB22EBABB0100C8E822 /* AppIcon.icon */; };
@@ -709,6 +710,7 @@
 /* Begin PBXFileReference section */
 		11611D46F8A7C8B928E8156B /* Pods-AltServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltServer.debug.xcconfig"; path = "Target Support Files/Pods-AltServer/Pods-AltServer.debug.xcconfig"; sourceTree = "<group>"; };
 		589BA531D903B28F292063E5 /* Pods-AltServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltServer.release.xcconfig"; path = "Target Support Files/Pods-AltServer/Pods-AltServer.release.xcconfig"; sourceTree = "<group>"; };
+		820059C22F36BBAA00C22365 /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
 		825DAD9D2F0C329C00E0EDF1 /* FediverseLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FediverseLikesView.swift; sourceTree = "<group>"; };
 		82BBB9332F185B33005A472E /* AppIcon_Japan.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon_Japan.icon; sourceTree = "<group>"; };
 		82CB1FB22EBABB0100C8E822 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -2097,6 +2099,7 @@
 				D5C0E7662AD9C75900530CA4 /* AppCardCollectionViewCell.swift */,
 				825DAD9D2F0C329C00E0EDF1 /* FediverseLikesView.swift */,
 				D5B15D4A2ECE8ED000F8E797 /* FediverseInteractionsView.swift */,
+				820059C22F36BBAA00C22365 /* SafariActivity.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -3564,6 +3567,7 @@
 				D5151BD92A8FF64300C96F28 /* RefreshAllAppsIntent.swift in Sources */,
 				BFBE0007250AD0E70080826E /* ViewAppIntentHandler.swift in Sources */,
 				BFDB6A0822AAED73007EA6D6 /* ResignAppOperation.swift in Sources */,
+				820059C32F36BBAA00C22365 /* SafariActivity.swift in Sources */,
 				D55467B82A8D5E2600F4CE90 /* AppShortcuts.swift in Sources */,
 				D593F1942717749A006E82DE /* PatchAppOperation.swift in Sources */,
 				BF770E5122BB1CF6002A40FE /* InstallAppOperation.swift in Sources */,

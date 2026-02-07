@@ -104,7 +104,7 @@ struct FediverseLikesView: View
         {
             let likedBy = try await MastodonAPI.shared.fetchFavorites(tootID: statusID)
             Logger.main.debug("Fetched likes: \(likedBy, privacy: .public)")
-                        
+            
             await fetchBlueskyProfiles(for: likedBy)
         }
         catch

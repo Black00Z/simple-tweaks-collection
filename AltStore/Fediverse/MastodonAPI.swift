@@ -198,19 +198,6 @@ extension MastodonAPI
         return socialWebAccount
     }
     
-    @MainActor
-    @objc func textFieldDidChange(_ notification: Notification)
-    {
-        guard let textField = notification.object as? UITextField else { return }
-        
-        let domainIsValid = textField.text?.contains(".") ?? false
-        
-        if let signIn = self.signInAction
-        {
-            signIn.isEnabled = domainIsValid
-        }
-    }
-    
     func signOut()
     {
         Keychain.shared.mastodonAccessToken = nil
@@ -618,6 +605,22 @@ private extension MastodonAPI
                 let response = try decoder.decode(ErrorResponse.self, from: data)
                 throw response
             }
+        }
+    }
+}
+
+private extension MastodonAPI
+{
+    @MainActor
+    @objc func textFieldDidChange(_ notification: Notification)
+    {
+        guard let textField = notification.object as? UITextField else { return }
+        
+        let domainIsValid = (textField.text ?? "").split(separator: ".").count > 1
+        
+        if let signIn = self.signInAction
+        {
+            signIn.isEnabled = domainIsValid
         }
     }
 }

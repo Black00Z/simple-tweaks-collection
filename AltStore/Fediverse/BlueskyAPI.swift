@@ -191,17 +191,6 @@ extension BlueskyAPI
         return socialWebAccount
     }
     
-    @objc func textFieldDidChange(_ notification: Notification)
-    {
-        let usernameHasText = !(self.usernameTextField?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
-        let passwordHasText = !(self.passwordTextField?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
-        
-        if let signIn = self.signInAction
-        {
-            signIn.isEnabled = usernameHasText && passwordHasText
-        }
-    }
-    
     func signOut()
     {
         Keychain.shared.blueskyAccessToken = nil
@@ -286,8 +275,6 @@ extension BlueskyAPI
 {
     func fetchProfile(did: String) async throws -> Account
     {
-        // TODO: figure out definitively which endpoint to use
-        // let pdsURL = try await resolvePDS(did: did)
         let publicURL = URL(string: "https://public.api.bsky.app")!
         
         var components = URLComponents(string: "/xrpc/app.bsky.actor.getProfile")!
@@ -614,6 +601,20 @@ private extension BlueskyAPI
                 let response = try decoder.decode(ErrorResponse.self, from: data)
                 throw response
             }
+        }
+    }
+}
+
+private extension BlueskyAPI
+{
+    @objc func textFieldDidChange(_ notification: Notification)
+    {
+        let usernameHasText = !(self.usernameTextField?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
+        let passwordHasText = !(self.passwordTextField?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
+        
+        if let signIn = self.signInAction
+        {
+            signIn.isEnabled = usernameHasText && passwordHasText
         }
     }
 }
