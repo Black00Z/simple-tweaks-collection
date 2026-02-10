@@ -185,19 +185,6 @@ struct FediverseInteractions: View
     
     private var socialButtonContent: some View {
         Group {
-            // Comment button
-            SwiftUI.Button {
-                showFederatedStatus(for: item)
-            } label: {
-                HStack(spacing: 2) {
-                    Image(systemName: "bubble")
-                    if item.commentsCount > 0
-                    {
-                        Text("\(item.commentsCount)")
-                    }
-                }
-            }
-            
             // Like button
             SwiftUI.Button {
                 like(item)
