@@ -111,13 +111,11 @@ struct FediverseLikesView: View
         do
         {
             var likedBy = try await MastodonAPI.shared.fetchFavorites(tootID: federatedItem.identifier)
-            Logger.main.debug("Fetched likes: \(likedBy, privacy: .public)")
-            
-            await fetchBlueskyProfiles(for: likedBy)
+            Logger.main.debug("Fetched likes: \(likedBy.map(\.url), privacy: .public)")
             
             // Explicitly decode all descriptions NOW on main thread.
             // Normally we'd do it lazily, but that can cause us to skip a run loop and break UITableView/List in horrible ways.
-            for (index, account) in zip(0..., likedBy)
+            for (index, account) in zip(0..., likedBy) where account.uri.host() != BlueskyAPI.bridgyFedFediverseDomain
             {
                 var account = account
                 
@@ -138,7 +136,7 @@ struct FediverseLikesView: View
                 likedBy[index] = account
             }
             
-            self.accounts = likedBy
+            self.accounts = await self.updateBlueskyProfiles(for: likedBy)
         }
         catch
         {
@@ -149,13 +147,13 @@ struct FediverseLikesView: View
         }
     }
     
-    private func fetchBlueskyProfiles(for accounts: [MastodonAPI.Account]) async
+    private func updateBlueskyProfiles(for accounts: [MastodonAPI.Account]) async -> [MastodonAPI.Account]
     {
         var accounts = accounts
         
         for (index, account) in accounts.enumerated()
         {
-            if account.uri.host() == "bsky.brid.gy"
+            if account.uri.host() == BlueskyAPI.bridgyFedFediverseDomain
             {
                 do
                 {
@@ -164,10 +162,8 @@ struct FediverseLikesView: View
                     
                     accounts[index].followers_count = blueskyAccount.followersCount
                                         
-                    if let description = blueskyAccount.description, !description.isEmpty
-                    {
-                        accounts[index].note = description
-                    }
+                    let description = blueskyAccount.description ?? ""
+                    accounts[index].note = description
                 }
                 catch
                 {
@@ -176,7 +172,7 @@ struct FediverseLikesView: View
             }
         }
         
-        self.accounts = accounts
+        return accounts
     }
 }
 
