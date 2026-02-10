@@ -560,6 +560,16 @@ private extension BlueskyAPI
                 let response = try decoder.decode(ResponseType.self, from: data)
                 return response
                 
+            case 400:
+                let response = try decoder.decode(ErrorResponse.self, from: data)
+                if response.errorName == "ExpiredToken"
+                {
+                    // For some reason, Bluesky returns some ExpiredToken responses as 400 errors.
+                    fallthrough
+                }
+                
+                throw response
+                
             case 401:
                 switch authorizationType
                 {
