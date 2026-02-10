@@ -110,10 +110,35 @@ struct FediverseLikesView: View
     {
         do
         {
-            let likedBy = try await MastodonAPI.shared.fetchFavorites(tootID: statusID)
+            var likedBy = try await MastodonAPI.shared.fetchFavorites(tootID: statusID)
             Logger.main.debug("Fetched likes: \(likedBy, privacy: .public)")
             
             await fetchBlueskyProfiles(for: likedBy)
+            
+            // Explicitly decode all descriptions NOW on main thread.
+            // Normally we'd do it lazily, but that can cause us to skip a run loop and break UITableView/List in horrible ways.
+            for (index, account) in zip(0..., likedBy)
+            {
+                var account = account
+                
+                if
+                    let data = account.note.data(using: .utf8),
+                    let attributedString = try? NSAttributedString(data: data, options: [
+                        .documentType: NSAttributedString.DocumentType.html,
+                        .characterEncoding: String.Encoding.utf8.rawValue
+                    ], documentAttributes: nil)
+                {
+                    account.note = attributedString.string
+                }
+                else
+                {
+                    account.note = ""
+                }
+                                
+                likedBy[index] = account
+            }
+            
+            self.accounts = likedBy
         }
         catch
         {
@@ -208,13 +233,11 @@ private struct AccountRow: View
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
                     
-                    if let bio = decodePlainTextFromHTML(account.note)?.trimmingCharacters(in: .whitespacesAndNewlines)
-                    {
-                        Text(bio)
-                            .font(.subheadline)
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(2)
-                    }
+                    let bio = account.note.trimmingCharacters(in: .whitespacesAndNewlines)
+                    Text(bio)
+                        .font(.subheadline)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(2)
                 }
             }
         }
@@ -230,18 +253,6 @@ private struct AccountRow: View
         case "threads.net", "threads.com": return Image("ThreadsBadge")
         default: return Image("MastodonBadge")
         }
-    }
-    
-    func decodePlainTextFromHTML(_ html: String) -> String?
-    {
-        guard let data = html.data(using: .utf8) else { return nil }
-        
-        let attributedString = try? NSAttributedString(data: data, options: [
-            .documentType: NSAttributedString.DocumentType.html,
-            .characterEncoding: String.Encoding.utf8.rawValue
-        ], documentAttributes: nil)
-        
-        return attributedString?.string
     }
 }
 
