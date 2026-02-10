@@ -13,6 +13,7 @@ import AltStoreCore
 import Roxas
 
 import Nuke
+import NukeExtensions
 
 class BrowseViewController: UICollectionViewController, PeekPopPreviewing
 {
@@ -389,7 +390,7 @@ private extension BrowseViewController
             
             if let iconURL = source.effectiveIconURL
             {
-                Nuke.loadImage(with: iconURL, into: self.titleSourceIconView) { result in
+                NukeExtensions.loadImage(with: iconURL, into: self.titleSourceIconView) { result in
                     switch result
                     {
                     case .failure(let error): Logger.main.error("Failed to fetch source icon at \(iconURL, privacy: .public). \(error.localizedDescription, privacy: .public)")

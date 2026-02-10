@@ -12,6 +12,7 @@ import AltStoreCore
 import Roxas
 
 import Nuke
+import NukeExtensions
 
 extension AppBannerView
 {
@@ -216,7 +217,7 @@ extension AppBannerView
             
             if let iconURL = source.effectiveIconURL
             {
-                if let image = ImageCache.shared[iconURL]
+                if let image = ImagePipeline.shared.cache[iconURL]
                 {
                     self.sourceIconImageView.backgroundColor = .white
                     self.sourceIconImageView.image = image.image
@@ -225,7 +226,7 @@ extension AppBannerView
                 {
                     self.sourceIconImageView.image = nil
                     
-                    Nuke.loadImage(with: iconURL, into: self.sourceIconImageView) { result in
+                    NukeExtensions.loadImage(with: iconURL, into: self.sourceIconImageView) { result in
                         switch result
                         {
                         case .failure(let error): Logger.main.error("Failed to fetch source icon from \(iconURL, privacy: .public). \(error.localizedDescription, privacy: .public)")

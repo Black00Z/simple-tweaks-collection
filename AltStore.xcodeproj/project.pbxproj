@@ -367,6 +367,9 @@
 		D51AD27F29356B7B00967AAA /* ALTWrappedError.m in Sources */ = {isa = PBXBuildFile; fileRef = D51AD27D29356B7B00967AAA /* ALTWrappedError.m */; };
 		D51AD28029356B8000967AAA /* ALTWrappedError.m in Sources */ = {isa = PBXBuildFile; fileRef = D51AD27D29356B7B00967AAA /* ALTWrappedError.m */; };
 		D51E83822B8692DF0092FC61 /* AltStore16ToAltStore17.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D51E83812B8692DF0092FC61 /* AltStore16ToAltStore17.xcmappingmodel */; };
+		D51F17452F3BAA4E0016D08B /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = D51F17442F3BAA4E0016D08B /* Nuke */; };
+		D51F17472F3BAA4E0016D08B /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = D51F17462F3BAA4E0016D08B /* NukeExtensions */; };
+		D51F17492F3BAA4E0016D08B /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = D51F17482F3BAA4E0016D08B /* NukeUI */; };
 		D526A40F2E32F75D00D2E768 /* MastodonAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526A40E2E32F75D00D2E768 /* MastodonAPI.swift */; };
 		D526A4112E32F80800D2E768 /* MastodonAPI+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526A4102E32F80700D2E768 /* MastodonAPI+Types.swift */; };
 		D52A2F972ACB40F700BDF8E3 /* Logger+AltStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52A2F962ACB40F700BDF8E3 /* Logger+AltStore.swift */; };
@@ -1306,9 +1309,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D533E8B72727841800A9B5DD /* libAppleArchive.tbd in Frameworks */,
+				D51F17472F3BAA4E0016D08B /* NukeExtensions in Frameworks */,
 				D535CEE82BE95D4C00F96119 /* TelemetryClient in Frameworks */,
+				D51F17452F3BAA4E0016D08B /* Nuke in Frameworks */,
 				BF1614F1250822F100767AEA /* Roxas.framework in Frameworks */,
 				BF088D332501A4FF008082D9 /* OpenSSL.xcframework in Frameworks */,
+				D51F17492F3BAA4E0016D08B /* NukeUI in Frameworks */,
 				BF66EE852501AE50007EE018 /* AltStoreCore.framework in Frameworks */,
 				2A77E3D272F3D92436FAC272 /* Pods_AltStore.framework in Frameworks */,
 			);
@@ -2774,7 +2780,6 @@
 				BFD247672284B9A500981D42 /* Frameworks */,
 				BFD247682284B9A500981D42 /* Resources */,
 				BF088D2B2501A087008082D9 /* Embed Frameworks */,
-				744AE3B03F6BF664FC5705C5 /* [CP] Embed Pods Frameworks */,
 				BF98917B250AABF4002ACF50 /* Embed Foundation Extensions */,
 				D5BD17D82B6474FF00BAE633 /* Embed ExtensionKit Extensions */,
 			);
@@ -2788,6 +2793,9 @@
 			name = AltStore;
 			packageProductDependencies = (
 				D535CEE72BE95D4C00F96119 /* TelemetryClient */,
+				D51F17442F3BAA4E0016D08B /* Nuke */,
+				D51F17462F3BAA4E0016D08B /* NukeExtensions */,
+				D51F17482F3BAA4E0016D08B /* NukeUI */,
 			);
 			productName = AltStore;
 			productReference = BFD2476A2284B9A500981D42 /* AltStore.app */;
@@ -2958,6 +2966,7 @@
 				D5FB7A2C2AA2859400EF863D /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 				D535CEE62BE95D4C00F96119 /* XCRemoteSwiftPackageReference "SwiftClient" */,
 				D56435E42E2AC35C007D1935 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				D51F17432F3BAA4E0016D08B /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = BFD2476B2284B9A500981D42 /* Products */;
 			projectDirPath = "";
@@ -3081,27 +3090,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		744AE3B03F6BF664FC5705C5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AltStore/Pods-AltStore-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AltStore/Pods-AltStore-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AltStore/Pods-AltStore-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		98BF22D155DBAEA97544E3E6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4888,6 +4876,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D51F17432F3BAA4E0016D08B /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
 		D535CEE62BE95D4C00F96119 /* XCRemoteSwiftPackageReference "SwiftClient" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TelemetryDeck/SwiftClient";
@@ -4934,6 +4930,21 @@
 		BF42345B251024B0006D1EB2 /* AltSign-Static */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "AltSign-Static";
+		};
+		D51F17442F3BAA4E0016D08B /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D51F17432F3BAA4E0016D08B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		D51F17462F3BAA4E0016D08B /* NukeExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D51F17432F3BAA4E0016D08B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeExtensions;
+		};
+		D51F17482F3BAA4E0016D08B /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D51F17432F3BAA4E0016D08B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
 		};
 		D52DD35D2AAA89A600A7F2B6 /* AltSign-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;

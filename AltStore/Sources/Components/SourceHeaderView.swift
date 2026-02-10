@@ -11,7 +11,7 @@ import UIKit
 import AltStoreCore
 import Roxas
 
-import Nuke
+import NukeExtensions
 
 class SourceHeaderView: RSTNibView
 {
@@ -101,6 +101,6 @@ extension SourceHeaderView
             self.websiteImageView.isHidden = true
         }
         
-        Nuke.loadImage(with: source.effectiveIconURL, into: self.iconImageView)
+        NukeExtensions.loadImage(with: source.effectiveIconURL, into: self.iconImageView)
     }
 }

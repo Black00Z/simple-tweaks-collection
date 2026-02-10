@@ -14,6 +14,7 @@ import AltStoreCore
 import Roxas
 
 import Nuke
+import NukeExtensions
 
 private class AppBannerFooterView: UICollectionReusableView
 {
@@ -486,7 +487,7 @@ extension NewsViewController
         footerView.bannerView.button.addTarget(self, action: #selector(NewsViewController.performAppAction(_:)), for: .primaryActionTriggered)
         footerView.tapGestureRecognizer.addTarget(self, action: #selector(NewsViewController.handleTapGesture(_:)))
         
-        Nuke.loadImage(with: storeApp.iconURL, into: footerView.bannerView.iconImageView) { result in
+        NukeExtensions.loadImage(with: storeApp.iconURL, into: footerView.bannerView.iconImageView) { result in
             footerView.bannerView.iconImageView.isIndicatingActivity = false
             
             switch result

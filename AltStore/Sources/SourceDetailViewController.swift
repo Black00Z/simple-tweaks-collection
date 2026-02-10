@@ -13,7 +13,7 @@ import Combine
 import AltStoreCore
 import Roxas
 
-import Nuke
+import NukeExtensions
 
 extension SourceDetailViewController
 {
@@ -110,8 +110,8 @@ class SourceDetailViewController: HeaderContentViewController<SourceHeaderView, 
         
         self.navigationBarButton.addTarget(self, action: #selector(SourceDetailViewController.addSource), for: .primaryActionTriggered)
         
-        Nuke.loadImage(with: self.source.effectiveIconURL, into: self.navigationBarIconView)
-        Nuke.loadImage(with: self.source.effectiveHeaderImageURL, into: self.backgroundImageView)
+        NukeExtensions.loadImage(with: self.source.effectiveIconURL, into: self.navigationBarIconView)
+        NukeExtensions.loadImage(with: self.source.effectiveHeaderImageURL, into: self.backgroundImageView)
         
         self.update()
         self.preparePipeline()

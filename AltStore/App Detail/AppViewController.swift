@@ -13,6 +13,7 @@ import AltStoreCore
 import Roxas
 
 import Nuke
+import NukeExtensions
 
 class AppViewController: UIViewController
 {
@@ -141,7 +142,7 @@ class AppViewController: UIViewController
         {
             imageView.isIndicatingActivity = true
             
-            Nuke.loadImage(with: self.app.iconURL, options: .shared, into: imageView, progress: nil) { [weak imageView] (result) in
+            NukeExtensions.loadImage(with: self.app.iconURL, options: .shared, into: imageView, progress: nil) { [weak imageView] (result) in
                 switch result
                 {
                 case .success:
