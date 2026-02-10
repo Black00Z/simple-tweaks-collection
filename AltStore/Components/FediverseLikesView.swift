@@ -17,6 +17,9 @@ struct FediverseLikesView: View
     @State
     private var accounts: [MastodonAPI.Account]?
     
+    @State
+    private var error: Error?
+    
     @Environment(\.openURL)
     private var openURL
     
@@ -92,7 +95,12 @@ struct FediverseLikesView: View
         }
         .listStyle(.plain)
         .overlay {
-            if accounts?.isEmpty == true {
+            if let error
+            {
+                ContentUnavailableView("Could Not Load Likes", systemImage: "heart", description: Text(error.localizedDescription))
+            }
+            else if let accounts, accounts.isEmpty
+            {
                 ContentUnavailableView("No Likes Yet", systemImage: "heart")
             }
         }
@@ -110,6 +118,9 @@ struct FediverseLikesView: View
         catch
         {
             Logger.main.error("Failed to fetch likes for toot. \(error.localizedDescription, privacy: .public)")
+            
+            self.error = error
+            self.accounts = []
         }
     }
     
