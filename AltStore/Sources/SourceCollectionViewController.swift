@@ -398,6 +398,7 @@ private extension SourceCollectionViewController
         cell.contentView.backgroundColor = .altBackground
         
         cell.bannerView.configure(for: source)
+        cell.bannerView.subtitleLabel.numberOfLines = 2
         
         if source.subtitle == nil
         {
