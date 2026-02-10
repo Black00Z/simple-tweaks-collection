@@ -105,6 +105,7 @@
         <attribute name="url" attributeType="URI"/>
         <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreApp" inverseName="federatedItem" inverseEntity="StoreApp"/>
         <relationship name="appVersion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppVersion" inverseName="federatedItem" inverseEntity="AppVersion"/>
+        <relationship name="likes" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Like" inverseName="item" inverseEntity="Like"/>
         <relationship name="newsItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NewsItem" inverseName="federatedItem" inverseEntity="NewsItem"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -146,6 +147,18 @@
         <attribute name="resignedBundleIdentifier" attributeType="String"/>
         <attribute name="version" attributeType="String"/>
         <relationship name="parentApp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InstalledApp" inverseName="appExtensions" inverseEntity="InstalledApp"/>
+    </entity>
+    <entity name="Like" representedClassName="Like" syncable="YES">
+        <attribute name="accountID" attributeType="String"/>
+        <attribute name="federatedID" attributeType="String"/>
+        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SocialWebAccount" inverseName="likes" inverseEntity="SocialWebAccount"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FederatedItem" inverseName="likes" inverseEntity="FederatedItem"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="accountID"/>
+                <constraint value="federatedID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="LoggedError" representedClassName="LoggedError" syncable="YES">
         <attribute name="appBundleID" attributeType="String"/>
@@ -248,12 +261,14 @@
         </uniquenessConstraints>
     </entity>
     <entity name="SocialWebAccount" representedClassName="SocialWebAccount" syncable="YES">
+        <attribute name="avatarURL" optional="YES" attributeType="URI"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="identifier" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="type" attributeType="String"/>
         <attribute name="url" attributeType="URI"/>
         <attribute name="username" attributeType="String"/>
+        <relationship name="likes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Like" inverseName="account" inverseEntity="Like"/>
         <fetchIndex name="byIdentifier">
             <fetchIndexElement property="identifier" type="Binary" order="ascending"/>
         </fetchIndex>

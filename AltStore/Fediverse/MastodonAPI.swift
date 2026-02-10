@@ -459,7 +459,7 @@ private extension MastodonAPI
                     // Might be different than web URL (e.g. alt.store vs explore.alt.store)
                     guard let host = URL(string: account.sub)?.host() else { throw MastodonError.unknown() }
                     
-                    let socialWebAccount = SocialWebAccount(name: account.name, username: account.preferred_username, identifier: account.sub, url: account.profile, domain: host, type: .mastodon, context: context)
+                    let socialWebAccount = SocialWebAccount(name: account.name, username: account.preferred_username, identifier: account.sub, url: account.profile, avatarURL: account.picture, domain: host, type: .mastodon, context: context)
                     return socialWebAccount
                 }
                 

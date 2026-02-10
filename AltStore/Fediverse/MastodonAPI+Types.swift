@@ -34,13 +34,14 @@ extension MastodonAPI
     {
         var id: String
         var username: String
+        var display_name: String
         var acct: String
         var note: String // Bio or description
         
         var followers_count: Int
         
         var url: URL
-        var uri: URL // Use for domain
+        var uri: URL
         
         var avatar_static: URL
     }

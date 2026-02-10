@@ -16,6 +16,7 @@ extension BlueskyAPI
     private static let baseURL = URL(string: "https://bsky.social")!
     
     static let bridgyFedHandle = "ap.brid.gy"
+    static let bridgyFedFediverseDomain = "bsky.brid.gy"
 }
 
 fileprivate extension BlueskyAPI
@@ -183,7 +184,7 @@ extension BlueskyAPI
         
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
         try await context.perform {
-            _ = SocialWebAccount(name: account.displayName ?? "", username: account.handle, identifier: account.did, url: accountURL, domain: host, type: .bluesky, context: context)
+            _ = SocialWebAccount(name: account.displayName ?? "", username: account.handle, identifier: account.did, url: accountURL, avatarURL: account.avatar, domain: host, type: .bluesky, context: context)
             try context.save()
         }
         

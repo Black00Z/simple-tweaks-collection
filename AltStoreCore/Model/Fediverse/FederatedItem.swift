@@ -36,6 +36,11 @@ public class FederatedItem: NSManagedObject, Fetchable
     @NSManaged public var app: StoreApp?
     @NSManaged public var appVersion: AppVersion?
     
+    @nonobjc public var likes: [Like] {
+        return _likes.array as! [Like]
+    }
+    @NSManaged @objc(likes) public var _likes: NSOrderedSet
+        
     private override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?)
     {
         super.init(entity: entity, insertInto: context)
@@ -70,6 +75,28 @@ public class FederatedItem: NSManagedObject, Fetchable
         // placeholder.commentsCount = 0
         
         return placeholder
+    }
+}
+
+public extension FederatedItem
+{
+    func setLikes(_ array: [Like])
+    {
+        let likes = NSOrderedSet(array: array)
+        
+        for case let like as Like in self._likes
+        {
+            if likes.contains(like)
+            {
+                like.item = self
+            }
+            else
+            {
+                like.item = nil
+            }
+        }
+        
+        self._likes = likes
     }
 }
 

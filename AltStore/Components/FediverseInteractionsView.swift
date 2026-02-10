@@ -11,6 +11,8 @@ import SwiftUI
 
 import AltStoreCore
 
+import NukeUI
+
 @Observable
 class FediverseInteractionsView: UIView
 {
@@ -73,7 +75,7 @@ struct FediverseInteractions: View
     var isOpaque: Bool = false
     
     @State
-    private var accounts: [MastodonAPI.Account]?
+    private var accounts: [SocialWebAccount]?
     
     @State
     private var isShowingLikes = false
@@ -115,17 +117,33 @@ struct FediverseInteractions: View
                         HStack(spacing: avatarSpacing) {
                             if let accounts
                             {
-                                ForEach(Array(accounts.enumerated()), id: \.element) { index, account in
-                                    AsyncImage(url: account.avatar_static) { image in
-                                        image
-                                            .resizable()
-                                            .clipShape(.circle)
-                                            .overlay(Circle().stroke(.tint, lineWidth: 1))
-                                            .frame(width: preferredHeight, height: preferredHeight)
-                                    } placeholder: {
-                                        avatarPlaceholder
+                                let accounts = Array(accounts.enumerated().prefix(maximumAvatars)) // We may cache more than the visible number
+                                
+                                ForEach(accounts, id: \.element) { index, account in
+                                    if let avatarURL = account.avatarURL
+                                    {
+                                        LazyImage(url: account.avatarURL) { state in
+                                            if let image = state.image
+                                            {
+                                                image
+                                                    .clipShape(.circle)
+                                                    .overlay(Circle().stroke(.tint, lineWidth: 1))
+                                                    .frame(width: preferredHeight, height: preferredHeight)
+                                            }
+                                            else if let error = state.error
+                                            {
+                                                avatarPlaceholder
+                                                    .onAppear {
+                                                        Logger.main.error("Failed to fetch Fediverse avatar at \(avatarURL.absoluteString, privacy: .public): \(error.localizedDescription, privacy: .public)")
+                                                    }
+                                            }
+                                            else
+                                            {
+                                                avatarPlaceholder
+                                            }
+                                        }
+                                        .zIndex(Double(-index))
                                     }
-                                    .zIndex(Double(-index))
                                 }
                             }
                             else
@@ -149,8 +167,12 @@ struct FediverseInteractions: View
         .task(id: likesID, priority: .medium) { @MainActor in
             do
             {
-                let accounts = try await MastodonAPI.shared.fetchFavorites(tootID: federatedItem.identifier, limit: maximumAvatars)
-                self.accounts = accounts
+                let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+                
+                let _ = try await FederationManager.shared.fetchLikes(for: federatedItem, limit: maximumAvatars * 2, in: context) // Fetch double the amount we need as buffer
+                try await context.perform {
+                    try context.save()
+                }
             }
             catch
             {
@@ -176,12 +198,16 @@ struct FediverseInteractions: View
         .onAppear {
             isLiked = federatedItem.isLiked
             likesCount = Int(federatedItem.likesCount)
+            accounts = federatedItem.likes.compactMap { $0.account }
         }
         .onChange(of: federatedItem.isLiked) { oldValue, newValue in
             isLiked = newValue
         }
         .onChange(of: federatedItem.likesCount) { oldValue, newValue in
             likesCount = Int(newValue)
+        }
+        .onChange(of: federatedItem._likes) { oldValue, newValue in
+            accounts = federatedItem.likes.compactMap { $0.account }
         }
     }
     

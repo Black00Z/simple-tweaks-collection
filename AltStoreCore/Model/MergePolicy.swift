@@ -194,6 +194,7 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
         var featuredAppIDsBySourceID = [String: [String]]()
         
         var federatedItemsSnapshotsByID = [String: NSDictionary]()
+        var sortedAccountIDsByFederatedItemID = [String: NSOrderedSet]()
         
         for conflict in conflicts
         {
@@ -318,6 +319,9 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
                 
                 federatedItemsSnapshotsByID[databaseItem.identifier] = filteredSnapshot
                 
+                let accountIDs = databaseItem._likes.compactMap { ($0 as? Like)?.accountID }
+                sortedAccountIDsByFederatedItemID[databaseItem.identifier] = NSOrderedSet(array: accountIDs)
+                
             default: break
             }
         }
@@ -437,7 +441,42 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
                 for (key, value) in snapshot
                 {
                     guard let key = key as? String else { continue }
-                    databaseObject.setValue(value, forKey: key)
+                    
+                    if key == #keyPath(FederatedItem._likes)
+                    {
+                        // Convert from NSSet to NSOrderedSet, which will be resorted below.
+                        let values = value as! Set<AnyHashable>
+                        databaseObject.setValue(NSOrderedSet(set: values), forKey: key)
+                    }
+                    else
+                    {
+                        databaseObject.setValue(value, forKey: key)
+                    }
+                }
+                
+                // Likes
+                if let sortedAccountIDs = sortedAccountIDsByFederatedItemID[databaseObject.identifier],
+                   let sortedAccountIDsArray = sortedAccountIDs.array as? [String],
+                   case let databaseSortedAccountIDs = databaseObject._likes.compactMap({ ($0 as? Like)?.accountID }),
+                   databaseSortedAccountIDs != sortedAccountIDsArray
+                {
+                    // Likes order is incorrect, so attempt to fix by re-sorting.
+                    let fixedSortedLikes = databaseObject.likes.sorted { (likeA, likeB) in
+                        let indexA = sortedAccountIDs.index(of: likeA.accountID)
+                        let indexB = sortedAccountIDs.index(of: likeB.accountID)
+                        return indexA < indexB
+                    }
+                    
+                    let accountIDs = fixedSortedLikes.compactMap { $0.accountID }
+                    if sortedAccountIDsArray == accountIDs
+                    {
+                        databaseObject.setLikes(fixedSortedLikes)
+                    }
+                    else
+                    {
+                        // Likes are still not in correct order, but not worth throwing error so ignore.
+                        Logger.main.error("Failed to re-sort likes into correct order. Expected: \(sortedAccountIDsArray.description, privacy: .public)")
+                    }
                 }
                 
             default: break

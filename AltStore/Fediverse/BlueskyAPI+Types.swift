@@ -21,6 +21,7 @@ extension BlueskyAPI
         var did: String
         var handle: String
         var displayName: String?
+        var avatar: URL?
         
         var description: String?
         var followersCount: Int

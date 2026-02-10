@@ -229,6 +229,67 @@ extension FederationManager
 
 extension FederationManager
 {
+    func fetchLikes(@AsyncManaged for federatedItem: FederatedItem, limit: Int? = nil, in context: NSManagedObjectContext = DatabaseManager.shared.persistentContainer.newBackgroundContext()) async throws -> [Like]
+    {
+        let tootID = await $federatedItem.identifier
+        let objectID = federatedItem.objectID
+        
+        let favorites = try await MastodonAPI.shared.fetchFavorites(tootID: tootID, limit: limit)
+        
+        let likes = await context.perform {
+            let federatedItem = context.object(with: objectID) as! FederatedItem
+            let likesByAccountID: [String: Like] = federatedItem.likes.reduce(into: [:]) { $0[$1.accountID] = $1 }
+            
+            let likes = favorites.compactMap { account -> Like? in
+                if let like = likesByAccountID[account.uri.absoluteString]
+                {
+                    if like.account?.avatarURL == nil
+                    {
+                        // Use existing like, but update with avatar URL.
+                        like.account?.avatarURL = account.avatar_static
+                    }
+                    
+                    return like
+                }
+                else
+                {
+                    guard let host = account.uri.host()?.lowercased() else { return nil }
+                    
+                    let accountID = account.uri.absoluteString
+                    let socialWebAccount: SocialWebAccount
+                    
+                    if accountID == Keychain.shared.socialWebAccountID, let existingAccount = DatabaseManager.shared.socialWebAccount(in: context)
+                    {
+                        // Use existing social web account, but update with avatar URL.
+                        existingAccount.avatarURL = account.avatar_static
+                        socialWebAccount = existingAccount
+                    }
+                    else
+                    {
+                        let type: SocialWebAccount.AccountType = switch host {
+                        case BlueskyAPI.bridgyFedFediverseDomain: .bluesky
+                        default: .mastodon
+                        }
+                        
+                        socialWebAccount = SocialWebAccount(name: account.display_name, username: account.username, identifier: accountID, url: account.url, avatarURL: account.avatar_static, domain: host, type: type, context: context)
+                    }
+                    
+                    let like = Like(account: socialWebAccount, item: federatedItem, context: context)
+                    return like
+                }
+            }
+            
+            federatedItem.setLikes(likes)
+            
+            return likes
+        }
+        
+        return likes
+    }
+}
+
+extension FederationManager
+{
     func updateInteractions(for federatedItems: some Collection<FederatedItem>, in context: NSManagedObjectContext = DatabaseManager.shared.persistentContainer.newBackgroundContext()) async throws
     {
         // TODO: Clean this up 😬

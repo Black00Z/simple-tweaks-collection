@@ -474,6 +474,7 @@
 		D5AE997B2B64791E0068B366 /* AppMarketplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AE997A2B64791E0068B366 /* AppMarketplace.swift */; };
 		D5B15D432ECE664000F8E797 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D5B15D422ECE664000F8E797 /* Localizable.xcstrings */; };
 		D5B15D4B2ECE8ED800F8E797 /* FediverseInteractionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B15D4A2ECE8ED000F8E797 /* FediverseInteractionsView.swift */; };
+		D5B1E6442F3680EE00146B46 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B1E6432F3680EE00146B46 /* Like.swift */; };
 		D5B6F6A92AD75D01007EED5A /* ProcessInfo+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B6F6A82AD75D01007EED5A /* ProcessInfo+Previews.swift */; };
 		D5B6F6AB2AD76541007EED5A /* PreviewAppScreenshotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B6F6AA2AD76541007EED5A /* PreviewAppScreenshotsViewController.swift */; };
 		D5BA9E9B2A9FE1E8007C0661 /* JITManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA9E9A2A9FE1E8007C0661 /* JITManager.swift */; };
@@ -1183,6 +1184,7 @@
 		D5AE997A2B64791E0068B366 /* AppMarketplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMarketplace.swift; sourceTree = "<group>"; };
 		D5B15D422ECE664000F8E797 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D5B15D4A2ECE8ED000F8E797 /* FediverseInteractionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FediverseInteractionsView.swift; sourceTree = "<group>"; };
+		D5B1E6432F3680EE00146B46 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		D5B6F6A82AD75D01007EED5A /* ProcessInfo+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+Previews.swift"; sourceTree = "<group>"; };
 		D5B6F6AA2AD76541007EED5A /* PreviewAppScreenshotsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewAppScreenshotsViewController.swift; sourceTree = "<group>"; };
 		D5BA9E9A2A9FE1E8007C0661 /* JITManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JITManager.swift; sourceTree = "<group>"; };
@@ -2502,6 +2504,7 @@
 			children = (
 				D5BD46562F0DC48000D26AB5 /* SocialWebAccount.swift */,
 				D5D097122F15B3FA00CC917D /* FederatedItem.swift */,
+				D5B1E6432F3680EE00146B46 /* Like.swift */,
 			);
 			path = Fediverse;
 			sourceTree = "<group>";
@@ -3327,6 +3330,7 @@
 				BFAECC572501B0A400528F27 /* ConnectionManager.swift in Sources */,
 				BF66EE9D2501AEC1007EE018 /* AppProtocol.swift in Sources */,
 				D519AD46292D665B004B12F9 /* Managed.swift in Sources */,
+				D5B1E6442F3680EE00146B46 /* Like.swift in Sources */,
 				D52A2F972ACB40F700BDF8E3 /* Logger+AltStore.swift in Sources */,
 				BFC712C42512D5F100AB5EBE /* XPCConnection.swift in Sources */,
 				D5CA0C4B280E141900469595 /* ManagedPatron.swift in Sources */,

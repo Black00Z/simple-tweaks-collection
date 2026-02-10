@@ -34,9 +34,16 @@ public class SocialWebAccount: NSManagedObject, Fetchable
     @NSManaged public var username: String
     @NSManaged public var identifier: String
     @NSManaged public var url: URL
+    @NSManaged public var avatarURL: URL?
     
     // Mastodon instance OR Bluesky PDS
     @NSManaged public var domain: String
+    
+    /* Relationships */
+    @NSManaged public var likes: NSSet /* Like */
+    public var allLikes: Set<Like> {
+        return self.likes as! Set<Like>
+    }
     
     @nonobjc public var type: AccountType {
         return AccountType(rawValue: self._type)!
@@ -48,7 +55,7 @@ public class SocialWebAccount: NSManagedObject, Fetchable
         super.init(entity: entity, insertInto: context)
     }
     
-    public init(name: String, username: String, identifier: String, url: URL, domain: String, type: AccountType, context: NSManagedObjectContext)
+    public init(name: String, username: String, identifier: String, url: URL, avatarURL: URL?, domain: String, type: AccountType, context: NSManagedObjectContext)
     {
         super.init(entity: SocialWebAccount.entity(), insertInto: context)
         
@@ -56,6 +63,7 @@ public class SocialWebAccount: NSManagedObject, Fetchable
         self.username = username
         self.identifier = identifier
         self.url = url
+        self.avatarURL = avatarURL
         self.domain = domain
         self._type = type.rawValue
     }
