@@ -96,6 +96,8 @@
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="735062400" usesScalarValueType="NO"/>
         <attribute name="identifier" attributeType="String"/>
         <attribute name="likesCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="resolvedBlueskyID" optional="YES" attributeType="String"/>
+        <attribute name="resolvedBlueskyURL" optional="YES" attributeType="URI"/>
         <attribute name="uri" attributeType="URI"/>
         <attribute name="url" attributeType="URI"/>
         <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreApp" inverseName="federatedItem" inverseEntity="StoreApp"/>

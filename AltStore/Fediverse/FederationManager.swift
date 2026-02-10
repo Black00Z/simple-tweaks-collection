@@ -156,7 +156,9 @@ extension FederationManager
             switch accountType
             {
             case .mastodon: try await MastodonAPI.shared.favorite(tootID: statusID, tootURL: federatedURL)
-            case .bluesky: try await BlueskyAPI.shared.like(tootID: statusID, tootURL: federatedURL)
+            case .bluesky:
+                let post = try await self.blueskyPost(for: federatedItem)
+                try await BlueskyAPI.shared.like(post)
             }
             
             Logger.main.debug("Successfully liked status at URL \(federatedURL)")
@@ -208,7 +210,9 @@ extension FederationManager
             switch accountType
             {
             case .mastodon: try await MastodonAPI.shared.unfavorite(tootID: statusID, tootURL: federatedURL)
-            case .bluesky: try await BlueskyAPI.shared.unlike(tootID: statusID, tootURL: federatedURL)
+            case .bluesky:
+                let post = try await self.blueskyPost(for: federatedItem)
+                try await BlueskyAPI.shared.unlike(post)
             }
             
             Logger.main.debug("Successfully unliked status at URL \(federatedURL)")
@@ -243,5 +247,77 @@ extension FederationManager
             // Try again
             try await self.unlike(federatedItem, presentingViewController: presentingViewController)
         }
+    }
+}
+
+// Bluesky bridging
+private extension FederationManager
+{
+    func blueskyPost(@AsyncManaged for federatedItem: FederatedItem) async throws -> BlueskyAPI.Post
+    {
+        let bridgedPost: BlueskyAPI.Post
+                
+        if let uri = await $federatedItem.resolvedBlueskyID
+        {
+            guard let post = try await BlueskyAPI.shared.fetchPost(uri: uri) else { throw BlueskyError.postNotFound() }
+            bridgedPost = post
+        }
+        else
+        {
+            bridgedPost = try await self.resolveBlueskyPost(for: federatedItem)
+        }
+        
+        return bridgedPost
+    }
+    
+    func resolveBlueskyPost(@AsyncManaged for federatedItem: FederatedItem) async throws -> BlueskyAPI.Post
+    {
+        let tootURL = await $federatedItem.url
+        guard let bridgedPost = try await self.bridgedPost(forTootAtURL: tootURL) else { throw BlueskyError.postNotFound() }
+        
+        let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+        try await context.perform {
+            let federatedItem = context.object(with: federatedItem.objectID) as! FederatedItem
+            federatedItem.resolvedBlueskyID = bridgedPost.uri
+            
+            let sanitizedURI = bridgedPost.uri.replacingOccurrences(of: "at://", with: "")
+            let components = sanitizedURI.split(separator: "/")
+            
+            if let profileDID = components.first, let rkey = components.last
+            {
+                let url = URL(string: "https://bsky.app/profile/\(profileDID)/\(rkey)")
+                federatedItem.resolvedBlueskyURL = url
+            }
+            
+            try context.save()
+        }
+        
+        return bridgedPost
+    }
+    
+    func bridgedPost(forTootAtURL tootURL: URL) async throws -> BlueskyAPI.Post?
+    {
+        let username = tootURL.pathComponents[1].dropFirst() // Remove @
+        
+        let blueskyUsername: String
+        
+        if username == "altstore"
+        {
+            blueskyUsername = "alt.store"
+        }
+        else if username == "stikdebug"
+        {
+            blueskyUsername = "stikdebug.alt.store"
+        }
+        else
+        {
+            blueskyUsername = "\(username).alt.store.ap.brid.gy"
+        }
+        
+        let did = try await BlueskyAPI.shared.resolveHandle(blueskyUsername)
+        let posts = try await BlueskyAPI.shared.fetchAccountPosts(did: did) //TODO: Only fetch up until we find a match.
+        
+        let bridgedPost = posts.first { $0.record.bridgyOriginalUrl == tootURL }
+        return bridgedPost
     }
 }

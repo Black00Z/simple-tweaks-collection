@@ -201,6 +201,58 @@ extension BlueskyAPI
 
 extension BlueskyAPI
 {
+    func fetchPost(uri: String) async throws -> Post?
+    {
+        let posts = try await self.fetchPosts(uris: [uri])
+        return posts.first
+    }
+    
+    func fetchPosts(uris: some Collection<String>) async throws -> [Post]
+    {
+        var allPosts: [Post] = []
+        
+        var remainingURIs = Array(uris)
+        while !remainingURIs.isEmpty
+        {
+            let uris = remainingURIs.prefix(25)
+            
+            let posts = try await self._fetchPosts(uris: Array(uris))
+            allPosts += posts
+            
+            remainingURIs = Array(remainingURIs.dropFirst(uris.count))
+        }
+        
+        return allPosts
+    }
+    
+    private func _fetchPosts(uris: [String]) async throws -> [Post]
+    {
+        let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+        let serverURL = try await context.perform {
+            guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context), let serverURL = socialWebAccount.serverURL else { throw BlueskyError.unauthorized() }
+            return serverURL
+        }
+        
+        var components = URLComponents(string: "/xrpc/app.bsky.feed.getPosts")!
+        
+        let queryItems = uris.map { URLQueryItem(name: "uris[]", value: $0) }
+        components.queryItems = queryItems
+        
+        let requestURL = components.url(relativeTo: serverURL)!
+        let request = URLRequest(url: requestURL)
+        
+        struct Response: Decodable
+        {
+            var posts: [Post]
+        }
+        
+        let response: Response = try await self.send(request, authorizationType: .user)
+        return response.posts
+    }
+}
+
+extension BlueskyAPI
+{
     func isTootLiked(tootID: Int, tootURL: URL) async throws -> Bool
     {
         guard let post = try await self.bridgedPost(forTootAtURL: tootURL) else { throw BlueskyError.postNotFound() }
@@ -209,10 +261,8 @@ extension BlueskyAPI
         return isLiked
     }
     
-    func like(tootID: String, tootURL: URL) async throws
+    func like(_ post: Post) async throws
     {
-        guard let post = try await self.bridgedPost(forTootAtURL: tootURL) else { throw BlueskyError.postNotFound() }
-        
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
         let (did, domain) = try await context.perform {
             guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context) else { throw BlueskyError.unauthorized() }
@@ -242,10 +292,8 @@ extension BlueskyAPI
         let _: Response = try await self.send(request, authorizationType: .user)
     }
     
-    func unlike(tootID: String, tootURL: URL) async throws
+    func unlike(_ post: Post) async throws
     {
-        guard let post = try await self.bridgedPost(forTootAtURL: tootURL) else { throw BlueskyError.postNotFound() }
-        
         guard let likeLink = post.viewer?.like else { return } // Not an error, the status is already unliked so just return.
         
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
@@ -360,10 +408,7 @@ extension BlueskyAPI
         let response: Response = try await self.send(request, authorizationType: .user)
         Logger.main.debug("Successfully followed Bluesky account @\(handle) (\(response.uri))!")
     }
-}
-
-private extension BlueskyAPI
-{
+    
     func resolveHandle(_ handle: String) async throws -> String
     {
         var components = URLComponents(string: "/xrpc/com.atproto.identity.resolveHandle")!
@@ -383,6 +428,49 @@ private extension BlueskyAPI
         return response.did
     }
     
+    func fetchAccountPosts(did: String) async throws -> [Post]
+    {
+        var allPosts: [Post] = []
+        var fetchCursor: String?
+        
+        repeat
+        {
+            var components = URLComponents(string: "/xrpc/app.bsky.feed.getAuthorFeed")!
+            components.queryItems = [
+                URLQueryItem(name: "actor", value: did),
+                URLQueryItem(name: "filter", value: "posts_no_replies"),
+                URLQueryItem(name: "limit", value: "100"),
+            ]
+            
+            if let fetchCursor
+            {
+                components.queryItems?.append(URLQueryItem(name: "cursor", value: fetchCursor))
+            }
+            
+            let requestURL = components.url(relativeTo: BlueskyAPI.baseURL)!
+            let request = URLRequest(url: requestURL)
+            
+            let response: FeedResponse = try await self.send(request, authorizationType: .user)
+            
+            let posts = response.feed.map(\.post)
+            allPosts.append(contentsOf: posts)
+            
+            fetchCursor = response.cursor
+            
+            if response.feed.isEmpty
+            {
+                // Stop pagination if empty array is returned.
+                break
+            }
+        }
+        while (fetchCursor != nil);
+        
+        return allPosts
+    }
+}
+
+private extension BlueskyAPI
+{
     func resolvePDS(did: String) async throws -> URL
     {
         let requestURL: URL
@@ -494,46 +582,6 @@ private extension BlueskyAPI
         
         let bridgedPost = posts.first { $0.record.bridgyOriginalUrl == tootURL }
         return bridgedPost
-    }
-    
-    func fetchAccountPosts(did: String) async throws -> [Post]
-    {
-        var allPosts: [Post] = []
-        var fetchCursor: String?
-        
-        repeat
-        {
-            var components = URLComponents(string: "/xrpc/app.bsky.feed.getAuthorFeed")!
-            components.queryItems = [
-                URLQueryItem(name: "actor", value: did),
-                URLQueryItem(name: "filter", value: "posts_no_replies"),
-                URLQueryItem(name: "limit", value: "100"),
-            ]
-            
-            if let fetchCursor
-            {
-                components.queryItems?.append(URLQueryItem(name: "cursor", value: fetchCursor))
-            }
-            
-            let requestURL = components.url(relativeTo: BlueskyAPI.baseURL)!
-            let request = URLRequest(url: requestURL)
-            
-            let response: FeedResponse = try await self.send(request, authorizationType: .user)
-            
-            let posts = response.feed.map(\.post)
-            allPosts.append(contentsOf: posts)
-            
-            fetchCursor = response.cursor
-            
-            if response.feed.isEmpty
-            {
-                // Stop pagination if empty array is returned.
-                break
-            }
-        }
-        while (fetchCursor != nil);
-        
-        return allPosts
     }
 }
 

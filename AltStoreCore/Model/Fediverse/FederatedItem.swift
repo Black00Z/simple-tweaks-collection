@@ -19,6 +19,9 @@ public class FederatedItem: NSManagedObject, Fetchable
     @NSManaged public var uri: URL
     @NSManaged public var url: URL // Web URL
     
+    @NSManaged public var resolvedBlueskyID: String?
+    @NSManaged public var resolvedBlueskyURL: URL?
+    
     // State
     @NSManaged public var likesCount: Int32
     @NSManaged public var boostsCount: Int32
