@@ -97,7 +97,7 @@ final actor MastodonAPI: NSObject
     private let session = URLSession(configuration: .default)
     private let contextProvider = PresentationContextProvider()
     
-    private var fetchFavoritesTask: [Int: (Date, Task<[Account], Error>)] = [:]
+    private var fetchFavoritesTask: [String: (Date, Task<[Account], Error>)] = [:]
     
     private nonisolated(unsafe) weak var signInAction: UIAlertAction?
     
@@ -207,10 +207,8 @@ extension MastodonAPI
 
 extension MastodonAPI
 {
-    func fetchToots(ids: Set<String>) async throws -> [Toot]
-    {
-        // TODO: Handle rate limits
-        
+    func fetchToots(ids: Set<String>, serverURL: URL = MastodonAPI.instanceURL) async throws -> [Toot]
+    {        
         let fetchLimit = 100
         var fetchedToots: [Toot] = []
         
@@ -220,22 +218,20 @@ extension MastodonAPI
             let statuses = statusIDs.prefix(fetchLimit)
             statusIDs.removeFirst(statuses.count)
             
-            let toots = try await self._fetchToots(ids: Set(statuses))
+            let toots = try await self._fetchToots(ids: Set(statuses), serverURL: serverURL)
             fetchedToots += toots
         }
         
         return fetchedToots
     }
     
-    private func _fetchToots(ids: Set<String>) async throws -> [Toot]
+    private func _fetchToots(ids: Set<String>, serverURL: URL = MastodonAPI.instanceURL) async throws -> [Toot]
     {
-        // TODO: Handle rate limits
-        
         let fetchLimit = 100
         
         guard !ids.isEmpty else { return [] }
         
-        var endpoint = MastodonAPI.instanceURL.appendingPathComponent("api/v1/statuses").absoluteString + "?limit=\(fetchLimit)"
+        var endpoint = serverURL.appendingPathComponent("api/v1/statuses").absoluteString + "?limit=\(fetchLimit)"
         for id in ids
         {
             endpoint += "&id[]=\(id)"
@@ -246,22 +242,32 @@ extension MastodonAPI
         var request = URLRequest(url: requestURL)
         request.httpMethod = "GET"
         
-        let (data, response) = try await URLSession.shared.data(for: request)
-        if let httpResponse = response as? HTTPURLResponse
+        let authorizationType: AuthorizationType = (serverURL == MastodonAPI.instanceURL) ? .none : .user
+        let toots: [Toot] = try await self.send(request, authorizationType: authorizationType)
+        return toots
+    }
+    
+    func resolve(_ tootURL: URL, toServer serverURL: URL) async throws -> Toot?
+    {
+        var components = URLComponents(string: "/api/v2/search")!
+        components.queryItems = [
+            URLQueryItem(name: "q", value: tootURL.absoluteString),
+            URLQueryItem(name: "resolve", value: "true"),
+        ]
+        
+        guard let requestURL = components.url(relativeTo: serverURL) else { throw MastodonError.unknown() }
+        
+        let request = URLRequest(url: requestURL)
+        
+        struct Response: Decodable
         {
-            switch httpResponse.statusCode
-            {
-            case 200...299: break
-            case 401: throw MastodonError.unauthorized()
-            default: throw MastodonError.http(statusCode: httpResponse.statusCode)
-            }
+            var statuses: [Toot]
         }
         
-        let decoder = Foundation.JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        let response: Response = try await self.send(request, authorizationType: .user)
         
-        let toots = try decoder.decode([Toot].self, from: data)
-        return toots
+        let toot = response.statuses.first
+        return toot
     }
 }
 
@@ -320,28 +326,6 @@ extension MastodonAPI
         Logger.main.debug("Fetched all favorites for post \(tootID) in \(CFAbsoluteTimeGetCurrent() - startTime) seconds.")
                 
         return accounts
-    }
-    
-    func isTootFavorited(tootID: Int, tootURL: URL) async throws -> Bool
-    {
-        let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-        let serverURL = try await context.perform {
-            guard let account = DatabaseManager.shared.socialWebAccount(in: context) else { throw MastodonError.unauthorized() }
-            return account.serverURL
-        }
-        
-        guard let serverURL else { throw MastodonError.unknown() }
-        
-        if let resolvedToot = try await self.resolve(tootURL, toServer: serverURL), let isFavorited = resolvedToot.favourited
-        {
-            // Resolved tweet and have correct isFavorited state.
-            return isFavorited
-        }
-        else
-        {
-            // Tweet failed to resolve or user isn't authenticated, so return false.
-            return false
-        }
     }
 }
 
@@ -509,29 +493,6 @@ private extension MastodonAPI
             
             throw error
         }
-    }
-    
-    func resolve(_ tootURL: URL, toServer serverURL: URL) async throws -> Toot?
-    {
-        var components = URLComponents(string: "/api/v2/search")!
-        components.queryItems = [
-            URLQueryItem(name: "q", value: tootURL.absoluteString),
-            URLQueryItem(name: "resolve", value: "true"),
-        ]
-        
-        guard let requestURL = components.url(relativeTo: serverURL) else { throw MastodonError.unknown() }
-        
-        let request = URLRequest(url: requestURL)
-        
-        struct Response: Decodable
-        {
-            var statuses: [Toot]
-        }
-        
-        let response: Response = try await self.send(request, authorizationType: .user)
-        
-        let toot = response.statuses.first
-        return toot
     }
     
     func send<ResponseType: Decodable>(_ request: URLRequest, authorizationType: AuthorizationType) async throws -> ResponseType

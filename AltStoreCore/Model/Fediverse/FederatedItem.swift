@@ -19,10 +19,14 @@ public class FederatedItem: NSManagedObject, Fetchable
     @NSManaged public var uri: URL
     @NSManaged public var url: URL // Web URL
     
+    @NSManaged public var resolvedFediverseID: String?
+    @NSManaged public var resolvedFediverseURL: URL?
+    
     @NSManaged public var resolvedBlueskyID: String?
     @NSManaged public var resolvedBlueskyURL: URL?
     
     // State
+    @NSManaged public var isLiked: Bool
     @NSManaged public var likesCount: Int32
     @NSManaged public var boostsCount: Int32
     @NSManaged public var commentsCount: Int32
@@ -37,7 +41,7 @@ public class FederatedItem: NSManagedObject, Fetchable
         super.init(entity: entity, insertInto: context)
     }
     
-    public init(identifier: String, date: Date, uri: URL, url: URL, likesCount: Int32 = 0, boostsCount: Int32 = 0, commentsCount: Int32 = 0, context: NSManagedObjectContext)
+    public init(identifier: String, date: Date, uri: URL, url: URL, isLiked: Bool = false, likesCount: Int32 = 0, boostsCount: Int32 = 0, commentsCount: Int32 = 0, context: NSManagedObjectContext)
     {
         super.init(entity: FederatedItem.entity(), insertInto: context)
         
@@ -46,6 +50,7 @@ public class FederatedItem: NSManagedObject, Fetchable
         self.uri = uri
         self.url = url
         
+        self.isLiked = isLiked
         self.likesCount = likesCount
         self.boostsCount = boostsCount
         self.commentsCount = commentsCount
@@ -59,6 +64,7 @@ public class FederatedItem: NSManagedObject, Fetchable
         placeholder.url = url
         
         // Do NOT explicitly set values, use defaults to avoid overwriting existing data.
+        // placeholder.isLiked = false
         // placeholder.likesCount = 0
         // placeholder.boostsCount = 0
         // placeholder.commentsCount = 0

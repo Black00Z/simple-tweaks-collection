@@ -318,31 +318,11 @@ private extension NewsViewController
             do
             {
                 let newsItems = self.dataSource.fetchedResultsController.fetchedObjects ?? []
+                let federatedItems = newsItems.compactMap(\.federatedItem)
                 
-                let objectIDs = Set(newsItems.map(\.objectID))
-                let statusIDs = Set(newsItems.compactMap { $0.federatedID })
+                try await FederationManager.shared.updateInteractions(for: federatedItems)
                 
-                let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
-                let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
-                
-                let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-                try await context.perform {
-                    
-                    let newsItems = objectIDs.compactMap { context.object(with: $0) as? NewsItem }
-                    for newsItem in newsItems
-                    {
-                        guard let federatedItem = newsItem.federatedItem, let toot = tootsByID[federatedItem.identifier] else { continue }
-                        federatedItem.uri = toot.uri
-                        federatedItem.url = toot.url
-                        federatedItem.likesCount = Int32(toot.favourites_count)
-                        federatedItem.boostsCount = Int32(toot.reblogs_count)
-                        federatedItem.commentsCount = Int32(toot.replies_count)
-                    }
-                    
-                    try context.save()
-                }
-                
-                Logger.main.info("Fetched \(toots.count) NewsItem statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
+                Logger.main.info("Fetched \(federatedItems.count) NewsItem statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
                 
                 self.updateFediverseInteractionsResult = .success(())
             }

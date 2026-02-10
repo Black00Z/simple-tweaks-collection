@@ -553,32 +553,17 @@ private extension FeaturedViewController
             do
             {
                 let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-                let (storeApps, statusIDs) = try await context.perform {
+                let federatedItems = try await context.perform {
                     let fetchRequest = StoreApp.browseTabFeaturedAppsFetchRequest()
                     
                     let storeApps = try context.fetch(fetchRequest)
-                    let statusIDs = Set(storeApps.compactMap { $0.federatedID })
-                    return (storeApps, statusIDs)
-                }
-                                
-                let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
-                let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
-                
-                try await context.perform {
-                    for storeApp in storeApps
-                    {
-                        guard let federatedItem = storeApp.federatedItem, let toot = tootsByID[federatedItem.identifier] else { continue }
-                        federatedItem.uri = toot.uri
-                        federatedItem.url = toot.url
-                        federatedItem.likesCount = Int32(toot.favourites_count)
-                        federatedItem.boostsCount = Int32(toot.reblogs_count)
-                        federatedItem.commentsCount = Int32(toot.replies_count)
-                    }
-                    
-                    try context.save()
+                    let federatedItems = Set(storeApps.compactMap { $0.federatedItem })
+                    return federatedItems
                 }
                 
-                Logger.main.info("Fetched \(toots.count) Featured app statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
+                try await FederationManager.shared.updateInteractions(for: federatedItems)
+                
+                Logger.main.info("Fetched \(federatedItems.count) Featured app statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
                 
                 self.updateFediverseInteractionsResult = .success(())
             }

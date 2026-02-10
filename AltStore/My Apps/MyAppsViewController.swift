@@ -745,31 +745,11 @@ private extension MyAppsViewController
             do
             {
                 let storeApps = (self.updatesDataSource.fetchedResultsController.fetchedObjects ?? []).compactMap { $0.storeApp }
+                let federatedItems = storeApps.compactMap(\.federatedItem)
                 
-                let objectIDs = Set(storeApps.map(\.objectID))
-                let statusIDs = Set(storeApps.compactMap { $0.federatedID })
+                try await FederationManager.shared.updateInteractions(for: federatedItems)
                 
-                let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
-                let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
-                
-                let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-                try await context.perform {
-                    
-                    let storeApps = objectIDs.compactMap { context.object(with: $0) as? StoreApp }
-                    for storeApp in storeApps
-                    {
-                        guard let federatedItem = storeApp.federatedItem, let toot = tootsByID[federatedItem.identifier] else { continue }
-                        federatedItem.uri = toot.uri
-                        federatedItem.url = toot.url
-                        federatedItem.likesCount = Int32(toot.favourites_count)
-                        federatedItem.boostsCount = Int32(toot.reblogs_count)
-                        federatedItem.commentsCount = Int32(toot.replies_count)
-                    }
-                    
-                    try context.save()
-                }
-                
-                Logger.main.info("Fetched \(toots.count) app update statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
+                Logger.main.info("Fetched \(federatedItems.count) app update statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
                 
                 self.updateFediverseInteractionsResult = .success(())
             }

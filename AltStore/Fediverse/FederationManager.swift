@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 import AltStoreCore
 
@@ -101,46 +102,6 @@ extension FederationManager
 
 extension FederationManager
 {
-    func isPostLiked(@AsyncManaged for federatedItem: FederatedItem) async throws -> Bool
-    {
-        guard case let rawStatusID = await $federatedItem.identifier, let statusID = Int(rawStatusID), case let federatedURL = await $federatedItem.url else { throw OperationError.unknown() } // Invalid item
-        
-        let startTime = CFAbsoluteTimeGetCurrent()
-        
-        if let (date, task) = self.fetchIsLikedTasks[rawStatusID], date > Date.now.addingTimeInterval(-5)
-        {
-            // Avoid creating multiple tasks within 5 seconds for same status.
-                        
-            let isLiked = try await task.value
-            return isLiked
-        }
-        
-        let task = Task<Bool, Error> {
-            let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-            let accountType = try await context.perform {
-                guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context) else { throw BlueskyError.unauthorized() } // Generic unauthorized error
-                return socialWebAccount.type
-            }
-            
-            let isLiked: Bool
-            switch accountType
-            {
-            case .mastodon: isLiked = try await MastodonAPI.shared.isTootFavorited(tootID: statusID, tootURL: federatedURL)
-            case .bluesky: isLiked = try await BlueskyAPI.shared.isTootLiked(tootID: statusID, tootURL: federatedURL)
-            }
-            
-            return isLiked
-        }
-        
-        self.fetchIsLikedTasks[rawStatusID] = (.now, task)
-        
-        let isLiked = try await task.value
-        
-        Logger.main.debug("Checked liked status for post \(federatedURL) in \(CFAbsoluteTimeGetCurrent() - startTime) seconds.")
-        
-        return isLiked
-    }
-    
     func like(@AsyncManaged _ federatedItem: FederatedItem, presentingViewController: UIViewController?) async throws
     {
         do
@@ -159,6 +120,14 @@ extension FederationManager
             case .bluesky:
                 let post = try await self.blueskyPost(for: federatedItem)
                 try await BlueskyAPI.shared.like(post)
+            }
+            
+            let objectID = federatedItem.objectID
+            try await context.perform {
+                let federatedItem = context.object(with: objectID) as! FederatedItem
+                federatedItem.isLiked = true
+                federatedItem.likesCount += 1
+                try context.save()
             }
             
             Logger.main.debug("Successfully liked status at URL \(federatedURL)")
@@ -215,6 +184,14 @@ extension FederationManager
                 try await BlueskyAPI.shared.unlike(post)
             }
             
+            let objectID = federatedItem.objectID
+            try await context.perform {
+                let federatedItem = context.object(with: objectID) as! FederatedItem
+                federatedItem.isLiked = false
+                federatedItem.likesCount = max(federatedItem.likesCount - 1, 0) // Prevent negative counts
+                try context.save()
+            }
+            
             Logger.main.debug("Successfully unliked status at URL \(federatedURL)")
         }
         catch let error as MastodonError where error.code == .unauthorized
@@ -250,6 +227,181 @@ extension FederationManager
     }
 }
 
+extension FederationManager
+{
+    func updateInteractions(for federatedItems: some Collection<FederatedItem>, in context: NSManagedObjectContext = DatabaseManager.shared.persistentContainer.newBackgroundContext()) async throws
+    {
+        // TODO: Clean this up 😬
+        
+        var allItems = [(NSManagedObjectID, String)]()
+        var resolvedItems = [(NSManagedObjectID, String)]()
+        var unresolvedItems = [(NSManagedObjectID, String)]()
+        
+        for federatedItem in federatedItems
+        {
+            @AsyncManaged
+            var federatedItem = federatedItem
+            
+            let (objectID, identifier, fediverseID, blueskyID) = await $federatedItem.perform { ($0.objectID, $0.identifier, $0.resolvedFediverseID, $0.resolvedBlueskyID) }
+            
+            if let fediverseID
+            {
+                resolvedItems.append((objectID, fediverseID))
+            }
+            else if let blueskyID
+            {
+                resolvedItems.append((objectID, blueskyID))
+            }
+            else
+            {
+                unresolvedItems.append((objectID, identifier))
+            }
+            
+            allItems.append((objectID, identifier))
+        }
+        
+        // Resolve Items
+        
+        let accountInfo = await context.perform { () -> (SocialWebAccount.AccountType, URL)? in
+            guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context), let serverURL = socialWebAccount.serverURL else { return nil }
+            return (socialWebAccount.type, serverURL)
+        }
+        
+        if let serverURL = accountInfo?.1, accountInfo?.0 == .mastodon
+        {
+            // Signed-in to Mastodon, so resolve all unresolved items into our local server.
+            
+            let unresolvedItems = unresolvedItems
+            async let resolvedToots = await withCollatingTaskGroup(for: unresolvedItems.map(\.0)) { objectID in
+                let federatedURL = await context.perform {
+                    let federatedItem = context.object(with: objectID) as! FederatedItem
+                    return federatedItem.url
+                }
+                
+                guard let resolvedToot = try await MastodonAPI.shared.resolve(federatedURL, toServer: serverURL) else { throw MastodonError.tootNotFound() }
+                return resolvedToot
+            }
+            
+            let tootIDs = Set(resolvedItems.map(\.1))
+            async let toots = MastodonAPI.shared.fetchToots(ids: tootIDs, serverURL: serverURL)
+            
+            let successes = await resolvedToots.successes
+            let errors = await resolvedToots.failures
+            
+            let tootsByID = try await toots.reduce(into: [:]) { $0[$1.id] = $1 }
+            
+            await context.perform {
+                for (objectID, resolvedToot) in successes
+                {
+                    let federatedItem = context.object(with: objectID) as! FederatedItem
+                    federatedItem.update(with: resolvedToot)
+                    federatedItem.resolvedFediverseID = resolvedToot.id // Newly resolved, so assign ID
+                    federatedItem.resolvedFediverseURL = resolvedToot.url
+                }
+                
+                for (objectID, identifier) in resolvedItems
+                {
+                    guard let toot = tootsByID[identifier] else { continue }
+                    
+                    let federatedItem = context.object(with: objectID) as! FederatedItem
+                    federatedItem.update(with: toot)
+                }
+                
+                for (objectID, error) in errors
+                {
+                    let federatedItem = context.object(with: objectID) as! FederatedItem
+                    Logger.main.error("Failed to update Fediverse interactions for status \(federatedItem.url, privacy: .public): \(error.localizedDescription, privacy: .public)")
+                }
+            }
+        }
+        else if accountInfo?.0 == .bluesky
+        {
+            // Signed-in to Bluesky, so resolve all unresolved items to their bridged Bluesky post.
+            
+            let unresolvedItems = unresolvedItems
+            async let likes = await withCollatingTaskGroup(for: unresolvedItems.map(\.0)) { objectID in
+                let federatedURL = await context.perform {
+                    let federatedItem = context.object(with: objectID) as! FederatedItem
+                    return federatedItem.url
+                }
+                                
+                guard let post = try await self.bridgedPost(forTootAtURL: federatedURL) else { throw BlueskyError.postNotFound() }
+                return post
+            }
+            
+            
+            // Fetch ALL toots, there is no resolving into user's server
+            let tootIDs = Set(allItems.map(\.1))
+            async let toots = MastodonAPI.shared.fetchToots(ids: tootIDs)
+            
+            
+            let postURIs = Set(resolvedItems.map(\.1))
+            async let alreadyResolvedPosts = BlueskyAPI.shared.fetchPosts(uris: postURIs)
+            
+            let postSuccesses = await likes.successes
+            let postErrors = await likes.failures
+            
+            let postsByURI = try await alreadyResolvedPosts.reduce(into: [:]) { $0[$1.uri] = $1 }
+            let tootsByID = try await toots.reduce(into: [:]) { $0[$1.id] = $1 }
+                        
+            await context.perform {
+                for (objectID, post) in postSuccesses
+                {
+                    let federatedItem = context.object(with: objectID) as! FederatedItem
+                    federatedItem.update(with: post)
+                }
+                
+                for (objectID, identifier) in allItems
+                {
+                    guard let toot = tootsByID[identifier] else { continue }
+                    
+                    let federatedItem = context.object(with: objectID) as! FederatedItem
+                    federatedItem.update(with: toot)
+                }
+                
+                for (objectID, identifier) in resolvedItems
+                {
+                    guard let post = postsByURI[identifier] else { continue }
+                    
+                    let federatedItem = context.object(with: objectID) as! FederatedItem
+                    federatedItem.update(with: post)
+                }
+                
+                for (objectID, error) in postErrors
+                {
+                    guard !(error._domain == BlueskyError.errorDomain && error._code == BlueskyError.Code.postNotFound.rawValue) else { continue }
+                    
+                    let federatedItem = context.object(with: objectID) as! FederatedItem
+                    Logger.main.error("Failed to update Fediverse interactions for bridged status \(federatedItem.url, privacy: .public): \(error.localizedDescription, privacy: .public)")
+                }
+            }
+        }
+        else
+        {
+            // Not signed-in, no need to resolve.
+            
+            let tootIDs = Set(unresolvedItems.map(\.1))
+            
+            let toots = try await MastodonAPI.shared.fetchToots(ids: tootIDs)
+            let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
+            
+            await context.perform {
+                for (objectID, identifier) in unresolvedItems
+                {
+                    guard let toot = tootsByID[identifier] else { continue }
+                    
+                    let federatedItem = context.object(with: objectID) as! FederatedItem
+                    federatedItem.update(with: toot)
+                }
+            }
+        }
+        
+        try await context.perform {
+            try context.save()
+        }
+    }
+}
+
 // Bluesky bridging
 private extension FederationManager
 {
@@ -278,17 +430,7 @@ private extension FederationManager
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
         try await context.perform {
             let federatedItem = context.object(with: federatedItem.objectID) as! FederatedItem
-            federatedItem.resolvedBlueskyID = bridgedPost.uri
-            
-            let sanitizedURI = bridgedPost.uri.replacingOccurrences(of: "at://", with: "")
-            let components = sanitizedURI.split(separator: "/")
-            
-            if let profileDID = components.first, let rkey = components.last
-            {
-                let url = URL(string: "https://bsky.app/profile/\(profileDID)/\(rkey)")
-                federatedItem.resolvedBlueskyURL = url
-            }
-            
+            federatedItem.update(with: bridgedPost)
             try context.save()
         }
         
@@ -319,5 +461,51 @@ private extension FederationManager
         
         let bridgedPost = posts.first { $0.record.bridgyOriginalUrl == tootURL }
         return bridgedPost
+    }
+}
+
+private extension FederatedItem
+{
+    func update(with toot: MastodonAPI.Toot)
+    {
+        self.date = toot.created_at
+        self.url = toot.url
+        self.uri = toot.uri
+        
+        self.likesCount = Int32(toot.favourites_count)
+        self.boostsCount = Int32(toot.reblogs_count)
+        self.commentsCount = Int32(toot.replies_count)
+        
+        if let isLiked = toot.favourited
+        {
+            self.isLiked = isLiked
+        }
+        else
+        {
+            // Do nothing if not authenticated
+        }
+    }
+    
+    func update(with post: BlueskyAPI.Post)
+    {
+        self.resolvedBlueskyID = post.uri
+        
+        let sanitizedURI = post.uri.replacingOccurrences(of: "at://", with: "")
+        let components = sanitizedURI.split(separator: "/")
+        
+        if let profileDID = components.first, let rkey = components.last
+        {
+            let url = URL(string: "https://bsky.app/profile/\(profileDID)/post/\(rkey)")
+            self.resolvedBlueskyURL = url
+        }
+        
+        if let viewer = post.viewer
+        {
+            self.isLiked = (viewer.like != nil)
+        }
+        else
+        {
+            // Do nothing if not authenticated
+        }
     }
 }

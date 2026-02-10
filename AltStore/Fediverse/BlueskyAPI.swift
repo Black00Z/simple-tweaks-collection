@@ -253,14 +253,6 @@ extension BlueskyAPI
 
 extension BlueskyAPI
 {
-    func isTootLiked(tootID: Int, tootURL: URL) async throws -> Bool
-    {
-        guard let post = try await self.bridgedPost(forTootAtURL: tootURL) else { throw BlueskyError.postNotFound() }
-        
-        let isLiked = (post.viewer?.like != nil)
-        return isLiked
-    }
-    
     func like(_ post: Post) async throws
     {
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()

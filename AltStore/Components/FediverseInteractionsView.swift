@@ -166,7 +166,7 @@ struct FediverseInteractions: View
         .task(priority: .medium) {
             do
             {
-                isLiked = try await FederationManager.shared.isPostLiked(for: item)
+                try await FederationManager.shared.updateInteractions(for: [federatedItem])
             }
             catch
             {
@@ -174,7 +174,11 @@ struct FediverseInteractions: View
             }
         }
         .onAppear {
+            isLiked = federatedItem.isLiked
             likesCount = Int(federatedItem.likesCount)
+        }
+        .onChange(of: federatedItem.isLiked) { oldValue, newValue in
+            isLiked = newValue
         }
         .onChange(of: federatedItem.likesCount) { oldValue, newValue in
             likesCount = Int(newValue)
@@ -341,12 +345,10 @@ private extension FediverseInteractions
                 if self.isLiked
                 {
                     try await FederationManager.shared.like(item, presentingViewController: presentingViewController)
-                    self.likesCount += 1
                 }
                 else
                 {
                     try await FederationManager.shared.unlike(item, presentingViewController: presentingViewController)
-                    self.likesCount -= 1
                 }
                 
                 self.hapticGenerator.notificationOccurred(.success)

@@ -126,6 +126,7 @@ class AppViewController: UIViewController
         
         // Set before update()
         self._likesCount = Int(self.app.federatedItem?.likesCount ?? 0)
+        self._isLiked = self.app.federatedItem?.isLiked ?? false
         
         self.prepareSocialButtons()
         self.update()
@@ -488,35 +489,25 @@ private extension AppViewController
     
     func updateFediverseInteractions()
     {
-        guard let statusID = self.app.federatedID, let federatedItem = self.app.federatedItem else { return }
+        guard let federatedItem = self.app.federatedItem else { return }
         
         Task<Void, Never>(priority: .userInitiated) { @MainActor in
             do
             {
-                async let isTootLiked = FederationManager.shared.isPostLiked(for: federatedItem)
-                async let toots = MastodonAPI.shared.fetchToots(ids: [statusID])
-                
-                defer {
-                    // Upate UI even if fetching fails.
-                    self.update()
-                }
-                
-                self._isLiked = try await isTootLiked
+                try await FederationManager.shared.updateInteractions(for: [federatedItem])
                                 
-                guard let toot = try await toots.first else { return }
-                self._likesCount = toot.favourites_count
-                
-                let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-                try await context.perform {
-                    let federatedItem = context.object(with: federatedItem.objectID) as! FederatedItem
-                    federatedItem.uri = toot.uri
-                    federatedItem.url = toot.url
-                    federatedItem.likesCount = Int32(toot.favourites_count)
-                    federatedItem.boostsCount = Int32(toot.reblogs_count)
-                    federatedItem.commentsCount = Int32(toot.replies_count)
-                    
-                    try context.save()
+                if let federatedItem = self.app.federatedItem
+                {
+                    self._isLiked = federatedItem.isLiked
+                    self._likesCount = Int(federatedItem.likesCount)
                 }
+                else
+                {
+                    self._isLiked = false
+                    self._likesCount = 0
+                }
+                
+                self.update()
             }
             catch
             {
@@ -860,12 +851,10 @@ extension AppViewController
                 if self._isLiked
                 {
                     try await FederationManager.shared.like(federatedItem, presentingViewController: self)
-                    self._likesCount += 1
                 }
                 else
                 {
                     try await FederationManager.shared.unlike(federatedItem, presentingViewController: self)
-                    self._likesCount -= 1
                 }
                 
                 self.hapticGenerator.notificationOccurred(.success)
@@ -879,6 +868,8 @@ extension AppViewController
                 
                 self._isLiked = previousState
             }
+            
+            self._likesCount = Int(federatedItem.likesCount)
             
             self.update()
         }
