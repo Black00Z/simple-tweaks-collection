@@ -19,15 +19,12 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		01A6B167EF9613254D827A8F166A3B92 /* Pods-AltServer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A3F93787631B5439B1EA07C44C1097A /* Pods-AltServer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		082B0F879ADA3CD6151A946CFE378918 /* Pods-AltStore-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D840CC3B59B7D47A7FFB9412227979A /* Pods-AltStore-dummy.m */; };
-		2E53A61707C24CB86CE962F1C11EEF87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E7285950F30AEDF2E98CA6063BDD268 /* Security.framework */; };
+		01A6B167EF9613254D827A8F166A3B92 /* Pods-AltServer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AA4A34B7F7D8B402381C69AC2679EDAB /* Pods-AltServer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2E53A61707C24CB86CE962F1C11EEF87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 034CFF5A9584FCD3F6149B272960ADE0 /* Security.framework */; };
 		65B5A64F496A9E1114CEFCE6D0538EA4 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = C703E585F5F89563609DFC5144627796 /* STPrivilegedTask.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		6F28C95721C9C0DEDCC2E6598D35B20D /* Pods-AltStore-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6081D7C6AB755CB9BC246C8D4BBDA8DF /* Pods-AltStore-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7988291F7523D2315E2D407B48FD01C7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA38AB4FF4E8A2BD8C4DAD84E1E2CB9 /* Cocoa.framework */; };
-		89A0AD3548ADC0D4B22D0AA0F1412115 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA38AB4FF4E8A2BD8C4DAD84E1E2CB9 /* Cocoa.framework */; };
-		B4C865347925FC687B7C09EFDAEEF774 /* Pods-AltServer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E8434827ABB58D1C0275F5BDE3717F16 /* Pods-AltServer-dummy.m */; };
-		CC101F596F48EB970517376C35D5772F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAF64FCDA936453577795D41D46B792 /* Foundation.framework */; };
+		7988291F7523D2315E2D407B48FD01C7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 973601ED4FF5E2F8474B23A41E3585B9 /* Cocoa.framework */; };
+		89A0AD3548ADC0D4B22D0AA0F1412115 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 973601ED4FF5E2F8474B23A41E3585B9 /* Cocoa.framework */; };
+		B4C865347925FC687B7C09EFDAEEF774 /* Pods-AltServer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C3A950D86282BDC06220FCE42BA36C /* Pods-AltServer-dummy.m */; };
 		CE5C326BD3A4B7A05D18DC9BB42E2E70 /* STPrivilegedTask-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 845888B258D5AD0287604FCD4A37B38B /* STPrivilegedTask-dummy.m */; };
 		EF662217257FA52C063BB15A6A0FA60F /* STPrivilegedTask-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C5DBE281696F8E63900C2609E429DC59 /* STPrivilegedTask-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F155D0A2C3D2E7966375C0CA7924F21F /* STPrivilegedTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 12C0B533FEE6B0674312A24154B30CEB /* STPrivilegedTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -52,58 +49,48 @@
 
 /* Begin PBXFileReference section */
 		01E56853E46B4E291A15A329AC209AE9 /* SPUStandardUpdaterController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUStandardUpdaterController.h; path = Sparkle.framework/Versions/B/Headers/SPUStandardUpdaterController.h; sourceTree = "<group>"; };
+		034CFF5A9584FCD3F6149B272960ADE0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		074399F93D948309B74C93CBBE27F6CA /* SPUUpdatePermissionRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUUpdatePermissionRequest.h; path = Sparkle.framework/Versions/B/Headers/SPUUpdatePermissionRequest.h; sourceTree = "<group>"; };
 		0C37AFAADB29E7EDBA8AEB1BC4C16E67 /* SPUUpdateCheck.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUUpdateCheck.h; path = Sparkle.framework/Versions/B/Headers/SPUUpdateCheck.h; sourceTree = "<group>"; };
-		1215053FA027E4CE849DAF4D00697FF1 /* Pods-AltServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AltServer.release.xcconfig"; sourceTree = "<group>"; };
 		12C0B533FEE6B0674312A24154B30CEB /* STPrivilegedTask.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
 		17823CBA172792B0417FE17FA06D462F /* SUVersionDisplayProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUVersionDisplayProtocol.h; path = Sparkle.framework/Versions/B/Headers/SUVersionDisplayProtocol.h; sourceTree = "<group>"; };
 		1792746E303CAEFD5AFE50033AB5F080 /* Sparkle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Sparkle.h; path = Sparkle.framework/Versions/B/Headers/Sparkle.h; sourceTree = "<group>"; };
+		1A5C856E2022CBC0BF3FC1C634113465 /* Pods-AltServer-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AltServer-acknowledgements.markdown"; sourceTree = "<group>"; };
 		1DC3107FA447F0230CFD1DB7ADB83BFB /* SPUStandardUserDriver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUStandardUserDriver.h; path = Sparkle.framework/Versions/B/Headers/SPUStandardUserDriver.h; sourceTree = "<group>"; };
-		1FDDB64DD95C45BA9E30FFB7ECFB9C30 /* Pods-AltServer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-AltServer.modulemap"; sourceTree = "<group>"; };
 		24565CDE9A90B49C53D8BACDB386C3C2 /* SUVersionComparisonProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUVersionComparisonProtocol.h; path = Sparkle.framework/Versions/B/Headers/SUVersionComparisonProtocol.h; sourceTree = "<group>"; };
 		2467B61EB0A6DF57E399E9641A336B78 /* SPUUserDriver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUUserDriver.h; path = Sparkle.framework/Versions/B/Headers/SPUUserDriver.h; sourceTree = "<group>"; };
 		29F63A8EEB14302D36205A8F7AB6077A /* Sparkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Sparkle.release.xcconfig; sourceTree = "<group>"; };
-		2FA38AB4FF4E8A2BD8C4DAD84E1E2CB9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		32E60845FAB53A426F0D94E1898AF342 /* SPUUserUpdateState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUUserUpdateState.h; path = Sparkle.framework/Versions/B/Headers/SPUUserUpdateState.h; sourceTree = "<group>"; };
-		3A44D4EBF7CD579B73B275F0F125F846 /* Pods-AltServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AltServer.debug.xcconfig"; sourceTree = "<group>"; };
-		3BAF64FCDA936453577795D41D46B792 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		4620A106E3E12B24C9CBAB75D2B3AC22 /* SUAppcastItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUAppcastItem.h; path = Sparkle.framework/Versions/B/Headers/SUAppcastItem.h; sourceTree = "<group>"; };
-		4A3F93787631B5439B1EA07C44C1097A /* Pods-AltServer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AltServer-umbrella.h"; sourceTree = "<group>"; };
+		46D963A92910C8E082DD61F4FAD69D85 /* Pods-AltServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AltServer.release.xcconfig"; sourceTree = "<group>"; };
+		476E02B09064EFC6C977937BEB5E93D3 /* Pods-AltServer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AltServer-Info.plist"; sourceTree = "<group>"; };
 		4DB59D427CFF892A049652EE50DC5067 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		5D455B69CE56348C91790FCF673930D9 /* SPUUpdaterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUUpdaterDelegate.h; path = Sparkle.framework/Versions/B/Headers/SPUUpdaterDelegate.h; sourceTree = "<group>"; };
 		5E2F8DFA4192AEC0206AE6D93C99469D /* SPUDownloadData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloadData.h; path = Sparkle.framework/Versions/B/Headers/SPUDownloadData.h; sourceTree = "<group>"; };
-		6081D7C6AB755CB9BC246C8D4BBDA8DF /* Pods-AltStore-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AltStore-umbrella.h"; sourceTree = "<group>"; };
 		6381B90D20EE30AC7E973CC485050312 /* STPrivilegedTask-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "STPrivilegedTask-Info.plist"; sourceTree = "<group>"; };
-		676644EB1805E96CE47F7882733262B3 /* Pods-AltStore */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-AltStore"; path = Pods_AltStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		67F9C672B6F11F0BC41900AED4C10DE0 /* Pods-AltServer-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AltServer-acknowledgements.markdown"; sourceTree = "<group>"; };
+		6A7E561910CA8ED37E60B8BF454F816E /* Pods-AltServer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-AltServer.modulemap"; sourceTree = "<group>"; };
 		6AB65B30D4713F8D18806A7ABCFAACBE /* SUAppcast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUAppcast.h; path = Sparkle.framework/Versions/B/Headers/SUAppcast.h; sourceTree = "<group>"; };
-		6D840CC3B59B7D47A7FFB9412227979A /* Pods-AltStore-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AltStore-dummy.m"; sourceTree = "<group>"; };
 		7A00D41C8913E723E822464334F38D58 /* SUUpdatePermissionResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdatePermissionResponse.h; path = Sparkle.framework/Versions/B/Headers/SUUpdatePermissionResponse.h; sourceTree = "<group>"; };
-		7B98306DB8B3F7F66347923F9E9B0AB1 /* Pods-AltStore.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-AltStore.modulemap"; sourceTree = "<group>"; };
-		7E7285950F30AEDF2E98CA6063BDD268 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		827E121948344EAD1A1BAD926CD89E2C /* Pods-AltServer-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AltServer-acknowledgements.plist"; sourceTree = "<group>"; };
 		845888B258D5AD0287604FCD4A37B38B /* STPrivilegedTask-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "STPrivilegedTask-dummy.m"; sourceTree = "<group>"; };
 		85A00873E2E7070044AB957B61318309 /* SUUpdaterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdaterDelegate.h; path = Sparkle.framework/Versions/B/Headers/SUUpdaterDelegate.h; sourceTree = "<group>"; };
 		8EBF5043034AFB3A6A8F28C373BF0EC0 /* Pods-AltServer */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-AltServer"; path = Pods_AltServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		91203FEFD09BD6533A223ACCB6D53735 /* Pods-AltServer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AltServer-Info.plist"; sourceTree = "<group>"; };
+		8ED2881AD4B36402B04639DAE798E133 /* Pods-AltServer-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AltServer-frameworks.sh"; sourceTree = "<group>"; };
+		973601ED4FF5E2F8474B23A41E3585B9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		9B5BD538E93470B22D7F9C419C22B2CE /* Pods-AltServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AltServer.debug.xcconfig"; sourceTree = "<group>"; };
 		9D4AADA54FE80E1BA54004289BB5877F /* SPUUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUUpdater.h; path = Sparkle.framework/Versions/B/Headers/SPUUpdater.h; sourceTree = "<group>"; };
-		9D5B2D8DCA0BFE7CCE45B4129A80A0C3 /* Pods-AltStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AltStore.debug.xcconfig"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A93BA3FBC64C69E753658350D2AA30CC /* Pods-AltStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AltStore.release.xcconfig"; sourceTree = "<group>"; };
-		B2A445273865B092FB0ED0D736C5BF87 /* Pods-AltStore-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AltStore-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A0C3A950D86282BDC06220FCE42BA36C /* Pods-AltServer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AltServer-dummy.m"; sourceTree = "<group>"; };
+		AA4A34B7F7D8B402381C69AC2679EDAB /* Pods-AltServer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AltServer-umbrella.h"; sourceTree = "<group>"; };
+		AEDD500CD2067565955E6D7D98AC0B3D /* Pods-AltServer-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AltServer-acknowledgements.plist"; sourceTree = "<group>"; };
 		B38BBCF4B21CED5BD86B1ED5E1C1E883 /* STPrivilegedTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = STPrivilegedTask.debug.xcconfig; sourceTree = "<group>"; };
 		B53C78B17D384530612BC3018214411B /* SUErrors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUErrors.h; path = Sparkle.framework/Versions/B/Headers/SUErrors.h; sourceTree = "<group>"; };
 		B6952CEFB3E02AF5B08BAF0DFE693421 /* SUUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdater.h; path = Sparkle.framework/Versions/B/Headers/SUUpdater.h; sourceTree = "<group>"; };
 		B6B893EF19970E9E8BBE0AC26973C8A1 /* SUStandardVersionComparator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUStandardVersionComparator.h; path = Sparkle.framework/Versions/B/Headers/SUStandardVersionComparator.h; sourceTree = "<group>"; };
-		BC6F74406EF976ECC3669BD38B0ECED4 /* Pods-AltServer-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AltServer-frameworks.sh"; sourceTree = "<group>"; };
-		BFE510BB79EF4FBC949E1775F69BCF8E /* Pods-AltStore-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AltStore-acknowledgements.plist"; sourceTree = "<group>"; };
 		C5DBE281696F8E63900C2609E429DC59 /* STPrivilegedTask-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STPrivilegedTask-umbrella.h"; sourceTree = "<group>"; };
 		C703E585F5F89563609DFC5144627796 /* STPrivilegedTask.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
 		C856E47408140B4F9D46EDA13E65B3A3 /* Sparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Sparkle.debug.xcconfig; sourceTree = "<group>"; };
 		CAC23EC7621C671B491BBD6029BEFA01 /* SPUStandardUserDriverDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUStandardUserDriverDelegate.h; path = Sparkle.framework/Versions/B/Headers/SPUStandardUserDriverDelegate.h; sourceTree = "<group>"; };
-		D3B2D3CC554F2417ED014758C1AA4217 /* Pods-AltStore-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AltStore-Info.plist"; sourceTree = "<group>"; };
 		D48839F43D3C4E7F49EB44895E28A6B2 /* STPrivilegedTask.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = STPrivilegedTask.modulemap; sourceTree = "<group>"; };
-		E8434827ABB58D1C0275F5BDE3717F16 /* Pods-AltServer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AltServer-dummy.m"; sourceTree = "<group>"; };
 		ECB81C33948E641ABE3B268D296018CC /* STPrivilegedTask */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = STPrivilegedTask; path = STPrivilegedTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED18148A19F11F18612C18C91C3462FE /* SUExport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUExport.h; path = Sparkle.framework/Versions/B/Headers/SUExport.h; sourceTree = "<group>"; };
 		ED947CEEF85266B1A4477BCCCF101250 /* STPrivilegedTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = STPrivilegedTask.release.xcconfig; sourceTree = "<group>"; };
@@ -118,14 +105,6 @@
 			files = (
 				89A0AD3548ADC0D4B22D0AA0F1412115 /* Cocoa.framework in Frameworks */,
 				2E53A61707C24CB86CE962F1C11EEF87 /* Security.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		61719E5EDC468E428E62982F3BB6B35B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CC101F596F48EB970517376C35D5772F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,14 +127,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3FC1FCBFA4667C541FB74CC184C1D3BE /* Products */ = {
+		1E12AC3A52D2A0F27E63BFDD37F52887 /* Pods-AltServer */ = {
 			isa = PBXGroup;
 			children = (
-				8EBF5043034AFB3A6A8F28C373BF0EC0 /* Pods-AltServer */,
-				676644EB1805E96CE47F7882733262B3 /* Pods-AltStore */,
-				ECB81C33948E641ABE3B268D296018CC /* STPrivilegedTask */,
+				6A7E561910CA8ED37E60B8BF454F816E /* Pods-AltServer.modulemap */,
+				1A5C856E2022CBC0BF3FC1C634113465 /* Pods-AltServer-acknowledgements.markdown */,
+				AEDD500CD2067565955E6D7D98AC0B3D /* Pods-AltServer-acknowledgements.plist */,
+				A0C3A950D86282BDC06220FCE42BA36C /* Pods-AltServer-dummy.m */,
+				8ED2881AD4B36402B04639DAE798E133 /* Pods-AltServer-frameworks.sh */,
+				476E02B09064EFC6C977937BEB5E93D3 /* Pods-AltServer-Info.plist */,
+				AA4A34B7F7D8B402381C69AC2679EDAB /* Pods-AltServer-umbrella.h */,
+				9B5BD538E93470B22D7F9C419C22B2CE /* Pods-AltServer.debug.xcconfig */,
+				46D963A92910C8E082DD61F4FAD69D85 /* Pods-AltServer.release.xcconfig */,
 			);
-			name = Products;
+			name = "Pods-AltServer";
+			path = "Target Support Files/Pods-AltServer";
 			sourceTree = "<group>";
 		};
 		4B742CB94AD9375A8057D9B0C5E0290E /* STPrivilegedTask */ = {
@@ -169,38 +155,21 @@
 			path = STPrivilegedTask;
 			sourceTree = "<group>";
 		};
-		58EB1492D8D39A9B67877C0AB498AEDD /* iOS */ = {
+		9977BC3B29AD79160B1EE86C5C291BA5 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				3BAF64FCDA936453577795D41D46B792 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		A25CEE5A93D9C8F43DE9AB2C39CEE220 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				A623B766890FCB34E7F40129A4502B63 /* Pods-AltServer */,
-				DEADB9EA046CA886B8B71EE452D6C0D7 /* Pods-AltStore */,
+				1E12AC3A52D2A0F27E63BFDD37F52887 /* Pods-AltServer */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		A623B766890FCB34E7F40129A4502B63 /* Pods-AltServer */ = {
+		9DEEA395954C71555EB881F43EF3C4E6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1FDDB64DD95C45BA9E30FFB7ECFB9C30 /* Pods-AltServer.modulemap */,
-				67F9C672B6F11F0BC41900AED4C10DE0 /* Pods-AltServer-acknowledgements.markdown */,
-				827E121948344EAD1A1BAD926CD89E2C /* Pods-AltServer-acknowledgements.plist */,
-				E8434827ABB58D1C0275F5BDE3717F16 /* Pods-AltServer-dummy.m */,
-				BC6F74406EF976ECC3669BD38B0ECED4 /* Pods-AltServer-frameworks.sh */,
-				91203FEFD09BD6533A223ACCB6D53735 /* Pods-AltServer-Info.plist */,
-				4A3F93787631B5439B1EA07C44C1097A /* Pods-AltServer-umbrella.h */,
-				3A44D4EBF7CD579B73B275F0F125F846 /* Pods-AltServer.debug.xcconfig */,
-				1215053FA027E4CE849DAF4D00697FF1 /* Pods-AltServer.release.xcconfig */,
+				8EBF5043034AFB3A6A8F28C373BF0EC0 /* Pods-AltServer */,
+				ECB81C33948E641ABE3B268D296018CC /* STPrivilegedTask */,
 			);
-			name = "Pods-AltServer";
-			path = "Target Support Files/Pods-AltServer";
+			name = Products;
 			sourceTree = "<group>";
 		};
 		AAE0F39C16B1CFC786CDAC15F005F739 /* Sparkle */ = {
@@ -235,6 +204,23 @@
 			path = Sparkle;
 			sourceTree = "<group>";
 		};
+		B6DB0F5D9C3485B4DD4E98EE6790793C /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				973601ED4FF5E2F8474B23A41E3585B9 /* Cocoa.framework */,
+				034CFF5A9584FCD3F6149B272960ADE0 /* Security.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		C080C886C9E2F80D52E3E86A62E5B711 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B6DB0F5D9C3485B4DD4E98EE6790793C /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C0A8C1805F1C301ECE3A98DAEFE29444 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,10 +249,10 @@
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				F37AB47F83AA389EF0749C09209BE16E /* Frameworks */,
+				C080C886C9E2F80D52E3E86A62E5B711 /* Frameworks */,
 				C0A8C1805F1C301ECE3A98DAEFE29444 /* Pods */,
-				3FC1FCBFA4667C541FB74CC184C1D3BE /* Products */,
-				A25CEE5A93D9C8F43DE9AB2C39CEE220 /* Targets Support Files */,
+				9DEEA395954C71555EB881F43EF3C4E6 /* Products */,
+				9977BC3B29AD79160B1EE86C5C291BA5 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -278,40 +264,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Sparkle";
-			sourceTree = "<group>";
-		};
-		DEADB9EA046CA886B8B71EE452D6C0D7 /* Pods-AltStore */ = {
-			isa = PBXGroup;
-			children = (
-				7B98306DB8B3F7F66347923F9E9B0AB1 /* Pods-AltStore.modulemap */,
-				B2A445273865B092FB0ED0D736C5BF87 /* Pods-AltStore-acknowledgements.markdown */,
-				BFE510BB79EF4FBC949E1775F69BCF8E /* Pods-AltStore-acknowledgements.plist */,
-				6D840CC3B59B7D47A7FFB9412227979A /* Pods-AltStore-dummy.m */,
-				D3B2D3CC554F2417ED014758C1AA4217 /* Pods-AltStore-Info.plist */,
-				6081D7C6AB755CB9BC246C8D4BBDA8DF /* Pods-AltStore-umbrella.h */,
-				9D5B2D8DCA0BFE7CCE45B4129A80A0C3 /* Pods-AltStore.debug.xcconfig */,
-				A93BA3FBC64C69E753658350D2AA30CC /* Pods-AltStore.release.xcconfig */,
-			);
-			name = "Pods-AltStore";
-			path = "Target Support Files/Pods-AltStore";
-			sourceTree = "<group>";
-		};
-		F37AB47F83AA389EF0749C09209BE16E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				58EB1492D8D39A9B67877C0AB498AEDD /* iOS */,
-				F4D72FC4030FB15FA7D3FB8F5BD933C7 /* OS X */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F4D72FC4030FB15FA7D3FB8F5BD933C7 /* OS X */ = {
-			isa = PBXGroup;
-			children = (
-				2FA38AB4FF4E8A2BD8C4DAD84E1E2CB9 /* Cocoa.framework */,
-				7E7285950F30AEDF2E98CA6063BDD268 /* Security.framework */,
-			);
-			name = "OS X";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,14 +286,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FE611CD68A211FA015C946635A0BD95A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6F28C95721C9C0DEDCC2E6598D35B20D /* Pods-AltStore-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -361,24 +305,6 @@
 			name = STPrivilegedTask;
 			productName = STPrivilegedTask;
 			productReference = ECB81C33948E641ABE3B268D296018CC /* STPrivilegedTask */;
-			productType = "com.apple.product-type.framework";
-		};
-		7083360F3F274C756CA77375F9D2A2BD /* Pods-AltStore */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 88F92321499DE0F9D312EBEFFF96A48D /* Build configuration list for PBXNativeTarget "Pods-AltStore" */;
-			buildPhases = (
-				FE611CD68A211FA015C946635A0BD95A /* Headers */,
-				5503862A7D01B445ADBCE32B953CF030 /* Sources */,
-				61719E5EDC468E428E62982F3BB6B35B /* Frameworks */,
-				A5D1BF1506BC95D39F9A663FFF7963F1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-AltStore";
-			productName = Pods_AltStore;
-			productReference = 676644EB1805E96CE47F7882733262B3 /* Pods-AltStore */;
 			productType = "com.apple.product-type.framework";
 		};
 		89B529DD288896C2EFC49575065F70FB /* Pods-AltServer */ = {
@@ -421,12 +347,11 @@
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			minimizedProjectReferenceProxies = 0;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 3FC1FCBFA4667C541FB74CC184C1D3BE /* Products */;
+			productRefGroup = 9DEEA395954C71555EB881F43EF3C4E6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				89B529DD288896C2EFC49575065F70FB /* Pods-AltServer */,
-				7083360F3F274C756CA77375F9D2A2BD /* Pods-AltStore */,
 				ED77B4B88587C894E85C361023D67C53 /* Sparkle */,
 				05327B1DB6967DBAA19D1ED734FDBD96 /* STPrivilegedTask */,
 			);
@@ -435,13 +360,6 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		9C8AAED31893BD044B204B4B2C970AAA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5D1BF1506BC95D39F9A663FFF7963F1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -458,14 +376,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5503862A7D01B445ADBCE32B953CF030 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				082B0F879ADA3CD6151A946CFE378918 /* Pods-AltStore-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BD1B17E0C28987C7C661898490FBF903 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -561,7 +471,7 @@
 			};
 			name = Debug;
 		};
-		3FD2A8D8022264A60B8325F2DDE08AF0 /* Debug */ = {
+		4322AFBDA90201C67553D41C9A18133D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -614,7 +524,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MACOSX_DEPLOYMENT_TARGET = 11;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -628,50 +537,9 @@
 			};
 			name = Debug;
 		};
-		42D699646AEE32E522707A89D68037E7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A93BA3FBC64C69E753658350D2AA30CC /* Pods-AltStore.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-AltStore/Pods-AltStore-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MODULEMAP_FILE = "Target Support Files/Pods-AltStore/Pods-AltStore.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		8AD9C17B57BD4A12889292805D2FC541 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3A44D4EBF7CD579B73B275F0F125F846 /* Pods-AltServer.debug.xcconfig */;
+			baseConfigurationReference = 9B5BD538E93470B22D7F9C419C22B2CE /* Pods-AltServer.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -751,7 +619,7 @@
 		};
 		A72BC2EB21B073E4F3814CEBA825B6BB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1215053FA027E4CE849DAF4D00697FF1 /* Pods-AltServer.release.xcconfig */;
+			baseConfigurationReference = 46D963A92910C8E082DD61F4FAD69D85 /* Pods-AltServer.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -809,7 +677,7 @@
 			};
 			name = Debug;
 		};
-		C46CABA9197260A7936CEF588DB225CD /* Release */ = {
+		F49A149436715316D845E10B5263C8DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -859,7 +727,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MACOSX_DEPLOYMENT_TARGET = 11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -871,46 +738,6 @@
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
-		};
-		C91C0B76AA372DD08706E7F59391F725 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D5B2D8DCA0BFE7CCE45B4129A80A0C3 /* Pods-AltStore.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-AltStore/Pods-AltStore-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MODULEMAP_FILE = "Target Support Files/Pods-AltStore/Pods-AltStore.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -936,17 +763,8 @@
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3FD2A8D8022264A60B8325F2DDE08AF0 /* Debug */,
-				C46CABA9197260A7936CEF588DB225CD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		88F92321499DE0F9D312EBEFFF96A48D /* Build configuration list for PBXNativeTarget "Pods-AltStore" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C91C0B76AA372DD08706E7F59391F725 /* Debug */,
-				42D699646AEE32E522707A89D68037E7 /* Release */,
+				4322AFBDA90201C67553D41C9A18133D /* Debug */,
+				F49A149436715316D845E10B5263C8DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

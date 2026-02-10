@@ -1,11 +1,5 @@
 inhibit_all_warnings!
 
-target 'AltStore' do
-  platform :ios, '14.0'
-
-  use_frameworks!
-end
-
 target 'AltServer' do
   platform :macos, '11'
 

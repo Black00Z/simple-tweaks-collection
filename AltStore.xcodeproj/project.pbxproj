@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A77E3D272F3D92436FAC272 /* Pods_AltStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EEAA842DA87A88A870053B /* Pods_AltStore.framework */; };
 		820059C32F36BBAA00C22365 /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820059C22F36BBAA00C22365 /* SafariActivity.swift */; };
 		825DAD9E2F0C329C00E0EDF1 /* FediverseLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825DAD9D2F0C329C00E0EDF1 /* FediverseLikesView.swift */; };
 		82BBB9342F185B33005A472E /* AppIcon_Japan.icon in Resources */ = {isa = PBXBuildFile; fileRef = 82BBB9332F185B33005A472E /* AppIcon_Japan.icon */; };
@@ -719,7 +718,6 @@
 		82CB1FB22EBABB0100C8E822 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		82D6ED872EE9E62D009DC668 /* SourceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCollectionViewController.swift; sourceTree = "<group>"; };
 		82D6ED892EEA137A009DC668 /* TaskGroup+Collated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskGroup+Collated.swift"; sourceTree = "<group>"; };
-		A136EE677716B80768E9F0A2 /* Pods-AltStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltStore.release.xcconfig"; path = "Target Support Files/Pods-AltStore/Pods-AltStore.release.xcconfig"; sourceTree = "<group>"; };
 		BF02419522F2199300129732 /* RefreshAttemptsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAttemptsViewController.swift; sourceTree = "<group>"; };
 		BF0241A922F29CCD00129732 /* UserDefaults+AltServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+AltServer.swift"; sourceTree = "<group>"; };
 		BF08858222DE795100DE9F1E /* MyAppsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppsViewController.swift; sourceTree = "<group>"; };
@@ -1053,7 +1051,6 @@
 		BFF7C93B257849C600E55F36 /* AltXPC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AltXPC.entitlements; sourceTree = "<group>"; };
 		BFF7EC4C25081E9300BDE521 /* AltStore 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 8.xcdatamodel"; sourceTree = "<group>"; };
 		BFFCFA45248835530077BFCE /* AltDaemon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AltDaemon.entitlements; sourceTree = "<group>"; };
-		C9EEAA842DA87A88A870053B /* Pods_AltStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AltStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50107EB2ADF2E1A0069F2A1 /* AddSourceTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSourceTextFieldCell.swift; sourceTree = "<group>"; };
 		D5066FC02F1393DA0055B38A /* AltStore 21.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 21.xcdatamodel"; sourceTree = "<group>"; };
 		D5066FC12F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = AltStore20ToAltStore21.xcmappingmodel; sourceTree = "<group>"; };
@@ -1238,7 +1235,6 @@
 		D5FD4EC42A952EAD0097BEE8 /* AltWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltWidgetBundle.swift; sourceTree = "<group>"; };
 		D5FD4EC82A9530C00097BEE8 /* AppSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSnapshot.swift; sourceTree = "<group>"; };
 		D5FD4ECA2A9532960097BEE8 /* DatabaseManager+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseManager+Async.swift"; sourceTree = "<group>"; };
-		EA79A60285C6AF5848AA16E9 /* Pods-AltStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltStore.debug.xcconfig"; path = "Target Support Files/Pods-AltStore/Pods-AltStore.debug.xcconfig"; sourceTree = "<group>"; };
 		FC3822AB1C4CF1D4CDF7445D /* Pods_AltServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AltServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1316,7 +1312,6 @@
 				BF088D332501A4FF008082D9 /* OpenSSL.xcframework in Frameworks */,
 				D51F17492F3BAA4E0016D08B /* NukeUI in Frameworks */,
 				BF66EE852501AE50007EE018 /* AltStoreCore.framework in Frameworks */,
-				2A77E3D272F3D92436FAC272 /* Pods_AltStore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1360,8 +1355,6 @@
 		4460E048E3AC1C9708C4FA33 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EA79A60285C6AF5848AA16E9 /* Pods-AltStore.debug.xcconfig */,
-				A136EE677716B80768E9F0A2 /* Pods-AltStore.release.xcconfig */,
 				11611D46F8A7C8B928E8156B /* Pods-AltServer.debug.xcconfig */,
 				589BA531D903B28F292063E5 /* Pods-AltServer.release.xcconfig */,
 			);
@@ -2065,7 +2058,6 @@
 				BF4588872298DD3F00BD7491 /* libxml2.tbd */,
 				BFD247862284BB3B00981D42 /* Roxas.framework */,
 				FC3822AB1C4CF1D4CDF7445D /* Pods_AltServer.framework */,
-				C9EEAA842DA87A88A870053B /* Pods_AltStore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2775,7 +2767,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFD2477E2284B9A700981D42 /* Build configuration list for PBXNativeTarget "AltStore" */;
 			buildPhases = (
-				FFB93342C7EB2021A1FFFB6A /* [CP] Check Pods Manifest.lock */,
 				BFD247662284B9A500981D42 /* Sources */,
 				BFD247672284B9A500981D42 /* Frameworks */,
 				BFD247682284B9A500981D42 /* Resources */,
@@ -3098,13 +3089,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AltServer/Pods-AltServer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AltServer/Pods-AltServer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3145,28 +3132,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-AltServer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FFB93342C7EB2021A1FFFB6A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AltStore-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4418,7 +4383,6 @@
 		};
 		BFD2477F2284B9A700981D42 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA79A60285C6AF5848AA16E9 /* Pods-AltStore.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4454,7 +4418,6 @@
 		};
 		BFD247802284B9A700981D42 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A136EE677716B80768E9F0A2 /* Pods-AltStore.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
