@@ -101,6 +101,12 @@ extension SourceHeaderView
             self.websiteImageView.isHidden = true
         }
         
-        NukeExtensions.loadImage(with: source.effectiveIconURL, into: self.iconImageView)
+        NukeExtensions.loadImage(with: source.effectiveIconURL, into: self.iconImageView) { result in
+            switch result
+            {
+            case .failure(let error): Logger.main.error("Failed to fetch source icon from \(source.effectiveIconURL?.absoluteString ?? "nil", privacy: .public). \(error.localizedDescription, privacy: .public)")
+            case .success: self.iconImageView.backgroundColor = .white // In case icon has transparent background.
+            }
+        }
     }
 }

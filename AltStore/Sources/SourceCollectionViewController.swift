@@ -370,7 +370,7 @@ private extension SourceCollectionViewController
             if let image
             {
                 cell.bannerView.iconImageView.image = image
-                cell.bannerView.iconImageView.backgroundColor = .clear
+                cell.bannerView.iconImageView.backgroundColor = .white
             }
             else if let error = error
             {

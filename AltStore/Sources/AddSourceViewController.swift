@@ -407,11 +407,11 @@ private extension AddSourceViewController
             
             if let error
             {
-                Logger.main.error("Failed to load app icon in source preview: \(error.localizedDescription, privacy: .public)")
+                Logger.main.error("Failed to load source icon in source preview: \(error.localizedDescription, privacy: .public)")
             }
             else
             {
-                cell.bannerView.iconImageView.backgroundColor = .clear
+                cell.bannerView.iconImageView.backgroundColor = .white
             }
         }
         
@@ -446,11 +446,11 @@ private extension AddSourceViewController
             
             if let error
             {
-                Logger.main.error("Failed to load app icon in recommended sources: \(error.localizedDescription, privacy: .public)")
+                Logger.main.error("Failed to load source icon in recommended sources: \(error.localizedDescription, privacy: .public)")
             }
             else
             {
-                cell.bannerView.iconImageView.backgroundColor = .clear
+                cell.bannerView.iconImageView.backgroundColor = .white
             }
         }
         
