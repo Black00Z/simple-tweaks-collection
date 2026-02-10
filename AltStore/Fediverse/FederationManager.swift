@@ -41,7 +41,8 @@ extension FederationManager
             account = try await BlueskyAPI.shared.authenticate(presentingViewController: presentingViewController)
             
             // Bluesky users must be bridged to the Fediverse via Bridgy Fed.
-            let isBridged = try await BlueskyAPI.shared.isFollowingAccount(handle: BlueskyAPI.bridgyFedHandle)
+            let bridgyFed = try await BlueskyAPI.shared.fetchAccount(handle: BlueskyAPI.bridgyFedHandle)
+            let isBridged = (bridgyFed.viewer?.following != nil) || (bridgyFed.viewer?.followedBy != nil) // Check if following OR followed by Bridgy Fed account.
             if !isBridged
             {
                 let title = String(localized: "Would you like to bridge your Bluesky account to the fediverse?")

@@ -291,6 +291,22 @@ extension BlueskyAPI
     
     func isFollowingAccount(handle: String) async throws -> Bool
     {
+        let account = try await self.fetchAccount(handle: handle)
+        
+        let isFollowing = (account.viewer?.following != nil)
+        return isFollowing
+    }
+    
+    func isFollowedByAccount(handle: String) async throws -> Bool
+    {
+        let account = try await self.fetchAccount(handle: handle)
+        
+        let isFollowedBy = (account.viewer?.followedBy != nil)
+        return isFollowedBy
+    }
+    
+    func fetchAccount(handle: String) async throws -> Account
+    {
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
         let serverURL = try await context.perform {
             guard let socialWebAccount = DatabaseManager.shared.socialWebAccount(in: context) else { throw BlueskyError.unauthorized() }
@@ -308,9 +324,7 @@ extension BlueskyAPI
         let request = URLRequest(url: requestURL)
         
         let response: Account = try await self.send(request, authorizationType: .user)
-        
-        let isFollowing = (response.viewer?.following != nil)
-        return isFollowing
+        return response
     }
     
     func followAccount(handle: String) async throws
