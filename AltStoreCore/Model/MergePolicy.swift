@@ -193,6 +193,8 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
         
         var featuredAppIDsBySourceID = [String: [String]]()
         
+        var federatedItemsSnapshotsByID = [String: NSDictionary]()
+        
         for conflict in conflicts
         {
             switch conflict.databaseObject
@@ -238,14 +240,6 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
                 if let featuredSortID = databaseObject.featuredSortID
                 {
                     contextApp.featuredSortID = featuredSortID
-                }
-                
-                // Revert null Fediverse interactions to database values.
-                if contextApp.value(forKey: #keyPath(StoreApp.likesCount)) == nil || contextApp.value(forKey: #keyPath(StoreApp.boostsCount)) == nil || contextApp.value(forKey: #keyPath(StoreApp.commentsCount)) == nil
-                {
-                    contextApp.likesCount = databaseObject.likesCount
-                    contextApp.boostsCount = databaseObject.boostsCount
-                    contextApp.commentsCount = databaseObject.commentsCount
                 }
                 
             case let databaseObject as Source:
@@ -312,27 +306,17 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
                     databasePledge.managedObjectContext?.delete(databasePledge)
                 }
                 
-            case let databaseObject as NewsItem:
-                guard let contextObject = conflict.conflictingObjects.first as? NewsItem else { break }
+            case let databaseItem as FederatedItem:
+                let snapshot = conflict.snapshots.object(forKey: databaseItem)
                 
-                // Revert null Fediverse interactions to database values.
-                if contextObject.value(forKey: #keyPath(NewsItem.likesCount)) == nil || contextObject.value(forKey: #keyPath(NewsItem.boostsCount)) == nil || contextObject.value(forKey: #keyPath(NewsItem.commentsCount)) == nil
+                let filteredSnapshot = NSMutableDictionary()
+                for (key, value) in snapshot ?? [:]
                 {
-                    contextObject.likesCount = databaseObject.likesCount
-                    contextObject.boostsCount = databaseObject.boostsCount
-                    contextObject.commentsCount = databaseObject.commentsCount
+                    guard !(value is NSManagedObject) else { continue }
+                    filteredSnapshot[key] = value
                 }
                 
-            case let databaseObject as AppVersion:
-                guard let contextObject = conflict.conflictingObjects.first as? AppVersion else { break }
-                
-                // Revert null Fediverse interactions to database values.
-                if contextObject.value(forKey: #keyPath(AppVersion.likesCount)) == nil || contextObject.value(forKey: #keyPath(AppVersion.boostsCount)) == nil || contextObject.value(forKey: #keyPath(AppVersion.commentsCount)) == nil
-                {
-                    contextObject.likesCount = databaseObject.likesCount
-                    contextObject.boostsCount = databaseObject.boostsCount
-                    contextObject.commentsCount = databaseObject.commentsCount
-                }
+                federatedItemsSnapshotsByID[databaseItem.identifier] = filteredSnapshot
                 
             default: break
             }
@@ -445,6 +429,16 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
                 // Update featuredApps post-merging to make sure relationships are correct,
                 // even if the ordering is correct.
                 databaseObject.setFeaturedApps(featuredApps)
+                
+            case let databaseObject as FederatedItem:
+                guard let snapshot = federatedItemsSnapshotsByID[databaseObject.identifier] else { break }
+                
+                // Reset values to previous database values.
+                for (key, value) in snapshot
+                {
+                    guard let key = key as? String else { continue }
+                    databaseObject.setValue(value, forKey: key)
+                }
                 
             default: break
             }

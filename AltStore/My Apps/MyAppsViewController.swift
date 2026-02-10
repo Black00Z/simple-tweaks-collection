@@ -285,13 +285,13 @@ private extension MyAppsViewController
             
             cell.versionDescriptionTextView.moreButton.addTarget(self, action: #selector(MyAppsViewController.toggleUpdateCellMode(_:)), for: .primaryActionTriggered)
             
-            if latestSupportedVersion.federatedURL != nil
+            if let federatedItem = latestSupportedVersion.federatedItem
             {
                 cell.fediverseInteractionsView.isHidden = false
                 cell.fediverseInteractionsView.tintColor = app.tintColor ?? .altPrimary
                 cell.fediverseInteractionsView.shareHandler = { [weak self] _ in self }
                 cell.fediverseInteractionsView.presentingViewController = self
-                cell.fediverseInteractionsView.configure(with: latestSupportedVersion)
+                cell.fediverseInteractionsView.configure(with: federatedItem)
             }
             else
             {
@@ -747,7 +747,7 @@ private extension MyAppsViewController
                 let storeApps = (self.updatesDataSource.fetchedResultsController.fetchedObjects ?? []).compactMap { $0.storeApp }
                 
                 let objectIDs = Set(storeApps.map(\.objectID))
-                let statusIDs = Set(storeApps.compactMap { $0.statusID })
+                let statusIDs = Set(storeApps.compactMap { $0.federatedID })
                 
                 let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
                 let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
@@ -758,11 +758,12 @@ private extension MyAppsViewController
                     let storeApps = objectIDs.compactMap { context.object(with: $0) as? StoreApp }
                     for storeApp in storeApps
                     {
-                        guard let statusID = storeApp.statusID, let toot = tootsByID[statusID] else { continue }
-                        storeApp.federatedURL = toot.url
-                        storeApp.likesCount = Int32(toot.favourites_count)
-                        storeApp.boostsCount = Int32(toot.reblogs_count)
-                        storeApp.commentsCount = Int32(toot.replies_count)
+                        guard let federatedItem = storeApp.federatedItem, let toot = tootsByID[federatedItem.identifier] else { continue }
+                        federatedItem.uri = toot.uri
+                        federatedItem.url = toot.url
+                        federatedItem.likesCount = Int32(toot.favourites_count)
+                        federatedItem.boostsCount = Int32(toot.reblogs_count)
+                        federatedItem.commentsCount = Int32(toot.replies_count)
                     }
                     
                     try context.save()

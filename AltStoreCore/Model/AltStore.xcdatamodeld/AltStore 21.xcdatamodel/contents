@@ -62,13 +62,10 @@
     <entity name="AppVersion" representedClassName="AppVersion" syncable="YES">
         <attribute name="appBundleID" attributeType="String"/>
         <attribute name="assetURLs" optional="YES" attributeType="Transformable" valueTransformerName="ALTSecureValueTransformer"/>
-        <attribute name="boostsCount" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
         <attribute name="buildVersion" attributeType="String"/>
-        <attribute name="commentsCount" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="downloadURL" attributeType="URI"/>
-        <attribute name="federatedURL" optional="YES" attributeType="URI"/>
-        <attribute name="likesCount" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
+        <attribute name="federatedID" optional="YES" attributeType="String"/>
         <attribute name="localizedDescription" optional="YES" attributeType="String"/>
         <attribute name="marketingVersion" optional="YES" attributeType="String"/>
         <attribute name="maxOSVersion" optional="YES" attributeType="String"/>
@@ -77,9 +74,9 @@
         <attribute name="sha256" optional="YES" attributeType="String"/>
         <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="sourceID" optional="YES" attributeType="String"/>
-        <attribute name="statusID" optional="YES" attributeType="String"/>
         <attribute name="version" attributeType="String"/>
         <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreApp" inverseName="versions" inverseEntity="StoreApp"/>
+        <relationship name="federatedItem" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FederatedItem" inverseName="appVersion" inverseEntity="FederatedItem"/>
         <relationship name="latestVersionApp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreApp" inverseName="latestVersion" inverseEntity="StoreApp"/>
         <fetchIndex name="byNormalizedDownloadURL">
             <fetchIndexElement property="normalizedDownloadURL" type="Binary" order="ascending"/>
@@ -90,6 +87,23 @@
                 <constraint value="version"/>
                 <constraint value="buildVersion"/>
                 <constraint value="sourceID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="FederatedItem" representedClassName="FederatedItem" syncable="YES">
+        <attribute name="boostsCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="commentsCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" attributeType="Date" defaultDateTimeInterval="735062400" usesScalarValueType="NO"/>
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="likesCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="uri" attributeType="URI"/>
+        <attribute name="url" attributeType="URI"/>
+        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreApp" inverseName="federatedItem" inverseEntity="StoreApp"/>
+        <relationship name="appVersion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppVersion" inverseName="federatedItem" inverseEntity="AppVersion"/>
+        <relationship name="newsItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NewsItem" inverseName="federatedItem" inverseEntity="NewsItem"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="identifier"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
@@ -141,21 +155,18 @@
     </entity>
     <entity name="NewsItem" representedClassName="NewsItem" syncable="YES">
         <attribute name="appID" optional="YES" attributeType="String"/>
-        <attribute name="boostsCount" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
         <attribute name="caption" attributeType="String"/>
-        <attribute name="commentsCount" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="externalURL" optional="YES" attributeType="URI"/>
-        <attribute name="federatedURL" optional="YES" attributeType="URI"/>
+        <attribute name="federatedID" optional="YES" attributeType="String"/>
         <attribute name="identifier" attributeType="String"/>
         <attribute name="imageURL" optional="YES" attributeType="URI"/>
         <attribute name="isSilent" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
-        <attribute name="likesCount" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
         <attribute name="sortIndex" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sourceIdentifier" optional="YES" attributeType="String"/>
-        <attribute name="statusID" optional="YES" attributeType="String"/>
         <attribute name="tintColor" optional="YES" attributeType="Transformable" valueTransformerName="ALTSecureValueTransformer"/>
         <attribute name="title" attributeType="String"/>
+        <relationship name="federatedItem" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FederatedItem" inverseName="newsItem" inverseEntity="FederatedItem"/>
         <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Source" inverseName="newsItems" inverseEntity="Source"/>
         <relationship name="storeApp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreApp" inverseName="newsItems" inverseEntity="StoreApp"/>
         <uniquenessConstraints>
@@ -271,20 +282,17 @@
         </uniquenessConstraints>
     </entity>
     <entity name="StoreApp" representedClassName="StoreApp" syncable="YES">
-        <attribute name="boostsCount" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
         <attribute name="bundleIdentifier" attributeType="String"/>
         <attribute name="category" optional="YES" attributeType="String"/>
-        <attribute name="commentsCount" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
         <attribute name="developerName" attributeType="String"/>
         <attribute name="downloadURL" attributeType="URI"/>
         <attribute name="featuredSortID" optional="YES" attributeType="String"/>
-        <attribute name="federatedURL" optional="YES" attributeType="URI"/>
+        <attribute name="federatedID" optional="YES" attributeType="String"/>
         <attribute name="iconURL" attributeType="URI"/>
         <attribute name="isBeta" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isHiddenWithoutPledge" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isPledged" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isPledgeRequired" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="likesCount" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
         <attribute name="localizedDescription" attributeType="String"/>
         <attribute name="marketplaceID" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
@@ -295,13 +303,13 @@
         <attribute name="size" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sortIndex" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sourceIdentifier" optional="YES" attributeType="String"/>
-        <attribute name="statusID" optional="YES" attributeType="String"/>
         <attribute name="subtitle" optional="YES" attributeType="String"/>
         <attribute name="tintColor" optional="YES" attributeType="Transformable" valueTransformerName="ALTSecureValueTransformer"/>
         <attribute name="version" attributeType="String"/>
         <attribute name="versionDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="versionDescription" optional="YES" attributeType="String"/>
         <relationship name="featuringSource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Source" inverseName="featuredApps" inverseEntity="Source"/>
+        <relationship name="federatedItem" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FederatedItem" inverseName="app" inverseEntity="FederatedItem"/>
         <relationship name="installedApp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InstalledApp" inverseName="storeApp" inverseEntity="InstalledApp"/>
         <relationship name="latestVersion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppVersion" inverseName="latestVersionApp" inverseEntity="AppVersion"/>
         <relationship name="loggedErrors" toMany="YES" deletionRule="Nullify" destinationEntity="LoggedError" inverseName="storeApp" inverseEntity="LoggedError"/>

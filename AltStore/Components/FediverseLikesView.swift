@@ -11,8 +11,8 @@ import AltStoreCore
 
 struct FediverseLikesView: View
 {
-    var statusURL: URL
-    var statusID: Int
+    @ObservedObject
+    var federatedItem: FederatedItem
     
     @State
     private var accounts: [MastodonAPI.Account]?
@@ -110,7 +110,7 @@ struct FediverseLikesView: View
     {
         do
         {
-            var likedBy = try await MastodonAPI.shared.fetchFavorites(tootID: statusID)
+            var likedBy = try await MastodonAPI.shared.fetchFavorites(tootID: federatedItem.identifier)
             Logger.main.debug("Fetched likes: \(likedBy, privacy: .public)")
             
             await fetchBlueskyProfiles(for: likedBy)
@@ -254,9 +254,5 @@ private struct AccountRow: View
         default: return Image("MastodonBadge")
         }
     }
-}
-
-#Preview {
-    FediverseLikesView(statusURL: URL(string: "https://explore.alt.store/@altstore/115738568314750404")!, statusID: 115738568314750404)
 }
 

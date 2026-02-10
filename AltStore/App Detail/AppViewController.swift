@@ -125,7 +125,7 @@ class AppViewController: UIViewController
         }
         
         // Set before update()
-        self._likesCount = Int(self.app.likesCount)
+        self._likesCount = Int(self.app.federatedItem?.likesCount ?? 0)
         
         self.prepareSocialButtons()
         self.update()
@@ -488,12 +488,12 @@ private extension AppViewController
     
     func updateFediverseInteractions()
     {
-        guard let statusID = self.app.statusID else { return }
+        guard let statusID = self.app.federatedID, let federatedItem = self.app.federatedItem else { return }
         
         Task<Void, Never>(priority: .userInitiated) { @MainActor in
             do
             {
-                async let isTootLiked = FederationManager.shared.isPostLiked(for: self.app)
+                async let isTootLiked = FederationManager.shared.isPostLiked(for: federatedItem)
                 async let toots = MastodonAPI.shared.fetchToots(ids: [statusID])
                 
                 defer {
@@ -508,12 +508,12 @@ private extension AppViewController
                 
                 let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
                 try await context.perform {
-                    let storeApp = context.object(with: self.app.objectID) as! StoreApp
-
-                    storeApp.federatedURL = toot.url
-                    storeApp.likesCount = Int32(toot.favourites_count)
-                    storeApp.boostsCount = Int32(toot.reblogs_count)
-                    storeApp.commentsCount = Int32(toot.replies_count)
+                    let federatedItem = context.object(with: federatedItem.objectID) as! FederatedItem
+                    federatedItem.uri = toot.uri
+                    federatedItem.url = toot.url
+                    federatedItem.likesCount = Int32(toot.favourites_count)
+                    federatedItem.boostsCount = Int32(toot.reblogs_count)
+                    federatedItem.commentsCount = Int32(toot.replies_count)
                     
                     try context.save()
                 }
@@ -668,8 +668,8 @@ private extension AppViewController
         self.moreButton.showsMenuAsPrimaryAction = true
         
         let openURLAction = UIAction(title: NSLocalizedString("Open in Browser", comment: ""), image: UIImage(systemName: "safari"), handler: { [weak self] _ in
-            guard let federatedURL = self?.app.federatedURL else { return }
-            UIApplication.shared.open(federatedURL)
+            guard let federatedItem = self?.app.federatedItem else { return }
+            UIApplication.shared.open(federatedItem.url)
         })
         let showLikesAction = UIAction(title: NSLocalizedString("View Likes", comment: ""), image: UIImage(systemName: "heart"), handler: { [weak self] _ in
             self?.showLikes()
@@ -817,9 +817,9 @@ extension AppViewController
     
     @objc func showLikes()
     {
-        guard let rawStatusID = self.app.statusID, let statusID = Int(rawStatusID), let federatedURL = self.app.federatedURL else { return }
+        guard let federatedItem = self.app.federatedItem else { return }
         
-        let hostingController = UIHostingController(rootView: FediverseLikesView(statusURL: federatedURL, statusID: statusID))
+        let hostingController = UIHostingController(rootView: FediverseLikesView(federatedItem: federatedItem))
         hostingController.view.backgroundColor = .clear
         
         let navigationController = UINavigationController(rootViewController: hostingController)
@@ -837,9 +837,9 @@ extension AppViewController
     
     @objc func shareApp()
     {
-        guard let federatedURL = self.app.federatedURL else { return }
-        
-        let activityViewController = UIActivityViewController(activityItems: [federatedURL], applicationActivities: nil)
+        guard let shareURL = self.app.shareURL else { return }
+                
+        let activityViewController = UIActivityViewController(activityItems: [shareURL], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.moreButton
         activityViewController.popoverPresentationController?.sourceRect = self.moreButton.bounds
         self.present(activityViewController, animated: true)
@@ -847,6 +847,8 @@ extension AppViewController
     
     @objc func likeApp()
     {
+        guard let federatedItem = self.app.federatedItem else { return }
+        
         Task<Void, Never> {
             let previousState = self._isLiked
             
@@ -857,12 +859,12 @@ extension AppViewController
             {
                 if self._isLiked
                 {
-                    try await FederationManager.shared.like(self.app, presentingViewController: self)
+                    try await FederationManager.shared.like(federatedItem, presentingViewController: self)
                     self._likesCount += 1
                 }
                 else
                 {
-                    try await FederationManager.shared.unlike(self.app, presentingViewController: self)
+                    try await FederationManager.shared.unlike(federatedItem, presentingViewController: self)
                     self._likesCount -= 1
                 }
                 

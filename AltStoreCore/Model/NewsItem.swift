@@ -25,19 +25,14 @@ public class NewsItem: NSManagedObject, Decodable, Fetchable, Federatable
     @NSManaged public var imageURL: URL?
     @NSManaged public var externalURL: URL?
     
-    // Federation
-    @NSManaged public var statusID: String?
-    @NSManaged public var federatedURL: URL?
-    @NSManaged public var likesCount: Int32
-    @NSManaged public var boostsCount: Int32
-    @NSManaged public var commentsCount: Int32
-    
     @NSManaged public var appID: String?
     @NSManaged public var sourceIdentifier: String?
+    @NSManaged public var federatedID: String?
     
     /* Relationships */
     @NSManaged public var storeApp: StoreApp?
     @NSManaged public var source: Source?
+    @NSManaged public var federatedItem: FederatedItem?
     
     private enum CodingKeys: String, CodingKey
     {
@@ -119,6 +114,11 @@ public extension NewsItem
     
     var effectiveTintColor: UIColor {
         return self.tintColor ?? self.storeApp?.tintColor ?? self.source?.effectiveTintColor ?? .altPrimary
+    }
+    
+    var shareURL: URL? {
+        // We don't have a landing page for news items, so just return federatedItem's URL instead.
+        return self.federatedItem?.url
     }
 }
 

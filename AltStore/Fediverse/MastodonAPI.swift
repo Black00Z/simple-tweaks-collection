@@ -267,7 +267,7 @@ extension MastodonAPI
 
 extension MastodonAPI
 {
-    func fetchFavorites(tootID: Int, limit: Int? = 80) async throws -> [Account]
+    func fetchFavorites(tootID: String, limit: Int? = 80) async throws -> [Account]
     {
         let startTime = CFAbsoluteTimeGetCurrent()
         

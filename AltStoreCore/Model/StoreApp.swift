@@ -113,6 +113,8 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
     }
     @NSManaged @objc(marketplaceID) public private(set) var _marketplaceID: String? // Ugh, we used String in 2.0rc and now we're stuck with it.
     
+    @NSManaged public var federatedID: String?
+    
     @NSManaged public var isPledged: Bool
     @NSManaged public private(set) var isPledgeRequired: Bool
     @NSManaged public private(set) var isHiddenWithoutPledge: Bool
@@ -121,13 +123,6 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
     
     @nonobjc public var pledgeAmount: Decimal? { _pledgeAmount as? Decimal }
     @NSManaged @objc(pledgeAmount) private var _pledgeAmount: NSDecimalNumber?
-    
-    // Federation
-    @NSManaged public var statusID: String?
-    @NSManaged public var federatedURL: URL?
-    @NSManaged public var likesCount: Int32
-    @NSManaged public var boostsCount: Int32
-    @NSManaged public var commentsCount: Int32
     
     @NSManaged public var sortIndex: Int32
     @NSManaged public var featuredSortID: String?
@@ -179,6 +174,8 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
     @NSManaged @objc(versions) public private(set) var _versions: NSOrderedSet
     
     @NSManaged public private(set) var loggedErrors: NSSet /* Set<LoggedError> */ // Use NSSet to avoid eagerly fetching values.
+    
+    @NSManaged public var federatedItem: FederatedItem?
     
     /* Non-Core Data Properties */
     
@@ -627,6 +624,13 @@ public extension StoreApp
         {
             return nil
         }
+    }
+    
+    var shareURL: URL? {
+        guard let sourceURL = self.source?.sourceURL, let host = sourceURL.host() else { return nil }
+        
+        let shareURL = URL(string: "https://altstore.io/source/\(host)\(sourceURL.path())?app=\(self.bundleIdentifier)")
+        return shareURL
     }
 }
 

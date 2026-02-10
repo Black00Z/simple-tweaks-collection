@@ -382,17 +382,24 @@ private extension FetchSourceOperation
                 let appVersionRecordsByID: [String: iCloudAPI.AppVersionRecord] = try await appVersionRecords.reduce(into: [:]) { $0[$1.globallyUniqueID] = $1 }
                 
                 let recordsCount = try await newsItemRecords.count + appRecords.count + appVersionRecords.count
-                guard let username = try await sourceRecord?.username else { throw OperationError.unknown(failureReason: NSLocalizedString("Invalid fediverse username.", comment: "")) }
-                                
+                guard let username = try await sourceRecord?.username else { return } // Ignore if no username in iCloud database
+                
                 await $source.perform { source in
+                    guard let context = source.managedObjectContext else { return }
+                    
                     for newsItem in source.newsItems
                     {
                         guard
                             let record = newsItemRecordsByID[newsItem.identifier], let statusID = record.statusID
                         else { continue }
                         
-                        newsItem.statusID = statusID
-                        newsItem.federatedURL = URL(string: "\(MastodonAPI.instanceURL)/@\(username)/\(statusID)")
+                        newsItem.federatedID = statusID
+                        
+                        let uri = MastodonAPI.instanceURL.appending(path: "/users/\(username)/statuses/\(statusID)")
+                        let url = MastodonAPI.instanceURL.appending(path: "/@\(username)/\(statusID)")
+                        
+                        let placeholder = FederatedItem.makePlaceholder(identifier: statusID, uri: uri, url: url, in: context)
+                        newsItem.federatedItem = placeholder
                     }
                     
                     for app in source.apps
@@ -401,8 +408,13 @@ private extension FetchSourceOperation
                             let record = appRecordsByID[app.bundleIdentifier], let statusID = record.statusID
                         else { continue }
                         
-                        app.statusID = statusID
-                        app.federatedURL = URL(string: "\(MastodonAPI.instanceURL)/@\(username)/\(statusID)")
+                        app.federatedID = statusID
+                        
+                        let uri = MastodonAPI.instanceURL.appending(path: "/users/\(username)/statuses/\(statusID)")
+                        let url = MastodonAPI.instanceURL.appending(path: "/@\(username)/\(statusID)")
+                        
+                        let placeholder = FederatedItem.makePlaceholder(identifier: statusID, uri: uri, url: url, in: context)
+                        app.federatedItem = placeholder
                         
                         for appVersion in app.versions
                         {
@@ -411,8 +423,13 @@ private extension FetchSourceOperation
                                 let statusID = record.statusID
                             else { continue }
                             
-                            appVersion.statusID = statusID
-                            appVersion.federatedURL = URL(string: "\(MastodonAPI.instanceURL)/@\(username)/\(statusID)")
+                            appVersion.federatedID = statusID
+                            
+                            let uri = MastodonAPI.instanceURL.appending(path: "/users/\(username)/statuses/\(statusID)")
+                            let url = MastodonAPI.instanceURL.appending(path: "/@\(username)/\(statusID)")
+                            
+                            let placeholder = FederatedItem.makePlaceholder(identifier: statusID, uri: uri, url: url, in: context)
+                            appVersion.federatedItem = placeholder
                         }
                     }
                     

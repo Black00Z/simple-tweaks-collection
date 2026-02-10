@@ -557,7 +557,7 @@ private extension FeaturedViewController
                     let fetchRequest = StoreApp.browseTabFeaturedAppsFetchRequest()
                     
                     let storeApps = try context.fetch(fetchRequest)
-                    let statusIDs = Set(storeApps.compactMap { $0.statusID })
+                    let statusIDs = Set(storeApps.compactMap { $0.federatedID })
                     return (storeApps, statusIDs)
                 }
                                 
@@ -567,11 +567,12 @@ private extension FeaturedViewController
                 try await context.perform {
                     for storeApp in storeApps
                     {
-                        guard let statusID = storeApp.statusID, let toot = tootsByID[statusID] else { continue }
-                        storeApp.federatedURL = toot.url
-                        storeApp.likesCount = Int32(toot.favourites_count)
-                        storeApp.boostsCount = Int32(toot.reblogs_count)
-                        storeApp.commentsCount = Int32(toot.replies_count)
+                        guard let federatedItem = storeApp.federatedItem, let toot = tootsByID[federatedItem.identifier] else { continue }
+                        federatedItem.uri = toot.uri
+                        federatedItem.url = toot.url
+                        federatedItem.likesCount = Int32(toot.favourites_count)
+                        federatedItem.boostsCount = Int32(toot.reblogs_count)
+                        federatedItem.commentsCount = Int32(toot.replies_count)
                     }
                     
                     try context.save()

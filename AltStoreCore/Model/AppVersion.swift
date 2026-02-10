@@ -53,19 +53,14 @@ public class AppVersion: NSManagedObject, Decodable, Fetchable, Federatable
     }
     @NSManaged @objc(maxOSVersion) private var _maxOSVersion: String?
     
-    // Federation
-    @NSManaged public var statusID: String?
-    @NSManaged public var federatedURL: URL?
-    @NSManaged public var likesCount: Int32
-    @NSManaged public var boostsCount: Int32
-    @NSManaged public var commentsCount: Int32
-    
     @NSManaged public var appBundleID: String
     @NSManaged public var sourceID: String?
+    @NSManaged public var federatedID: String?
     
     /* Relationships */
     @NSManaged public private(set) var app: StoreApp?
     @NSManaged @objc(latestVersionApp) public internal(set) var latestSupportedVersionApp: StoreApp?
+    @NSManaged public var federatedItem: FederatedItem?
     
     private override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?)
     {
@@ -188,6 +183,13 @@ public extension AppVersion
         
         let globallyUniqueID = self.versionID + "|" + self.bundleIdentifier + "|" + sourceIdentifier
         return globallyUniqueID
+    }
+        
+    var shareURL: URL? {
+        guard let sourceURL = self.app?.source?.sourceURL, let host = sourceURL.host() else { return nil }
+        
+        let shareURL = URL(string: "https://altstore.io/source/\(host)\(sourceURL.path())?app=\(self.appBundleID)&version=\(self.version)")
+        return shareURL
     }
 }
 

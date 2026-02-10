@@ -201,13 +201,13 @@ private extension NewsViewController
                 cell.imageView.isHidden = true
             }
             
-            if newsItem.federatedURL != nil
+            if let federatedItem = newsItem.federatedItem
             {
                 cell.fediverseInteractionsView.isHidden = false
                 cell.fediverseInteractionsView.tintColor = newsItem.effectiveTintColor
                 cell.fediverseInteractionsView.shareHandler = { [weak self] _ in self }
                 cell.fediverseInteractionsView.presentingViewController = self
-                cell.fediverseInteractionsView.configure(with: newsItem, isOpaque: true)
+                cell.fediverseInteractionsView.configure(with: federatedItem, isOpaque: true)
             }
             else
             {
@@ -320,7 +320,7 @@ private extension NewsViewController
                 let newsItems = self.dataSource.fetchedResultsController.fetchedObjects ?? []
                 
                 let objectIDs = Set(newsItems.map(\.objectID))
-                let statusIDs = Set(newsItems.compactMap { $0.statusID })
+                let statusIDs = Set(newsItems.compactMap { $0.federatedID })
                 
                 let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
                 let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
@@ -331,11 +331,12 @@ private extension NewsViewController
                     let newsItems = objectIDs.compactMap { context.object(with: $0) as? NewsItem }
                     for newsItem in newsItems
                     {
-                        guard let statusID = newsItem.statusID, let toot = tootsByID[statusID] else { continue }
-                        newsItem.federatedURL = toot.url
-                        newsItem.likesCount = Int32(toot.favourites_count)
-                        newsItem.boostsCount = Int32(toot.reblogs_count)
-                        newsItem.commentsCount = Int32(toot.replies_count)
+                        guard let federatedItem = newsItem.federatedItem, let toot = tootsByID[federatedItem.identifier] else { continue }
+                        federatedItem.uri = toot.uri
+                        federatedItem.url = toot.url
+                        federatedItem.likesCount = Int32(toot.favourites_count)
+                        federatedItem.boostsCount = Int32(toot.reblogs_count)
+                        federatedItem.commentsCount = Int32(toot.replies_count)
                     }
                     
                     try context.save()

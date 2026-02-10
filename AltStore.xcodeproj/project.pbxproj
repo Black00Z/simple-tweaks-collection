@@ -495,6 +495,7 @@
 		D5CE309C2B4C946300DB8151 /* AltStore15ToAltStore16.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5CE309B2B4C946300DB8151 /* AltStore15ToAltStore16.xcmappingmodel */; };
 		D5CF17262B96DD27002EC4C7 /* InstallMarketplaceAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CF17252B96DD27002EC4C7 /* InstallMarketplaceAppViewController.swift */; };
 		D5CF568C2A0D8EEC006D93E2 /* VerificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CF56812A0D83F9006D93E2 /* VerificationError.swift */; };
+		D5D097132F15B3FA00CC917D /* FederatedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D097122F15B3FA00CC917D /* FederatedItem.swift */; };
 		D5D3BFB22D4D87A5000FFFAF /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D3BFB12D4D87A5000FFFAF /* Media.swift */; };
 		D5D574C52ED0FC2A00FBEE87 /* UpdateFediverseInteractionsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D574C42ED0FC1F00FBEE87 /* UpdateFediverseInteractionsOperation.swift */; };
 		D5D574C82ED1536700FBEE87 /* AltStore19ToAltStore20.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5D574C72ED1536700FBEE87 /* AltStore19ToAltStore20.xcmappingmodel */; };
@@ -1205,6 +1206,7 @@
 		D5CF17242B96821D002EC4C7 /* AltMarketplace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AltMarketplace.entitlements; sourceTree = "<group>"; };
 		D5CF17252B96DD27002EC4C7 /* InstallMarketplaceAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallMarketplaceAppViewController.swift; sourceTree = "<group>"; };
 		D5CF56812A0D83F9006D93E2 /* VerificationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationError.swift; sourceTree = "<group>"; };
+		D5D097122F15B3FA00CC917D /* FederatedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederatedItem.swift; sourceTree = "<group>"; };
 		D5D3BFB12D4D87A5000FFFAF /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		D5D574C42ED0FC1F00FBEE87 /* UpdateFediverseInteractionsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFediverseInteractionsOperation.swift; sourceTree = "<group>"; };
 		D5D574C62ED1531500FBEE87 /* AltStore 20.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 20.xcdatamodel"; sourceTree = "<group>"; };
@@ -2499,6 +2501,7 @@
 			isa = PBXGroup;
 			children = (
 				D5BD46562F0DC48000D26AB5 /* SocialWebAccount.swift */,
+				D5D097122F15B3FA00CC917D /* FederatedItem.swift */,
 			);
 			path = Fediverse;
 			sourceTree = "<group>";
@@ -3385,6 +3388,7 @@
 				BF66EEE12501AECA007EE018 /* DatabaseManager.swift in Sources */,
 				D52C08EE28AEC37A006C4AE5 /* AppVersion.swift in Sources */,
 				BF66EEEA2501AED0007EE018 /* UIColor+Hex.swift in Sources */,
+				D5D097132F15B3FA00CC917D /* FederatedItem.swift in Sources */,
 				D5D3BFB22D4D87A5000FFFAF /* Media.swift in Sources */,
 				BF66EECC2501AECA007EE018 /* Source.swift in Sources */,
 				BF66EED72501AECA007EE018 /* InstalledApp.swift in Sources */,

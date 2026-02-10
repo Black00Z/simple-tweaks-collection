@@ -101,9 +101,9 @@ extension FederationManager
 
 extension FederationManager
 {
-    func isPostLiked(@AsyncManaged for item: some Federatable) async throws -> Bool
+    func isPostLiked(@AsyncManaged for federatedItem: FederatedItem) async throws -> Bool
     {
-        guard let rawStatusID = await $item.statusID, let statusID = Int(rawStatusID), let federatedURL = await $item.federatedURL else { throw OperationError.unknown() } // Invalid item
+        guard case let rawStatusID = await $federatedItem.identifier, let statusID = Int(rawStatusID), case let federatedURL = await $federatedItem.url else { throw OperationError.unknown() } // Invalid item
         
         let startTime = CFAbsoluteTimeGetCurrent()
         
@@ -141,7 +141,7 @@ extension FederationManager
         return isLiked
     }
     
-    func like(@AsyncManaged _ item: Federatable, presentingViewController: UIViewController?) async throws
+    func like(@AsyncManaged _ federatedItem: FederatedItem, presentingViewController: UIViewController?) async throws
     {
         do
         {
@@ -151,8 +151,8 @@ extension FederationManager
                 return socialWebAccount.type
             }
             
-            guard let statusID = await $item.statusID, let federatedURL = await $item.federatedURL else { throw OperationError.unknown() } // Invalid item
-            
+            let (statusID, federatedURL) = await $federatedItem.perform { ($0.identifier, $0.url) }
+                        
             switch accountType
             {
             case .mastodon: try await MastodonAPI.shared.favorite(tootID: statusID, tootURL: federatedURL)
@@ -174,7 +174,7 @@ extension FederationManager
             }
             
             // Try again
-            try await self.like(item, presentingViewController: presentingViewController)
+            try await self.like(federatedItem, presentingViewController: presentingViewController)
         }
         catch let error as BlueskyError where error.code == .unauthorized
         {
@@ -189,11 +189,11 @@ extension FederationManager
             }
             
             // Try again
-            try await self.like(item, presentingViewController: presentingViewController)
+            try await self.like(federatedItem, presentingViewController: presentingViewController)
         }
     }
     
-    func unlike(@AsyncManaged _ item: Federatable, presentingViewController: UIViewController?) async throws
+    func unlike(@AsyncManaged _ federatedItem: FederatedItem, presentingViewController: UIViewController?) async throws
     {
         do
         {
@@ -203,8 +203,8 @@ extension FederationManager
                 return socialWebAccount.type
             }
             
-            guard let statusID = await $item.statusID, let federatedURL = await $item.federatedURL else { throw OperationError.unknown() } // Invalid item
-            
+            let (statusID, federatedURL) = await $federatedItem.perform { ($0.identifier, $0.url) }
+                        
             switch accountType
             {
             case .mastodon: try await MastodonAPI.shared.unfavorite(tootID: statusID, tootURL: federatedURL)
@@ -226,7 +226,7 @@ extension FederationManager
             }
             
             // Try again
-            try await self.unlike(item, presentingViewController: presentingViewController)
+            try await self.unlike(federatedItem, presentingViewController: presentingViewController)
         }
         catch let error as BlueskyError where error.code == .unauthorized
         {
@@ -241,7 +241,7 @@ extension FederationManager
             }
             
             // Try again
-            try await self.unlike(item, presentingViewController: presentingViewController)
+            try await self.unlike(federatedItem, presentingViewController: presentingViewController)
         }
     }
 }

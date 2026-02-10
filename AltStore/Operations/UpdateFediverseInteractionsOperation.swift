@@ -49,12 +49,12 @@ private extension UpdateFediverseInteractionsOperation
             
             let (recentNewsItems, statusIDs) = await context.perform {
                 let fetchRequest = NewsItem.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "%K != nil", #keyPath(NewsItem.federatedURL))
+                fetchRequest.predicate = NSPredicate(format: "%K != nil", #keyPath(NewsItem.federatedID))
                 fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \NewsItem.date, ascending: false)]
                 fetchRequest.fetchLimit = 5
                 
                 let recentNewsItems = NewsItem.fetch(fetchRequest, in: context)
-                let statusIDs = recentNewsItems.compactMap { $0.statusID }
+                let statusIDs = recentNewsItems.compactMap { $0.federatedID }
                 return (recentNewsItems, Set(statusIDs))
             }
             
@@ -64,11 +64,12 @@ private extension UpdateFediverseInteractionsOperation
             try context.performAndWait {
                 for newsItem in recentNewsItems
                 {
-                    guard let statusID = newsItem.statusID, let toot = tootsByID[statusID] else { continue }
-                    newsItem.federatedURL = toot.url
-                    newsItem.likesCount = Int32(toot.favourites_count)
-                    newsItem.boostsCount = Int32(toot.reblogs_count)
-                    newsItem.commentsCount = Int32(toot.replies_count)
+                    guard let federatedItem = newsItem.federatedItem, let toot = tootsByID[federatedItem.identifier] else { continue }
+                    federatedItem.uri = toot.uri
+                    federatedItem.url = toot.url
+                    federatedItem.likesCount = Int32(toot.favourites_count)
+                    federatedItem.boostsCount = Int32(toot.reblogs_count)
+                    federatedItem.commentsCount = Int32(toot.replies_count)
                 }
                 
                 try context.save()
@@ -93,7 +94,7 @@ private extension UpdateFediverseInteractionsOperation
                 let installedApps = InstalledApp.fetch(fetchRequest, in: context)
                 let appVersions = installedApps.compactMap { $0.storeApp?.latestSupportedVersion }
                 
-                let statusIDs = appVersions.compactMap { $0.statusID }
+                let statusIDs = appVersions.compactMap { $0.federatedID }
                 return (appVersions, Set(statusIDs))
             }
             
@@ -103,11 +104,12 @@ private extension UpdateFediverseInteractionsOperation
             try context.performAndWait {
                 for appVersion in appVersions
                 {
-                    guard let statusID = appVersion.statusID, let toot = tootsByID[statusID] else { continue }
-                    appVersion.federatedURL = toot.url
-                    appVersion.likesCount = Int32(toot.favourites_count)
-                    appVersion.boostsCount = Int32(toot.reblogs_count)
-                    appVersion.commentsCount = Int32(toot.replies_count)
+                    guard let federatedItem = appVersion.federatedItem, let toot = tootsByID[federatedItem.identifier] else { continue }
+                    federatedItem.uri = toot.uri
+                    federatedItem.url = toot.url
+                    federatedItem.likesCount = Int32(toot.favourites_count)
+                    federatedItem.boostsCount = Int32(toot.reblogs_count)
+                    federatedItem.commentsCount = Int32(toot.replies_count)
                 }
                                 
                 try context.save()
@@ -144,7 +146,7 @@ private extension UpdateFediverseInteractionsOperation
                     }
                 }
                 
-                let statusIDs = storeApps.compactMap { $0.statusID }
+                let statusIDs = storeApps.compactMap { $0.federatedID }
                 return (storeApps, Set(statusIDs))
             }
             
@@ -154,11 +156,12 @@ private extension UpdateFediverseInteractionsOperation
             try context.performAndWait {
                 for storeApp in storeApps
                 {
-                    guard let statusID = storeApp.statusID, let toot = tootsByID[statusID] else { continue }
-                    storeApp.federatedURL = toot.url
-                    storeApp.likesCount = Int32(toot.favourites_count)
-                    storeApp.boostsCount = Int32(toot.reblogs_count)
-                    storeApp.commentsCount = Int32(toot.replies_count)
+                    guard let federatedItem = storeApp.federatedItem, let toot = tootsByID[federatedItem.identifier] else { continue }
+                    federatedItem.uri = toot.uri
+                    federatedItem.url = toot.url
+                    federatedItem.likesCount = Int32(toot.favourites_count)
+                    federatedItem.boostsCount = Int32(toot.reblogs_count)
+                    federatedItem.commentsCount = Int32(toot.replies_count)
                 }
                                 
                 try context.save()

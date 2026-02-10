@@ -345,13 +345,13 @@ extension AppCardCollectionViewCell
             self.captionLabel.isHidden = true
         }
         
-        if storeApp.federatedURL != nil
+        if let federatedItem = storeApp.federatedItem
         {
             self.fediverseInteractionsView.isHidden = false
             self.fediverseInteractionsView.tintColor = storeApp.tintColor
             self.fediverseInteractionsView.shareHandler = { [weak sharingViewController] _ in sharingViewController }
             self.fediverseInteractionsView.presentingViewController = sharingViewController
-            self.fediverseInteractionsView.configure(with: storeApp)
+            self.fediverseInteractionsView.configure(with: federatedItem)
         }
         else
         {

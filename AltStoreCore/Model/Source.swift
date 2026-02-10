@@ -285,6 +285,13 @@ public extension Source
         let lastUpdatedDate = allDates.sorted().last
         return lastUpdatedDate
     }
+    
+    var shareURL: URL? {
+        guard let host = self.sourceURL.host() else { return nil }
+        
+        let shareURL = URL(string: "https://altstore.io/source/\(host)\(self.sourceURL.path())")
+        return shareURL
+    }
 }
 
 internal extension Source

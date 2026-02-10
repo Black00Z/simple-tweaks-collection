@@ -34,7 +34,7 @@ class FediverseInteractionsView: UIView
         self.update(with: nil)
     }
     
-    func configure(with item: some Federatable, isOpaque: Bool = false)
+    func configure(with item: FederatedItem, isOpaque: Bool = false)
     {
         self.update(with: item, isOpaque: isOpaque)
     }
@@ -42,14 +42,14 @@ class FediverseInteractionsView: UIView
 
 private extension FediverseInteractionsView
 {
-    func update(with item: (any Federatable)?, isOpaque: Bool = false)
+    func update(with item: FederatedItem?, isOpaque: Bool = false)
     {
         self.contentView?.removeFromSuperview()
         
         let hostingConfiguration = UIHostingConfiguration {
             if let item
             {
-                FediverseInteractions(item: item, isOpaque: isOpaque)
+                FediverseInteractions(federatedItem: item, isOpaque: isOpaque)
                     .environment(self)
                     .tint(Color(uiColor: self.tintColor))
             }
@@ -66,8 +66,8 @@ private extension FediverseInteractionsView
 
 struct FediverseInteractions: View
 {
-    @State
-    var item: Federatable
+    @ObservedObject
+    var federatedItem: FederatedItem
     
     @State
     var isOpaque: Bool = false
@@ -146,40 +146,38 @@ struct FediverseInteractions: View
             .frame(height: preferredHeight)
             .frame(minWidth: 100, maxWidth: .infinity)
         }
-        .onAppear {
-            likesCount = Int(item.likesCount)
-        }
         .task(id: likesID, priority: .medium) { @MainActor in
             do
             {
-                guard let rawStatusID = item.statusID, let statusID = Int(rawStatusID) else { return }
-                
-                let accounts = try await MastodonAPI.shared.fetchFavorites(tootID: statusID, limit: maximumAvatars)
+                let accounts = try await MastodonAPI.shared.fetchFavorites(tootID: federatedItem.identifier, limit: maximumAvatars)
                 self.accounts = accounts
             }
             catch
             {
-                Logger.main.error("Failed to fetch Fediverse interactions for \(String(describing: item), privacy: .public): \(error.localizedDescription, privacy: .public)")
+                Logger.main.error("Failed to fetch Fediverse interactions for \(String(describing: federatedItem), privacy: .public): \(error.localizedDescription, privacy: .public)")
             }
         }
         .sheet(isPresented: $isShowingLikes) {
-            if let rawStatusID = item.statusID, let statusID = Int(rawStatusID), let federatedURL = item.federatedURL
-            {
-                NavigationStack {
-                    FediverseLikesView(statusURL: federatedURL, statusID: statusID)
-                }
-                .presentationDetents([.medium, .large])
+            NavigationStack {
+                FediverseLikesView(federatedItem: federatedItem)
             }
+            .presentationDetents([.medium, .large])
         }
-        .task(priority: .high) { @MainActor in
+        .task(priority: .medium) {
             do
             {
                 isLiked = try await FederationManager.shared.isPostLiked(for: item)
             }
             catch
             {
-                Logger.main.error("Failed to fetch liked status for \(String(describing: item), privacy: .public): \(error.localizedDescription, privacy: .public)")
+                Logger.main.error("Failed to fetch liked status for \(String(describing: federatedItem), privacy: .public): \(error.localizedDescription, privacy: .public)")
             }
+        }
+        .onAppear {
+            likesCount = Int(federatedItem.likesCount)
+        }
+        .onChange(of: federatedItem.likesCount) { oldValue, newValue in
+            likesCount = Int(newValue)
         }
     }
     
@@ -187,7 +185,7 @@ struct FediverseInteractions: View
         Group {
             // Like button
             SwiftUI.Button {
-                like(item)
+                like(federatedItem)
             } label: {
                 HStack(spacing: 2) {
                     if isLiked
@@ -256,49 +254,46 @@ struct FediverseInteractions: View
     
     private var shareButton: some View {
         Group {
-            if let federatedURL = item.federatedURL
+            if #available(iOS 26, *)
             {
-                if #available(iOS 26, *)
+                if isOpaque
                 {
-                    if isOpaque
-                    {
-                        // On opaque background
-                        SwiftUI.Button {
-                            share(federatedURL)
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                        }
-                        .font(.subheadline)
-                        .buttonStyle(.glassProminent) // Prominent glass
-                        .buttonBorderShape(.circle)
+                    // On opaque background
+                    SwiftUI.Button {
+                        shareItem()
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
                     }
-                    else
-                    {
-                        // On translucent background
-                        SwiftUI.Button {
-                            share(federatedURL)
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                        }
-                        .font(.subheadline)
-                        .buttonStyle(.glass) // Regular glass
-                        .buttonBorderShape(.circle)
-                    }
+                    .font(.subheadline)
+                    .buttonStyle(.glassProminent) // Prominent glass
+                    .buttonBorderShape(.circle)
                 }
                 else
                 {
+                    // On translucent background
                     SwiftUI.Button {
-                        share(federatedURL)
+                        shareItem()
                     } label: {
-                        if isOpaque
-                        {
-                            Image(systemName: "square.and.arrow.up")
-                                .tint(Color.white)
-                        }
-                        else
-                        {
-                            Image(systemName: "square.and.arrow.up")
-                        }
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .font(.subheadline)
+                    .buttonStyle(.glass) // Regular glass
+                    .buttonBorderShape(.circle)
+                }
+            }
+            else
+            {
+                SwiftUI.Button {
+                    shareItem()
+                } label: {
+                    if isOpaque
+                    {
+                        Image(systemName: "square.and.arrow.up")
+                            .tint(Color.white)
+                    }
+                    else
+                    {
+                        Image(systemName: "square.and.arrow.up")
                     }
                 }
             }
@@ -331,16 +326,11 @@ struct FediverseInteractions: View
 
 private extension FediverseInteractions
 {
-    func showFederatedStatus(for item: some Federatable)
+    func like(_ item: FederatedItem)
     {
-        guard let federatedURL = item.federatedURL else { return }
+        let federatedURL = federatedItem.url
         
-        UIApplication.shared.open(federatedURL, options: [:])
-    }
-    
-    func like(_ item: some Federatable)
-    {
-        guard let federatedURL = item.federatedURL, let presentingViewController = fediverseInteractionsView.presentingViewController else { return }
+        guard let presentingViewController = fediverseInteractionsView.presentingViewController else { return }
         
         Task<Void, Never> {
             let previousState = self.isLiked
@@ -386,28 +376,14 @@ private extension FediverseInteractions
         UIApplication.shared.open(account.url, options: [:])
     }
     
-    func share(_ url: URL)
+    func shareItem()
     {
-        guard let presentingViewController = fediverseInteractionsView.shareHandler?(url) else { return }
-                
+        let shareURL = self.federatedItem.newsItem?.shareURL ?? self.federatedItem.app?.shareURL ?? self.federatedItem.appVersion?.shareURL ?? self.federatedItem.url
+        guard let presentingViewController = self.fediverseInteractionsView.shareHandler?(shareURL) else { return }
+        
         let safariActivity = SafariActivity()
         
-        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: [safariActivity])
+        let activityViewController = UIActivityViewController(activityItems: [shareURL], applicationActivities: [safariActivity])
         presentingViewController.present(activityViewController, animated: true)
     }
 }
-
-struct TestFederatable: Federatable
-{
-    var statusID: String? = "115431859871064626"
-    var federatedURL: URL? = URL(string: "")
-    
-    var likesCount: Int32
-    var boostsCount: Int32
-    var commentsCount: Int32
-}
-
-#Preview {
-    FediverseInteractions(item: Federatable.Mock(statusID: "115431859871064626", federatedURL: URL(string: "https://rileytestut.com"), likesCount: 10, boostsCount: 0, commentsCount: 0), isOpaque: false)
-}
-
