@@ -270,7 +270,7 @@ class AppViewController: UIViewController
         var moreButtonFrame = CGRect(x: self.view.bounds.width - inset - moreButtonSize.width, y: statusBarHeight,
                                      width: moreButtonSize.width, height: moreButtonSize.height)
         
-        let likesButtonSize = self.likesButton.bounds.size
+        let likesButtonSize = self.likesButton.sizeThatFits(CGSize(width: 1000, height: 1000))
         var likesButtonFrame = CGRect(x: self.view.bounds.width - inset - moreButtonSize.width - inset - likesButtonSize.width, y: statusBarHeight,
                                       width: likesButtonSize.width, height: likesButtonSize.height)
         
@@ -485,6 +485,8 @@ private extension AppViewController
         {
             self.likesButton.configuration?.image = UIImage(systemName: "heart", withConfiguration: imageConfig)
         }
+        
+        self.view.setNeedsLayout()
     }
     
     func updateFediverseInteractions()
