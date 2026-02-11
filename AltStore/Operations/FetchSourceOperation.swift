@@ -382,7 +382,7 @@ private extension FetchSourceOperation
                 let appVersionRecordsByID: [String: iCloudAPI.AppVersionRecord] = try await appVersionRecords.reduce(into: [:]) { $0[$1.globallyUniqueID] = $1 }
                 
                 let recordsCount = try await newsItemRecords.count + appRecords.count + appVersionRecords.count
-                guard let username = try await sourceRecord?.username else { return } // Ignore if no username in iCloud database
+                guard let username = try await sourceRecord?.username else { return completion(.success(())) } // Ignore if no username in iCloud database
                 
                 await $source.perform { source in
                     guard let context = source.managedObjectContext else { return }
