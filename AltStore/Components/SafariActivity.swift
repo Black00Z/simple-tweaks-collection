@@ -8,7 +8,12 @@
 
 class SafariActivity: UIActivity
 {
-    private var url: URL?
+    private(set) var url: URL?
+    
+    init(url: URL? = nil)
+    {
+        self.url = url
+    }
     
     override var activityType: UIActivity.ActivityType? {
         return UIActivity.ActivityType("com.altstore.safari-activity")
@@ -24,8 +29,15 @@ class SafariActivity: UIActivity
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool
     {
-        self.url = activityItems.first as? URL
-        return self.url != nil
+        guard let activityURL = activityItems.first(where: { $0 is URL }) as? URL else { return false }
+        
+        if self.url == nil
+        {
+            // Only set url if we didn't pass in a URL in init()
+            self.url = activityURL
+        }
+        
+        return true
     }
     
     override func perform()

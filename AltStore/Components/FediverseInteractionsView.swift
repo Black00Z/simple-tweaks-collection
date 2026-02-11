@@ -431,7 +431,9 @@ private extension FediverseInteractions
         let shareURL = self.federatedItem.newsItem?.shareURL ?? self.federatedItem.app?.shareURL ?? self.federatedItem.appVersion?.shareURL ?? self.federatedItem.url
         guard let presentingViewController = self.fediverseInteractionsView.shareHandler?(shareURL) else { return }
         
-        let safariActivity = SafariActivity()
+        // Open federated URL when opening in browser, NOT share link.
+        let federatedURL = self.federatedItem.resolvedBlueskyURL ?? self.federatedItem.url
+        let safariActivity = SafariActivity(url: federatedURL)
         
         let activityViewController = UIActivityViewController(activityItems: [shareURL], applicationActivities: [safariActivity])
         presentingViewController.present(activityViewController, animated: true)
