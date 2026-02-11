@@ -278,7 +278,7 @@ private extension SettingsViewController
             if isHeader
             {
                 #if MARKETPLACE
-                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("OPEN SOCIAL WEB", comment: "")
+                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("SOCIAL WEB (BETA)", comment: "")
                 #else
                 settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("ACCOUNT", comment: "")
                 #endif
@@ -286,7 +286,7 @@ private extension SettingsViewController
             else
             {
                 #if MARKETPLACE
-                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Sign in with your open social web account to like apps, updates, and news items in AltStore.", comment: "")
+                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Sign in with your social web account to like apps, updates, and news items in AltStore.", comment: "")
                 #else
                 settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Sign in with your Apple ID to download apps from AltStore.", comment: "")
                 #endif
@@ -304,7 +304,7 @@ private extension SettingsViewController
             
         case .account:
             #if MARKETPLACE
-            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("SOCIAL WEB ACCOUNT", comment: "")
+            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("SOCIAL WEB ACCOUNT (BETA)", comment: "")
             #else
             settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("ACCOUNT", comment: "")
             #endif
