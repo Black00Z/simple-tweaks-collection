@@ -581,24 +581,25 @@ private extension BlueskyAPI
 {
     func send<ResponseType: Decodable>(_ request: URLRequest, authorizationType: AuthorizationType) async throws -> ResponseType
     {
-        var request = request
-        
-        switch authorizationType
-        {
-        case .none: break
-        case .user:
-            guard let accessToken = Keychain.shared.blueskyAccessToken else { throw BlueskyError.unauthorized() }
-            request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
-        case .refresh:
-            guard let refreshToken = Keychain.shared.blueskyRefreshToken else { throw BlueskyError.unauthorized() }
-            request.setValue("Bearer " + refreshToken, forHTTPHeaderField: "Authorization")
-        }
-        
         let decoder = Foundation.JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         
         while true
         {
+            // Must go inside while loop to ensure we update headers if needed.
+            var request = request
+            
+            switch authorizationType
+            {
+            case .none: break
+            case .user:
+                guard let accessToken = Keychain.shared.blueskyAccessToken else { throw BlueskyError.unauthorized() }
+                request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+            case .refresh:
+                guard let refreshToken = Keychain.shared.blueskyRefreshToken else { throw BlueskyError.unauthorized() }
+                request.setValue("Bearer " + refreshToken, forHTTPHeaderField: "Authorization")
+            }
+            
             let (data, urlResponse) = try await self.session.data(for: request)
             guard let httpResponse = urlResponse as? HTTPURLResponse else { throw BlueskyError.unknown() }
             
