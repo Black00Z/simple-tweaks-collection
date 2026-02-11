@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import CoreData
 
 import AltStoreCore
 
@@ -188,7 +189,18 @@ struct FediverseInteractions: View
         .task(priority: .medium) {
             do
             {
-                try await FederationManager.shared.updateInteractions(for: [federatedItem])
+                let context: NSManagedObjectContext
+                if let parentContext = federatedItem.managedObjectContext, federatedItem.objectID.isTemporaryID
+                {
+                    // Use child context since this a temporary context.
+                    context = DatabaseManager.shared.persistentContainer.newBackgroundContext(withParent: parentContext)
+                }
+                else
+                {
+                    context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+                }
+                
+                try await FederationManager.shared.updateInteractions(for: [federatedItem], in: context)
             }
             catch
             {

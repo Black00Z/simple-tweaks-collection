@@ -492,11 +492,22 @@ private extension AppViewController
     func updateFediverseInteractions()
     {
         guard let federatedItem = self.app.federatedItem else { return }
-        
+                
         Task<Void, Never>(priority: .userInitiated) { @MainActor in
             do
             {
-                try await FederationManager.shared.updateInteractions(for: [federatedItem])
+                let context: NSManagedObjectContext
+                if let parentContext = self.app.managedObjectContext, self.app.objectID.isTemporaryID
+                {
+                    // Use child context since this a temporary context.
+                    context = DatabaseManager.shared.persistentContainer.newBackgroundContext(withParent: parentContext)
+                }
+                else
+                {
+                    context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+                }
+                
+                try await FederationManager.shared.updateInteractions(for: [federatedItem], in: context)
                                 
                 if let federatedItem = self.app.federatedItem
                 {
