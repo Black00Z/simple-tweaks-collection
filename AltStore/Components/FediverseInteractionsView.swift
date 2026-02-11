@@ -393,7 +393,17 @@ private extension FediverseInteractions
                 Logger.main.error("Failed to favorite status \(federatedURL). Error: \(error.localizedDescription, privacy: .public)")
                 self.hapticGenerator.notificationOccurred(.error)
                 
-                let toastView = ToastView(text: String(localized: "Unable to Like Item"), detailText: error.localizedDescription)
+                let text: String = if item.newsItem != nil {
+                    String(localized: "Unable to Like News Alert")
+                } else if item.app != nil {
+                    String(localized: "Unable to Like App")
+                } else if item.appVersion != nil {
+                    String(localized: "Unable to Like App Update")
+                } else {
+                    String(localized: "Unable to Like Item")
+                }
+                
+                let toastView = ToastView(text: text, detailText: error.localizedDescription)
                 toastView.show(in: presentingViewController)
             }
         }
