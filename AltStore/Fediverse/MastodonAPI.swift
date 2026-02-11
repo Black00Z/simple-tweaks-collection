@@ -99,6 +99,19 @@ final actor MastodonAPI: NSObject
     
     private var fetchFavoritesTask: [String: (Date, Task<[Account], Error>)] = [:]
     
+    private lazy var iso8601Formatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFractionalSeconds, .withInternetDateTime, .withTimeZone]
+        return formatter
+    }()
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(abbreviation: "GMT")
+        return formatter
+    }()
+    
     private nonisolated(unsafe) weak var signInAction: UIAlertAction?
     
     private override init()
@@ -526,25 +539,19 @@ private extension MastodonAPI
             case 429:
                 // Rate Limited
                 let rateLimitDelay: TimeInterval
-                if let resetTimestampString = httpResponse.value(forHTTPHeaderField: "X-RateLimit-Reset"), let resetTimestamp = TimeInterval(resetTimestampString)
+                if let resetDateString = httpResponse.value(forHTTPHeaderField: "X-RateLimit-Reset"), let resetDate = self.iso8601Formatter.date(from: resetDateString)
                 {
-                    let resetDate = Date(timeIntervalSince1970: resetTimestamp)
-                    
                     let serverDate: Date
                     if let dateString = httpResponse.value(forHTTPHeaderField: "Date")
                     {
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
-                        formatter.locale = Locale(identifier: "en_US_POSIX")
-                        formatter.timeZone = TimeZone(abbreviation: "GMT")
-                        serverDate = formatter.date(from: dateString) ?? Date()
+                        serverDate = self.dateFormatter.date(from: dateString) ?? Date()
                     }
                     else
                     {
                         serverDate = Date()
                     }
                     
-                    rateLimitDelay = max(0, resetDate.timeIntervalSince(serverDate))
+                    rateLimitDelay = max(1.0, resetDate.timeIntervalSince(serverDate))
                 }
                 else
                 {
