@@ -51,7 +51,8 @@ struct FediverseLikesView: View
                 else
                 {
                     SwiftUI.Button {
-                        openURL(statusURL)
+                        let federatedURL = federatedItem.resolvedBlueskyURL ?? federatedItem.url
+                        openURL(federatedURL)
                     } label: {
                         Image(systemName: "globe")
                     }
@@ -63,7 +64,8 @@ struct FediverseLikesView: View
                 if #available(iOS 26, *)
                 {
                     SwiftUI.Button {
-                        openURL(statusURL)
+                        let federatedURL = federatedItem.resolvedBlueskyURL ?? federatedItem.url
+                        openURL(federatedURL)
                     } label: {
                         Image(systemName: "globe")
                     }

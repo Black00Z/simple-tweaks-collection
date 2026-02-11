@@ -662,7 +662,9 @@ private extension AppViewController
         
         let openURLAction = UIAction(title: NSLocalizedString("Open in Browser", comment: ""), image: UIImage(systemName: "safari"), handler: { [weak self] _ in
             guard let federatedItem = self?.app.federatedItem else { return }
-            UIApplication.shared.open(federatedItem.url)
+            
+            let federatedURL = federatedItem.resolvedBlueskyURL ?? federatedItem.url
+            UIApplication.shared.open(federatedURL)
         })
         let showLikesAction = UIAction(title: NSLocalizedString("View Likes", comment: ""), image: UIImage(systemName: "heart"), handler: { [weak self] _ in
             self?.showLikes()
