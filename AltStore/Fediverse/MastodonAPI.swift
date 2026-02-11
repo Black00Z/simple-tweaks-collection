@@ -201,7 +201,6 @@ extension MastodonAPI
     func signOut()
     {
         Keychain.shared.mastodonAccessToken = nil
-        Keychain.shared.socialWebAccountID = nil
     }
 }
 

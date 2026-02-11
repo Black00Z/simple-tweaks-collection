@@ -196,7 +196,6 @@ extension BlueskyAPI
     {
         Keychain.shared.blueskyAccessToken = nil
         Keychain.shared.blueskyRefreshToken = nil
-        Keychain.shared.socialWebAccountID = nil
     }
 }
 

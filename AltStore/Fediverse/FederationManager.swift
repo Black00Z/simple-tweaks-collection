@@ -80,23 +80,34 @@ extension FederationManager
         await context.perform {
             do
             {
-                let accounts = SocialWebAccount.all(in: context)
-                accounts.forEach { context.delete($0) }
+                // Don't delete any SocialWebAccounts, we'll just remove the references in Keychain below.
+                // let accounts = SocialWebAccount.all(in: context)
+                // accounts.forEach { context.delete($0) }
+                
+                let federatedItems = FederatedItem.all(in: context)
+                federatedItems.forEach { item in
+                    item.isLiked = false
+                    item.resolvedFediverseID = nil
+                    item.resolvedFediverseURL = nil
+                    item.resolvedBlueskyID = nil
+                    item.resolvedBlueskyURL = nil
+                }
                 
                 try context.save()
             }
             catch
             {
-                Logger.main.error("Failed to delete saved social web accounts. \(error.localizedDescription, privacy: .public)")
+                Logger.main.error("Failed to reset state for cached FederatedItems. \(error.localizedDescription, privacy: .public)")
                 
                 // Ignore error, it doesn't really matter if this fails.
                 // throw error
             }
         }
         
-        // Must go AFTER deleting saved social web accounts (or else we'll lose cached account identifier).
         await MastodonAPI.shared.signOut()
         BlueskyAPI.shared.signOut()
+        
+        Keychain.shared.socialWebAccountID = nil
     }
 }
 
