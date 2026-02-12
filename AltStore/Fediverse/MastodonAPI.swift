@@ -99,7 +99,7 @@ final actor MastodonAPI: NSObject
     
     private var fetchFavoritesTask: [String: (Date, Task<[Account], Error>)] = [:]
     
-    private lazy var iso8601Formatter: ISO8601DateFormatter = {
+    private static let iso8601Formatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withFractionalSeconds, .withInternetDateTime, .withTimeZone]
         return formatter
@@ -313,21 +313,7 @@ extension MastodonAPI
             var request = URLRequest(url: requestURL)
             request.httpMethod = "GET"
             
-            let (data, response) = try await URLSession.shared.data(for: request)
-            if let httpResponse = response as? HTTPURLResponse
-            {
-                switch httpResponse.statusCode
-                {
-                case 200...299: break
-                case 401: throw MastodonError.unauthorized()
-                default: throw MastodonError.http(statusCode: httpResponse.statusCode)
-                }
-            }
-            
-            let decoder = Foundation.JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-            
-            let accounts = try decoder.decode([Account].self, from: data)
+            let accounts: [Account] = try await self.send(request, authorizationType: .none)
             return accounts
         }
         
@@ -525,7 +511,18 @@ private extension MastodonAPI
             guard let httpResponse = urlResponse as? HTTPURLResponse else { throw MastodonError.unknown() }
             
             let decoder = Foundation.JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
+            decoder.dateDecodingStrategy = .custom({ decoder in
+                let container = try decoder.singleValueContainer()
+                let text = try container.decode(String.self)
+                
+                // Full ISO8601 Format.
+                if let date = MastodonAPI.iso8601Formatter.date(from: text)
+                {
+                    return date
+                }
+                
+                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Date is in invalid format.")
+            })
             
             switch httpResponse.statusCode
             {
@@ -539,7 +536,7 @@ private extension MastodonAPI
             case 429:
                 // Rate Limited
                 let rateLimitDelay: TimeInterval
-                if let resetDateString = httpResponse.value(forHTTPHeaderField: "X-RateLimit-Reset"), let resetDate = self.iso8601Formatter.date(from: resetDateString)
+                if let resetDateString = httpResponse.value(forHTTPHeaderField: "X-RateLimit-Reset"), let resetDate = MastodonAPI.iso8601Formatter.date(from: resetDateString)
                 {
                     let serverDate: Date
                     if let dateString = httpResponse.value(forHTTPHeaderField: "Date")
