@@ -448,6 +448,11 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
             {
                 self.regions = regions as NSDictionary
             }
+            else if let sourceURL = decoder.sourceURL, let sourceID = try? Source.sourceID(from: sourceURL), sourceID == Source.epicGamesSourceID
+            {
+                // Default Epic's source to excluding Japan until they specify otherwise.
+                self.regions = ["exclude": ["jp"]]
+            }
         }
         catch
         {

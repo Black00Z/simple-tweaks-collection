@@ -12,6 +12,7 @@ import UIKit
 public extension Source
 {
     static let altStoreIdentifier = try! Source.sourceID(from: Source.altStoreSourceURL)
+    static let epicGamesSourceID = "content-download-egs.distro.on.epicgames.com/ios/altstore/source.json"
     
     #if STAGING
     
