@@ -462,6 +462,9 @@ private extension FediverseInteractions
                     
                     try await FederationManager.shared.like(item, presentingViewController: presentingViewController)
                     
+                    // Ensure animation finishes before finalizing state.
+                    try await Task.sleep(for: .seconds(0.5))
+                    
                     finalizeRollIn()
                 }
                 else
@@ -469,6 +472,9 @@ private extension FediverseInteractions
                     rollOut()
                     
                     try await FederationManager.shared.unlike(item, presentingViewController: presentingViewController)
+                    
+                    // Ensure animation finishes before finalizing state.
+                    try await Task.sleep(for: .seconds(0.5))
                     
                     resetAnimationState()
                 }
