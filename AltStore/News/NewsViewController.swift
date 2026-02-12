@@ -320,7 +320,21 @@ private extension NewsViewController
                 let newsItems = self.dataSource.fetchedResultsController.fetchedObjects ?? []
                 let federatedItems = newsItems.compactMap(\.federatedItem)
                 
-                try await FederationManager.shared.updateInteractions(for: federatedItems)
+                if let newsItem = newsItems.first
+                {
+                    let context: NSManagedObjectContext
+                    if let parentContext = newsItem.managedObjectContext, newsItem.objectID.isTemporaryID
+                    {
+                        // Use child context since this a temporary context.
+                        context = DatabaseManager.shared.persistentContainer.newBackgroundContext(withParent: parentContext)
+                    }
+                    else
+                    {
+                        context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+                    }
+                    
+                    try await FederationManager.shared.updateInteractions(for: federatedItems, in: context)
+                }
                 
                 Logger.main.info("Fetched \(federatedItems.count) NewsItem statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
                 
