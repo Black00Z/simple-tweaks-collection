@@ -319,6 +319,7 @@
         <attribute name="pledgeAmount" optional="YES" attributeType="Decimal"/>
         <attribute name="pledgeCurrency" optional="YES" attributeType="String"/>
         <attribute name="prefersCustomPledge" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="regions" optional="YES" attributeType="Transformable" valueTransformerName="ALTSecureValueTransformer"/>
         <attribute name="screenshotURLs" attributeType="Transformable" valueTransformerName="ALTSecureValueTransformer"/>
         <attribute name="size" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sortIndex" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>

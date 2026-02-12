@@ -177,6 +177,16 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
     
     @NSManaged public var federatedItem: FederatedItem?
     
+    public var availableRegions: Set<String>? {
+        guard let regions, let availableRegions = regions["include"] as? [String] else { return nil }
+        return Set(availableRegions.lazy.map { $0.lowercased() })
+    }
+    public var unavailableRegions: Set<String>? {
+        guard let regions, let unavailableRegions = regions["exclude"] as? [String] else { return nil }
+        return Set(unavailableRegions.lazy.map { $0.lowercased() })
+    }
+    @NSManaged private var regions: NSDictionary?
+    
     /* Non-Core Data Properties */
     
     // Used to set isPledged after fetching source.
@@ -229,6 +239,7 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
         case versions
         case patreon
         case category
+        case regions = "_regions"
         
         // Localized
         case localizedDescriptions
@@ -431,6 +442,11 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
                 
                 self._tierIDs = nil
                 self._rewardID = nil
+            }
+            
+            if let regions = try container.decodeIfPresent([String: [String]].self, forKey: .regions)
+            {
+                self.regions = regions as NSDictionary
             }
         }
         catch
