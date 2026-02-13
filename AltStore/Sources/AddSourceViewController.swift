@@ -473,7 +473,7 @@ private extension AddSourceViewController
             // Icon background
             let iconSize: CGFloat = 38
             let iconView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize, height: iconSize))
-            iconView.backgroundColor = collection.tintColor.withAlphaComponent(0.2)
+            iconView.backgroundColor = collection.tintColor
             iconView.layer.cornerRadius = iconSize / 2
             iconView.layer.masksToBounds = true
             
