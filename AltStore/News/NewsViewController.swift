@@ -214,16 +214,17 @@ private extension NewsViewController
                 cell.fediverseInteractionsView.isHidden = true
             }
             
-            cell.isAccessibilityElement = true
-            cell.accessibilityLabel = (cell.titleLabel.text ?? "") + ". " + (cell.captionLabel.text ?? "")
+            let stackView = cell.titleLabel.superview!
+            stackView.isAccessibilityElement = true
+            stackView.accessibilityLabel = (cell.titleLabel.text ?? "") + ". " + (cell.captionLabel.text ?? "")
             
             if newsItem.storeApp != nil || newsItem.externalURL != nil
             {
-                cell.accessibilityTraits.insert(.button)
+                stackView.accessibilityTraits.insert(.button)
             }
             else
             {
-                cell.accessibilityTraits.remove(.button)
+                stackView.accessibilityTraits.remove(.button)
             }
         }
         dataSource.prefetchHandler = { (newsItem, indexPath, completionHandler) in

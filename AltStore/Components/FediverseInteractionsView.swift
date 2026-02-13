@@ -185,6 +185,8 @@ struct FediverseInteractions: View
                             }
                             .frame(width: avatarContainerWidth, alignment: .leading) //RST Why?
                         }
+                        .accessibilityValue(Text("^[\(likesCount) like](inflect: true)"))
+                        .accessibilityHint(Text("Shows all likes"))
                         
                         // Rolling avatar
                         if let currentAccount = DatabaseManager.shared.socialWebAccount(), rollingState.isAnimating, let avatarURL = currentAccount.avatarURL
@@ -311,6 +313,8 @@ struct FediverseInteractions: View
                     }
                 }
             }
+            .accessibilityLabel(isLiked ? Text("Unlike") : Text("Like"))
+            .accessibilityHint(isLiked ? Text("Unlikes this item") : Text("Likes this item"))
         }
     }
     
