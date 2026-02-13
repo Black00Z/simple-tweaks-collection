@@ -551,22 +551,29 @@ private extension FederationManager
     {
         let username = tootURL.pathComponents[1].dropFirst() // Remove @
         
-        let blueskyUsername: String
+        let preferredBlueskyUsername: String
+        let fallbackBlueskyUsername = "\(username).alt.store.ap.brid.gy"
         
         if username == "altstore"
         {
-            blueskyUsername = "alt.store"
-        }
-        else if username == "stikdebug"
-        {
-            blueskyUsername = "stikdebug.alt.store"
+            preferredBlueskyUsername = "alt.store"
         }
         else
         {
-            blueskyUsername = "\(username).alt.store.ap.brid.gy"
+            preferredBlueskyUsername = "\(username).alt.store"
         }
         
-        let did = try await BlueskyAPI.shared.resolveHandle(blueskyUsername)
+        let did: String
+        
+        do
+        {
+            did = try await BlueskyAPI.shared.resolveHandle(preferredBlueskyUsername)
+        }
+        catch let error as BlueskyError where error.code == .handleNotFound
+        {
+            did = try await BlueskyAPI.shared.resolveHandle(fallbackBlueskyUsername)
+        }
+        
         let posts = try await BlueskyAPI.shared.fetchAccountPosts(did: did) //TODO: Only fetch up until we find a match.
         
         let bridgedPost = posts.first { $0.record.bridgyOriginalUrl == tootURL }

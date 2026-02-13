@@ -50,8 +50,10 @@ struct BlueskyError: ALTLocalizedError
         case invalidDID
         
         case incorrectCredentials
-        case postNotFound
         case personalDataServerNotFound
+        
+        case postNotFound
+        case handleNotFound
     }
     
     static func unknown(file: String = #fileID, line: UInt = #line) -> BlueskyError { BlueskyError(code: .unknown, sourceFile: file, sourceLine: line) }
@@ -60,13 +62,21 @@ struct BlueskyError: ALTLocalizedError
     
     static func invalidDID(_ did: String, file: String = #fileID, line: UInt = #line) -> BlueskyError { BlueskyError(code: .invalidDID, did: did, sourceFile: file, sourceLine: line) }
     static func incorrectCredentials(file: String = #fileID, line: UInt = #line) -> BlueskyError { BlueskyError(code: .incorrectCredentials, sourceFile: file, sourceLine: line) }
-    static func postNotFound(file: String = #fileID, line: UInt = #line) -> BlueskyError { BlueskyError(code: .postNotFound, sourceFile: file, sourceLine: line) }
     static func personalDataServerNotFound(file: String = #fileID, line: UInt = #line) -> BlueskyError { BlueskyError(code: .personalDataServerNotFound, sourceFile: file, sourceLine: line) }
+    
+    static func postNotFound(file: String = #fileID, line: UInt = #line) -> BlueskyError { BlueskyError(code: .postNotFound, sourceFile: file, sourceLine: line) }
+    static func handleNotFound(_ handle: String, file: String = #fileID, line: UInt = #line) -> BlueskyError { BlueskyError(code: .handleNotFound, handle: handle, sourceFile: file, sourceLine: line) }
     
     let code: Code
     
+    @UserInfoValue
     var statusCode: Int?
+    
+    @UserInfoValue
     var did: String?
+    
+    @UserInfoValue
+    var handle: String?
     
     var errorFailure: String?
     var errorTitle: String?
@@ -89,12 +99,16 @@ struct BlueskyError: ALTLocalizedError
             
         case .incorrectCredentials:
             return String(localized: "Incorrect username or password.")
-            
-        case .postNotFound:
-            return String(localized: "The requested post could not be found.")
         
         case .personalDataServerNotFound:
             return String(localized: "The Personal Data Server for this user could not be found.")
+            
+        case .postNotFound:
+            return String(localized: "The requested post could not be found.")
+            
+        case .handleNotFound:
+            guard let handle else { return String(localized: "An account with this username could not be found.") }
+            return String(localized: "An account with the username @\(handle) could not be found.")
         }
     }
 }
@@ -416,8 +430,20 @@ extension BlueskyAPI
             var did: String
         }
         
-        let response: Response = try await self.send(request, authorizationType: .none)
-        return response.did
+        do
+        {
+            let response: Response = try await self.send(request, authorizationType: .none)
+            return response.did
+        }
+        catch let error as ErrorResponse where error.errorName == "HandleNotFound"
+        {
+            throw BlueskyError.handleNotFound(handle)
+        }
+        catch let error as ErrorResponse where error.errorName == "InvalidRequest"
+        {
+            // Documentation says HandleNotFound, but in practice if handle doesn't exist we get InvalidRequest :/
+            throw BlueskyError.handleNotFound(handle)
+        }
     }
     
     func fetchAccountPosts(did: String) async throws -> [Post]
@@ -548,32 +574,6 @@ private extension BlueskyAPI
         let response: UserTokens = try await self.send(request, authorizationType: .refresh)
         Keychain.shared.blueskyAccessToken = response.accessJwt
         Keychain.shared.blueskyRefreshToken = response.refreshJwt
-    }
-    
-    func bridgedPost(forTootAtURL tootURL: URL) async throws -> Post?
-    {        
-        let username = tootURL.pathComponents[1].dropFirst() // Remove @
-        
-        let blueskyUsername: String
-        
-        if username == "altstore"
-        {
-            blueskyUsername = "alt.store"
-        }
-        else if username == "stikdebug"
-        {
-            blueskyUsername = "stikdebug.alt.store"
-        }
-        else
-        {
-            blueskyUsername = "\(username).alt.store.ap.brid.gy"
-        }
-        
-        let did = try await self.resolveHandle(blueskyUsername)
-        let posts = try await self.fetchAccountPosts(did: did)
-        
-        let bridgedPost = posts.first { $0.record.bridgyOriginalUrl == tootURL }
-        return bridgedPost
     }
 }
 
