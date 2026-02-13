@@ -78,6 +78,7 @@ class NewsViewController: UICollectionViewController, PeekPopPreviewing
     private func initialize()
     {
         NotificationCenter.default.addObserver(self, selector: #selector(NewsViewController.importApp(_:)), name: AppDelegate.importAppDeepLinkNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewsViewController.didFetchSource(_:)), name: AppManager.didFetchSourceNotification, object: nil)
     }
     
     override func viewDidLoad()
@@ -154,6 +155,12 @@ class NewsViewController: UICollectionViewController, PeekPopPreviewing
         super.viewIsAppearing(animated)
         
         self.updateFediverseInteractionsIfNeeded()
+    }
+    
+    deinit
+    {
+        NotificationCenter.default.removeObserver(self, name: AppDelegate.importAppDeepLinkNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: AppManager.didFetchSourceNotification, object: nil)
     }
 }
 
@@ -356,6 +363,12 @@ private extension NewsViewController
 
 private extension NewsViewController
 {
+    @objc func didFetchSource(_ notification: Notification)
+    {
+        // Reset cache in case source has started federating.
+        self.cachedCellSizes.removeAll()
+    }
+    
     @objc func handleTapGesture(_ gestureRecognizer: UITapGestureRecognizer)
     {
         guard let footerView = gestureRecognizer.view as? UICollectionReusableView else { return }
