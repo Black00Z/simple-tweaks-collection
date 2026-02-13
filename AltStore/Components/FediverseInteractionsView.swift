@@ -603,7 +603,7 @@ private extension FediverseInteractions
     
     var canRollOut: Bool {
         guard let currentAccount = DatabaseManager.shared.socialWebAccount() else { return false }
-        return slots[0]?.identifier == currentAccount.identifier
+        return slots[0]?.identifier.contains(currentAccount.identifier) == true
     }
     
     // MARK: - Animation
