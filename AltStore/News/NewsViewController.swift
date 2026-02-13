@@ -170,8 +170,8 @@ private extension NewsViewController
     {
         AppManager.shared.$updateSourcesResult
             .receive(on: RunLoop.main) // Delay to next run loop so we receive _current_ value (not previous value).
-            .sink { result in
-                self.update()
+            .sink { [weak self] result in
+                self?.update()
             }
             .store(in: &self.cancellables)
     }
