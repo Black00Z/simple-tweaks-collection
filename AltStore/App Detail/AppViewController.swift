@@ -826,7 +826,10 @@ extension AppViewController
         guard let federatedItem = self.app.federatedItem else { return }
         
         let hostingController = UIHostingController(rootView: NavigationStack { FediverseLikesView(federatedItem: federatedItem) })
-        hostingController.view.backgroundColor = .clear
+        if #available(iOS 26, *)
+        {
+            hostingController.view.backgroundColor = .clear
+        }
         
         if let sheetController = hostingController.sheetPresentationController
         {
