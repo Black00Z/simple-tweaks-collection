@@ -825,20 +825,16 @@ extension AppViewController
     {
         guard let federatedItem = self.app.federatedItem else { return }
         
-        let hostingController = UIHostingController(rootView: FediverseLikesView(federatedItem: federatedItem))
+        let hostingController = UIHostingController(rootView: NavigationStack { FediverseLikesView(federatedItem: federatedItem) })
         hostingController.view.backgroundColor = .clear
         
-        let navigationController = UINavigationController(rootViewController: hostingController)
-        
-        if let sheetController = navigationController.sheetPresentationController
+        if let sheetController = hostingController.sheetPresentationController
         {
-            navigationController.view.backgroundColor = .clear
-            
             sheetController.detents = [.medium(), .large()]
             sheetController.prefersGrabberVisible = true
         }
         
-        self.present(navigationController, animated: true)
+        self.present(hostingController, animated: true)
     }
     
     @objc func shareApp()
