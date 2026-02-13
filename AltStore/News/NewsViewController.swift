@@ -259,19 +259,23 @@ private extension NewsViewController
     
     @objc func updateSources()
     {
-        AppManager.shared.updateAllSources() { result in
-            self.updateFediverseInteractionsResult = nil
-            self.updateFediverseInteractionsIfNeeded()
+        Task<Void, Never> {
+            await FederationManager.shared.resetCache()
             
-            self.collectionView.refreshControl?.endRefreshing()
-            
-            guard case .failure(let error) = result else { return }
-            
-            if self.dataSource.itemCount > 0
-            {
-                let toastView = ToastView(error: error)
-                toastView.addTarget(nil, action: #selector(TabBarController.presentSources), for: .touchUpInside)
-                toastView.show(in: self)
+            AppManager.shared.updateAllSources() { result in
+                self.updateFediverseInteractionsResult = nil
+                self.updateFediverseInteractionsIfNeeded()
+                
+                self.collectionView.refreshControl?.endRefreshing()
+                
+                guard case .failure(let error) = result else { return }
+                
+                if self.dataSource.itemCount > 0
+                {
+                    let toastView = ToastView(error: error)
+                    toastView.addTarget(nil, action: #selector(TabBarController.presentSources), for: .touchUpInside)
+                    toastView.show(in: self)
+                }
             }
         }
     }

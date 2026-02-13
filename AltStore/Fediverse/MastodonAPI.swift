@@ -97,8 +97,6 @@ final actor MastodonAPI: NSObject
     private let session = URLSession(configuration: .default)
     private let contextProvider = PresentationContextProvider()
     
-    private var fetchFavoritesTask: [String: (Date, Task<[Account], Error>)] = [:]
-    
     private static let iso8601Formatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withFractionalSeconds, .withInternetDateTime, .withTimeZone]
@@ -294,40 +292,24 @@ extension MastodonAPI
     {
         let startTime = CFAbsoluteTimeGetCurrent()
         
-        if let (date, task) = self.fetchFavoritesTask[tootID], date > Date.now.addingTimeInterval(-5)
+        // TODO: Support more than 80 likes per status via Link HTTP Header
+        // https://github.com/apple/swift-http-structured-headers
+        
+        var endpoint = MastodonAPI.instanceURL.appendingPathComponent("api/v1/statuses/\(tootID)/favourited_by").absoluteString
+        if let limit
         {
-            // Avoid creating multiple tasks for same status within 5 seconds.
-                        
-            let accounts = try await task.value
-            return accounts
+            endpoint += "?limit=\(limit)"
         }
         
-        let task = Task<[Account], Error> {
-            // TODO: Handle rate/fetch limits
-            // TODO: Support more than 80 likes per status via Link HTTP Header
-            // https://github.com/apple/swift-http-structured-headers
-            
-            var endpoint = MastodonAPI.instanceURL.appendingPathComponent("api/v1/statuses/\(tootID)/favourited_by").absoluteString
-            if let limit
-            {
-                endpoint += "?limit=\(limit)"
-            }
-            
-            guard let requestURL = URL(string: endpoint) else { throw MastodonError.unknown() }
-            
-            var request = URLRequest(url: requestURL)
-            request.httpMethod = "GET"
-            
-            let accounts: [Account] = try await self.send(request, authorizationType: .none)
-            return accounts
-        }
+        guard let requestURL = URL(string: endpoint) else { throw MastodonError.unknown() }
         
-        self.fetchFavoritesTask[tootID] = (.now, task)
-                
-        let accounts = try await task.value
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "GET"
+        
+        let accounts: [Account] = try await self.send(request, authorizationType: .none)
         
         Logger.main.debug("Fetched all favorites for post \(tootID) in \(CFAbsoluteTimeGetCurrent() - startTime) seconds.")
-                
+        
         return accounts
     }
 }

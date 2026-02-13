@@ -1736,6 +1736,8 @@ private extension MyAppsViewController
                 toastView.show(in: self)
             }
             
+            await FederationManager.shared.resetCache()
+            
             self.updateFediverseInteractionsResult = nil
             self.updateFediverseInteractionsIfNeeded()
             

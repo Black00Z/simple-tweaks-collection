@@ -14,11 +14,19 @@ import AltStoreCore
 actor FederationManager
 {
     static let shared = FederationManager()
-    
-    private var fetchIsLikedTasks = [String: (Date, Task<Bool, Error>)]()
+        
+    // Cache whether or not we've fetched likes + interactions since app launch / explicit cache reset.
+    private var didCacheLikes = [String: Date]()
+    private var didCacheInteractions = [String: Date]()
         
     private init()
     {
+    }
+    
+    func resetCache()
+    {
+        self.didCacheLikes.removeAll()
+        self.didCacheInteractions.removeAll()
     }
 }
 
@@ -71,6 +79,9 @@ extension FederationManager
         
         Logger.main.info("Authenticated \(account.type.rawValue) account: \(account.name)")
         
+        // Reset cache to ensure we resolve all posts now that we're logged in.
+        await self.resetCache()
+        
         return account
     }
     
@@ -108,6 +119,8 @@ extension FederationManager
         BlueskyAPI.shared.signOut()
         
         Keychain.shared.socialWebAccountID = nil
+        
+        self.resetCache()
     }
 }
 
@@ -245,6 +258,14 @@ extension FederationManager
         let tootID = await $federatedItem.identifier
         let objectID = federatedItem.objectID
         
+        if self.didCacheLikes.keys.contains(tootID)
+        {
+            return await context.perform {
+                let federatedItem = context.object(with: objectID) as! FederatedItem
+                return federatedItem.likes
+            }
+        }
+        
         let favorites = try await MastodonAPI.shared.fetchFavorites(tootID: tootID, limit: limit)
         
         let likes = await context.perform {
@@ -294,6 +315,8 @@ extension FederationManager
             
             return likes
         }
+        
+        self.didCacheLikes[tootID] = .now
         
         return likes
     }
@@ -354,7 +377,7 @@ extension FederationManager
                 return resolvedToot
             }
             
-            let tootIDs = Set(resolvedItems.map(\.1))
+            let tootIDs = Set(resolvedItems.lazy.map(\.1).filter { self.didCacheInteractions[$0] == nil }) // Filter out posts we've already fetched interactions for.
             async let toots = MastodonAPI.shared.fetchToots(ids: tootIDs, serverURL: serverURL)
             
             let successes = await resolvedToots.successes
@@ -385,6 +408,11 @@ extension FederationManager
                     Logger.main.error("Failed to update Fediverse interactions for status \(federatedItem.url, privacy: .public): \(error.localizedDescription, privacy: .public)")
                 }
             }
+            
+            for tootID in tootIDs
+            {
+                self.didCacheInteractions[tootID] = .now
+            }
         }
         else if accountInfo?.0 == .bluesky
         {
@@ -403,7 +431,7 @@ extension FederationManager
             
             
             // Fetch ALL toots, there is no resolving into user's server
-            let tootIDs = Set(allItems.map(\.1))
+            let tootIDs = Set(allItems.lazy.map(\.1).filter { self.didCacheInteractions[$0] == nil }) // Filter out posts we've already fetched interactions for.
             async let toots = MastodonAPI.shared.fetchToots(ids: tootIDs)
             
             
@@ -447,12 +475,17 @@ extension FederationManager
                     Logger.main.error("Failed to update Fediverse interactions for bridged status \(federatedItem.url, privacy: .public): \(error.localizedDescription, privacy: .public)")
                 }
             }
+            
+            for tootID in tootIDs
+            {
+                self.didCacheInteractions[tootID] = .now
+            }
         }
         else
         {
             // Not signed-in, no need to resolve.
             
-            let tootIDs = Set(unresolvedItems.map(\.1))
+            let tootIDs = Set(unresolvedItems.lazy.map(\.1).filter { self.didCacheInteractions[$0] == nil }) // Filter out posts we've already fetched interactions for.
             
             let toots = try await MastodonAPI.shared.fetchToots(ids: tootIDs)
             let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
@@ -465,6 +498,11 @@ extension FederationManager
                     let federatedItem = context.object(with: objectID) as! FederatedItem
                     federatedItem.update(with: toot)
                 }
+            }
+            
+            for tootID in tootIDs
+            {
+                self.didCacheInteractions[tootID] = .now
             }
         }
         
