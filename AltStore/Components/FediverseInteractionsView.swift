@@ -236,9 +236,13 @@ struct FediverseInteractions: View
                     try context.save()
                 }
             }
+            catch let error as URLError where error.code == .cancelled
+            {
+                // Do nothing
+            }
             catch
             {
-                Logger.main.error("Failed to fetch Fediverse interactions for \(String(describing: federatedItem), privacy: .public): \(error.localizedDescription, privacy: .public)")
+                Logger.main.error("Failed to fetch likes for \(federatedItem.url, privacy: .public): \(error.localizedDescription, privacy: .public)")
             }
         }
         .sheet(isPresented: $isShowingLikes) {
@@ -265,7 +269,7 @@ struct FediverseInteractions: View
             }
             catch
             {
-                Logger.main.error("Failed to fetch liked status for \(String(describing: federatedItem), privacy: .public): \(error.localizedDescription, privacy: .public)")
+                Logger.main.error("Failed to update interactions for \(federatedItem.url, privacy: .public): \(error.localizedDescription, privacy: .public)")
             }
         }
         .onAppear {

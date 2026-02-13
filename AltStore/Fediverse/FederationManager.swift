@@ -470,6 +470,7 @@ extension FederationManager
                 for (objectID, error) in postErrors
                 {
                     guard !(error._domain == BlueskyError.errorDomain && error._code == BlueskyError.Code.postNotFound.rawValue) else { continue }
+                    guard !(error._domain == URLError.errorDomain && error._code == URLError.cancelled.rawValue) else { continue }
                     
                     let federatedItem = context.object(with: objectID) as! FederatedItem
                     Logger.main.error("Failed to update Fediverse interactions for bridged status \(federatedItem.url, privacy: .public): \(error.localizedDescription, privacy: .public)")
