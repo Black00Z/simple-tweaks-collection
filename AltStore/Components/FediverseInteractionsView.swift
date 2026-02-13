@@ -153,6 +153,7 @@ struct FediverseInteractions: View
                                                 if let image = state.image
                                                 {
                                                     image
+                                                        .background(Color.white)
                                                         .clipShape(.circle)
                                                         .overlay(Circle().stroke(.tint, lineWidth: 1))
                                                         .frame(width: preferredHeight, height: preferredHeight)
@@ -195,6 +196,7 @@ struct FediverseInteractions: View
                                 if let image = state.image
                                 {
                                     image
+                                        .background(Color.white)
                                         .clipShape(.circle)
                                         .overlay(Circle().stroke(.tint, lineWidth: 1))
                                         .frame(width: preferredHeight, height: preferredHeight)
