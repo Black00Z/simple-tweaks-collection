@@ -289,11 +289,10 @@ struct FediverseInteractions: View
             accounts = federatedItem.likes.compactMap { $0.account }
         }
         .onChange(of: accounts) { oldValue, newValue in
-            var newSlots: [SocialWebAccount?] = Array(repeating: nil, count: maximumSlots)
-            for (index, account) in zip(0..., (accounts ?? []).prefix(maximumSlots)) {
-                newSlots[index] = account
-            }
-            slots = newSlots
+            updateSlots()
+        }
+        .onChange(of: isLiked) { oldValue, newValue in
+            updateSlots()
         }
     }
     
@@ -476,6 +475,14 @@ private extension FediverseInteractions
                     try await Task.sleep(for: .seconds(0.5))
                     
                     finalizeRollIn()
+                    
+                    if let account = DatabaseManager.shared.socialWebAccount()
+                    {
+                        let tempLike = Like(account: account, item: federatedItem, context: DatabaseManager.shared.viewContext)
+                        
+                        let updatedLikes = NSOrderedSet(array: [tempLike] + federatedItem.likes.filter { !$0.accountID.contains(account.identifier) })
+                        federatedItem._likes = updatedLikes
+                    }
                 }
                 else
                 {
@@ -487,6 +494,12 @@ private extension FediverseInteractions
                     try await Task.sleep(for: .seconds(0.5))
                     
                     resetAnimationState()
+                    
+                    if let account = DatabaseManager.shared.socialWebAccount()
+                    {
+                        let updatedLikes = federatedItem.likes.filter { !$0.accountID.contains(account.identifier) }
+                        federatedItem._likes = NSOrderedSet(array: updatedLikes)
+                    }
                 }
                 
                 self.hapticGenerator.notificationOccurred(.success)
@@ -604,6 +617,23 @@ private extension FediverseInteractions
     var canRollOut: Bool {
         guard let currentAccount = DatabaseManager.shared.socialWebAccount() else { return false }
         return slots[0]?.identifier.contains(currentAccount.identifier) == true
+    }
+    
+    func updateSlots()
+    {
+        var accounts = self.accounts ?? []
+        if !isLiked, let currentAccount = DatabaseManager.shared.socialWebAccount()
+        {
+            // Mastodon server sometimes caches like for a while even after unliking,
+            // so manually filter out ourselves if we haven't liked this post.
+            accounts = accounts.filter { !$0.identifier.contains(currentAccount.identifier) } // contains() checks for direct matches AND indirect Bridgy Fed account matches
+        }
+        
+        var newSlots: [SocialWebAccount?] = Array(repeating: nil, count: maximumSlots)
+        for (index, account) in zip(0..., accounts).prefix(maximumSlots) {
+            newSlots[index] = account
+        }
+        slots = newSlots
     }
     
     // MARK: - Animation
