@@ -132,7 +132,7 @@ extension MastodonAPI
             textField.textContentType = .URL
             textField.keyboardType = .URL
             textField.autocorrectionType = .no
-            textField.enablesReturnKeyAutomatically = true // TODO: Enable/disable alert button as well.
+            textField.enablesReturnKeyAutomatically = true
         }
         
         let domainTextField = alertController.textFields![0]
@@ -155,11 +155,16 @@ extension MastodonAPI
             }
             alertController.addAction(cancelAction)
             
+            alertController.preferredAction = signInAction
             presentingViewController.present(alertController, animated: true)
         }
         
         let domain = domainTextField.text ?? ""
-        guard let serverURL = URL(string: "https://\(domain)") else { throw MastodonError.invalidServer(domain: domain) }
+        
+        // Check domain is valid in case user pressed return key with invalid domain.
+        guard self.isValidDomain(domain) else { throw MastodonError.invalidServer(domain: domain) }
+        
+        guard let serverURL = URL(string: "https://\(domain)") else { throw MastodonError.invalidServer(domain: domain)  }
         
         // Retrieve app client ID + secret from instance
         let appInfo = try await self.registerAppIfNeeded(forDomain: domain)
@@ -578,13 +583,20 @@ private extension MastodonAPI
     @MainActor
     @objc func textFieldDidChange(_ notification: Notification)
     {
-        guard let textField = notification.object as? UITextField else { return }
+        guard let textField = notification.object as? UITextField, let signInAction else { return }
         
-        let domainIsValid = (textField.text ?? "").split(separator: ".").count > 1
+        let text = textField.text ?? ""
         
-        if let signIn = self.signInAction
-        {
-            signIn.isEnabled = domainIsValid
-        }
+        let isValidDomain = self.isValidDomain(text)
+        signInAction.isEnabled = isValidDomain
+    }
+    
+    nonisolated func isValidDomain(_ domain: String) -> Bool
+    {
+        let hasPeriodSeparator = domain.split(separator: ".").count > 1
+        let isUsername = domain.contains("@")
+        
+        let isValidDomain = hasPeriodSeparator && !isUsername
+        return isValidDomain
     }
 }
