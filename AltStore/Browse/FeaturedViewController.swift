@@ -338,6 +338,9 @@ private extension FeaturedViewController
             let cell = cell as! LargeIconCollectionViewCell
             cell.textLabel.text = category.localizedName
             cell.imageView.image = UIImage(systemName: category.symbolName)
+            cell.isAccessibilityElement = true
+            cell.accessibilityLabel = category.localizedName + " " + String(localized: "category")
+            cell.accessibilityTraits.formUnion(.button)
             
             var background = UIBackgroundConfiguration.clear()
             background.backgroundColor = category.tintColor
