@@ -420,12 +420,12 @@ extension FederationManager
             
             let unresolvedItems = unresolvedItems
             async let likes = await withCollatingTaskGroup(for: unresolvedItems.map(\.0)) { objectID in
-                let federatedURL = await context.perform {
+                let (federatedURL, federatedURI) = await context.perform {
                     let federatedItem = context.object(with: objectID) as! FederatedItem
-                    return federatedItem.url
+                    return (federatedItem.url, federatedItem.uri)
                 }
                                 
-                guard let post = try await self.bridgedPost(forTootAtURL: federatedURL) else { throw BlueskyError.postNotFound() }
+                guard let post = try await self.bridgedPost(forTootAtURL: federatedURL, tootURI: federatedURI) else { throw BlueskyError.postNotFound() }
                 return post
             }
             
@@ -535,8 +535,8 @@ private extension FederationManager
     
     func resolveBlueskyPost(@AsyncManaged for federatedItem: FederatedItem) async throws -> BlueskyAPI.Post
     {
-        let tootURL = await $federatedItem.url
-        guard let bridgedPost = try await self.bridgedPost(forTootAtURL: tootURL) else { throw BlueskyError.postNotFound() }
+        let (tootURL, tootURI) = await $federatedItem.perform { ($0.url, $0.uri) }
+        guard let bridgedPost = try await self.bridgedPost(forTootAtURL: tootURL, tootURI: tootURI) else { throw BlueskyError.postNotFound() }
         
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
         try await context.perform {
@@ -548,37 +548,63 @@ private extension FederationManager
         return bridgedPost
     }
     
-    func bridgedPost(forTootAtURL tootURL: URL) async throws -> BlueskyAPI.Post?
+    func bridgedPost(forTootAtURL tootURL: URL, tootURI: URL) async throws -> BlueskyAPI.Post?
     {
-        let username = tootURL.pathComponents[1].dropFirst() // Remove @
-        
-        let preferredBlueskyUsername: String
-        let fallbackBlueskyUsername = "\(username).alt.store.ap.brid.gy"
-        
-        if username == "altstore"
-        {
-            preferredBlueskyUsername = "alt.store"
-        }
-        else
-        {
-            preferredBlueskyUsername = "\(username).alt.store"
-        }
-        
-        let did: String
+        guard let bridgyFedURL = URL(string: "https://ap.brid.gy/convert/bsky/\(tootURI.absoluteString)") else { throw BlueskyError.postNotFound() }
         
         do
         {
-            did = try await BlueskyAPI.shared.resolveHandle(preferredBlueskyUsername)
+            let (_, urlResponse) = try await URLSession.shared.data(from: bridgyFedURL)
+            guard let httpResponse = urlResponse as? HTTPURLResponse else { throw BlueskyError.unknown() }
+            
+            switch httpResponse.statusCode
+            {
+            case 200...299:
+                guard let linkHeader = httpResponse.allHeaderFields["Link"] as? String else { throw BlueskyError.postNotFound() }
+                guard let openingBracket = linkHeader.firstIndex(of: "<"), let closingBracket = linkHeader.lastIndex(of: ">") else { throw BlueskyError.postNotFound() }
+                
+                let postID = String(linkHeader[linkHeader.index(after: openingBracket) ..< closingBracket])
+                
+                let post = try await BlueskyAPI.shared.fetchPost(uri: postID)
+                return post
+                
+            default: throw BlueskyError.http(statusCode: httpResponse.statusCode)
+            }
         }
-        catch let error as BlueskyError where error.code == .handleNotFound
+        catch
         {
-            did = try await BlueskyAPI.shared.resolveHandle(fallbackBlueskyUsername)
+            Logger.main.error("Failed to fetch bridged Bluesky post via Bridgy Fed, falling back to fetching account posts. \(error.localizedDescription, privacy: .public)")
+            
+            let username = tootURL.pathComponents[1].dropFirst() // Remove @
+            
+            let preferredBlueskyUsername: String
+            let fallbackBlueskyUsername = "\(username).alt.store.ap.brid.gy"
+            
+            if username == "altstore"
+            {
+                preferredBlueskyUsername = "alt.store"
+            }
+            else
+            {
+                preferredBlueskyUsername = "\(username).alt.store"
+            }
+            
+            let did: String
+            
+            do
+            {
+                did = try await BlueskyAPI.shared.resolveHandle(preferredBlueskyUsername)
+            }
+            catch let error as BlueskyError where error.code == .handleNotFound
+            {
+                did = try await BlueskyAPI.shared.resolveHandle(fallbackBlueskyUsername)
+            }
+            
+            let posts = try await BlueskyAPI.shared.fetchAccountPosts(did: did) //TODO: Only fetch up until we find a match.
+            
+            let bridgedPost = posts.first { $0.record.bridgyOriginalUrl == tootURL }
+            return bridgedPost
         }
-        
-        let posts = try await BlueskyAPI.shared.fetchAccountPosts(did: did) //TODO: Only fetch up until we find a match.
-        
-        let bridgedPost = posts.first { $0.record.bridgyOriginalUrl == tootURL }
-        return bridgedPost
     }
 }
 
