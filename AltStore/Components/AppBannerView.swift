@@ -112,7 +112,7 @@ class AppBannerView: RSTNibView
         self.accessibilityView.accessibilityTraits.formUnion(.button)
         
         self.isAccessibilityElement = false
-        self.accessibilityElements = [self.accessibilityView, self.button].compactMap { $0 }
+        self.accessibilityElements = [self.button, self.accessibilityView].compactMap { $0 }
         
         self.betaBadgeView.isHidden = true
         
