@@ -14,7 +14,11 @@ import TelemetryClient
 
 #if MARKETPLACE
 
+#if DEBUG || STAGING
+private let telemetryDeckAppID = "905CE264-D334-4972-8DE9-0A2B7193FA55"
+#else
 private let telemetryDeckAppID = "67F64B51-C3E4-42A5-9CA2-300CCAFA55C9"
+#endif
 
 #else
 
