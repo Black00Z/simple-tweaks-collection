@@ -699,6 +699,12 @@ private extension AppViewController
         
         self.view.addSubview(self.likesButtonContainerView)
         self.view.addSubview(self.moreButtonContainerView)
+        
+        if self.app.federatedItem == nil
+        {
+            self.likesButtonContainerView.isHidden = true
+            self.moreButtonContainerView.isHidden = true
+        }
     }
     
     func prepareNavigationBarAnimation()
