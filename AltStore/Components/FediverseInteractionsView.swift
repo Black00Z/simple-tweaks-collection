@@ -50,7 +50,7 @@ private extension FediverseInteractionsView
         self.contentView?.removeFromSuperview()
         
         let hostingConfiguration = UIHostingConfiguration {
-            if let item
+            if let item, !UserDefaults.shared.fediverseInteractionsDisabled
             {
                 FediverseInteractions(federatedItem: item, isOpaque: isOpaque)
                     .environment(self)

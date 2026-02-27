@@ -700,7 +700,7 @@ private extension AppViewController
         self.view.addSubview(self.likesButtonContainerView)
         self.view.addSubview(self.moreButtonContainerView)
         
-        if self.app.federatedItem == nil
+        if self.app.federatedItem == nil || UserDefaults.shared.fediverseInteractionsDisabled
         {
             self.likesButtonContainerView.isHidden = true
             self.moreButtonContainerView.isHidden = true

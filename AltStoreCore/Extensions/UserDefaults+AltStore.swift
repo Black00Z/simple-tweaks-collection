@@ -80,6 +80,8 @@ public extension UserDefaults
     @NSManaged var responseCachingDisabled: Bool
     @NSManaged var shouldManageInstalledApps: Bool
     
+    @NSManaged var fediverseInteractionsDisabled: Bool
+    
     class func registerDefaults()
     {
         let ios13_5 = OperatingSystemVersion(majorVersion: 13, minorVersion: 5, patchVersion: 0)

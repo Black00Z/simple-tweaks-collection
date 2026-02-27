@@ -713,6 +713,25 @@ extension AppManager
         self.run([operation], context: nil)
     }
     
+    func updateRemoteFlagsIfNeeded()
+    {
+        guard self.operationQueue.operations.allSatisfy({ !($0 is UpdateRemoteFlagsOperation) }) else {
+            // There's already an UpdateRemoteFlagsOperation running.
+            return
+        }
+                
+        let operation = UpdateRemoteFlagsOperation()
+        operation.resultHandler = { (result) in
+            switch result
+            {
+            case .success: Logger.main.info("Successfully updated remote flags.")
+            case .failure(let error): Logger.main.error("Failed to update remote flags. \(error.localizedDescription, privacy: .public)")
+            }
+        }
+        
+        self.run([operation], context: nil)
+    }
+    
     func updateAllSources(completion: @escaping (Result<Void, Error>) -> Void)
     {
         self.updateSourcesResult = nil

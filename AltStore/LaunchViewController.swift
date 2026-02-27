@@ -84,6 +84,7 @@ extension LaunchViewController
         AppManager.shared.update()
         AppManager.shared.updatePatronsIfNeeded()
         AppManager.shared.updateFediverseInteractionsIfNeeded()
+        AppManager.shared.updateRemoteFlagsIfNeeded()
         
         PatreonAPI.shared.refreshPatreonAccount()
         

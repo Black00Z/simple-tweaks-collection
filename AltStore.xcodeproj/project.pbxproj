@@ -356,6 +356,7 @@
 		D5151BE22A90363300C96F28 /* RefreshAllAppsWidgetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5151BE02A90344300C96F28 /* RefreshAllAppsWidgetIntent.swift */; };
 		D5151BE72A90395400C96F28 /* View+AltWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5151BE52A90391900C96F28 /* View+AltWidget.swift */; };
 		D51540572C7E7BDE00DB6C44 /* AltStore17ToAltStore18.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D51540562C7E7BDE00DB6C44 /* AltStore17ToAltStore18.xcmappingmodel */; };
+		D515B73D2F5115660003684E /* UpdateRemoteFlagsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D515B73C2F5115660003684E /* UpdateRemoteFlagsOperation.swift */; };
 		D5177B0D2A26944600270065 /* AltStore12ToAltStore13.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5177B0C2A26944600270065 /* AltStore12ToAltStore13.xcmappingmodel */; };
 		D5185B802AE1E51B00646E33 /* AltStore13ToAltStore14.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5185B7F2AE1E51B00646E33 /* AltStore13ToAltStore14.xcmappingmodel */; };
 		D5185B822AE1E71D00646E33 /* Source13To14MigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5185B812AE1E71D00646E33 /* Source13To14MigrationPolicy.swift */; };
@@ -1067,6 +1068,7 @@
 		D5151BE52A90391900C96F28 /* View+AltWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+AltWidget.swift"; sourceTree = "<group>"; };
 		D51540552C7E7A2000DB6C44 /* AltStore 18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 18.xcdatamodel"; sourceTree = "<group>"; };
 		D51540562C7E7BDE00DB6C44 /* AltStore17ToAltStore18.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = AltStore17ToAltStore18.xcmappingmodel; sourceTree = "<group>"; };
+		D515B73C2F5115660003684E /* UpdateRemoteFlagsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRemoteFlagsOperation.swift; sourceTree = "<group>"; };
 		D5177B0C2A26944600270065 /* AltStore12ToAltStore13.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = AltStore12ToAltStore13.xcmappingmodel; sourceTree = "<group>"; };
 		D5185B7E2AE1E35200646E33 /* AltStore 14.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 14.xcdatamodel"; sourceTree = "<group>"; };
 		D5185B7F2AE1E51B00646E33 /* AltStore13ToAltStore14.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = AltStore13ToAltStore14.xcmappingmodel; sourceTree = "<group>"; };
@@ -2225,6 +2227,7 @@
 				D5ACE84428E3B8450021CAB9 /* ClearAppCacheOperation.swift */,
 				D561AF812B21669400BF59C6 /* VerifyAppPledgeOperation.swift */,
 				D5D574C42ED0FC1F00FBEE87 /* UpdateFediverseInteractionsOperation.swift */,
+				D515B73C2F5115660003684E /* UpdateRemoteFlagsOperation.swift */,
 				BF7B44062725A4B8005288A4 /* Patch App */,
 			);
 			path = Operations;
@@ -3467,6 +3470,7 @@
 				BFE338DF22F0EADB002E24B9 /* FetchSourceOperation.swift in Sources */,
 				D54DED1428CBC44B008B27A0 /* ErrorLogTableViewCell.swift in Sources */,
 				D5390C3C2AC3A43900D17E62 /* AddSourceViewController.swift in Sources */,
+				D515B73D2F5115660003684E /* UpdateRemoteFlagsOperation.swift in Sources */,
 				D5CD805F29CA755E00E591B0 /* SourceDetailViewController.swift in Sources */,
 				D57968CB29CB99EF00539069 /* VibrantButton.swift in Sources */,
 				BFB6B21E231870160022A802 /* NewsViewController.swift in Sources */,
