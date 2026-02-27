@@ -470,11 +470,17 @@ private extension AppViewController
         if self._likesCount > 0
         {
             self.likesButton.configuration?.title = String(self._likesCount)
+            self.likesButton.accessibilityLabel = String(AttributedString(localized: "^[\(self._likesCount) like](inflect: true)").characters)
+            self.likesButton.accessibilityValue = self._isLiked ? String(localized: "Liked") : nil
         }
         else
         {
             self.likesButton.configuration?.title = nil
+            self.likesButton.accessibilityLabel = self._isLiked ? String(localized: "Unlike") : String(localized: "Like")
+            self.likesButton.accessibilityValue = nil
         }
+        
+        self.likesButton.accessibilityHint = self._isLiked ? String(localized: "Unlikes this app") : String(localized: "Likes this app")
         
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .semibold)
         if self._isLiked

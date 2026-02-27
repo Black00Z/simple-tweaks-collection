@@ -117,4 +117,18 @@ class NavigationBar: UINavigationBar
         
         return super.hitTest(point, with: event)
     }
+    
+    @available(iOS 18, *)
+    override func accessibilityHitTest(_ point: CGPoint, event: UIEvent?) -> Any?
+    {
+        if let appearance = self.topItem?.standardAppearance as? NavigationBarAppearance, appearance.ignoresUserInteraction
+        {
+            let hitTest = self.hitTest(point, with: event)
+            return hitTest
+        }
+        else
+        {
+            return super.accessibilityHitTest(point, event: event)
+        }
+    }
 }
