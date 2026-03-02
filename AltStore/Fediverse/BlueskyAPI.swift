@@ -98,11 +98,15 @@ struct BlueskyError: ALTLocalizedError
     }
 }
 
-struct BlueskyAPI
+class BlueskyAPI
 {
     static let shared = BlueskyAPI()
     
     private let session = URLSession(configuration: .default)
+    
+    private weak var usernameTextField: UITextField?
+    private weak var passwordTextField: UITextField?
+    private weak var signInAction: UIAlertAction?
     
     private init()
     {
@@ -114,7 +118,7 @@ extension BlueskyAPI
     @MainActor
     func authenticate(presentingViewController: UIViewController) async throws -> SocialWebAccount
     {
-        let alertController = UIAlertController(title: String(localized: "Sign in with your Bluesky account."), message: String(localized: "You'll need to generate an app-specific password in your Bluesky settings."), preferredStyle: .alert)
+        let alertController = UIAlertController(title: String(localized: "Sign in with your Bluesky account"), message: String(localized: "You'll need to generate an app-specific password in your Bluesky settings."), preferredStyle: .alert)
         
         alertController.addTextField { textField in
             textField.placeholder = String(localized: "Username")
@@ -125,7 +129,7 @@ extension BlueskyAPI
         }
         
         alertController.addTextField { textField in
-            textField.placeholder = String(localized: "Password")
+            textField.placeholder = String(localized: "App Password")
             textField.textContentType = .password
             textField.keyboardType = .default
             textField.autocorrectionType = .no
@@ -134,12 +138,25 @@ extension BlueskyAPI
         }
         
         let usernameTextField = alertController.textFields![0]
+        self.usernameTextField = usernameTextField
+        
         let passwordTextField = alertController.textFields![1]
+        self.passwordTextField = passwordTextField
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(BlueskyAPI.textFieldDidChange), name: UITextField.textDidChangeNotification, object: usernameTextField)
+        NotificationCenter.default.addObserver(self, selector: #selector(BlueskyAPI.textFieldDidChange), name: UITextField.textDidChangeNotification, object: passwordTextField)
+        
+        defer {
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: usernameTextField)
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: passwordTextField)
+        }
         
         try await withCheckedThrowingContinuation { continuation in
             let signInAction = UIAlertAction(title: String(localized: "Sign in"), style: .default) { _ in
                 continuation.resume()
             }
+            signInAction.isEnabled = false
+            self.signInAction = signInAction
             alertController.addAction(signInAction)
             
             let cancelAction = UIAlertAction(title: UIAlertAction.cancel.title, style: UIAlertAction.cancel.style) { _ in
@@ -256,6 +273,22 @@ extension BlueskyAPI
 
 extension BlueskyAPI
 {
+    func fetchProfile(did: String) async throws -> Account
+    {
+        let publicURL = URL(string: "https://public.api.bsky.app")!
+        
+        var components = URLComponents(string: "/xrpc/app.bsky.actor.getProfile")!
+        components.queryItems = [
+            URLQueryItem(name: "actor", value: did),
+        ]
+        
+        let requestURL = components.url(relativeTo: publicURL)!
+        let request = URLRequest(url: requestURL)
+        
+        let account: Account = try await self.send(request, authorizationType: .none)
+        return account
+    }
+    
     func isFollowingAccount(handle: String) async throws -> Bool
     {
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
@@ -541,11 +574,47 @@ private extension BlueskyAPI
                     try await self.refreshAccessToken()
                     continue // Try again
                 }
+            
+            case 429:
+                // Rate Limited
+                let rateLimitDelay: TimeInterval
+                if let delayString = httpResponse.value(forHTTPHeaderField: "Retry-After"), let delay = TimeInterval(delayString)
+                {
+                    rateLimitDelay = delay
+                }
+                else
+                {
+                    rateLimitDelay = 1.0
+                }
+                
+                guard rateLimitDelay <= 60 else {
+                    // Assume request failed
+                    Logger.main.error("Bluesky API rate limit exceeded. Reset time too far in future: \(rateLimitDelay) seconds")
+                    throw BlueskyError.http(statusCode: 429)
+                }
+                
+                Logger.main.info("Bluesky API rate limit exceeded. Retrying request after delay: \(rateLimitDelay) seconds")
+                
+                try await Task.sleep(for: .seconds(rateLimitDelay))
                 
             default:
                 let response = try decoder.decode(ErrorResponse.self, from: data)
                 throw response
             }
+        }
+    }
+}
+
+private extension BlueskyAPI
+{
+    @objc func textFieldDidChange(_ notification: Notification)
+    {
+        let usernameHasText = !(self.usernameTextField?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
+        let passwordHasText = !(self.passwordTextField?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
+        
+        if let signIn = self.signInAction
+        {
+            signIn.isEnabled = usernameHasText && passwordHasText
         }
     }
 }

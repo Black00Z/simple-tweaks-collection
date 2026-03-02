@@ -24,57 +24,55 @@ struct FediverseLikesView: View
     private var dismiss
     
     var body: some View {
-        NavigationStack {
-            Group {
-                if accounts != nil
+        Group {
+            if accounts != nil
+            {
+                listBody
+            }
+            else
+            {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(Text("Likes"))
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                if #available(iOS 26, *)
                 {
-                    listBody
+                    SwiftUI.Button(role: .close) {
+                        dismiss()
+                    }
                 }
                 else
                 {
-                    ProgressView()
-                        .progressViewStyle(.circular)
+                    SwiftUI.Button {
+                        openURL(statusURL)
+                    } label: {
+                        Image(systemName: "globe")
+                    }
+                    .tint(Color(uiColor: .altPrimary))
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(Text("Likes"))
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    if #available(iOS 26, *)
-                    {
-                        SwiftUI.Button(role: .close) {
-                            dismiss()
-                        }
+            
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26, *)
+                {
+                    SwiftUI.Button {
+                        openURL(statusURL)
+                    } label: {
+                        Image(systemName: "globe")
                     }
-                    else
-                    {
-                        SwiftUI.Button {
-                            openURL(statusURL)
-                        } label: {
-                            Image(systemName: "globe")
-                        }
-                        .tint(Color(uiColor: .altPrimary))
-                    }
+                    .buttonStyle(.glassProminent)
+                    .tint(Color(uiColor: .altPrimary))
                 }
-                
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26, *)
-                    {
-                        SwiftUI.Button {
-                            openURL(statusURL)
-                        } label: {
-                            Image(systemName: "globe")
-                        }
-                        .buttonStyle(.glassProminent)
-                        .tint(Color(uiColor: .altPrimary))
+                else
+                {
+                    SwiftUI.Button("Done") {
+                        dismiss()
                     }
-                    else
-                    {
-                        SwiftUI.Button("Done") {
-                            dismiss()
-                        }
-                        .tint(Color(uiColor: .altPrimary))
-                    }
+                    .tint(Color(uiColor: .altPrimary))
                 }
             }
         }
@@ -107,12 +105,42 @@ struct FediverseLikesView: View
             let likedBy = try await MastodonAPI.shared.fetchFavorites(tootID: statusID)
             Logger.main.debug("Fetched likes: \(likedBy, privacy: .public)")
             
-            self.accounts = likedBy
+            await fetchBlueskyProfiles(for: likedBy)
         }
         catch
         {
             Logger.main.error("Failed to fetch likes for toot. \(error.localizedDescription, privacy: .public)")
         }
+    }
+    
+    private func fetchBlueskyProfiles(for accounts: [MastodonAPI.Account]) async
+    {
+        var accounts = accounts
+        
+        for (index, account) in accounts.enumerated()
+        {
+            if account.uri.host() == "bsky.brid.gy"
+            {
+                do
+                {
+                    let did = account.uri.lastPathComponent
+                    let blueskyAccount = try await BlueskyAPI.shared.fetchProfile(did: did)
+                    
+                    accounts[index].followers_count = blueskyAccount.followersCount
+                                        
+                    if let description = blueskyAccount.description, !description.isEmpty
+                    {
+                        accounts[index].note = description
+                    }
+                }
+                catch
+                {
+                    Logger.main.error("Failed to fetch Bluesky profile for \(account.username): \(error.localizedDescription, privacy: .public)")
+                }
+            }
+        }
+        
+        self.accounts = accounts
     }
 }
 

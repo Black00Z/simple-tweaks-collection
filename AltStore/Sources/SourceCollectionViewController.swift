@@ -31,8 +31,6 @@ class SourceCollectionViewController: UICollectionViewController
         
         let layout = Self.makeLayout()
         super.init(collectionViewLayout: layout)
-        
-        self.title = sourceCollection.localizedTitle
     }
     
     required init?(coder: NSCoder)
@@ -43,8 +41,6 @@ class SourceCollectionViewController: UICollectionViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        self.title = self.sourceCollection.localizedTitle
         
         self.placeholderView = RSTPlaceholderView(frame: .zero)
         self.placeholderView.activityIndicatorView.style = .medium // Fixes appearing black in dark mode
@@ -78,6 +74,8 @@ class SourceCollectionViewController: UICollectionViewController
         self.retryButton.setTitle(NSLocalizedString("Try Again", comment: ""), for: .normal)
         self.retryButton.addTarget(self, action: #selector(SourceCollectionViewController.fetchSources), for: .primaryActionTriggered)
         self.placeholderView.stackView.addArrangedSubview(self.retryButton)
+        
+        self.navigationItem.largeTitleDisplayMode = .never
         
         self.update()
     }
@@ -326,12 +324,12 @@ private extension SourceCollectionViewController
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 0)
         section.interGroupSpacing = 0
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(80))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
         
         section.boundarySupplementaryItems = [sectionHeader]
         
@@ -472,11 +470,22 @@ extension SourceCollectionViewController
         
         var configuration = UIListContentConfiguration.plainHeader()
         
-        configuration.textProperties.font = UIFont.preferredFont(forTextStyle: .title3)
-        configuration.textProperties.color = .secondaryLabel
-        configuration.textProperties.numberOfLines = 0
+        // Title
+        let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle).bolded()
+        configuration.textProperties.font = UIFont(descriptor: fontDescriptor, size: 0.0)
+        configuration.textProperties.color = .label
+        configuration.textProperties.numberOfLines = 2
+        configuration.textProperties.adjustsFontSizeToFitWidth = true
+        configuration.textProperties.minimumScaleFactor = 0.7
+        configuration.text = self.sourceCollection.localizedTitle
         
-        configuration.text = self.sourceCollection.localizedDescription
+        // Description
+        configuration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .body)
+        configuration.secondaryTextProperties.color = .secondaryLabel
+        configuration.secondaryTextProperties.numberOfLines = 0
+        configuration.secondaryText = self.sourceCollection.localizedDescription
+        
+        configuration.textToSecondaryTextVerticalPadding = 6
                 
         headerView.contentConfiguration = configuration
         
@@ -496,8 +505,8 @@ extension SourceCollectionViewController
 #Preview(traits: .portrait) {
     DatabaseManager.shared.startForPreview()
     
-    let sourceCollection = SourceCollection(localizedTitle: "Popular Sources",
-                                            localizedDescription: "A collection of popular sources on AltStore.",
+    let sourceCollection = SourceCollection(localizedTitle: "Popular Sources That We Really Really Really Really Love",
+                                            localizedDescription: "A collection of popular sources on AltStore. A collection of popular sources on AltStore. A collection of popular sources on AltStore.",
                                             emoji: "🦚",
                                             tintColor: .systemPink, sources: [
         .init(url: URL(string: "https://content-download-egs.distro.on.epicgames.com/iOS/altstore/source.json")!),

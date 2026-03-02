@@ -99,6 +99,8 @@ final actor MastodonAPI: NSObject
     
     private var fetchFavoritesTask: [Int: (Date, Task<[Account], Error>)] = [:]
     
+    private nonisolated(unsafe) weak var signInAction: UIAlertAction?
+    
     private override init()
     {
     }
@@ -122,10 +124,17 @@ extension MastodonAPI
         
         let domainTextField = alertController.textFields![0]
         
+        NotificationCenter.default.addObserver(self, selector: #selector(MastodonAPI.textFieldDidChange), name: UITextField.textDidChangeNotification, object: domainTextField)
+        defer {
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: domainTextField)
+        }
+        
         try await withCheckedThrowingContinuation { continuation in
             let signInAction = UIAlertAction(title: String(localized: "Sign in"), style: .default) { _ in
                 continuation.resume()
             }
+            signInAction.isEnabled = false
+            self.signInAction = signInAction
             alertController.addAction(signInAction)
             
             let cancelAction = UIAlertAction(title: UIAlertAction.cancel.title, style: UIAlertAction.cancel.style) { _ in
@@ -537,24 +546,81 @@ private extension MastodonAPI
             request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
         }
         
-        let (data, urlResponse) = try await self.session.data(for: request)
-        guard let httpResponse = urlResponse as? HTTPURLResponse else { throw MastodonError.unknown() }
-        
-        let decoder = Foundation.JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        
-        switch httpResponse.statusCode
+        while true
         {
-        case 200...299:
-            let response = try decoder.decode(ResponseType.self, from: data)
-            return response
+            let (data, urlResponse) = try await self.session.data(for: request)
+            guard let httpResponse = urlResponse as? HTTPURLResponse else { throw MastodonError.unknown() }
             
-        case 401:
-            throw MastodonError.unauthorized()
+            let decoder = Foundation.JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
             
-        default:
-            let response = try decoder.decode(ErrorResponse.self, from: data)
-            throw response
+            switch httpResponse.statusCode
+            {
+            case 200...299:
+                let response = try decoder.decode(ResponseType.self, from: data)
+                return response
+                
+            case 401:
+                throw MastodonError.unauthorized()
+                
+            case 429:
+                // Rate Limited
+                let rateLimitDelay: TimeInterval
+                if let resetTimestampString = httpResponse.value(forHTTPHeaderField: "X-RateLimit-Reset"), let resetTimestamp = TimeInterval(resetTimestampString)
+                {
+                    let resetDate = Date(timeIntervalSince1970: resetTimestamp)
+                    
+                    let serverDate: Date
+                    if let dateString = httpResponse.value(forHTTPHeaderField: "Date")
+                    {
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+                        formatter.locale = Locale(identifier: "en_US_POSIX")
+                        formatter.timeZone = TimeZone(abbreviation: "GMT")
+                        serverDate = formatter.date(from: dateString) ?? Date()
+                    }
+                    else
+                    {
+                        serverDate = Date()
+                    }
+                    
+                    rateLimitDelay = max(0, resetDate.timeIntervalSince(serverDate))
+                }
+                else
+                {
+                    rateLimitDelay = 1.0
+                }
+                
+                guard rateLimitDelay <= 60 else {
+                    // Assume request failed
+                    Logger.main.error("Mastodon API rate limit exceeded. Reset time too far in future: \(rateLimitDelay) seconds")
+                    throw MastodonError.http(statusCode: 429)
+                }
+                
+                Logger.main.info("Mastodon API rate limit exceeded. Retrying request after delay: \(rateLimitDelay) seconds")
+                
+                try await Task.sleep(for: .seconds(rateLimitDelay))
+                
+            default:
+                let response = try decoder.decode(ErrorResponse.self, from: data)
+                throw response
+            }
+        }
+    }
+}
+
+private extension MastodonAPI
+{
+    @MainActor
+    @objc func textFieldDidChange(_ notification: Notification)
+    {
+        guard let textField = notification.object as? UITextField else { return }
+        
+        let domainIsValid = (textField.text ?? "").split(separator: ".").count > 1
+        
+        if let signIn = self.signInAction
+        {
+            signIn.isEnabled = domainIsValid
         }
     }
 }

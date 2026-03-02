@@ -18,7 +18,7 @@ public class NewsItem: NSManagedObject, Decodable, Fetchable, Federatable
     
     @NSManaged public var title: String
     @NSManaged public var caption: String
-    @NSManaged public var tintColor: UIColor
+    @NSManaged public var tintColor: UIColor?
     @NSManaged public var sortIndex: Int32
     @NSManaged public var isSilent: Bool
     
@@ -115,6 +115,10 @@ public extension NewsItem
         
         let globallyUniqueID = self.identifier + "|" + sourceIdentifier
         return globallyUniqueID
+    }
+    
+    var effectiveTintColor: UIColor {
+        return self.tintColor ?? self.storeApp?.tintColor ?? self.source?.effectiveTintColor ?? .altPrimary
     }
 }
 

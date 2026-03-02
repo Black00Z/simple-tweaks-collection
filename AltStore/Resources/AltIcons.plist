@@ -10,6 +10,12 @@
 			<key>imageName</key>
 			<string>AppIcon</string>
 		</dict>
+		<dict>
+			<key>name</key>
+			<string>Japan</string>
+			<key>imageName</key>
+			<string>AppIcon_Japan</string>
+		</dict>
 	</array>
 	<key>modern</key>
 	<array>

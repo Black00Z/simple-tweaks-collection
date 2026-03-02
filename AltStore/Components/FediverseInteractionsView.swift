@@ -96,6 +96,8 @@ struct FediverseInteractions: View
     private let preferredHeight: CGFloat = 30
     private let maximumAvatars: Int = 5
     
+    private let hapticGenerator = UINotificationFeedbackGenerator()
+    
     var body: some View {
         Group {
             HStack {
@@ -163,8 +165,10 @@ struct FediverseInteractions: View
         .sheet(isPresented: $isShowingLikes) {
             if let rawStatusID = item.statusID, let statusID = Int(rawStatusID), let federatedURL = item.federatedURL
             {
-                FediverseLikesView(statusURL: federatedURL, statusID: statusID)
-                    .presentationDetents([.medium, .large])
+                NavigationStack {
+                    FediverseLikesView(statusURL: federatedURL, statusID: statusID)
+                }
+                .presentationDetents([.medium, .large])
             }
         }
         .task(priority: .high) { @MainActor in
@@ -368,6 +372,8 @@ private extension FediverseInteractions
                     self.likesCount -= 1
                 }
                 
+                self.hapticGenerator.notificationOccurred(.success)
+                
                 // Re-fetch avatars
                 likesID = UUID()
             }
@@ -380,6 +386,7 @@ private extension FediverseInteractions
             {
                 self.isLiked = previousState
                 Logger.main.error("Failed to favorite status \(federatedURL). Error: \(error.localizedDescription, privacy: .public)")
+                self.hapticGenerator.notificationOccurred(.error)
                 
                 let toastView = ToastView(text: String(localized: "Unable to Like Item"), detailText: error.localizedDescription)
                 toastView.show(in: presentingViewController)
@@ -395,8 +402,10 @@ private extension FediverseInteractions
     func share(_ url: URL)
     {
         guard let presentingViewController = fediverseInteractionsView.shareHandler?(url) else { return }
+                
+        let safariActivity = SafariActivity()
         
-        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: [safariActivity])
         presentingViewController.present(activityViewController, animated: true)
     }
 }

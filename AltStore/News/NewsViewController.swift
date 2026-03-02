@@ -203,7 +203,7 @@ private extension NewsViewController
             if newsItem.federatedURL != nil
             {
                 cell.fediverseInteractionsView.isHidden = false
-                cell.fediverseInteractionsView.tintColor = newsItem.tintColor
+                cell.fediverseInteractionsView.tintColor = newsItem.effectiveTintColor
                 cell.fediverseInteractionsView.shareHandler = { [weak self] _ in self }
                 cell.fediverseInteractionsView.presentingViewController = self
                 cell.fediverseInteractionsView.configure(with: newsItem, isOpaque: true)
@@ -459,7 +459,7 @@ extension NewsViewController
         if let externalURL = newsItem.externalURL
         {
             let safariViewController = SFSafariViewController(url: externalURL)
-            safariViewController.preferredControlTintColor = newsItem.tintColor
+            safariViewController.preferredControlTintColor = newsItem.effectiveTintColor
             self.present(safariViewController, animated: true, completion: nil)
         }
         else if let storeApp = newsItem.storeApp
@@ -566,7 +566,7 @@ extension NewsViewController: UIViewControllerPreviewingDelegate
             if let externalURL = newsItem.externalURL
             {
                 let safariViewController = SFSafariViewController(url: externalURL)
-                safariViewController.preferredControlTintColor = newsItem.tintColor
+                safariViewController.preferredControlTintColor = newsItem.effectiveTintColor
                 return safariViewController
             }
             else if let storeApp = newsItem.storeApp

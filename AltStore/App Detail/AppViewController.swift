@@ -56,6 +56,8 @@ class AppViewController: UIViewController
     private var _isLiked: Bool = false
     private var _likesCount: Int = 0
     
+    private let hapticGenerator = UINotificationFeedbackGenerator()
+    
     private var _preferredStatusBarStyle: UIStatusBarStyle = .default
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -817,14 +819,19 @@ extension AppViewController
         guard let rawStatusID = self.app.statusID, let statusID = Int(rawStatusID), let federatedURL = self.app.federatedURL else { return }
         
         let hostingController = UIHostingController(rootView: FediverseLikesView(statusURL: federatedURL, statusID: statusID))
+        hostingController.view.backgroundColor = .clear
         
-        if let sheetController = hostingController.sheetPresentationController
+        let navigationController = UINavigationController(rootViewController: hostingController)
+        
+        if let sheetController = navigationController.sheetPresentationController
         {
+            navigationController.view.backgroundColor = .clear
+            
             sheetController.detents = [.medium(), .large()]
             sheetController.prefersGrabberVisible = true
         }
         
-        self.present(hostingController, animated: true)
+        self.present(navigationController, animated: true)
     }
     
     @objc func shareApp()
@@ -857,10 +864,13 @@ extension AppViewController
                     try await FederationManager.shared.unlike(self.app, presentingViewController: self)
                     self._likesCount -= 1
                 }
+                
+                self.hapticGenerator.notificationOccurred(.success)
             }
             catch
             {
                 Logger.main.error("Failed to like app \(self.app.bundleIdentifier). \(error.localizedDescription, privacy: .public)")
+                self.hapticGenerator.notificationOccurred(.error)
                 
                 await self.presentAlert(title: String(localized: "Unable to Like App"), message: error.localizedDescription)
                 
