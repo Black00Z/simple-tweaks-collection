@@ -451,7 +451,7 @@
     },
     "JxK-vS-RdM.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Manage Subscription\"; ObjectID = \"JxK-vS-RdM\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -602,6 +602,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eメール"
+          }
+        }
+      }
+    },
+    "ROk-gc-xRu.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Username\"; ObjectID = \"ROk-gc-xRu\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Username"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザーネーム"
           }
         }
       }
@@ -834,6 +852,24 @@
         }
       },
       "shouldTranslate" : false
+    },
+    "yoA-uu-f9R.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"@rileytestut@mastodon.social\"; ObjectID = \"yoA-uu-f9R\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "@rileytestut@mastodon.social"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "@rileytestut@mastodon.social"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

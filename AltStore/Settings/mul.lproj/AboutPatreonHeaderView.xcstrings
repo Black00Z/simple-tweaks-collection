@@ -28,6 +28,12 @@
             "state" : "new",
             "value" : "Hey y'all!\n\nIf you'd like to support my work, you can donate here. In return, you'll gain access to beta versions of all of my apps and be among the first to try the latest features.\n\nThanks for all your support 💜\nRiley"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "皆さん、こんにちは！\n\n私の活動をサポートしたい方は、こちらから寄付していただけます。そのお礼として、私のアプリすべてのベータ版にアクセスでき、最新機能をいち早くお試しいただけます。\n\nいつも応援ありがとうございます💜\nライリー"
+          }
         }
       },
       "shouldTranslate" : false

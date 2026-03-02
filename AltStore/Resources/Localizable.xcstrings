@@ -31,6 +31,16 @@
         }
       }
     },
+    "@%@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "@%@"
+          }
+        }
+      }
+    },
     "%@" : {
       "localizations" : {
         "ja" : {
@@ -231,12 +241,32 @@
         }
       }
     },
+    "%@ is not a valid Mastodon server." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@は有効なMastodonのサーバーではありません。"
+          }
+        }
+      }
+    },
     "%@ is not added to AltStore." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@はAltstoreに追加されていません。"
+          }
+        }
+      }
+    },
+    "%@ is not available in your region." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@はお住まいの地域ではご利用いただけません。"
           }
         }
       }
@@ -359,12 +389,62 @@
         }
       }
     },
+    "%lld" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
+    },
     "^[%lld app](inflect: true)" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "^[%lld アプリ](inflect: true)"
+            "value" : "^[%lldアプリ](inflect: true)"
+          }
+        }
+      }
+    },
+    "^[%lld App](inflect: true)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lldアプリ](inflect: true)"
+          }
+        }
+      }
+    },
+    "^[%lld follower](inflect: true)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lldフォロワー](inflect: true)"
+          }
+        }
+      }
+    },
+    "^[%lld like](inflect: true)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld件のいいね！](inflect: true)"
+          }
+        }
+      }
+    },
+    "^[%lld Source](inflect: true) Added" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lldソース](inflect: true) 追加"
           }
         }
       }
@@ -519,6 +599,26 @@
         }
       }
     },
+    "Add ^[%lld source](inflect: true)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lldソース](inflect: true)を追加"
+          }
+        }
+      }
+    },
+    "Add All" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべて追加"
+          }
+        }
+      }
+    },
     "Add More Sources" : {
       "localizations" : {
         "ja" : {
@@ -565,6 +665,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "すべてのアプリが更新されました。"
+          }
+        }
+      }
+    },
+    "All sources were added successfully." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべてのソースが正常に追加されました。"
           }
         }
       }
@@ -679,12 +789,42 @@
         }
       }
     },
+    "An account with the username @%@ could not be found." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザー名が@%@のアカウントが見つかりませんでした。"
+          }
+        }
+      }
+    },
+    "An account with this username could not be found." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このユーザー名のアカウントは見つかりませんでした。"
+          }
+        }
+      }
+    },
     "an app in source “%@”" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソース「%@」内のアプリ"
+          }
+        }
+      }
+    },
+    "An HTTP error occured." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HTTPエラーが発生しました。"
           }
         }
       }
@@ -769,12 +909,32 @@
         }
       }
     },
+    "App Password" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリのパスワード"
+          }
+        }
+      }
+    },
     "App Refresh Tip" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリ更新のヒント"
+          }
+        }
+      }
+    },
+    "App Update" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリのアップデート"
           }
         }
       }
@@ -896,6 +1056,7 @@
       }
     },
     "BILLING" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -905,12 +1066,32 @@
         }
       }
     },
+    "Bluesky" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluesky"
+          }
+        }
+      }
+    },
+    "Bridge Account" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ブリッジアカウント"
+          }
+        }
+      }
+    },
     "Browse" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "検索"
+            "value" : "ブラウズ"
           }
         }
       }
@@ -946,6 +1127,16 @@
       }
     },
     "Categories" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カテゴリー"
+          }
+        }
+      }
+    },
+    "category" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -1001,6 +1192,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラーログをクリア"
+          }
+        }
+      }
+    },
+    "Collections" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コレクション"
           }
         }
       }
@@ -1165,6 +1366,16 @@
         }
       }
     },
+    "Could Not Load Likes" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "いいね！を読み込めませんでした"
+          }
+        }
+      }
+    },
     "Could not open %@ placeholder." : {
       "localizations" : {
         "ja" : {
@@ -1281,6 +1492,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "何から始めればよいかわかりませんか？推奨ソースの1つを追加してみてください！"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完了"
           }
         }
       }
@@ -1561,6 +1782,16 @@
         }
       }
     },
+    "Failed to link commission token with Patreon account. Error Code: %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コミッショントークンのPatreonアカウントへのリンクに失敗しました。エラーコード：%@"
+          }
+        }
+      }
+    },
     "Failed to Log In" : {
       "localizations" : {
         "ja" : {
@@ -1627,6 +1858,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のバックアップの復元に失敗しました"
+          }
+        }
+      }
+    },
+    "Failed to retrieve commission token from Apple. Error Code: %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appleからコミッショントークンの取得に失敗しました。エラーコード：%@"
           }
         }
       }
@@ -1721,6 +1962,16 @@
         }
       }
     },
+    "For more details, check the Error Log in settings." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細については、設定のエラーログを確認してください。"
+          }
+        }
+      }
+    },
     "For your protection, please remove the source and uninstall" : {
       "localizations" : {
         "ja" : {
@@ -1791,6 +2042,16 @@
         }
       }
     },
+    "HTTP Status Code: %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HTTPステータスコード：%@"
+          }
+        }
+      }
+    },
     "If you're using the MacDirtyCow exploit to remove the 3-app limit, you can install up to 10 apps and app extensions instead." : {
       "localizations" : {
         "ja" : {
@@ -1827,6 +2088,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "非アクティブ"
+          }
+        }
+      }
+    },
+    "Incorrect username or password." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザーネームまたはパスワードが正しくありません。"
           }
         }
       }
@@ -1991,6 +2262,17 @@
         }
       }
     },
+    "Item" : {
+      "comment" : "A generic piece of content in an app store (e.g. an app, app update, or news alert).",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目"
+          }
+        }
+      }
+    },
     "Jailbreak Requires Untethering" : {
       "localizations" : {
         "ja" : {
@@ -2051,6 +2333,66 @@
         }
       }
     },
+    "Later" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あとで"
+          }
+        }
+      }
+    },
+    "Like" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "いいね！"
+          }
+        }
+      }
+    },
+    "Liked" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「いいね！」しました"
+          }
+        }
+      }
+    },
+    "Likes" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "いいね！"
+          }
+        }
+      }
+    },
+    "Likes this app" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このアプリを「いいね！」します"
+          }
+        }
+      }
+    },
+    "Likes this item" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この項目をいいね！する"
+          }
+        }
+      }
+    },
     "Link Patreon account" : {
       "localizations" : {
         "ja" : {
@@ -2061,12 +2403,32 @@
         }
       }
     },
+    "Liquid Glass" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liquid Glass"
+          }
+        }
+      }
+    },
     "Loading..." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "読み込み中..."
+          }
+        }
+      }
+    },
+    "Loading…" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "読み込み中…"
           }
         }
       }
@@ -2102,11 +2464,22 @@
       }
     },
     "Manage your AltStore PAL annual subscription." : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStore PALの年間サブスクリプションを管理しましょう。"
+          }
+        }
+      }
+    },
+    "Mastodon" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastodon"
           }
         }
       }
@@ -2161,6 +2534,16 @@
         }
       }
     },
+    "News Alert" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ニュースアラート"
+          }
+        }
+      }
+    },
     "No active apps require refreshing." : {
       "localizations" : {
         "ja" : {
@@ -2187,6 +2570,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラーなし"
+          }
+        }
+      }
+    },
+    "No Likes Yet" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだ「いいね！」はありません"
           }
         }
       }
@@ -2367,6 +2760,16 @@
         }
       }
     },
+    "Open in Browser" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ブラウザで開く"
+          }
+        }
+      }
+    },
     "Open Placeholder" : {
       "localizations" : {
         "ja" : {
@@ -2487,6 +2890,16 @@
         }
       }
     },
+    "Please enter your Mastodon server." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastodonサーバーを入力してください。"
+          }
+        }
+      }
+    },
     "Please make sure your spelling is correct, or try searching for another app." : {
       "localizations" : {
         "ja" : {
@@ -2598,6 +3011,7 @@
       }
     },
     "Recommended Sources" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -2807,6 +3221,26 @@
         }
       }
     },
+    "Share" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "共有"
+          }
+        }
+      }
+    },
+    "Shows all likes" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべてのいいね！を表示"
+          }
+        }
+      }
+    },
     "Sideloaded" : {
       "localizations" : {
         "ja" : {
@@ -2817,12 +3251,62 @@
         }
       }
     },
+    "Sign in" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインイン"
+          }
+        }
+      }
+    },
+    "Sign in with Social Web Account…" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ソーシャルウェブアカウントでサインイン…"
+          }
+        }
+      }
+    },
     "Sign in with your Apple ID to download apps from AltStore." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreからアプリをダウンロードするには、Apple IDでサインインしてください。"
+          }
+        }
+      }
+    },
+    "Sign in with your Bluesky account" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blueskyアカウントでサインイン"
+          }
+        }
+      }
+    },
+    "Sign in with your social web account to like apps, updates, and news items in AltStore." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AltStoreのアプリ、アップデート、ニュース項目にいいね！するには、ソーシャルウェブアカウントでサインインしてください。"
+          }
+        }
+      }
+    },
+    "Sign in with…" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインイン："
           }
         }
       }
@@ -2843,6 +3327,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サインアウト"
+          }
+        }
+      }
+    },
+    "SOCIAL WEB (BETA)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ソーシャルウェブ（ベータ版）"
+          }
+        }
+      }
+    },
+    "SOCIAL WEB ACCOUNT (BETA)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ソーシャルウェブアカウント（ベータ版）"
+          }
+        }
+      }
+    },
+    "Some Sources Added" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "いくつかのソースを追加しました"
           }
         }
       }
@@ -2893,6 +3407,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "成功"
+          }
+        }
+      }
+    },
+    "Successfully added ^[%lld source](inflect: true), but ^[%lld source](inflect: true) failed.\n\nFor more details, check the Error Log in settings." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Successfully added ^[%1$lld source](inflect: true), but ^[%2$lld source](inflect: true) failed.\n\nFor more details, check the Error Log in settings."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%1$lldソース](inflect: true) の追加に成功しましたが、^[%2$lldソース](inflect: true) の追加に失敗しました。\n\n詳細については、設定のエラーログを確認してください。"
           }
         }
       }
@@ -3263,6 +3793,56 @@
         }
       }
     },
+    "The Personal Data Server for this user could not be found." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このユーザーの個人データサーバーが見つかりませんでした。"
+          }
+        }
+      }
+    },
+    "The provided DID %@ is invalid." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提供されたDID%@は無効です。"
+          }
+        }
+      }
+    },
+    "The provided DID is invalid." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提供されたDIDは無効です。"
+          }
+        }
+      }
+    },
+    "The provided domain is not a valid Mastodon server." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提供されたドメインは有効なMastodonサーバーではありません。"
+          }
+        }
+      }
+    },
+    "The requested post could not be found." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リクエストされた投稿が見つかりませんでした。"
+          }
+        }
+      }
+    },
     "the same bundle identifier" : {
       "localizations" : {
         "ja" : {
@@ -3491,12 +4071,32 @@
         }
       }
     },
+    "This request requires an authenticated user." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このリクエストには認証済みユーザーが必要です。"
+          }
+        }
+      }
+    },
     "This version of “%@” requires additional permissions." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "このバージョンの「%@」には追加の権限が必要です。"
+          }
+        }
+      }
+    },
+    "This will allow you to like apps in AltStore." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これにより、AltStoreでアプリを「いいね！」できるようになります。"
           }
         }
       }
@@ -3591,6 +4191,16 @@
         }
       }
     },
+    "Unable to add ^[%lld source](inflect: true)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lldソース](inflect: true) を追加できません"
+          }
+        }
+      }
+    },
     "Unable to Add Source" : {
       "localizations" : {
         "ja" : {
@@ -3681,7 +4291,38 @@
         }
       }
     },
+    "Unable to Like %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@をいいね！できません"
+          }
+        }
+      }
+    },
+    "Unable to Like App" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリを「いいね！」できません"
+          }
+        }
+      }
+    },
+    "Unable to Load Featured Sources" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注目のソースを読み込めません"
+          }
+        }
+      }
+    },
     "Unable to Load Recommended Sources" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -3761,6 +4402,26 @@
         }
       }
     },
+    "Unable to Sign In" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインインできません"
+          }
+        }
+      }
+    },
+    "Unable to Unlike %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@のいいね！を解除できません"
+          }
+        }
+      }
+    },
     "Unable to update %@." : {
       "localizations" : {
         "ja" : {
@@ -3787,6 +4448,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不明なソース"
+          }
+        }
+      }
+    },
+    "Unlike" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "いいね！を解除"
+          }
+        }
+      }
+    },
+    "Unlikes this app" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このアプリの「いいね！」を解除します"
+          }
+        }
+      }
+    },
+    "Unlikes this item" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この項目のいいね！を解除"
           }
         }
       }
@@ -3901,6 +4592,16 @@
         }
       }
     },
+    "Username" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザーネーム"
+          }
+        }
+      }
+    },
     "Version %@" : {
       "localizations" : {
         "ja" : {
@@ -3937,6 +4638,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラーを表示"
+          }
+        }
+      }
+    },
+    "View Likes" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「いいね！」を見る"
           }
         }
       }
@@ -4027,6 +4738,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソース「%@」を追加しますか？"
+          }
+        }
+      }
+    },
+    "Would you like to bridge your Bluesky account to the fediverse?" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blueskyアカウントをフェディバースにブリッジしますか？"
           }
         }
       }
@@ -4127,6 +4848,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "支援を必要とするアプリのインストールやアップデートができなくなります。"
+          }
+        }
+      }
+    },
+    "You will no longer be able to like apps, updates, and news items once you sign out." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインアウトすると、アプリやアップデート、ニュース記事に「いいね！」ができなくなります。"
+          }
+        }
+      }
+    },
+    "You'll need to generate an app-specific password in your Bluesky settings." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blueskyの設定でアプリ固有のパスワードを生成する必要があります。"
           }
         }
       }

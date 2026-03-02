@@ -285,6 +285,9 @@
         }
       }
     },
+    "Bluesky" : {
+
+    },
     "CarPlay" : {
       "localizations" : {
         "ja" : {
@@ -554,6 +557,9 @@
           }
         }
       }
+    },
+    "Mastodon" : {
+
     },
     "Name" : {
       "localizations" : {

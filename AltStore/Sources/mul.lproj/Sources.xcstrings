@@ -2,18 +2,18 @@
   "sourceLanguage" : "en",
   "strings" : {
     "9aU-eh-iwq.configuration.title" : {
-      "comment" : "Class = \"UIButton\"; configuration.title = \"Discover more apps on altstore.io\"; ObjectID = \"9aU-eh-iwq\";",
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Discover more sources on explore.alt.store\"; ObjectID = \"9aU-eh-iwq\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Discover more apps on altstore.io"
+            "value" : "Discover more sources on explore.alt.store"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "altstore.ioでさらに多くのアプリを見つけましょう"
           }
         }
