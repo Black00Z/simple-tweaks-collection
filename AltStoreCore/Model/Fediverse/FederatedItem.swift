@@ -83,8 +83,11 @@ public extension FederatedItem
     func setLikes(_ array: [Like])
     {
         let likes = NSOrderedSet(array: array)
+                
+        // Iterating self._likes directly results in hard-to-debug crashes due to uncaught exception '*** _oset_getObjectsRange: range {16, 2} extends beyond bounds [0 .. 9]'
+        // for case let like as Like in self._likes
         
-        for case let like as Like in self._likes
+        for like in self.likes
         {
             if likes.contains(like)
             {
