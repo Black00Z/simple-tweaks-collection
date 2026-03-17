@@ -373,6 +373,11 @@
 				<key>CFBundleIconName</key>
 				<string>Sun</string>
 			</dict>
+			<key>Turquoise</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>Turquoise</string>
+			</dict>
 		</dict>
 	</dict>
 </dict>
