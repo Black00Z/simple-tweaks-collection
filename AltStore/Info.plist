@@ -262,6 +262,20 @@
 	</array>
 	<key>CFBundleIcons~ipad</key>
 	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AppIcon60x60</string>
+			</array>
+			<key>NSAppIconComplementingColorNames</key>
+			<array>
+				<string>GradientTop</string>
+				<string>GradientBottom</string>
+			</array>
+			<key>CFBundleIconName</key>
+			<string>AppIcon</string>
+		</dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
 			<key>AppIcon_Japan</key>
@@ -359,14 +373,6 @@
 				<key>CFBundleIconName</key>
 				<string>Sun</string>
 			</dict>
-		</dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>AppIcon60x60</string>
-				<string>AppIcon76x76</string>
-			</array>
 		</dict>
 	</dict>
 </dict>
