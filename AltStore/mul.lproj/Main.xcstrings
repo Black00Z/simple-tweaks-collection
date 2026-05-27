@@ -16,6 +16,12 @@
             "state" : "translated",
             "value" : "アプリID"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App IDs"
+          }
         }
       }
     },
@@ -33,6 +39,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自分のアプリ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meus apps"
           }
         }
       }
@@ -52,6 +64,12 @@
             "state" : "translated",
             "value" : "バージョン 4.4.2"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versão 4.4.2"
+          }
         }
       }
     },
@@ -69,6 +87,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリIDの詳細"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrição dos App IDs"
           }
         }
       }
@@ -88,6 +112,12 @@
             "state" : "translated",
             "value" : "ポケットサイズのクラシックゲーム"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jogos clássicos ao seu alcance"
+          }
         }
       }
     },
@@ -105,6 +135,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "50.4 MB"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50,4 MB"
           }
         }
       }
@@ -124,6 +160,12 @@
             "state" : "translated",
             "value" : "権限"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permissões"
+          }
         }
       }
     },
@@ -141,6 +183,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デルタ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta"
           }
         }
       }
@@ -160,6 +208,12 @@
             "state" : "translated",
             "value" : "ニュース"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novidades"
+          }
         }
       }
     },
@@ -177,6 +231,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "無料"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GRÁTIS"
           }
         }
       }
@@ -196,6 +256,12 @@
             "state" : "translated",
             "value" : "5/10個のアプリID"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5/10 App IDs"
+          }
         }
       }
     },
@@ -213,6 +279,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリIDを表示"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visualizar App IDs"
           }
         }
       }
@@ -232,6 +304,12 @@
             "state" : "translated",
             "value" : "新着情報"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novidades"
+          }
         }
       }
     },
@@ -249,6 +327,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "設定"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurações"
           }
         }
       }
@@ -268,6 +352,12 @@
             "state" : "translated",
             "value" : "検索"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navegar"
+          }
         }
       }
     },
@@ -285,6 +375,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "テキストを入力"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olá, Me"
           }
         }
       }
@@ -304,6 +400,12 @@
             "state" : "translated",
             "value" : "アイテム"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item"
+          }
         }
       }
     },
@@ -321,6 +423,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App"
           }
         }
       }
@@ -340,6 +448,12 @@
             "state" : "translated",
             "value" : "検索"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navegar"
+          }
         }
       }
     },
@@ -358,6 +472,12 @@
             "state" : "translated",
             "value" : "2週間前"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 semanas atrás"
+          }
         }
       }
     },
@@ -372,6 +492,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "..."
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "..."
@@ -394,6 +520,12 @@
             "state" : "translated",
             "value" : "ボタン"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Botão"
+          }
         }
       }
     },
@@ -411,6 +543,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリID"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App IDs"
           }
         }
       }
@@ -430,6 +568,12 @@
             "state" : "translated",
             "value" : "利用可能なアップデートはありません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhuma atualização disponível"
+          }
         }
       }
     },
@@ -447,6 +591,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自分のアプリ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meus apps"
           }
         }
       }
@@ -466,6 +616,12 @@
             "state" : "translated",
             "value" : "10個のアプリID"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 App IDs"
+          }
         }
       }
     },
@@ -483,6 +639,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ニュース"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novidades"
           }
         }
       }

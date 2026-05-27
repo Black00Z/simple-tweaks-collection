@@ -8,6 +8,12 @@
             "state" : "translated",
             "value" : "「%@」をブロックしました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” bloqueado"
+          }
         }
       }
     },
@@ -17,6 +23,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "「%@」をAltStoreに追加できませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” não pôde ser adicionado ao AltStore."
           }
         }
       }
@@ -28,6 +40,12 @@
             "state" : "translated",
             "value" : "「%@」はインストール後に、これらの権限が自動的に付与されます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” receberá automaticamente essas permissões após ser instalado."
+          }
         }
       }
     },
@@ -38,12 +56,24 @@
             "state" : "translated",
             "value" : "@%@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "@%@"
+          }
         }
       }
     },
     "%@" : {
       "localizations" : {
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@"
@@ -64,6 +94,12 @@
             "state" : "translated",
             "value" : "%1$@ %2$@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@%2$@"
+          }
         }
       }
     },
@@ -79,6 +115,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@%2$@がダウンロード可能になりました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@ já está disponível para download."
           }
         }
       }
@@ -96,6 +138,12 @@
             "state" : "translated",
             "value" : "%1$@%2$@のアップデート。%3$@にリリース。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização de %1$@ %2$@. Lançado em %3$@."
+          }
         }
       }
     },
@@ -105,6 +153,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "毎月%@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ por mês"
           }
         }
       }
@@ -116,6 +170,12 @@
             "state" : "translated",
             "value" : "%@個のアプリID"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ App IDs"
+          }
         }
       }
     },
@@ -126,6 +186,12 @@
             "state" : "translated",
             "value" : "残り%@個のアプリID"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ App IDs restantes"
+          }
         }
       }
     },
@@ -135,6 +201,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ベータ版"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ beta"
           }
         }
       }
@@ -152,6 +224,12 @@
             "state" : "translated",
             "value" : "%2$@による%1$@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ por %2$@"
+          }
         }
       }
     },
@@ -161,6 +239,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "まずアンテザードしない限り、%@はこのデバイスを脱獄することができません。アンテザードなしでインストールしてもよろしいですか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ não pode fazer o jailbreak deste dispositivo a menos que você faça o untether primeiro. Tem certeza de que deseja instalar sem fazer o untether?"
           }
         }
       }
@@ -172,6 +256,12 @@
             "state" : "translated",
             "value" : "%@は元のソースからのみダウンロードできます"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ só pode ser baixado de sua fonte original"
+          }
         }
       }
     },
@@ -181,6 +271,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@をダウンロードできませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ não pôde ser baixado."
           }
         }
       }
@@ -192,6 +288,12 @@
             "state" : "translated",
             "value" : "%@は見つかりませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ não pôde ser encontrado."
+          }
         }
       }
     },
@@ -201,6 +303,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@をインストールできませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ não pôde ser instalado."
           }
         }
       }
@@ -212,6 +320,12 @@
             "state" : "translated",
             "value" : "%@日"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ dias"
+          }
         }
       }
     },
@@ -221,6 +335,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@日"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ DIAS"
           }
         }
       }
@@ -238,6 +358,12 @@
             "state" : "translated",
             "value" : "%1$@はiOS %2$@をサポートしていません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ não é compatível com iOS %2$@."
+          }
         }
       }
     },
@@ -247,6 +373,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@は有効なMastodonのサーバーではありません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ não é um servidor Mastodon válido."
           }
         }
       }
@@ -258,6 +390,12 @@
             "state" : "translated",
             "value" : "%@はAltstoreに追加されていません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ não foi adicionado ao AltStore."
+          }
         }
       }
     },
@@ -267,6 +405,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@はお住まいの地域ではご利用いただけません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ não está disponível na sua região."
           }
         }
       }
@@ -278,6 +422,12 @@
             "state" : "translated",
             "value" : "%@は以下へのアクセスを要求する場合があります："
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ pode solicitar acesso ao seguinte:"
+          }
         }
       }
     },
@@ -287,6 +437,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ニュース"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ novidades"
           }
         }
       }
@@ -304,6 +460,12 @@
             "state" : "translated",
             "value" : "%1$@には%2$@アプリIDが必要ですが、%3$@。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ requer %2$@ App IDs, mas %3$@."
+          }
         }
       }
     },
@@ -314,6 +476,12 @@
             "state" : "translated",
             "value" : "%@にはソースで指定されていない追加の権限が必要です。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ requer permissões adicionais não especificadas pela fonte."
+          }
         }
       }
     },
@@ -323,6 +491,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@をインストールするには、アクティブな支援が必要です。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ requer uma contribuição ativa para ser instalado."
           }
         }
       }
@@ -340,6 +514,12 @@
             "state" : "translated",
             "value" : "%1$@にはiOS %2$@以前が必要です。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ requer iOS %2$@ ou anterior."
+          }
         }
       }
     },
@@ -356,6 +536,12 @@
             "state" : "translated",
             "value" : "%1$@にはiOS %2$@以降が必要です。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ requer iOS %2$@ ou posterior."
+          }
         }
       }
     },
@@ -365,6 +551,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@には、既にインストールされているバージョンよりも多くの権限が必要です"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ requer mais permissões do que a versão que já está instalada"
           }
         }
       }
@@ -376,6 +568,12 @@
             "state" : "translated",
             "value" : "サポートされていないアップデート%@件が利用可能です"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Atualizações não suportadas disponíveis"
+          }
         }
       }
     },
@@ -386,12 +584,24 @@
             "state" : "translated",
             "value" : "%@/月"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@/mês"
+          }
         }
       }
     },
     "%lld" : {
       "localizations" : {
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld"
@@ -406,6 +616,12 @@
             "state" : "translated",
             "value" : "^[%lldアプリ](inflect: true)"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld app](inflect: true)"
+          }
         }
       }
     },
@@ -415,6 +631,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "^[%lldアプリ](inflect: true)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld App](inflect: true)"
           }
         }
       }
@@ -426,6 +648,12 @@
             "state" : "translated",
             "value" : "^[%lldフォロワー](inflect: true)"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld seguidor](inflect: true)"
+          }
         }
       }
     },
@@ -435,6 +663,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "^[%lld件のいいね！](inflect: true)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld curtir](inflect: true)"
           }
         }
       }
@@ -446,6 +680,12 @@
             "state" : "translated",
             "value" : "^[%lldソース](inflect: true) 追加"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld Fonte](inflect: true) adicionada"
+          }
         }
       }
     },
@@ -455,6 +695,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1つのアプリID"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 App ID"
           }
         }
       }
@@ -466,6 +712,12 @@
             "state" : "translated",
             "value" : "残り1個のアプリID"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 App ID restante"
+          }
         }
       }
     },
@@ -475,6 +727,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1日"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 dia"
           }
         }
       }
@@ -486,6 +744,12 @@
             "state" : "translated",
             "value" : "AltServerへの接続が確立できませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível estabelecer uma conexão com o AltServer."
+          }
         }
       }
     },
@@ -495,6 +759,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@の権限に使用説明が不足しています。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma permissão de %@ está com a descrição de uso ausente."
           }
         }
       }
@@ -506,6 +776,12 @@
             "state" : "translated",
             "value" : "アンテザードの準備のため、プレースホルダーアプリをインストールする必要があります。\n\nこれには数分かかる場合があります。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um app placeholder precisa ser instalado para preparar seu dispositivo para o untethering.\n\nIsso pode levar alguns instantes."
+          }
         }
       }
     },
@@ -515,6 +791,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソースは一度追加されると識別子を変更できません。このソースは今後アップデートできなくなります。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma fonte não pode mudar seu identificador após ser adicionada e não pode mais ser atualizada."
           }
         }
       }
@@ -526,6 +808,12 @@
             "state" : "translated",
             "value" : "識別子「%@」のソースはすでに存在します"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Já existe uma fonte com o identificador “%@”"
+          }
         }
       }
     },
@@ -535,6 +823,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "概要"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobre"
           }
         }
       }
@@ -546,6 +840,12 @@
             "state" : "translated",
             "value" : "アカウント"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CONTA"
+          }
         }
       }
     },
@@ -555,6 +855,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アクティベート"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ativar"
           }
         }
       }
@@ -566,6 +872,12 @@
             "state" : "translated",
             "value" : "アクティベート"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ATIVAR"
+          }
         }
       }
     },
@@ -575,6 +887,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@をアクティベート"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ativar %@"
           }
         }
       }
@@ -586,6 +904,12 @@
             "state" : "translated",
             "value" : "アクティブ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ativo"
+          }
         }
       }
     },
@@ -595,6 +919,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "追加"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ADICIONAR"
           }
         }
       }
@@ -606,6 +936,12 @@
             "state" : "translated",
             "value" : "^[%lldソース](inflect: true)を追加"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar ^[%lld fonte](inflect: true)"
+          }
         }
       }
     },
@@ -615,6 +951,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "すべて追加"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar tudo"
           }
         }
       }
@@ -626,6 +968,12 @@
             "state" : "translated",
             "value" : "さらにソースを追加"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar mais fontes"
+          }
         }
       }
     },
@@ -635,6 +983,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソースを追加"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar fonte"
           }
         }
       }
@@ -646,6 +1000,12 @@
             "state" : "translated",
             "value" : "追加の権限"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permissões adicionais"
+          }
         }
       }
     },
@@ -655,6 +1015,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "そこからダウンロードされたすべてのアプリ。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "todos os apps baixados a partir dele."
           }
         }
       }
@@ -666,6 +1032,12 @@
             "state" : "translated",
             "value" : "すべてのアプリが更新されました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos os apps foram atualizados."
+          }
         }
       }
     },
@@ -676,12 +1048,24 @@
             "state" : "translated",
             "value" : "すべてのソースが正常に追加されました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas as fontes foram adicionadas com sucesso."
+          }
         }
       }
     },
     "AltServer" : {
       "localizations" : {
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AltServer"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltServer"
@@ -696,6 +1080,12 @@
             "state" : "translated",
             "value" : "AltServerが見つかりませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltServer não foi encontrado."
+          }
         }
       }
     },
@@ -705,6 +1095,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreはAppleによって公証済みのマーケットプレイスアプリのみをインストールできます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltStore só pode instalar apps de marketplace que tenham sido notarizados pela Apple."
           }
         }
       }
@@ -716,6 +1112,12 @@
             "state" : "translated",
             "value" : "AltStoreはこのデバイスのUDIDを特定できませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltStore não conseguiu determinar o UDID deste dispositivo."
+          }
         }
       }
     },
@@ -725,6 +1127,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreにはこれらのエンタイトルメントに関する詳細情報がありません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltStore não possui informações detalhadas sobre esses entitlements."
           }
         }
       }
@@ -736,6 +1144,12 @@
             "state" : "translated",
             "value" : "AltStoreの期限がまもなく切れます"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltStore irá expirar em breve"
+          }
         }
       }
     },
@@ -745,6 +1159,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreニュース"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novidades do AltStore"
           }
         }
       }
@@ -756,6 +1176,12 @@
             "state" : "translated",
             "value" : "AltStoreは%@を起動する権限を拒否されました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltStore teve a permissão negada para iniciar o %@."
+          }
         }
       }
     },
@@ -765,6 +1191,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreは既存の署名証明書を使用できなかったため、新しい証明書を作成する必要がありました。これにより、既存の証明書でインストールされたアプリ（AltStoreを含む）はすべて期限切れとなります。\n\nAltStoreの早期期限切れを防ぐため、今すぐアプリを更新してください。更新が完了するとAltStoreは終了します。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltStore não conseguiu usar um certificado de assinatura existente, então precisou criar um novo. Isso fará com que quaisquer apps instalados com um certificado anterior expirem, incluindo o próprio AltStore.\n\nPara evitar que o AltStore expire antes do tempo, atualize o app agora. O AltStore será encerrado assim que a atualização for concluída."
           }
         }
       }
@@ -776,6 +1208,12 @@
             "state" : "translated",
             "value" : "AltStoreは24時間後に期限切れになります。期限切れを防ぐにはアプリを開き、更新してください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltStore expirará em 24 horas. Abra o app e atualize-o para evitar que ele expire."
+          }
         }
       }
     },
@@ -785,6 +1223,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreの共有アプリグループにアクセスできませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível acessar o grupo de apps compartilhado do AltStore."
           }
         }
       }
@@ -796,6 +1240,12 @@
             "state" : "translated",
             "value" : "ユーザー名が@%@のアカウントが見つかりませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível encontrar uma conta com o nome de usuário @%@ ."
+          }
         }
       }
     },
@@ -805,6 +1255,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このユーザー名のアカウントは見つかりませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível encontrar uma conta com este nome de usuário."
           }
         }
       }
@@ -816,6 +1272,12 @@
             "state" : "translated",
             "value" : "ソース「%@」内のアプリ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "um app na fonte “%@”"
+          }
         }
       }
     },
@@ -825,6 +1287,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "HTTPエラーが発生しました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro HTTP."
           }
         }
       }
@@ -836,6 +1304,12 @@
             "state" : "translated",
             "value" : "%@のiPadスクリーンショットはサイズが指定されていません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A captura de tela de iPad de %@ não tem tamanho especificado."
+          }
         }
       }
     },
@@ -845,6 +1319,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不明なエラーが発生しました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro desconhecido."
           }
         }
       }
@@ -856,6 +1336,12 @@
             "state" : "translated",
             "value" : "このソースからインストールしたアプリは残りますが、アプリのアップデートは今後受け取れなくなります。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os apps instalados dessa fonte permanecerão, mas não receberão mais atualizações."
+          }
         }
       }
     },
@@ -865,6 +1351,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App"
           }
         }
       }
@@ -876,6 +1368,12 @@
             "state" : "translated",
             "value" : "アプリには拡張機能が含まれています"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O app contém extensões"
+          }
         }
       }
     },
@@ -885,6 +1383,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリ拡張"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "extensão do app"
           }
         }
       }
@@ -896,6 +1400,12 @@
             "state" : "translated",
             "value" : "アプリ拡張"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "extensões do app"
+          }
         }
       }
     },
@@ -905,6 +1415,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリID："
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App ID:"
           }
         }
       }
@@ -916,6 +1432,12 @@
             "state" : "translated",
             "value" : "アプリのパスワード"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senha do aplicativo"
+          }
         }
       }
     },
@@ -925,6 +1447,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリ更新のヒント"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dica de atualização de apps"
           }
         }
       }
@@ -936,6 +1464,12 @@
             "state" : "translated",
             "value" : "アプリのアップデート"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização do aplicativo"
+          }
         }
       }
     },
@@ -945,6 +1479,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "承認"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aprovar"
           }
         }
       }
@@ -956,6 +1496,12 @@
             "state" : "translated",
             "value" : "AltStoreのキャッシュをクリアしてもよろしいですか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza de que deseja limpar o cache do AltStore?"
+          }
         }
       }
     },
@@ -965,6 +1511,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラーログをクリアしてもよろしいですか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza de que deseja limpar o log de erros?"
           }
         }
       }
@@ -976,6 +1528,12 @@
             "state" : "translated",
             "value" : "ソース「%@」を削除してもよろしいですか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza de que deseja remover a fonte “%@”?"
+          }
         }
       }
     },
@@ -985,6 +1543,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このバックアップを復元してもよろしいですか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza de que deseja restaurar este backup?"
           }
         }
       }
@@ -996,6 +1560,12 @@
             "state" : "translated",
             "value" : "サインアウトしてもよろしいですか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza de que deseja sair?"
+          }
         }
       }
     },
@@ -1005,6 +1575,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Patreonアカウントの連携を解除してもよろしいですか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza de que deseja desvincular sua conta do Patreon?"
           }
         }
       }
@@ -1022,6 +1598,12 @@
             "state" : "translated",
             "value" : "%2$@を%1$@してもよろしいですか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza de que deseja %1$@ %2$@?"
+          }
         }
       }
     },
@@ -1031,6 +1613,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "バックアップ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fazer backup"
           }
         }
       }
@@ -1042,6 +1630,12 @@
             "state" : "translated",
             "value" : "%@をバックアップ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fazer backup de %@"
+          }
         }
       }
     },
@@ -1051,6 +1645,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パトロンになる"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Torne-se um apoiador"
           }
         }
       }
@@ -1063,12 +1663,24 @@
             "state" : "translated",
             "value" : "請求"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FATURAMENTO"
+          }
         }
       }
     },
     "Bluesky" : {
       "localizations" : {
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluesky"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bluesky"
@@ -1083,6 +1695,12 @@
             "state" : "translated",
             "value" : "ブリッジアカウント"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conta Bridge"
+          }
         }
       }
     },
@@ -1092,6 +1710,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ブラウズ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navegar"
           }
         }
       }
@@ -1103,6 +1727,12 @@
             "state" : "translated",
             "value" : "3つ以上のアプリを有効化することはできません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível ativar mais de 3 apps"
+          }
         }
       }
     },
@@ -1112,6 +1742,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "3つ以上のアプリとアプリ拡張機能を有効化することはできません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível ativar mais de 3 apps e extensões de apps"
           }
         }
       }
@@ -1123,6 +1759,12 @@
             "state" : "translated",
             "value" : "メールを送信できません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível enviar pelo Mail"
+          }
         }
       }
     },
@@ -1132,6 +1774,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "カテゴリー"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categorias"
           }
         }
       }
@@ -1143,6 +1791,12 @@
             "state" : "translated",
             "value" : "カテゴリー"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "categoria"
+          }
         }
       }
     },
@@ -1152,6 +1806,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリアイコンを変更"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alterar ícone do app"
           }
         }
       }
@@ -1163,6 +1823,12 @@
             "state" : "translated",
             "value" : "アイコンを変更"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alterar ícone"
+          }
         }
       }
     },
@@ -1172,6 +1838,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "クラシック"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clássico"
           }
         }
       }
@@ -1183,6 +1855,12 @@
             "state" : "translated",
             "value" : "キャッシュをクリア"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar cache"
+          }
         }
       }
     },
@@ -1192,6 +1870,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラーログをクリア"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar o log de erros"
           }
         }
       }
@@ -1203,6 +1887,12 @@
             "state" : "translated",
             "value" : "コレクション"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coleções"
+          }
         }
       }
     },
@@ -1212,6 +1902,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "近日公開！"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em breve!"
           }
         }
       }
@@ -1223,6 +1919,12 @@
             "state" : "translated",
             "value" : "アクションを確定"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmar ação"
+          }
         }
       }
     },
@@ -1232,6 +1934,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "インストールを確定"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmar instalação"
           }
         }
       }
@@ -1243,6 +1951,12 @@
             "state" : "translated",
             "value" : "Patreonアカウントを接続"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conectar conta do Patreon"
+          }
         }
       }
     },
@@ -1252,6 +1966,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "続行"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
           }
         }
       }
@@ -1263,6 +1983,12 @@
             "state" : "translated",
             "value" : "アプリで続行"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar no app"
+          }
         }
       }
     },
@@ -1272,6 +1998,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラーコードをコピー"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiar código de erro"
           }
         }
       }
@@ -1283,6 +2015,12 @@
             "state" : "translated",
             "value" : "エラーメッセージをコピー"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiar mensagem de erro"
+          }
         }
       }
     },
@@ -1292,6 +2030,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "「%@」をバックアップできませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível fazer backup de “%@”."
           }
         }
       }
@@ -1303,6 +2047,12 @@
             "state" : "translated",
             "value" : "脱獄アプリをバックアップできませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível fazer backup do app de jailbreak."
+          }
         }
       }
     },
@@ -1312,6 +2062,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "提示コンテキストを特定できませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível determinar o contexto de apresentação."
           }
         }
       }
@@ -1323,6 +2079,12 @@
             "state" : "translated",
             "value" : "OTAアーカイブをダウンロードできませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível baixar o arquivo OTA."
+          }
         }
       }
     },
@@ -1332,6 +2094,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のJITを有効化できませんでした"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível ativar o JIT para %@"
           }
         }
       }
@@ -1343,6 +2111,12 @@
             "state" : "translated",
             "value" : "OTAアーカイブからSpotlightを抽出できませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível extrair o Spotlight do arquivo OTA."
+          }
         }
       }
     },
@@ -1352,6 +2126,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@プレースホルダーをインストールできませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível instalar o placeholder %@."
           }
         }
       }
@@ -1363,6 +2143,12 @@
             "state" : "translated",
             "value" : "%@をインストールできませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível instalar %@."
+          }
         }
       }
     },
@@ -1372,6 +2158,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "いいね！を読み込めませんでした"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível carregar as curtidas"
           }
         }
       }
@@ -1383,6 +2175,12 @@
             "state" : "translated",
             "value" : "%@プレースホルダーを開けませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível abrir o placeholder %@."
+          }
         }
       }
     },
@@ -1392,6 +2190,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@を開けませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível abrir %@."
           }
         }
       }
@@ -1403,6 +2207,12 @@
             "state" : "translated",
             "value" : "%@プレースホルダーにパッチを適用できませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível aplicar patch no placeholder %@."
+          }
         }
       }
     },
@@ -1412,6 +2222,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "「%@」を復元できませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível restaurar “%@”."
           }
         }
       }
@@ -1423,6 +2239,12 @@
             "state" : "translated",
             "value" : "クレジット"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CRÉDITOS"
+          }
         }
       }
     },
@@ -1432,6 +2254,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "カスタム支援"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contribuição personalizada"
           }
         }
       }
@@ -1443,6 +2271,12 @@
             "state" : "translated",
             "value" : "非アクティブ化"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desativar"
+          }
         }
       }
     },
@@ -1452,6 +2286,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デバッグ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DEPURAR"
           }
         }
       }
@@ -1463,6 +2303,12 @@
             "state" : "translated",
             "value" : "削除"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Excluir"
+          }
         }
       }
     },
@@ -1472,6 +2318,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サイドロードしたアプリを削除して、アプリIDスロットを解放してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exclua apps instalados via sideload para liberar slots de App ID."
           }
         }
       }
@@ -1483,6 +2335,12 @@
             "state" : "translated",
             "value" : "ディスプレイ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TELA"
+          }
         }
       }
     },
@@ -1492,6 +2350,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "何から始めればよいかわかりませんか？推奨ソースの1つを追加してみてください！"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não sabe por onde começar? Tente adicionar uma das nossas Fontes Recomendadas!"
           }
         }
       }
@@ -1503,6 +2367,12 @@
             "state" : "translated",
             "value" : "完了"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concluído"
+          }
         }
       }
     },
@@ -1512,6 +2382,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@をダウンロード"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baixar %@"
           }
         }
       }
@@ -1529,6 +2405,12 @@
             "state" : "translated",
             "value" : "%1$@の%2$@をダウンロード"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baixar %1$@ %2$@"
+          }
         }
       }
     },
@@ -1538,6 +2420,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@をダウンロード中..."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baixando %@…"
           }
         }
       }
@@ -1549,6 +2437,12 @@
             "state" : "translated",
             "value" : "iOSファームウェアをダウンロード中..."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baixando o firmware do iOS..."
+          }
         }
       }
     },
@@ -1558,6 +2452,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重複バージョン"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "versões duplicadas"
           }
         }
       }
@@ -1569,6 +2469,12 @@
             "state" : "translated",
             "value" : "AltStoreでインストールされた各アプリおよびアプリ拡張機能は、AppleにアプリIDを登録する必要があります。\n\n有料の開発者用アカウントのアプリIDには期限がなく、作成数に制限はありません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada app e extensão de app instalada com o AltStore deve registrar um App ID com a Apple.\n\nEm contas de desenvolvedor pagas, os App IDs nunca expiram e não há limite de criação."
+          }
         }
       }
     },
@@ -1578,6 +2484,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreでインストールされた各アプリおよびアプリ拡張機能は、AppleにアプリIDを登録する必要があります。非開発者用の Apple ID では、同時に作成できるApp IDは最大10件までです。\n\n\n**アプリIDは削除できません**が、1週間後に期限切れとなります。AltStoreは、期限が切れたすべてのアクティブなアプリのアプリIDを自動的に更新します。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada app e extensão de app instalada com o AltStore deve registrar um App ID com a Apple. A Apple limita Apple IDs de não desenvolvedor a 10 App IDs por vez.\n\n**Os App IDs não podem ser excluídos**, mas expiram após uma semana. O AltStore os renovará automaticamente para todos os apps ativos quando expirarem."
           }
         }
       }
@@ -1589,6 +2501,12 @@
             "state" : "translated",
             "value" : "AltServerと同じWi-Fiに接続しているときに、バックグラウンドでアプリを自動的に更新するには、バックグラウンド更新を有効にしてください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ative a atualização em segundo plano para atualizar automaticamente os apps em segundo plano quando estiver conectado à mesma rede Wi-Fi que o AltServer."
+          }
         }
       }
     },
@@ -1598,6 +2516,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "JITを有効化"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ativar JIT"
           }
         }
       }
@@ -1609,6 +2533,12 @@
             "state" : "translated",
             "value" : "%@のJITを有効化しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JIT ativado para %@"
+          }
         }
       }
     },
@@ -1618,6 +2548,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "以下にソースのURLを入力するか、推奨されるソースのいずれかを追加してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insira abaixo o URL de uma fonte ou adicione uma das fontes recomendadas."
           }
         }
       }
@@ -1629,6 +2565,12 @@
             "state" : "translated",
             "value" : "エンタイトルメントは、潜在的に機密性の高い情報を含む特定のシステムサービスへのアクセスを許可する追加の権限です。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entitlements são permissões extras que dão acesso a serviços do sistema, incluindo informações potencialmente sensíveis."
+          }
         }
       }
     },
@@ -1638,6 +2580,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラー詳細"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalhes do erro"
           }
         }
       }
@@ -1649,6 +2597,12 @@
             "state" : "translated",
             "value" : "パトロンの読み込みエラー"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro ao carregar apoiadores"
+          }
         }
       }
     },
@@ -1658,6 +2612,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラー："
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro:"
           }
         }
       }
@@ -1669,6 +2629,12 @@
             "state" : "translated",
             "value" : "アプリのサイドローディングまたは更新中に発生したエラーはここに表示されます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erros que acontecem ao fazer sideload ou atualizar apps aparecerão aqui."
+          }
         }
       }
     },
@@ -1678,6 +2644,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリのインストール中に発生したエラーはここに表示されます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erros que acontecem durante a instalação de apps aparecerão aqui."
           }
         }
       }
@@ -1689,6 +2661,12 @@
             "state" : "translated",
             "value" : "期限切れまで残り："
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expira em"
+          }
         }
       }
     },
@@ -1698,6 +2676,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@後に期限が切れます"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expira em %@"
           }
         }
       }
@@ -1709,6 +2693,12 @@
             "state" : "translated",
             "value" : "%@後に期限が切れます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expira em %@."
+          }
         }
       }
     },
@@ -1718,6 +2708,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "バックアップのエクスポート"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportar backup"
           }
         }
       }
@@ -1729,6 +2725,12 @@
             "state" : "translated",
             "value" : "%@のアクティベートに失敗しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao ativar %@"
+          }
         }
       }
     },
@@ -1738,6 +2740,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のバックアップに失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao fazer backup de %@"
           }
         }
       }
@@ -1749,6 +2757,12 @@
             "state" : "translated",
             "value" : "エラーログのクリアに失敗しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao limpar o log de erros"
+          }
         }
       }
     },
@@ -1758,6 +2772,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@の無効化に失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao desativar %@"
           }
         }
       }
@@ -1769,6 +2789,12 @@
             "state" : "translated",
             "value" : "%@に対するJITの有効化に失敗しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha na ativação do JIT para %@"
+          }
         }
       }
     },
@@ -1778,6 +2804,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のインストールに失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao instalar %@"
           }
         }
       }
@@ -1789,6 +2821,12 @@
             "state" : "translated",
             "value" : "コミッショントークンのPatreonアカウントへのリンクに失敗しました。エラーコード：%@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao vincular o token de comissão com a conta do Patreon. Código de erro: %@"
+          }
         }
       }
     },
@@ -1798,6 +2836,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ログインに失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao fazer login"
           }
         }
       }
@@ -1809,6 +2853,12 @@
             "state" : "translated",
             "value" : "%@の更新に失敗しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao atualizar %@"
+          }
         }
       }
     },
@@ -1818,6 +2868,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@個のアプリの更新に失敗しました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao atualizar %@ apps."
           }
         }
       }
@@ -1829,6 +2885,12 @@
             "state" : "translated",
             "value" : "1つのアプリの更新に失敗しました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao atualizar 1 app."
+          }
         }
       }
     },
@@ -1838,6 +2900,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreの更新に失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao atualizar o AltStore"
           }
         }
       }
@@ -1849,6 +2917,12 @@
             "state" : "translated",
             "value" : "アプリの更新に失敗しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha na atualização dos apps"
+          }
         }
       }
     },
@@ -1858,6 +2932,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のバックアップの復元に失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao restaurar backup de %@"
           }
         }
       }
@@ -1869,6 +2949,12 @@
             "state" : "translated",
             "value" : "Appleからコミッショントークンの取得に失敗しました。エラーコード：%@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao recuperar o token de comissão da Apple. Código de erro: %@"
+          }
         }
       }
     },
@@ -1878,6 +2964,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Patreonの投稿からmanifest.jsonURLの取得に失敗しました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao obter o URL do manifest.json da publicação no Patreon."
           }
         }
       }
@@ -1889,6 +2981,12 @@
             "state" : "translated",
             "value" : "%@のアップデートに失敗しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao atualizar %@"
+          }
         }
       }
     },
@@ -1898,6 +2996,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@の検証に失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao verificar %@"
           }
         }
       }
@@ -1909,6 +3013,12 @@
             "state" : "translated",
             "value" : "失敗"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha"
+          }
         }
       }
     },
@@ -1918,6 +3028,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "注目"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em destaque"
           }
         }
       }
@@ -1929,6 +3045,12 @@
             "state" : "translated",
             "value" : "注目のアプリ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps em destaque"
+          }
         }
       }
     },
@@ -1938,6 +3060,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@で終了"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concluir em %@"
           }
         }
       }
@@ -1949,6 +3077,12 @@
             "state" : "translated",
             "value" : "%@のインストールを終了しますか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concluir a instalação de %@?"
+          }
         }
       }
     },
@@ -1958,6 +3092,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@の手順に従って、このデバイスの脱獄を完了してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siga as instruções em %@ para concluir o jailbreak deste dispositivo."
           }
         }
       }
@@ -1969,6 +3109,12 @@
             "state" : "translated",
             "value" : "詳細については、設定のエラーログを確認してください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para mais detalhes, verifique o Registro de erros nas configurações."
+          }
         }
       }
     },
@@ -1978,6 +3124,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ご自身の保護のため、ソースを削除しアンインストールしてください"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para sua proteção, remova a fonte e desinstale"
           }
         }
       }
@@ -1989,6 +3141,12 @@
             "state" : "translated",
             "value" : "無料"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grátis"
+          }
         }
       }
     },
@@ -1998,6 +3156,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "一時ファイルやアンインストール済みアプリ用のバックアップなど、不要なデータを削除してディスク容量を解放してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Libere espaço em disco removendo dados não essenciais, como arquivos temporários e backups de apps desinstalados."
           }
         }
       }
@@ -2009,6 +3173,12 @@
             "state" : "translated",
             "value" : "グラデーション"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gradiente"
+          }
         }
       }
     },
@@ -2018,6 +3188,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "こんにちは、\n\nありがとうございます。アカウントの連携が成功したので、すべてのPatreon限定アプリにアクセスできるようになりました。アプリは「ブラウズタブ」ですべてご確認いただけます。\n\nいつも応援ありがとうございます。どうぞお楽しみください！\nライリー＆シェーン"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oi,\n\nVocê é incrível. Sua conta foi vinculada com sucesso, então agora você tem acesso aos nossos apps exclusivos do Patreon. Você pode encontrá-los na aba Explorar.\n\nObrigado por todo o apoio. Aproveite!\nRiley & Shane"
           }
         }
       }
@@ -2029,6 +3205,12 @@
             "state" : "translated",
             "value" : "こんにちは。\n\nありがとうございます。アカウントの連携が成功したので、すべてのアプリのベータ版にアクセスできるようになりました。アプリは「ブラウズタブ」ですべてご確認いただけます。\n\nいつも応援ありがとうございます。どうぞお楽しみください！\nライリー＆シェーン"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oi,\n\nVocê é incrível. Sua conta foi vinculada com sucesso, então agora você tem acesso às versões beta de todos os nossos apps. Você pode encontrá-las na aba Explorar.\n\nObrigado por todo o apoio. Aproveite!\nRiley & Shane"
+          }
         }
       }
     },
@@ -2038,6 +3220,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "こんにちは。\n\nPatreonで私たちに寄付していただくと、今後のアプリ開発をご支援いただけます。そのお礼として、アプリのベータ版へのアクセス権が得られ、最新機能をいち早くお試しいただけます。\n\nいつも応援ありがとうございます 💜\nライリー＆シェーン"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oi, pessoal!\n\nVocês podem apoiar o desenvolvimento futuro dos nossos apps fazendo uma contribuição no Patreon. Em troca, receberão acesso às versões beta dos nossos apps e estarão entre os primeiros a experimentar os recursos mais recentes.\n\nObrigado por todo o apoio 💜\nRiley & Shane"
           }
         }
       }
@@ -2049,6 +3237,12 @@
             "state" : "translated",
             "value" : "HTTPステータスコード：%@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código de status HTTP: %@"
+          }
         }
       }
     },
@@ -2058,6 +3252,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "MacDirtyCowエクスプロイトを使用して3つのアプリ制限を解除している場合、代わりに最大10個のアプリとアプリ拡張機能をインストールできます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se você estiver usando o exploit MacDirtyCow para remover o limite de 3 apps, poderá instalar até 10 apps e extensões de app."
           }
         }
       }
@@ -2069,6 +3269,12 @@
             "state" : "translated",
             "value" : "MacDirtyCowエクスプロイトで3つのサイドロードアプリ制限を解除した場合、この設定を無効にすると、一度に3つ以上のアプリをサイドロードできます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se você removeu o limite de 3 apps instalados via sideload usando o exploit MacDirtyCow, desative esta opção para fazer sideload de mais de 3 apps ao mesmo tempo."
+          }
         }
       }
     },
@@ -2078,6 +3284,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このデバイスの脱獄を完了するには、%@をインストールし、アプリ内の指示に従ってください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para concluir o jailbreak deste dispositivo, você precisa instalar %@ e seguir as instruções no app."
           }
         }
       }
@@ -2089,6 +3301,12 @@
             "state" : "translated",
             "value" : "非アクティブ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inativo"
+          }
         }
       }
     },
@@ -2098,6 +3316,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ユーザーネームまたはパスワードが正しくありません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome de usuário ou senha incorretos."
           }
         }
       }
@@ -2109,6 +3333,12 @@
             "state" : "translated",
             "value" : "インストール"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "instalar"
+          }
         }
       }
     },
@@ -2118,6 +3348,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "インストール"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalar"
           }
         }
       }
@@ -2129,6 +3365,12 @@
             "state" : "translated",
             "value" : "%@をインストール"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalar %@"
+          }
         }
       }
     },
@@ -2138,6 +3380,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "とにかくインストール"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalar mesmo assim"
           }
         }
       }
@@ -2149,6 +3397,12 @@
             "state" : "translated",
             "value" : "アンテザード脱獄をインストール"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalar jailbreak com untethering"
+          }
         }
       }
     },
@@ -2158,6 +3412,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アンテザードせずにインストール"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalar sem untethering"
           }
         }
       }
@@ -2169,6 +3429,12 @@
             "state" : "translated",
             "value" : "インストール済み"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalado"
+          }
         }
       }
     },
@@ -2178,6 +3444,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@プレースホルダーをインストール中..."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalando %@ placeholder…"
           }
         }
       }
@@ -2189,6 +3461,12 @@
             "state" : "translated",
             "value" : "%@をインストール中..."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalando %@..."
+          }
         }
       }
     },
@@ -2198,6 +3476,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "インストール中..."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalando…"
           }
         }
       }
@@ -2209,6 +3493,12 @@
             "state" : "translated",
             "value" : "無効なADPインストールURLです。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O URL de instalação ADP é inválido."
+          }
         }
       }
     },
@@ -2218,6 +3508,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "無効なADPアップデートURLです。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O URL de atualização ADP é inválido."
           }
         }
       }
@@ -2229,12 +3525,24 @@
             "state" : "translated",
             "value" : "無効なパラメータです。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parâmetros inválidos."
+          }
         }
       }
     },
     "iOS" : {
       "localizations" : {
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "iOS"
@@ -2249,6 +3557,12 @@
             "state" : "translated",
             "value" : "iOS %@以前"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS %@ ou anterior"
+          }
         }
       }
     },
@@ -2258,6 +3572,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "iOS %@以降"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS %@ ou posterior"
           }
         }
       }
@@ -2270,6 +3590,12 @@
             "state" : "translated",
             "value" : "項目"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item"
+          }
         }
       }
     },
@@ -2279,6 +3605,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "脱獄はアンテザードする必要があります"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O jailbreak requer untethering"
           }
         }
       }
@@ -2290,6 +3622,12 @@
             "state" : "translated",
             "value" : "脱獄はアンテザードに対応しています"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O jailbreak oferece suporte a untethering"
+          }
         }
       }
     },
@@ -2299,6 +3637,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "JITはアプリを終了するまで有効のままです。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O JIT permanecerá ativado até que você feche o app."
           }
         }
       }
@@ -2310,6 +3654,12 @@
             "state" : "translated",
             "value" : "Patreonに参加"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar no Patreon"
+          }
         }
       }
     },
@@ -2319,6 +3669,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリ拡張機能を保持"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manter extensões do app"
           }
         }
       }
@@ -2330,6 +3686,12 @@
             "state" : "translated",
             "value" : "最終アップデート日：%@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última atualização: %@"
+          }
         }
       }
     },
@@ -2339,6 +3701,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "あとで"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depois"
           }
         }
       }
@@ -2350,6 +3718,12 @@
             "state" : "translated",
             "value" : "いいね！"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Curtir"
+          }
         }
       }
     },
@@ -2359,6 +3733,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "「いいね！」しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Curtido"
           }
         }
       }
@@ -2370,6 +3750,12 @@
             "state" : "translated",
             "value" : "いいね！"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Curtidas"
+          }
         }
       }
     },
@@ -2379,6 +3765,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このアプリを「いいね！」します"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Curtir este app"
           }
         }
       }
@@ -2390,6 +3782,12 @@
             "state" : "translated",
             "value" : "この項目をいいね！する"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Curte este item"
+          }
         }
       }
     },
@@ -2400,12 +3798,24 @@
             "state" : "translated",
             "value" : "Patreonアカウントを連携"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vincular conta do Patreon"
+          }
         }
       }
     },
     "Liquid Glass" : {
       "localizations" : {
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liquid Glass"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Liquid Glass"
@@ -2420,6 +3830,12 @@
             "state" : "translated",
             "value" : "読み込み中..."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carregando..."
+          }
         }
       }
     },
@@ -2430,12 +3846,24 @@
             "state" : "translated",
             "value" : "読み込み中…"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carregando…"
+          }
         }
       }
     },
     "MACDIRTYCOW" : {
       "localizations" : {
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MACDIRTYCOW"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "MACDIRTYCOW"
@@ -2450,6 +3878,12 @@
             "state" : "translated",
             "value" : "信用できるソースのみを追加するようにしてください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifique-se de adicionar apenas fontes em que você confia."
+          }
         }
       }
     },
@@ -2459,6 +3893,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltServerを実行しているコンピュータと同じWi-Fiネットワークに接続していることを確認するか、このデバイスをUSB経由でコンピュータに接続してみてください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifique se você está na mesma rede Wi-Fi de um computador com o AltServer em execução ou tente conectar este dispositivo ao computador via USB."
           }
         }
       }
@@ -2471,12 +3911,24 @@
             "state" : "translated",
             "value" : "AltStore PALの年間サブスクリプションを管理しましょう。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerencie sua assinatura anual do AltStore PAL."
+          }
         }
       }
     },
     "Mastodon" : {
       "localizations" : {
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastodon"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mastodon"
@@ -2491,6 +3943,12 @@
             "state" : "translated",
             "value" : "モダン"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moderno"
+          }
         }
       }
     },
@@ -2500,6 +3958,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "詳細を表示"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais"
           }
         }
       }
@@ -2511,6 +3975,12 @@
             "state" : "translated",
             "value" : "なし"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nunca"
+          }
         }
       }
     },
@@ -2520,6 +3990,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "新着とアップデート"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novidades e atualizações"
           }
         }
       }
@@ -2531,6 +4007,12 @@
             "state" : "translated",
             "value" : "新しいアップデートが利用可能です"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova atualização disponível"
+          }
         }
       }
     },
@@ -2540,6 +4022,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ニュースアラート"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alerta de novidades"
           }
         }
       }
@@ -2551,6 +4039,12 @@
             "state" : "translated",
             "value" : "アクティブなアプリで更新が必要なものはありません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhum app ativo precisa ser atualizado."
+          }
         }
       }
     },
@@ -2560,6 +4054,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリなし"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhum aplicativo"
           }
         }
       }
@@ -2571,6 +4071,12 @@
             "state" : "translated",
             "value" : "エラーなし"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhum erro encontrado"
+          }
         }
       }
     },
@@ -2580,6 +4086,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "まだ「いいね！」はありません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainda não há curtidas"
           }
         }
       }
@@ -2591,6 +4103,12 @@
             "state" : "translated",
             "value" : "更新試行なし"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhuma tentativa de atualização"
+          }
         }
       }
     },
@@ -2600,6 +4118,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "利用可能なアップデートはありません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhuma atualização disponível"
           }
         }
       }
@@ -2617,6 +4141,12 @@
             "state" : "translated",
             "value" : "非開発者用Apple IDでは、アクティブなアプリとアプリ拡張機能は3つまでに制限され、「%1$@」は%2$@個の%3$@を含んでいます。無効にするアプリを1つ選んでください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple IDs de não desenvolvedor estão limitados a três apps ativos e extensões de app ativas, e “%1$@” contém %2$@ %3$@. Escolha um app para desativar."
+          }
         }
       }
     },
@@ -2626,6 +4156,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "非開発者用Apple IDでは、アクティブなアプリとアプリ拡張機能は3つまでに制限されます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple IDs de não desenvolvedor estão limitados a três apps ativos e extensões de app ativas."
           }
         }
       }
@@ -2637,6 +4173,12 @@
             "state" : "translated",
             "value" : "非開発者用Apple IDでは、アクティブなアプリとアプリ拡張機能は3つまでに制限されます。無効にするアプリを1つ選んでください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple IDs de não desenvolvedor estão limitados a três apps ativos e extensões de app ativas. Escolha um app para desativar."
+          }
         }
       }
     },
@@ -2646,6 +4188,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "非開発者用Apple IDでは、アクティブなアプリは3つまでに制限されます。無効にするアプリを1つ選んでください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple IDs de não desenvolvedor estão limitados a três apps ativos. Escolha um app para desativar."
           }
         }
       }
@@ -2657,6 +4205,12 @@
             "state" : "translated",
             "value" : "非開発者用Apple IDでは、アプリとアプリ拡張機能は3つまでに制限されます。非アクティブなアプリは合計数にはカウントされませんが、アクティブ化されるまで開くことはできません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple IDs de não desenvolvedor estão limitados a três apps e extensões. Apps inativos não são contabilizados no total, mas permanecem inacessíveis até serem reativados."
+          }
         }
       }
     },
@@ -2666,6 +4220,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "非開発者用Apple IDでは、アプリは3つまでに制限されます。非アクティブなアプリはバックアップされアンインストールされるため、合計数にはカウントされませんが、再度アクティブ化すると、すべてのデータと共に再インストールされます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple IDs de não desenvolvedor estão limitados a 3 apps. Apps inativos são salvos em backup e desinstalados para não serem contabilizados no total, mas serão reinstalados com todos os dados quando ativados novamente."
           }
         }
       }
@@ -2677,6 +4237,12 @@
             "state" : "translated",
             "value" : "非開発者用Apple IDでは、1週間に作成できるアプリIDは10個までです。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple IDs de não desenvolvedor podem criar até 10 App IDs por semana."
+          }
         }
       }
     },
@@ -2686,6 +4252,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "利用可能なものはありません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nenhum está disponível"
           }
         }
       }
@@ -2697,6 +4269,12 @@
             "state" : "translated",
             "value" : "1つ以上のアプリ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "um ou mais apps"
+          }
         }
       }
     },
@@ -2706,6 +4284,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソース「%@」内の1つ以上のアプリにマーケットプレイスIDが欠落しています。これはおそらく、アプリが公証されていないことを意味しており、このバージョンのAltStoreではサポートされていません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um ou mais apps na fonte “%@” estão sem marketplaceID. Isso provavelmente significa que eles não são notarizados, o que não é compatível com esta versão do AltStore."
           }
         }
       }
@@ -2717,6 +4301,12 @@
             "state" : "translated",
             "value" : "%@個だけ利用可能です"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "apenas %@ estão disponíveis"
+          }
         }
       }
     },
@@ -2726,6 +4316,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1個だけ利用可能です"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "apenas 1 disponível"
           }
         }
       }
@@ -2737,6 +4333,12 @@
             "state" : "translated",
             "value" : "開く"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "abrir"
+          }
         }
       }
     },
@@ -2746,6 +4348,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "開く"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir"
           }
         }
       }
@@ -2757,6 +4365,12 @@
             "state" : "translated",
             "value" : "%@を開く"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir %@"
+          }
         }
       }
     },
@@ -2766,6 +4380,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ブラウザで開く"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir no navegador"
           }
         }
       }
@@ -2777,6 +4397,12 @@
             "state" : "translated",
             "value" : "プレースホルダーを開く"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir placeholder"
+          }
         }
       }
     },
@@ -2786,6 +4412,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "操作に失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha na operação"
           }
         }
       }
@@ -2797,6 +4429,12 @@
             "state" : "translated",
             "value" : "その他のエンタイトルメント"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Outros entitlements"
+          }
         }
       }
     },
@@ -2806,6 +4444,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "プレースホルダーのパッチを適用"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicar patch no placeholder"
           }
         }
       }
@@ -2817,6 +4461,12 @@
             "state" : "translated",
             "value" : "%@プレースホルダーのパッチ適用中..."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicando patch no placeholder %@..."
+          }
         }
       }
     },
@@ -2827,12 +4477,24 @@
             "state" : "translated",
             "value" : "プレースホルダーアプリのパッチ適用中..."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicando patch no app placeholder..."
+          }
         }
       }
     },
     "PATREON" : {
       "localizations" : {
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PATREON"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "PATREON"
@@ -2847,6 +4509,12 @@
             "state" : "translated",
             "value" : "Patreonアカウントが検知されました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conta do Patreon detectada"
+          }
         }
       }
     },
@@ -2856,6 +4524,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "権限"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permissão"
           }
         }
       }
@@ -2867,6 +4541,12 @@
             "state" : "translated",
             "value" : "代替のアプリアイコンを選択して、AltStoreの体験をカスタマイズしましょう。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personalize sua experiência com o AltStore escolhendo um ícone alternativo para o app."
+          }
         }
       }
     },
@@ -2876,6 +4556,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "写真"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fotos"
           }
         }
       }
@@ -2887,6 +4573,12 @@
             "state" : "translated",
             "value" : "Appleデバイスに送信された6桁の確認コードを入力してください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insira o código de verificação de 6 dígitos que foi enviado para seus dispositivos Apple."
+          }
         }
       }
     },
@@ -2896,6 +4588,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mastodonサーバーを入力してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insira seu servidor Mastodon."
           }
         }
       }
@@ -2907,6 +4605,12 @@
             "state" : "translated",
             "value" : "スペルに間違いがないか確認してください。または別のアプリを検索してみてください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifique se a ortografia está correta ou tente pesquisar por outro app."
+          }
         }
       }
     },
@@ -2916,6 +4620,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "プレースホルダーアプリを開き、指示に従ってデバイスの脱獄を続行してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abra o app placeholder e siga as instruções para continuar o jailbreak do seu dispositivo."
           }
         }
       }
@@ -2927,6 +4637,12 @@
             "state" : "translated",
             "value" : "このソースを追加するには、既存のソースを削除してください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remova a fonte existente para adicionar esta."
+          }
         }
       }
     },
@@ -2936,6 +4652,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "支援"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contribuição"
           }
         }
       }
@@ -2947,6 +4669,12 @@
             "state" : "translated",
             "value" : "毎月%@を支援"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contribuição de %@ por mês"
+          }
         }
       }
     },
@@ -2956,6 +4684,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "支援期限切れ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contribuição expirada"
           }
         }
       }
@@ -2967,6 +4701,12 @@
             "state" : "translated",
             "value" : "支援済み"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Com contribuição"
+          }
         }
       }
     },
@@ -2976,6 +4716,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "プライバシー"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacidade"
           }
         }
       }
@@ -2987,6 +4733,12 @@
             "state" : "translated",
             "value" : "プロモ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promoção"
+          }
         }
       }
     },
@@ -2997,6 +4749,12 @@
             "state" : "translated",
             "value" : "パトロンになることで、AltStoreやDeltaなどのベータ版へのアクセス権を得られます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receba acesso a versões beta do AltStore, Delta e outros ao se tornar um apoiador."
+          }
         }
       }
     },
@@ -3006,6 +4764,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "埋め込み型"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recuado"
           }
         }
       }
@@ -3018,6 +4782,12 @@
             "state" : "translated",
             "value" : "推奨ソース"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fontes recomendadas"
+          }
         }
       }
     },
@@ -3027,6 +4797,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "交換済PALプロモ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promoção PAL resgatada"
           }
         }
       }
@@ -3038,6 +4814,12 @@
             "state" : "translated",
             "value" : "更新"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar"
+          }
         }
       }
     },
@@ -3047,6 +4829,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@を更新"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar %@"
           }
         }
       }
@@ -3058,6 +4846,12 @@
             "state" : "translated",
             "value" : "すべて更新"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar tudo"
+          }
         }
       }
     },
@@ -3067,6 +4861,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "後で更新"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar depois"
           }
         }
       }
@@ -3078,6 +4878,12 @@
             "state" : "translated",
             "value" : "更新済みアプリ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps atualizados"
+          }
         }
       }
     },
@@ -3087,6 +4893,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "更新中です"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização em andamento"
           }
         }
       }
@@ -3098,6 +4910,12 @@
             "state" : "translated",
             "value" : "アプリの更新"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ATUALIZANDO APPS"
+          }
         }
       }
     },
@@ -3107,6 +4925,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "リモートAltServer%@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AltServer remoto %@"
           }
         }
       }
@@ -3118,6 +4942,12 @@
             "state" : "translated",
             "value" : "削除"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover"
+          }
         }
       }
     },
@@ -3127,6 +4957,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "削除"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "REMOVER"
           }
         }
       }
@@ -3138,6 +4974,12 @@
             "state" : "translated",
             "value" : "AltStoreから「%@」を削除しますか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover “%@” do AltStore?"
+          }
         }
       }
     },
@@ -3147,6 +4989,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリ拡張機能を削除"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover extensões do app"
           }
         }
       }
@@ -3158,6 +5006,12 @@
             "state" : "translated",
             "value" : "カスタムアイコンを削除"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover ícone personalizado"
+          }
         }
       }
     },
@@ -3167,6 +5021,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソースを削除"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover fonte"
           }
         }
       }
@@ -3178,6 +5038,12 @@
             "state" : "translated",
             "value" : "バックアップの復元"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurar backup"
+          }
         }
       }
     },
@@ -3187,6 +5053,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "再試行"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tentar novamente"
           }
         }
       }
@@ -3198,6 +5070,12 @@
             "state" : "translated",
             "value" : "権限の確認"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisar permissões"
+          }
         }
       }
     },
@@ -3207,6 +5085,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FAQを検索"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar na FAQ"
           }
         }
       }
@@ -3218,6 +5102,12 @@
             "state" : "translated",
             "value" : "すべて見る"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver tudo"
+          }
         }
       }
     },
@@ -3227,6 +5117,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "共有"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compartilhar"
           }
         }
       }
@@ -3238,6 +5134,12 @@
             "state" : "translated",
             "value" : "すべてのいいね！を表示"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra todas as curtidas"
+          }
         }
       }
     },
@@ -3247,6 +5149,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サイドロード済み"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalado via sideload"
           }
         }
       }
@@ -3258,6 +5166,12 @@
             "state" : "translated",
             "value" : "サインイン"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sessão"
+          }
         }
       }
     },
@@ -3267,6 +5181,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソーシャルウェブアカウントでサインイン…"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicie sessão com uma conta de rede social…"
           }
         }
       }
@@ -3278,6 +5198,12 @@
             "state" : "translated",
             "value" : "AltStoreからアプリをダウンロードするには、Apple IDでサインインしてください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicie sessão com seu Apple ID para baixar apps no AltStore."
+          }
         }
       }
     },
@@ -3287,6 +5213,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Blueskyアカウントでサインイン"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entre com sua conta Bluesky"
           }
         }
       }
@@ -3298,6 +5230,12 @@
             "state" : "translated",
             "value" : "AltStoreのアプリ、アップデート、ニュース項目にいいね！するには、ソーシャルウェブアカウントでサインインしてください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entre com sua conta de rede social para curtir apps, atualizações e novidades no AltStore."
+          }
         }
       }
     },
@@ -3307,6 +5245,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サインイン："
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sessão com…"
           }
         }
       }
@@ -3318,6 +5262,12 @@
             "state" : "translated",
             "value" : "サインアウト"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sair"
+          }
         }
       }
     },
@@ -3327,6 +5277,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サインアウト"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SAIR"
           }
         }
       }
@@ -3338,6 +5294,12 @@
             "state" : "translated",
             "value" : "ソーシャルウェブ（ベータ版）"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "REDE SOCIAL (BETA)"
+          }
         }
       }
     },
@@ -3347,6 +5309,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソーシャルウェブアカウント（ベータ版）"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CONTA NA REDE SOCIAL (BETA)"
           }
         }
       }
@@ -3358,6 +5326,12 @@
             "state" : "translated",
             "value" : "いくつかのソースを追加しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algumas fontes adicionadas"
+          }
         }
       }
     },
@@ -3367,6 +5341,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "並べ替え："
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordenar por…"
           }
         }
       }
@@ -3378,6 +5358,12 @@
             "state" : "translated",
             "value" : "ソースによってAltStoreで利用可能なアプリが決まります。ソースを追加すればするほど、AltStoreの体験が向上します。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As fontes determinam quais apps estão disponíveis no AltStore. Quanto mais fontes você adicionar, melhor será sua experiência no AltStore."
+          }
         }
       }
     },
@@ -3387,6 +5373,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "以下の皆さまに深く感謝申し上げます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agradecimentos especiais a..."
           }
         }
       }
@@ -3398,6 +5390,12 @@
             "state" : "translated",
             "value" : "バックアップを開始しますか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar backup?"
+          }
         }
       }
     },
@@ -3407,6 +5405,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "成功"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concluído com sucesso"
           }
         }
       }
@@ -3424,6 +5428,12 @@
             "state" : "translated",
             "value" : "^[%1$lldソース](inflect: true) の追加に成功しましたが、^[%2$lldソース](inflect: true) の追加に失敗しました。\n\n詳細については、設定のエラーログを確認してください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%1$lld fonte](inflect: true) adicionada com sucesso, mas ^[%2$lld fonte](inflect: true) falhou.\n\nPara mais detalhes, verifique o Registro de erros nas configurações."
+          }
         }
       }
     },
@@ -3433,6 +5443,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サポート"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CENTRAL DE AJUDA"
           }
         }
       }
@@ -3444,6 +5460,12 @@
             "state" : "translated",
             "value" : "AltStore PALのベータ版に切り替えますか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mudar para a versão beta do AltStore PAL?"
+          }
         }
       }
     },
@@ -3453,6 +5475,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "詳細を確認するには権限をタップしてください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toque em uma permissão para saber mais."
           }
         }
       }
@@ -3464,6 +5492,12 @@
             "state" : "translated",
             "value" : "進行状況を表示するにはタップしてください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toque para visualizar o progresso."
+          }
         }
       }
     },
@@ -3474,6 +5508,12 @@
             "state" : "translated",
             "value" : "ソースエラーを表示するにはタップしてください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toque para visualizar os erros da fonte."
+          }
         }
       }
     },
@@ -3483,6 +5523,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "テクノロジー関連"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ITENS TÉCNICOS"
           }
         }
       }
@@ -3500,6 +5546,12 @@
             "state" : "translated",
             "value" : "%3$@の%1$@「%2$@」には使用説明が不足しています。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A %1$@ “%2$@” para %3$@ não possui uma descrição de uso."
+          }
         }
       }
     },
@@ -3509,6 +5561,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "o app"
           }
         }
       }
@@ -3520,6 +5578,12 @@
             "state" : "translated",
             "value" : "アプリ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O app"
+          }
         }
       }
     },
@@ -3529,6 +5593,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリの形式が無効です。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O app está em um formato inválido."
           }
         }
       }
@@ -3540,6 +5610,12 @@
             "state" : "translated",
             "value" : "アプリのリストが見つかりませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível encontrar a listagem do app."
+          }
         }
       }
     },
@@ -3549,6 +5625,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のビルドバージョンが、ソースによって指定されたビルドバージョンと一致しません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A versão de build de “%@” não corresponde à especificada pela fonte."
           }
         }
       }
@@ -3560,6 +5642,12 @@
             "state" : "translated",
             "value" : "%@のバンドルIDがソースで指定されたものと一致しません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O bundle ID de “%@” não corresponde ao especificado pela fonte."
+          }
         }
       }
     },
@@ -3569,6 +5657,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "バンドル識別子%@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "o bundle identifier %@"
           }
         }
       }
@@ -3580,6 +5674,12 @@
             "state" : "translated",
             "value" : "証明書が見つかりませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O certificado não pôde ser encontrado."
+          }
         }
       }
     },
@@ -3589,6 +5689,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "証明書の秘密鍵が見つかりませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A chave privada do certificado não foi encontrada."
           }
         }
       }
@@ -3600,6 +5706,12 @@
             "state" : "translated",
             "value" : "ホストへの接続が確立できないため、接続に失敗しました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A conexão falhou porque não foi possível estabelecer uma conexão com o host."
+          }
         }
       }
     },
@@ -3609,6 +5721,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ネットワーク接続が失われたため、接続に失敗しました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A conexão falhou porque a conexão de rede foi perdida."
           }
         }
       }
@@ -3620,6 +5738,12 @@
             "state" : "translated",
             "value" : "AltServerへの接続が切断されました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A conexão com o AltServer foi interrompida."
+          }
         }
       }
     },
@@ -3629,6 +5753,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デフォルトの依存関係は削除できません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fonte padrão do AltStore não pode ser removida."
           }
         }
       }
@@ -3640,6 +5770,12 @@
             "state" : "translated",
             "value" : "%@の依存関係が特定できませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As dependências de %@ não puderam ser determinadas."
+          }
         }
       }
     },
@@ -3649,6 +5785,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "依存関係「%@」をダウンロードできませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível baixar a dependência “%@”."
           }
         }
       }
@@ -3660,6 +5802,12 @@
             "state" : "translated",
             "value" : "開発者証明書が見つかりませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O certificado de desenvolvedor não foi encontrado."
+          }
         }
       }
     },
@@ -3669,6 +5817,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ダウンロードしたアプリ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "o aplicativo baixado"
           }
         }
       }
@@ -3680,6 +5834,12 @@
             "state" : "translated",
             "value" : "以下のアプリにフラグがつけられています："
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os seguintes apps foram reportados:"
+          }
         }
       }
     },
@@ -3689,6 +5849,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "以下のアプリ："
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "os seguintes aplicativos:"
           }
         }
       }
@@ -3700,6 +5866,12 @@
             "state" : "translated",
             "value" : "ソース「%@」の識別子が変更されました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O identificador da fonte “%@” foi alterado."
+          }
         }
       }
     },
@@ -3709,6 +5881,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@の最新バージョンを特定できませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível determinar a versão mais recente de %@ ."
           }
         }
       }
@@ -3720,6 +5898,12 @@
             "state" : "translated",
             "value" : "%@のマーケットプレイス IDを特定できませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível determinar o ID do marketplace para %@ ."
+          }
         }
       }
     },
@@ -3729,6 +5913,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のマーケットプレイスIDが、ソースで指定されたものと一致しません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O ID do marketplace para %@ não corresponde ao especificado pela fonte."
           }
         }
       }
@@ -3740,6 +5930,12 @@
             "state" : "translated",
             "value" : "AltStoreを起動すればするほど、バックグラウンドでアプリを更新する機会が増えます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quanto mais você abre o AltStore, mais oportunidades ele tem de atualizar os apps em segundo plano."
+          }
         }
       }
     },
@@ -3749,6 +5945,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreを使用すればするほど、iOSはバックグラウンドでのアプリ更新をより頻繁に許可するようになります。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quanto mais você usar o AltStore, com mais frequência o iOS permitirá que ele atualize os apps em segundo plano."
           }
         }
       }
@@ -3760,6 +5962,12 @@
             "state" : "translated",
             "value" : "操作は禁止されています。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A operação não é permitida."
+          }
         }
       }
     },
@@ -3769,6 +5977,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "操作は不明な結果を返しました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A operação retornou um resultado desconhecido."
           }
         }
       }
@@ -3780,6 +5994,12 @@
             "state" : "translated",
             "value" : "操作がタイムアウトしました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A operação expirou."
+          }
         }
       }
     },
@@ -3789,6 +6009,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のOTAダウンロードURLを特定できませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível determinar o URL de download OTA para %@."
           }
         }
       }
@@ -3800,6 +6026,12 @@
             "state" : "translated",
             "value" : "このユーザーの個人データサーバーが見つかりませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Servidor de Dados Pessoais para este usuário não foi encontrado."
+          }
         }
       }
     },
@@ -3809,6 +6041,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "提供されたDID%@は無効です。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O DID fornecido %@ é inválido."
           }
         }
       }
@@ -3820,6 +6058,12 @@
             "state" : "translated",
             "value" : "提供されたDIDは無効です。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O DID fornecido é inválido."
+          }
         }
       }
     },
@@ -3829,6 +6073,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "提供されたドメインは有効なMastodonサーバーではありません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O domínio fornecido não é um servidor Mastodon válido."
           }
         }
       }
@@ -3840,6 +6090,12 @@
             "state" : "translated",
             "value" : "リクエストされた投稿が見つかりませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A postagem solicitada não foi encontrada."
+          }
         }
       }
     },
@@ -3849,6 +6105,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "同一のバンドル識別子"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "o mesmo bundle identifier"
           }
         }
       }
@@ -3860,6 +6122,12 @@
             "state" : "translated",
             "value" : "%@のSHA-256ハッシュが、ソースが指定したハッシュと一致しません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O hash SHA-256 de %@ não corresponde ao hash especificado pela fonte."
+          }
         }
       }
     },
@@ -3870,6 +6138,12 @@
             "state" : "translated",
             "value" : "ソース"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fonte"
+          }
         }
       }
     },
@@ -3879,6 +6153,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソース「%@」"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fonte “%@”"
           }
         }
       }
@@ -3896,6 +6176,12 @@
             "state" : "translated",
             "value" : "ソース「%1$@」には%3$@の%2$@が含まれます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fonte “%1$@” contém %2$@ para %3$@."
+          }
         }
       }
     },
@@ -3912,6 +6198,12 @@
             "state" : "translated",
             "value" : "ソース「%1$@」には%2$@を含む複数のアプリが含まれています。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fonte “%1$@” contém vários apps com %2$@."
+          }
         }
       }
     },
@@ -3921,6 +6213,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソース「%@」には、このバージョンのAltStoreではサポートされていない、公証済みアプリが含まれています。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fonte “%@” contém apps notarizados, que não são compatíveis com esta versão do AltStore."
           }
         }
       }
@@ -3932,6 +6230,12 @@
             "state" : "translated",
             "value" : "セキュリティ上の理由により、ソース「%@」はAltStoreによってブロックされました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fonte “%@” foi bloqueada pelo AltStore por motivos de segurança."
+          }
         }
       }
     },
@@ -3941,6 +6245,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソース「%@」は、このバージョンのAltStoreではサポートされていません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fonte “%@” não é compatível com esta versão do AltStore."
           }
         }
       }
@@ -3952,6 +6262,12 @@
             "state" : "translated",
             "value" : "タスクは%@秒後にタイムアウトしました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A tarefa expirou após %@ segundos."
+          }
         }
       }
     },
@@ -3961,6 +6277,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のバージョンはソースで指定されたバージョンと一致しません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A versão de %@ não corresponde à versão especificada pela fonte."
           }
         }
       }
@@ -3972,6 +6294,12 @@
             "state" : "translated",
             "value" : "AltStoreソースがありません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não há nenhuma fonte do AltStore."
+          }
         }
       }
     },
@@ -3981,6 +6309,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "これらは「%@」に必要な権限ですが、AltStoreでは認識されていません。続行する前に、必ずこれらの権限について理解してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estas são permissões exigidas por “%@” que o AltStore não reconhece. Certifique-se de que você as compreenda antes de continuar."
           }
         }
       }
@@ -3992,6 +6326,12 @@
             "state" : "translated",
             "value" : "AltStoreがこのアプリをインストールするには、ソース側で以下の権限を宣言する必要があります："
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para que o AltStore possa instalar este app, a fonte precisa declarar estas permissões:"
+          }
         }
       }
     },
@@ -4001,6 +6341,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "これらのアップデートはiOS %@に対応していません。インストールするには、お使いのデバイスを最新のiOSバージョンに更新してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essas atualizações não são compatíveis com o iOS %@. Atualize seu dispositivo para a versão mais recente do iOS para instalá-las."
           }
         }
       }
@@ -4012,6 +6358,12 @@
             "state" : "translated",
             "value" : "このアプリ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "este app"
+          }
         }
       }
     },
@@ -4022,6 +6374,12 @@
             "state" : "translated",
             "value" : "このアプリ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este app"
+          }
         }
       }
     },
@@ -4031,6 +6389,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このアプリはカスタム支援に対応しています。Patreonで任意の金額を支援するとアクセス権が得られます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este app oferece contribuições personalizadas. Contribua com qualquer valor no Patreon para obter acesso."
           }
         }
       }
@@ -4048,6 +6412,12 @@
             "state" : "translated",
             "value" : "このデバイスはiOS%1$@を実行していますが、%2$@です。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este dispositivo está executando o iOS %1$@, mas %2$@"
+          }
         }
       }
     },
@@ -4057,6 +6427,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "この脱獄にはアンテザードバージョンがあります。つまり%@は、7日経過後やデバイスの再起動後でも有効期限が切れることはありません。\n\nアンテザード脱獄のインストールには追加手順が必要ですが、AltStoreがプロセスをご案内します。\n\n続行してもよろしいですか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este jailbreak possui uma versão untethered, o que significa que %@ nunca expirará — mesmo após 7 dias ou ao reiniciar o dispositivo.\n\nA instalação de um jailbreak untethered requer algumas etapas extras, mas o AltStore irá guiar você durante o processo.\n\nDeseja continuar?"
           }
         }
       }
@@ -4068,6 +6444,12 @@
             "state" : "translated",
             "value" : "この脱獄はアンテザードです。つまり%@は、7日経過後やデバイスの再起動後も期限切れになることはありません。\n\nアンテザード脱獄のインストールには追加手順が必要ですが、AltStoreがプロセスをご案内します。\n\n続行してもよろしいですか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este jailbreak é untethered, o que significa que %@ nunca expirará — mesmo após 7 dias ou ao reiniciar o dispositivo.\n\nA instalação de um jailbreak untethered requer algumas etapas extras, mas o AltStore irá guiar você durante o processo.\n\nDeseja continuar?"
+          }
         }
       }
     },
@@ -4077,6 +6459,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このリクエストには認証済みユーザーが必要です。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "É necessário estar autenticado para esta solicitação."
           }
         }
       }
@@ -4088,6 +6476,12 @@
             "state" : "translated",
             "value" : "このバージョンの「%@」には追加の権限が必要です。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta versão de “%@” requer permissões adicionais."
+          }
         }
       }
     },
@@ -4097,6 +6491,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "これにより、AltStoreでアプリを「いいね！」できるようになります。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isso permitirá que você curta apps no AltStore."
           }
         }
       }
@@ -4108,6 +6508,12 @@
             "state" : "translated",
             "value" : "これにより、このアプリのすべてのバックアップデータが消去されます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isso também apagará todos os dados de backup deste app."
+          }
         }
       }
     },
@@ -4117,6 +6523,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "これにより、すべての一時ファイルとアンインストール済みアプリ用のバックアップが削除されます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isso removerá todos os arquivos temporários, bem como os backups de apps desinstalados."
           }
         }
       }
@@ -4128,6 +6540,12 @@
             "state" : "translated",
             "value" : "これにより、現在%@にあるデータがすべて置き換えられます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isso substituirá todos os dados que você possui atualmente em %@."
+          }
         }
       }
     },
@@ -4137,6 +6555,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "これにより、以前のバックアップがすべて置き換えられます。バックアップが完了するまで、AltStoreを開いたままにしておいてください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isso substituirá quaisquer backups anteriores. Mantenha o AltStore aberto até que o backup seja concluído."
           }
         }
       }
@@ -4148,6 +6572,12 @@
             "state" : "translated",
             "value" : "これには少し時間がかかります。パッチが完了するまで、画面をオフにしたり、アプリを離れたりしないでください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta etapa levará alguns instantes. Não desligue a tela nem saia do app até que a aplicação do patch esteja concluída."
+          }
         }
       }
     },
@@ -4157,6 +6587,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "これにより、AltStore PALが最新のベータ版にアップデートされます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltStore PAL será atualizado para a versão beta mais recente."
           }
         }
       }
@@ -4168,6 +6604,12 @@
             "state" : "translated",
             "value" : "%@をダウンロードするには、次の画面で「無料で参加」を押してこのクリエイターのPatreonに参加してください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para baixar %@, entre no Patreon deste criador e toque em “Entrar gratuitamente” na próxima tela."
+          }
         }
       }
     },
@@ -4177,6 +6619,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "今日"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoje"
           }
         }
       }
@@ -4188,6 +6636,12 @@
             "state" : "translated",
             "value" : "再試行"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tentar novamente"
+          }
         }
       }
     },
@@ -4197,6 +6651,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "^[%lldソース](inflect: true) を追加できません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível adicionar ^[%lld fonte](inflect: true)"
           }
         }
       }
@@ -4208,6 +6668,12 @@
             "state" : "translated",
             "value" : "ソースを追加できません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível adicionar a fonte"
+          }
         }
       }
     },
@@ -4217,6 +6683,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリのアイコンを変更できません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível alterar o ícone do app"
           }
         }
       }
@@ -4228,6 +6700,12 @@
             "state" : "translated",
             "value" : "アップデートの確認ができません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível verificar atualizações"
+          }
         }
       }
     },
@@ -4237,6 +6715,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "キャッシュをクリアできません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível limpar o cache"
           }
         }
       }
@@ -4248,6 +6732,12 @@
             "state" : "translated",
             "value" : "詳細ログをエクスポートできません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível exportar o log detalhado"
+          }
         }
       }
     },
@@ -4257,6 +6747,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリを取得できません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível carregar os apps"
           }
         }
       }
@@ -4268,6 +6764,12 @@
             "state" : "translated",
             "value" : "ニュースを取得できません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível carregar as novidades"
+          }
         }
       }
     },
@@ -4277,6 +6779,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@をインストールできません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível instalar %@."
           }
         }
       }
@@ -4288,6 +6796,12 @@
             "state" : "translated",
             "value" : "AltStoreを起動できません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível iniciar o AltStore"
+          }
         }
       }
     },
@@ -4297,6 +6811,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@をいいね！できません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível curtir %@"
           }
         }
       }
@@ -4308,6 +6828,12 @@
             "state" : "translated",
             "value" : "アプリを「いいね！」できません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível curtir o app"
+          }
         }
       }
     },
@@ -4317,6 +6843,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "注目のソースを読み込めません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível carregar as fontes em destaque"
           }
         }
       }
@@ -4329,6 +6861,12 @@
             "state" : "translated",
             "value" : "推奨ソースが読み込めません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível carregar as fontes recomendadas"
+          }
         }
       }
     },
@@ -4338,6 +6876,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Patreonの投稿URLを解析できません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível processar o URL do post do Patreon."
           }
         }
       }
@@ -4349,6 +6893,12 @@
             "state" : "translated",
             "value" : "アプリを準備できません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível preparar o app"
+          }
         }
       }
     },
@@ -4358,6 +6908,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PALプロモの引き換えができません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível resgatar a promoção PAL"
           }
         }
       }
@@ -4369,6 +6925,12 @@
             "state" : "translated",
             "value" : "「%@」ソースの更新ができません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível atualizar a fonte “%@”"
+          }
         }
       }
     },
@@ -4378,6 +6940,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ソースの更新ができません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível atualizar as fontes de %@"
           }
         }
       }
@@ -4389,6 +6957,12 @@
             "state" : "translated",
             "value" : "ストアの更新ができません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível atualizar a loja"
+          }
         }
       }
     },
@@ -4398,6 +6972,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソースの削除ができません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível remover a fonte"
           }
         }
       }
@@ -4409,6 +6989,12 @@
             "state" : "translated",
             "value" : "サインインできません"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível iniciar sessão"
+          }
         }
       }
     },
@@ -4418,6 +7004,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のいいね！を解除できません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível remover a curtida %@"
           }
         }
       }
@@ -4429,6 +7021,12 @@
             "state" : "translated",
             "value" : "%@をアップデートできません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível atualizar %@."
+          }
         }
       }
     },
@@ -4438,6 +7036,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未宣言の権限"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permissões não declaradas"
           }
         }
       }
@@ -4449,6 +7053,12 @@
             "state" : "translated",
             "value" : "不明なソース"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fonte desconhecida"
+          }
         }
       }
     },
@@ -4458,6 +7068,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "いいね！を解除"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover curtida"
           }
         }
       }
@@ -4469,6 +7085,12 @@
             "state" : "translated",
             "value" : "このアプリの「いいね！」を解除します"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover curtida deste app"
+          }
         }
       }
     },
@@ -4478,6 +7100,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "この項目のいいね！を解除"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover curtida deste item"
           }
         }
       }
@@ -4489,6 +7117,12 @@
             "state" : "translated",
             "value" : "%@のリンクを解除"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desvincular %@"
+          }
         }
       }
     },
@@ -4498,6 +7132,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Patreonアカウントのリンクを解除"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desvincular conta do Patreon"
           }
         }
       }
@@ -4509,6 +7149,12 @@
             "state" : "translated",
             "value" : "サポートされていないiOSバージョン"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versão do iOS não compatível"
+          }
         }
       }
     },
@@ -4518,6 +7164,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サポートされていないアップデートが利用可能です"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização disponível não compatível"
           }
         }
       }
@@ -4529,6 +7181,12 @@
             "state" : "translated",
             "value" : "サポートされていないアップデートが利用可能です"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizações disponíveis não compatíveis"
+          }
         }
       }
     },
@@ -4538,6 +7196,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アンテザード推奨"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desvinculação recomendada"
           }
         }
       }
@@ -4549,6 +7213,12 @@
             "state" : "translated",
             "value" : "アンテザード必須"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desvinculação necessária"
+          }
         }
       }
     },
@@ -4558,6 +7228,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "この脱獄をアンテザードすると、7日経過後やデバイスの再起動後も%@は有効のままです。アンテザードせずにインストールしますか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desvincular este jailbreak impedirá que %@ expire, mesmo após 7 dias ou reiniciar o dispositivo. Tem certeza de que deseja instalar sem desvincular?"
           }
         }
       }
@@ -4569,6 +7245,12 @@
             "state" : "translated",
             "value" : "アップデート"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "atualizar"
+          }
         }
       }
     },
@@ -4578,6 +7260,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アップデート"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar"
           }
         }
       }
@@ -4589,6 +7277,12 @@
             "state" : "translated",
             "value" : "%@をアッデート"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar %@"
+          }
         }
       }
     },
@@ -4598,6 +7292,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ユーザーネーム"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome de usuário"
           }
         }
       }
@@ -4609,6 +7309,12 @@
             "state" : "translated",
             "value" : "バージョン%@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versão %@"
+          }
         }
       }
     },
@@ -4618,6 +7324,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "すべて表示"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver tudo"
           }
         }
       }
@@ -4629,6 +7341,12 @@
             "state" : "translated",
             "value" : "すべてのアプリを表示"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver todos os apps"
+          }
         }
       }
     },
@@ -4638,6 +7356,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラーを表示"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver erro"
           }
         }
       }
@@ -4649,6 +7373,12 @@
             "state" : "translated",
             "value" : "「いいね！」を見る"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver curtidas"
+          }
         }
       }
     },
@@ -4658,6 +7388,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "さらに詳細を表示"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver mais detalhes"
           }
         }
       }
@@ -4669,6 +7405,12 @@
             "state" : "translated",
             "value" : "Patreonを表示"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver Patreon"
+          }
         }
       }
     },
@@ -4678,6 +7420,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "権限を表示"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver permissões"
           }
         }
       }
@@ -4689,6 +7437,12 @@
             "state" : "translated",
             "value" : "推奨ソースを表示"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver fontes recomendadas"
+          }
         }
       }
     },
@@ -4698,6 +7452,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "非アクティブなアプリとは何ですか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O que são apps inativos?"
           }
         }
       }
@@ -4709,6 +7469,12 @@
             "state" : "translated",
             "value" : "ソースとは何ですか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O que são fontes?"
+          }
         }
       }
     },
@@ -4718,6 +7484,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStore 2.0はベータ版ですが、ソースがアップデートされるまでは自己責任でこの警告を無視することもできます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enquanto o AltStore 2.0 estiver em versão beta, você pode ignorar este aviso por sua conta e risco até que a fonte seja atualizada."
           }
         }
       }
@@ -4729,6 +7501,12 @@
             "state" : "translated",
             "value" : "有線AltServer"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AltServer via cabo"
+          }
         }
       }
     },
@@ -4738,6 +7516,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソース「%@」を追加しますか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gostaria de adicionar a fonte “%@”?"
           }
         }
       }
@@ -4749,6 +7533,12 @@
             "state" : "translated",
             "value" : "Blueskyアカウントをフェディバースにブリッジしますか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gostaria de vincular sua conta do Bluesky ao fediverse?"
+          }
         }
       }
     },
@@ -4758,6 +7548,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "代わりに、このデバイスと互換性のある最新バージョンをダウンロードしますか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gostaria de baixar a última versão compatível com este dispositivo?"
           }
         }
       }
@@ -4769,6 +7565,12 @@
             "state" : "translated",
             "value" : "このアプリの拡張機能を削除して、制限にカウントされないようにしますか？"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gostaria de remover as extensões deste app para que não sejam contabilizadas no seu limite?"
+          }
         }
       }
     },
@@ -4778,6 +7580,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サインインしていません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você não está conectado."
           }
         }
       }
@@ -4789,6 +7597,12 @@
             "state" : "translated",
             "value" : "%@後に別のアプリIDを登録できます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você poderá registrar outro App ID em %@."
+          }
         }
       }
     },
@@ -4798,6 +7612,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "7日間で登録できるアプリIDは10件までです。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você não pode registrar mais de 10 App IDs em um período de 7 dias."
           }
         }
       }
@@ -4809,6 +7629,12 @@
             "state" : "translated",
             "value" : "このソースからアプリをインストールする前に、このソースを追加する必要があります。\n\n「%@」は追加されるとすぐにダウンロードを開始します。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você precisa adicionar esta fonte antes de instalar apps a partir dela.\n\n“%@” começará a ser baixado assim que for adicionada."
+          }
         }
       }
     },
@@ -4818,6 +7644,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリを完全にアンインストールするには、ホーム画面からも削除する必要があります。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você também deve excluí-lo da tela inicial para desinstalar completamente o app."
           }
         }
       }
@@ -4829,6 +7661,12 @@
             "state" : "translated",
             "value" : "支援を必要とするアプリのインストールや更新ができなくなります。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você não poderá mais instalar ou atualizar apps que exijam contribuição."
+          }
         }
       }
     },
@@ -4838,6 +7676,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サインアウトすると、アプリのインストールや更新ができなくなります。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você não poderá mais instalar ou atualizar aplicativos após sair da conta."
           }
         }
       }
@@ -4849,6 +7693,12 @@
             "state" : "translated",
             "value" : "支援を必要とするアプリのインストールやアップデートができなくなります。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você não poderá mais instalar ou atualizar apps que exijam contribuição."
+          }
         }
       }
     },
@@ -4858,6 +7708,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サインアウトすると、アプリやアップデート、ニュース記事に「いいね！」ができなくなります。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ao sair da conta, você não poderá mais curtir apps, atualizações e novidades."
           }
         }
       }
@@ -4869,6 +7725,12 @@
             "state" : "translated",
             "value" : "Blueskyの設定でアプリ固有のパスワードを生成する必要があります。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você precisará gerar uma senha específica de app nas configurações do Bluesky."
+          }
         }
       }
     },
@@ -4878,6 +7740,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Patreonにはサインインしていますが、アカウントがAltStoreと連携されていません。\n\nPatreon限定アプリをダウンロードするには、アカウントを連携してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você está conectado ao Patreon, mas ainda não vinculou sua conta ao AltStore.\n\nConecte sua conta para baixar apps exclusivos do Patreon."
           }
         }
       }
@@ -4889,6 +7757,12 @@
             "state" : "translated",
             "value" : "「アーリーアダプター」Patreonティアの1か月間無料アクセス権を獲得しました！\n\n無料メンバーとしてPatreonキャンペーンに参加し、「設定」でPatreonアカウントを連携していることをご確認ください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você recebeu 1 mês de acesso gratuito ao nosso nível “Early Adopter” no Patreon!\n\nCertifique-se de que você entrou em nossa campanha no Patreon como membro gratuito e conectou sua conta do Patreon em Ajustes."
+          }
         }
       }
     },
@@ -4898,6 +7772,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "あなたのApple IDには開発者チームがありません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu Apple ID não possui equipes de desenvolvedor."
           }
         }
       }
@@ -4909,6 +7789,12 @@
             "state" : "translated",
             "value" : "お使いのデバイスのiOSバージョン"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a versão do iOS do seu dispositivo"
+          }
         }
       }
     },
@@ -4918,6 +7804,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "支援は現在無効になっています。%@を通常どおり利用するには、更新してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sua contribuição não está mais ativa. Renove-a para continuar usando %@ normalmente."
           }
         }
       }

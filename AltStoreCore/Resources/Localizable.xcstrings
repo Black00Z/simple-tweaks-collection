@@ -14,6 +14,12 @@
             "state" : "translated",
             "value" : "%1$@ %2$@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@"
+          }
         }
       }
     },
@@ -23,6 +29,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@にはアプリバージョンがありません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ não tem nenhuma versão de app."
           }
         }
       }
@@ -40,6 +52,12 @@
             "state" : "translated",
             "value" : "%1$@エラー%2$@。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ erro %2$@."
+          }
         }
       }
     },
@@ -49,6 +67,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@は現在ロックされています。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ está bloqueado no momento."
           }
         }
       }
@@ -66,6 +90,12 @@
             "state" : "translated",
             "value" : "%1$@は現在%2$@で実行されていません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ não está em execução no momento em %2$@."
+          }
         }
       }
     },
@@ -75,6 +105,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@はAltServerから無効なリクエストを受け取りました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ recebeu uma solicitação inválida do AltServer."
           }
         }
       }
@@ -92,6 +128,12 @@
             "state" : "translated",
             "value" : "%1$@は%2$@以降を必要とします。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ requer a versão %2$@ ou posterior."
+          }
         }
       }
     },
@@ -101,6 +143,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のアクティベートに失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao ativar %@"
           }
         }
       }
@@ -112,6 +160,12 @@
             "state" : "translated",
             "value" : "AltServerはメールアプリのプラグインに接続できませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltServer não conseguiu se conectar ao plug-in do Mail."
+          }
         }
       }
     },
@@ -121,6 +175,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltServerはAltStoreへの接続を確立できませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltServer não conseguiu estabelecer uma conexão com o AltStore."
           }
         }
       }
@@ -132,6 +192,12 @@
             "state" : "translated",
             "value" : "AltServerは%@への安全な接続を確立できませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltServer não conseguiu estabelecer uma conexão segura com %@."
+          }
         }
       }
     },
@@ -141,6 +207,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltServerはこのデバイスを見つけられませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltServer não conseguiu encontrar este dispositivo."
           }
         }
       }
@@ -152,6 +224,12 @@
             "state" : "translated",
             "value" : "AltServerはこのデバイスにデータを書き込めませんでした。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltServer não conseguiu gravar dados neste dispositivo."
+          }
         }
       }
     },
@@ -161,6 +239,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltServerはこのリクエストをサポートしていません"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltServer não oferece suporte a esta solicitação."
           }
         }
       }
@@ -172,6 +256,12 @@
             "state" : "translated",
             "value" : "AltServerは無効なリクエストを受け取りました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltServer recebeu uma solicitação inválida."
+          }
         }
       }
     },
@@ -181,6 +271,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltServerは%@から無効な応答を受け取りました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltServer recebeu uma resposta inválida de %@."
           }
         }
       }
@@ -192,6 +288,12 @@
             "state" : "translated",
             "value" : "AltServerが無効な応答を送信しました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltServer enviou uma resposta inválida."
+          }
         }
       }
     },
@@ -201,6 +303,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltServerの%@への接続がタイムアウトしました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A conexão do AltServer com %@ excedeu o tempo limite."
           }
         }
       }
@@ -212,6 +320,12 @@
             "state" : "translated",
             "value" : "AltStoreはAltServerから不明な応答を受け取りました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O AltStore recebeu uma resposta desconhecida do AltServer."
+          }
         }
       }
     },
@@ -221,6 +335,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreのデータベースを保存できませんでした。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível salvar o banco de dados do AltStore."
           }
         }
       }
@@ -232,6 +352,12 @@
             "state" : "translated",
             "value" : "アプリの削除中にエラーが発生しました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro ao remover o app."
+          }
         }
       }
     },
@@ -241,6 +367,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリのインストール中にエラーが発生しました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro durante a instalação do app."
           }
         }
       }
@@ -252,6 +384,12 @@
             "state" : "translated",
             "value" : "不明なエラーが発生しました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro desconhecido."
+          }
         }
       }
     },
@@ -261,6 +399,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不明なエラーが発生しました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro desconhecido."
           }
         }
       }
@@ -272,6 +416,12 @@
             "state" : "translated",
             "value" : "少なくとも1つのアプリ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pelo menos um app"
+          }
         }
       }
     },
@@ -282,15 +432,24 @@
             "state" : "translated",
             "value" : "%@のバックアップに失敗しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível fazer backup de %@"
+          }
         }
       }
-    },
-    "Bluesky" : {
-
     },
     "CarPlay" : {
       "localizations" : {
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CarPlay"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CarPlay"
@@ -305,6 +464,12 @@
             "state" : "translated",
             "value" : "接続エラーコード：%@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código de erro de conexão: %@"
+          }
         }
       }
     },
@@ -314,6 +479,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "プロファイルが見つかりませんでした"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível encontrar o perfil"
           }
         }
       }
@@ -325,6 +496,12 @@
             "state" : "translated",
             "value" : "%@の無効化に失敗しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao desativar %@"
+          }
         }
       }
     },
@@ -334,6 +511,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デバッグ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depurar"
           }
         }
       }
@@ -345,6 +528,12 @@
             "state" : "translated",
             "value" : "デバッグの詳細"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrição de depuração"
+          }
         }
       }
     },
@@ -354,6 +543,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デフォルト"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Padrão"
           }
         }
       }
@@ -365,6 +560,12 @@
             "state" : "translated",
             "value" : "開発者"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desenvolvedor"
+          }
         }
       }
     },
@@ -374,6 +575,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@に対するJITの有効化に失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "alha ao ativar o JIT para %@"
           }
         }
       }
@@ -385,6 +592,12 @@
             "state" : "translated",
             "value" : "エンターテインメント"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entretenimento"
+          }
         }
       }
     },
@@ -394,6 +607,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エンタイトルメント"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permissão"
           }
         }
       }
@@ -405,6 +624,12 @@
             "state" : "translated",
             "value" : "エラー"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro"
+          }
         }
       }
     },
@@ -414,6 +639,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラーコード：%@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código de erro: %@"
           }
         }
       }
@@ -425,6 +656,12 @@
             "state" : "translated",
             "value" : "エラーの詳細"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrição do erro"
+          }
         }
       }
     },
@@ -434,6 +671,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "失敗"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha"
           }
         }
       }
@@ -445,6 +688,12 @@
             "state" : "translated",
             "value" : "失敗の原因"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Motivo da falha"
+          }
         }
       }
     },
@@ -454,6 +703,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "障害"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha"
           }
         }
       }
@@ -465,6 +720,12 @@
             "state" : "translated",
             "value" : "無料開発者アカウント"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conta gratuita de desenvolvedor"
+          }
         }
       }
     },
@@ -474,6 +735,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ゲーム"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jogos"
           }
         }
       }
@@ -485,6 +752,12 @@
             "state" : "translated",
             "value" : "情報"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informações"
+          }
         }
       }
     },
@@ -494,6 +767,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のインストールに失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha na instalação de %@"
           }
         }
       }
@@ -505,6 +784,12 @@
             "state" : "translated",
             "value" : "無効なアクセストークンです。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token de acesso inválido."
+          }
         }
       }
     },
@@ -514,6 +799,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "最終更新日"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última atualização"
           }
         }
       }
@@ -525,6 +816,12 @@
             "state" : "translated",
             "value" : "ライフスタイル"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estilo de vida"
+          }
         }
       }
     },
@@ -534,6 +831,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "メールアプリが実行されていること、およびメールアプリの環境設定でプラグインが有効になっていることを確認してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifique-se de que o Mail esteja em execução e que o plug-in esteja habilitado nas preferências do Mail."
           }
         }
       }
@@ -545,6 +848,12 @@
             "state" : "translated",
             "value" : "%@上でアプリがフォアグラウンドで実行されていることを確認してから、もう一度お試しください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifique-se de que o app esteja em execução em primeiro plano em %@ e tente novamente."
+          }
         }
       }
     },
@@ -555,11 +864,14 @@
             "state" : "translated",
             "value" : "このデバイスがコンピュータで信頼済みであることを確認し、Wi-Fi同期が有効になっていることを確認してください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifique-se de que este dispositivo esteja marcado como confiável no computador e que a sincronização por Wi-Fi esteja ativada."
+          }
         }
       }
-    },
-    "Mastodon" : {
-
     },
     "Name" : {
       "localizations" : {
@@ -567,6 +879,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "名前"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome"
           }
         }
       }
@@ -578,6 +896,12 @@
             "state" : "translated",
             "value" : "接続されているPatreonアカウントはありません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhuma conta do Patreon conectada."
+          }
         }
       }
     },
@@ -587,6 +911,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "通知"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aviso"
           }
         }
       }
@@ -598,6 +928,12 @@
             "state" : "translated",
             "value" : "1つ以上のアプリ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "um ou mais apps"
+          }
         }
       }
     },
@@ -607,6 +943,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "組織"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Organização"
           }
         }
       }
@@ -618,6 +960,12 @@
             "state" : "translated",
             "value" : "その他"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Outro"
+          }
         }
       }
     },
@@ -627,6 +975,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "権限"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permissão"
           }
         }
       }
@@ -638,6 +992,12 @@
             "state" : "translated",
             "value" : "写真とビデオ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foto e vídeo"
+          }
         }
       }
     },
@@ -647,6 +1007,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "別のアプリをインストールするには、サイドロードしたアプリを無効化してください。\n\niOS 13.5以降をご利用の場合は、設定 > iTunes & App Storeで「使用していないアプリをオフロード」が無効になっていることを確認し、オフロードされたアプリをすべてインストールまたは削除してください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desative um aplicativo instalado via sideload para instalar outro.\n\nSe você estiver usando o iOS 13.5 ou posterior, certifique-se de que “Desinstalar apps não usados” esteja desativado em Ajustes > iTunes e App Stores. Em seguida, reinstale ou exclua todos os aplicativos desinstalados."
           }
         }
       }
@@ -658,6 +1024,12 @@
             "state" : "translated",
             "value" : "別のアプリをインストールするには、AltStoreでサイドロードしたアプリを無効化してください。\n\niOS 13.5以降をご利用の場合、設定 > iTunes & App Storeで「使用していないアプリをオフロード」が無効になっていることを確認し、オフロードされたアプリをすべてインストールまたは削除して、この制限に誤ってカウントされないようにしてください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desative um aplicativo instalado via sideload com o AltStore para instalar outro aplicativo.\n\nSe você estiver usando o iOS 13.5 ou posterior, certifique-se de que “Desinstalar apps não usados” esteja desativado em Ajustes > iTunes e App Stores. Em seguida, reinstale ou exclua todos os aplicativos desinstalados para evitar que sejam contabilizados incorretamente nesse limite."
+          }
         }
       }
     },
@@ -667,6 +1039,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "後ほどもう一度お試しください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tente novamente mais tarde."
           }
         }
       }
@@ -678,6 +1056,12 @@
             "state" : "translated",
             "value" : "パスコードでデバイスのロックを解除し、もう一度お試しください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloqueie o dispositivo com sua senha e tente novamente."
+          }
         }
       }
     },
@@ -687,6 +1071,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "プライバシー権限"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permissão de privacidade"
           }
         }
       }
@@ -698,6 +1088,12 @@
             "state" : "translated",
             "value" : "リカバリの提案"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sugestão de recuperação"
+          }
         }
       }
     },
@@ -707,6 +1103,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@の更新に失敗しました"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível atualizar %@"
           }
         }
       }
@@ -718,6 +1120,12 @@
             "state" : "translated",
             "value" : "%@の復元に失敗しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao restaurar %@"
+          }
         }
       }
     },
@@ -727,6 +1135,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソーシャル"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Social"
           }
         }
       }
@@ -738,6 +1152,12 @@
             "state" : "translated",
             "value" : "ソースファイル"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arquivo de código-fonte"
+          }
         }
       }
     },
@@ -747,6 +1167,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソースライン"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Linha de código-fonte"
           }
         }
       }
@@ -758,6 +1184,12 @@
             "state" : "translated",
             "value" : "アプリの形式が無効です。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O app está em um formato inválido."
+          }
         }
       }
     },
@@ -767,6 +1199,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@のキャッシュされた権限はソースと一致しません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As permissões em cache para %@ não correspondem à fonte."
           }
         }
       }
@@ -778,6 +1216,12 @@
             "state" : "translated",
             "value" : "%@のキャッシュされたバージョンはソースと一致しません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As versões em cache de %@ não correspondem à fonte."
+          }
         }
       }
     },
@@ -787,6 +1231,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltServerとの接続が失われました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A conexão com o AltServer foi perdida."
           }
         }
       }
@@ -804,6 +1254,12 @@
             "state" : "translated",
             "value" : "%1$@にある開発者ディスクは%2$@と互換性がありません。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O disco de desenvolvedor localizado em %1$@ é incompatível com %2$@."
+          }
         }
       }
     },
@@ -813,6 +1269,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デバイス"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "o dispositivo"
           }
         }
       }
@@ -824,6 +1286,12 @@
             "state" : "translated",
             "value" : "デバイス"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O dispositivo"
+          }
         }
       }
     },
@@ -833,6 +1301,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ディスクは%@と互換性がありません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O disco é incompatível com %@."
           }
         }
       }
@@ -844,6 +1318,12 @@
             "state" : "translated",
             "value" : "Patreon APIのレート制限を超過しました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O limite de taxa da API do Patreon foi excedido."
+          }
         }
       }
     },
@@ -853,6 +1333,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "提供されたAnisetteデータは無効です。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os dados de anisete fornecidos são inválidos."
           }
         }
       }
@@ -864,6 +1350,12 @@
             "state" : "translated",
             "value" : "リクエストされたアプリ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicativo solicitado"
+          }
         }
       }
     },
@@ -873,6 +1365,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デバイスへの接続中にエラーが発生しました。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro ao conectar ao dispositivo."
           }
         }
       }
@@ -884,6 +1382,12 @@
             "state" : "translated",
             "value" : "usbmuxdデーモンとの通信中に問題が発生しました。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um problema na comunicação com o daemon usbmuxd."
+          }
         }
       }
     },
@@ -893,6 +1397,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このデバイスのOSバージョン"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "versão do sistema operacional deste dispositivo"
           }
         }
       }
@@ -904,6 +1414,12 @@
             "state" : "translated",
             "value" : "タイトル"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Título"
+          }
         }
       }
     },
@@ -913,6 +1429,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "今日"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoje"
           }
         }
       }
@@ -924,6 +1446,12 @@
             "state" : "translated",
             "value" : "未定義"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indefinido"
+          }
         }
       }
     },
@@ -933,6 +1461,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "下位エラー"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro subjacente"
           }
         }
       }
@@ -944,6 +1478,12 @@
             "state" : "translated",
             "value" : "下位エラー"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erros subjacentes"
+          }
         }
       }
     },
@@ -953,6 +1493,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不明"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desconhecido"
           }
         }
       }
@@ -964,6 +1510,12 @@
             "state" : "translated",
             "value" : "%@のアップデートに失敗しました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha na atualização de %@"
+          }
         }
       }
     },
@@ -973,6 +1525,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ユーティリティ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilitários"
           }
         }
       }
@@ -984,6 +1542,12 @@
             "state" : "translated",
             "value" : "昨日"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ontem"
+          }
         }
       }
     },
@@ -993,6 +1557,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "非開発者用Apple IDでは、3つ以上のアプリをアクティベートできません。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você não pode ativar mais de 3 apps com um Apple ID que não seja de desenvolvedor."
           }
         }
       }
@@ -1004,6 +1574,12 @@
             "state" : "translated",
             "value" : "あなたのデバイス"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "seu dispositivo"
+          }
         }
       }
     },
@@ -1013,6 +1589,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreをインストールするには、お使いのデバイスがiOS 12.2以降を実行している必要があります。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu dispositivo precisa ter o iOS 12.2 ou posterior para instalar o AltStore."
           }
         }
       }
