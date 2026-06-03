@@ -450,8 +450,15 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
             }
             else if let sourceURL = decoder.sourceURL, let sourceID = try? Source.sourceID(from: sourceURL), sourceID == Source.epicGamesSourceID
             {
-                // Default Epic's source to excluding Japan and Brazil until specified otherwise.
-                self.regions = ["exclude": ["jp", "br"]]
+                if let overrideExcludedRegions = UserDefaults.shared.epicGamesExcludedRegions
+                {
+                    self.regions = ["exclude": overrideExcludedRegions]
+                }
+                else
+                {
+                    // Default Epic's source to excluding Japan and Brazil until specified otherwise.
+                    self.regions = ["exclude": ["jp", "br"]]
+                }
             }
         }
         catch
