@@ -66,7 +66,15 @@ class UpdateRemoteFlagsOperation: ResultOperation<Void>, @unchecked Sendable
                 
                 for (key, value) in flags
                 {
-                    UserDefaults.shared.set(value, forKey: key)
+                    if value is NSNull
+                    {
+                        // Treat NSNull as removing value for key
+                        UserDefaults.shared.removeObject(forKey: key)
+                    }
+                    else
+                    {
+                        UserDefaults.shared.set(value, forKey: key)
+                    }
                 }
                 
                 self.finish(.success(()))
