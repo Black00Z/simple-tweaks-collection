@@ -508,6 +508,7 @@
 		D5DB81642B0410BC003F5F8B /* AppSorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB81632B0410BC003F5F8B /* AppSorting.swift */; };
 		D5E1E7C128077DE90016FC96 /* UpdateKnownSourcesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E1E7C028077DE90016FC96 /* UpdateKnownSourcesOperation.swift */; };
 		D5E3FB9828FDFAD90034B72C /* NSError+AltStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C336124197D700034FD24 /* NSError+AltStore.swift */; };
+		D5EA079B2FD217D0008A5321 /* AppIcon_Brazil.icon in Resources */ = {isa = PBXBuildFile; fileRef = D5EA079A2FD217D0008A5321 /* AppIcon_Brazil.icon */; };
 		D5F2F6A92720B7C20081CCF5 /* PatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F2F6A82720B7C20081CCF5 /* PatchViewController.swift */; };
 		D5F48B4829CCF21B002B52A4 /* AltStore+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F48B4729CCF21B002B52A4 /* AltStore+Async.swift */; };
 		D5F48B4C29CD0C48002B52A4 /* AsyncManaged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F48B4929CD0B67002B52A4 /* AsyncManaged.swift */; };
@@ -1222,6 +1223,7 @@
 		D5DB145828F9DC1000A8F606 /* ALTLocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALTLocalizedError.swift; sourceTree = "<group>"; };
 		D5DB81632B0410BC003F5F8B /* AppSorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSorting.swift; sourceTree = "<group>"; };
 		D5E1E7C028077DE90016FC96 /* UpdateKnownSourcesOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateKnownSourcesOperation.swift; sourceTree = "<group>"; };
+		D5EA079A2FD217D0008A5321 /* AppIcon_Brazil.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon_Brazil.icon; sourceTree = "<group>"; };
 		D5F2F6A82720B7C20081CCF5 /* PatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchViewController.swift; sourceTree = "<group>"; };
 		D5F48B4729CCF21B002B52A4 /* AltStore+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AltStore+Async.swift"; sourceTree = "<group>"; };
 		D5F48B4929CD0B67002B52A4 /* AsyncManaged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncManaged.swift; sourceTree = "<group>"; };
@@ -2125,6 +2127,7 @@
 				82CB1FB22EBABB0100C8E822 /* AppIcon.icon */,
 				D5B15D422ECE664000F8E797 /* Localizable.xcstrings */,
 				82BBB9332F185B33005A472E /* AppIcon_Japan.icon */,
+				D5EA079A2FD217D0008A5321 /* AppIcon_Brazil.icon */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3052,6 +3055,7 @@
 				D5144BA82B8684EF00738A5C /* Icons.xcassets in Resources */,
 				82CB1FB32EBABB0100C8E822 /* AppIcon.icon in Resources */,
 				D57DF638271E32F000677701 /* PatchApp.storyboard in Resources */,
+				D5EA079B2FD217D0008A5321 /* AppIcon_Brazil.icon in Resources */,
 				D5399FB02BE56B120038DDEF /* JoinPatreonViewController.xib in Resources */,
 				BFD2477A2284B9A700981D42 /* LaunchScreen.storyboard in Resources */,
 				BF44EEF3246B3A17002A52F2 /* AltBackup.ipa in Resources */,

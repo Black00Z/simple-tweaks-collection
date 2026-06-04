@@ -48,6 +48,11 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>AppIcon_Brazil</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIcon_Brazil</string>
+			</dict>
 			<key>AppIcon_Japan</key>
 			<dict>
 				<key>CFBundleIconName</key>
