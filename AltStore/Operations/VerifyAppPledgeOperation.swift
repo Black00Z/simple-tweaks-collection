@@ -109,10 +109,20 @@ class VerifyAppPledgeOperation: ResultOperation<Void>, @unchecked Sendable
                     var token: String?
                     
                     #if MARKETPLACE
-                    if sourceID == Source.altStoreIdentifier, #available(iOS 26, *)
+                    if sourceID == Source.altStoreIdentifier, #available(iOS 26.2, *)
                     {
-                        // Limit to just our first party apps
-                        token = try await CommissionManager.shared.requestCoreTechnologyToken()
+                        // Limit CTC reporting to just our first party apps
+                        
+                        if let region = await AppLibrary.current.catalogRegion, CommissionManager.regions.contains(region)
+                        {
+                            // User is in a region that requires reporting CTC
+                            token = try await CommissionManager.shared.requestCoreTechnologyToken()
+                        }
+                        else
+                        {
+                            // User is in region without CTC (e.g. the EU)
+                            token = nil
+                        }
                     }
                     #endif
                     
