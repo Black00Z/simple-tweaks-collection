@@ -116,7 +116,7 @@ class VerifyAppPledgeOperation: ResultOperation<Void>, @unchecked Sendable
                         if let region = await AppLibrary.current.catalogRegion, CommissionManager.regions.contains(region)
                         {
                             // User is in a region that requires reporting CTC
-                            token = try await CommissionManager.shared.requestCoreTechnologyToken()
+                            token = try await CommissionManager.shared.requestCoreTechnologyToken(for: region)
                         }
                         else
                         {
@@ -153,7 +153,7 @@ class VerifyAppPledgeOperation: ResultOperation<Void>, @unchecked Sendable
                     }
                     
                     #if MARKETPLACE
-                    if let token, #available(iOS 26.0, *)
+                    if let token, #available(iOS 26.2, *)
                     {
                         let accountContext = DatabaseManager.shared.persistentContainer.newBackgroundContext()
                         let account = await accountContext.perform {

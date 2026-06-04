@@ -11,12 +11,13 @@ import MarketplaceKit
 
 import AltStoreCore
 
-@available(iOS 26.0, *)
+@available(iOS 26.2, *)
 extension CommissionManager
 {
     private struct RegisterTokenRequest: Encodable
     {
         var externalPurchaseToken: String
+        var region: String
     }
     
     private struct LinkTokenRequest: Encodable
@@ -35,7 +36,7 @@ extension CommissionManager
     }
 }
 
-@available(iOS 26.0, *)
+@available(iOS 26.2, *)
 public class CommissionManager
 {
     static var regions: [String] { ["jp", "br"] }
@@ -55,14 +56,14 @@ public class CommissionManager
     }
 }
 
-@available(iOS 26.0, *)
+@available(iOS 26.2, *)
 extension CommissionManager
 {
-    func requestCoreTechnologyToken() async throws -> String
+    func requestCoreTechnologyToken(for region: String) async throws -> String
     {
         let encodedToken = try await TransactionReporting.token(for: .coreTechnology)
         
-        let body = RegisterTokenRequest(externalPurchaseToken: encodedToken)
+        let body = RegisterTokenRequest(externalPurchaseToken: encodedToken, region: region)
         let bodyData = try JSONEncoder().encode(body)
         
         let requestURL = self.baseURL.appending(path: "external-purchases")
