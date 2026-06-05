@@ -39,7 +39,7 @@ extension CommissionManager
 @available(iOS 26.2, *)
 public class CommissionManager
 {
-    static var regions: [String] { ["jp", "br"] }
+    static var regions: Set<String> { ["jp", "br"] }
     
     static let shared = CommissionManager()
     
