@@ -1917,7 +1917,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アクションを確定"
+            "value" : "操作を確認"
           }
         },
         "pt-BR" : {
@@ -1933,7 +1933,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "インストールを確定"
+            "value" : "インストールを確認"
           }
         },
         "pt-BR" : {
@@ -2333,7 +2333,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ディスプレイ"
+            "value" : "表示"
           }
         },
         "pt-BR" : {
@@ -2563,7 +2563,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "エンタイトルメントは、潜在的に機密性の高い情報を含む特定のシステムサービスへのアクセスを許可する追加の権限です。"
+            "value" : "エンタイトルメントは、特定のシステムサービスへのアクセスを許可する追加の権限です。これらのサービスは機密性の高い情報へのアクセスを提供することがあります。"
           }
         },
         "pt-BR" : {
@@ -3155,7 +3155,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "一時ファイルやアンインストール済みアプリ用のバックアップなど、不要なデータを削除してディスク容量を解放してください。"
+            "value" : "重要度の低いデータやアンインストール済みアプリのバックアップなど、不要なデータを削除してデバイスの空き容量を確保します。"
           }
         },
         "pt-BR" : {
@@ -3684,7 +3684,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "最終アップデート日：%@"
+            "value" : "最終更新日：%@"
           }
         },
         "pt-BR" : {
@@ -3909,7 +3909,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "AltStore PALの年間サブスクリプションを管理しましょう。"
+            "value" : "AltStore PALの年間サブスクリプションを管理します。"
           }
         },
         "pt-BR" : {
@@ -3957,7 +3957,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "詳細を表示"
+            "value" : "さらに表示"
           }
         },
         "pt-BR" : {
@@ -4539,7 +4539,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "代替のアプリアイコンを選択して、AltStoreの体験をカスタマイズしましょう。"
+            "value" : "代替のアプリアイコンを選択して、AltStoreの体験をカスタマイズします。"
           }
         },
         "pt-BR" : {
@@ -4747,7 +4747,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パトロンになることで、AltStoreやDeltaなどのベータ版へのアクセス権を得られます。"
+            "value" : "パトロンになると、AltStoreやDeltaなどのベータ版にアクセスできます。"
           }
         },
         "pt-BR" : {

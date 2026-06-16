@@ -1027,7 +1027,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "エラーログを表示"
+            "value" : "エラー履歴を表示"
           }
         },
         "pt-BR" : {

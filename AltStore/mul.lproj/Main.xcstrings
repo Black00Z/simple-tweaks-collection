@@ -350,7 +350,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "検索"
+            "value" : "見つける"
           }
         },
         "pt-BR" : {
@@ -446,7 +446,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "検索"
+            "value" : "見つける"
           }
         },
         "pt-BR" : {
@@ -590,7 +590,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "自分のアプリ"
+            "value" : "マイアプリ"
           }
         },
         "pt-BR" : {
