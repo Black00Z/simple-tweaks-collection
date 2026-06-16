@@ -255,10 +255,10 @@ private extension AddSourceViewController
                 layoutSection.contentInsets.top = -6
                 layoutSection.contentInsetsReference = .layoutMargins
                 
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .estimated(44))
+                let headerSize = NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(44))
                 let titleHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
                 
-                let buttonSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .estimated(44))
+                let buttonSize = NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(44))
                 let buttonHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: buttonSize, elementKind: ElementKind.button.rawValue, alignment: .topTrailing, absoluteOffset: CGPoint(x: 0, y: -6)) // offset used to align baseline with title
                 
                 let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
