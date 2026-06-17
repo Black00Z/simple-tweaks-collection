@@ -106,6 +106,8 @@ actor AppMarketplace: NSObject
     
     nonisolated let tracker = AppTracker()
     
+    nonisolated(unsafe) private(set) var catalogRegion: String? // Loaded async at launch for later sync retrieval (YOLO)
+    
     private let session = URLSession(configuration: .sharedCookies)
     private let pinnedCertificates: [SecCertificate]
     
@@ -125,6 +127,11 @@ actor AppMarketplace: NSObject
         {
             Logger.main.error("Failed to configure pinned certificates. \(error.localizedDescription, privacy: .public)")
             self.pinnedCertificates = []
+        }
+        
+        Task<Void, Never>.detached {
+            guard #available(iOS 26.2, *) else { return }
+            AppMarketplace.shared.catalogRegion = await AppLibrary.current.catalogRegion
         }
     }
 }

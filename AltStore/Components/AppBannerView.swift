@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MarketplaceKit
 
 import AltStoreCore
 import Roxas
@@ -314,7 +315,19 @@ extension AppBannerView
                     }
                     else if let amount = storeApp.pledgeAmount, let currencyCode = storeApp.pledgeCurrency, !storeApp.prefersCustomPledge, #available(iOS 15, *)
                     {
-                        let price = amount.formatted(.currency(code: currencyCode).presentation(.narrow).precision(.fractionLength(0...2)))
+                        let countryCode: String
+                        if currencyCode.uppercased() == "USD" && AppMarketplace.shared.catalogRegion?.uppercased() == "BR"
+                        {
+                            // Append "US" before price for Brazilian users to clarify this isn't Brazilian real ($).
+                            countryCode = "US"
+                        }
+                        else
+                        {
+                            // Hide country code for other regions (for now)
+                            countryCode = ""
+                        }
+                        
+                        let price = countryCode + amount.formatted(.currency(code: currencyCode).presentation(.narrow).precision(.fractionLength(0...2)))
                         
                         let buttonTitle = String(format: NSLocalizedString("%@/mo", comment: ""), price)
                         self.button.setTitle(buttonTitle, for: .normal)
