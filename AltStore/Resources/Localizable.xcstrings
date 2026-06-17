@@ -2339,7 +2339,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "TELA"
+            "value" : "EXIBIÇÃO"
           }
         }
       }
@@ -2553,7 +2553,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Insira abaixo o URL de uma fonte ou adicione uma das fontes recomendadas."
+            "value" : "Insira abaixo a URL de uma fonte ou adicione uma das fontes recomendadas."
           }
         }
       }
@@ -2649,7 +2649,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erros que acontecem durante a instalação de apps aparecerão aqui."
+            "value" : "Erros que ocorram durante a instalação de apps aparecerão aqui."
           }
         }
       }
@@ -4753,7 +4753,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Receba acesso a versões beta do AltStore, Delta e outros ao se tornar um apoiador."
+            "value" : "Torne-se um apoiador e receba acesso a versões beta da AltStore, Delta e outros."
           }
         }
       }
