@@ -345,16 +345,19 @@ extension AppManager
         }
     }
     
-    func add(@AsyncManaged _ source: Source, message: String? = NSLocalizedString("Make sure to only add sources that you trust.", comment: ""), presentingViewController: UIViewController) async throws
+    func add(@AsyncManaged _ source: Source, message: String? = NSLocalizedString("Make sure to only add sources that you trust.", comment: ""), showConfirmationAlert: Bool = true, presentingViewController: UIViewController) async throws
     {
         let (sourceName, sourceURL) = await $source.perform { ($0.name, $0.sourceURL) }
         
         let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
         async let fetchedSource = try await self.fetchSource(sourceURL: sourceURL, managedObjectContext: context) // Fetch source async while showing alert.
 
-        let title = String(format: NSLocalizedString("Would you like to add the source “%@”?", comment: ""), sourceName)
-        let action = await UIAlertAction(title: NSLocalizedString("Add Source", comment: ""), style: .default)
-        try await presentingViewController.presentConfirmationAlert(title: title, message: message ?? "", primaryAction: action)
+        if showConfirmationAlert
+        {
+            let title = String(format: NSLocalizedString("Would you like to add the source “%@”?", comment: ""), sourceName)
+            let action = await UIAlertAction(title: NSLocalizedString("Add Source", comment: ""), style: .default)
+            try await presentingViewController.presentConfirmationAlert(title: title, message: message ?? "", primaryAction: action)
+        }
 
         // Wait for fetch to finish before saving context to make
         // sure there isn't already a source with this identifier.
@@ -638,6 +641,19 @@ extension AppManager
         self.run([fetchAppIDsOperation], context: authenticationOperation.context)
     }
     
+    func fetchSourceCollections() async throws -> [SourceCollection]
+    {
+        let collections = try await withCheckedThrowingContinuation { continuation in
+            let fetchSourceCollectionsOperation = FetchSourceCollectionsOperation()
+            fetchSourceCollectionsOperation.resultHandler = { result in
+                continuation.resume(with: result)
+            }
+            self.run([fetchSourceCollectionsOperation], context: nil)
+        }
+        
+        return collections
+    }
+    
     @discardableResult
     func updateKnownSources(completionHandler: @escaping (Result<([KnownSource], [KnownSource]), Error>) -> Void) -> UpdateKnownSourcesOperation
     {
@@ -691,6 +707,25 @@ extension AppManager
             {
             case .success: Logger.main.info("Updated initial Fediverse interactions in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
             case .failure(let error): Logger.main.error("Failed to update initial Fediverse interactions. \(error.localizedDescription, privacy: .public)")
+            }
+        }
+        
+        self.run([operation], context: nil)
+    }
+    
+    func updateRemoteFlagsIfNeeded()
+    {
+        guard self.operationQueue.operations.allSatisfy({ !($0 is UpdateRemoteFlagsOperation) }) else {
+            // There's already an UpdateRemoteFlagsOperation running.
+            return
+        }
+                
+        let operation = UpdateRemoteFlagsOperation()
+        operation.resultHandler = { (result) in
+            switch result
+            {
+            case .success: Logger.main.info("Successfully updated remote flags.")
+            case .failure(let error): Logger.main.error("Failed to update remote flags. \(error.localizedDescription, privacy: .public)")
             }
         }
         

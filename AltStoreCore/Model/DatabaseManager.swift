@@ -272,6 +272,16 @@ public extension DatabaseManager
         let patreonAccount = PatreonAccount.first(satisfying: predicate, in: context, requestProperties: [\.relationshipKeyPathsForPrefetching: [#keyPath(PatreonAccount._pledges)]])
         return patreonAccount
     }
+    
+    func socialWebAccount(in context: NSManagedObjectContext = DatabaseManager.shared.viewContext) -> SocialWebAccount?
+    {
+        guard let socialWebAccountID = Keychain.shared.socialWebAccountID else { return nil }
+            
+        let predicate = NSPredicate(format: "%K == %@", #keyPath(SocialWebAccount.identifier), socialWebAccountID)
+        
+        let socialWebAccount = SocialWebAccount.first(satisfying: predicate, in: context)
+        return socialWebAccount
+    }
 }
 
 private extension DatabaseManager

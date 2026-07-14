@@ -25,11 +25,17 @@ class UpdateFediverseInteractionsOperation: ResultOperation<Void>, @unchecked Se
         Task<Void, Never>(priority: .userInitiated) {
             do
             {
+                let startTime = CFAbsoluteTimeGetCurrent()
+                
+                // Don't prefetch yet until we've tested caching
+                
                 try await self.updateRecentNewsItems()
                 try await self.updateAvailableAppUpdates()
                 try await self.updateFirstAppForSources()
                 
                 self.finish(.success(()))
+                
+                Logger.main.info("Successfully updated initial fediverse interactions in \(CFAbsoluteTimeGetCurrent() - startTime) seconds.")
             }
             catch
             {                
@@ -47,32 +53,18 @@ private extension UpdateFediverseInteractionsOperation
         {
             let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
             
-            let (recentNewsItems, statusIDs) = await context.perform {
+            let federatedItems = await context.perform {
                 let fetchRequest = NewsItem.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "%K != nil", #keyPath(NewsItem.federatedURL))
+                fetchRequest.predicate = NSPredicate(format: "%K != nil", #keyPath(NewsItem.federatedItem))
                 fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \NewsItem.date, ascending: false)]
                 fetchRequest.fetchLimit = 5
                 
                 let recentNewsItems = NewsItem.fetch(fetchRequest, in: context)
-                let statusIDs = recentNewsItems.compactMap { $0.statusID }
-                return (recentNewsItems, Set(statusIDs))
+                let federatedItems = recentNewsItems.compactMap { $0.federatedItem }
+                return federatedItems
             }
             
-            let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
-            let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
-            
-            try context.performAndWait {
-                for newsItem in recentNewsItems
-                {
-                    guard let statusID = newsItem.statusID, let toot = tootsByID[statusID] else { continue }
-                    newsItem.federatedURL = toot.url
-                    newsItem.likesCount = Int32(toot.favourites_count)
-                    newsItem.boostsCount = Int32(toot.reblogs_count)
-                    newsItem.commentsCount = Int32(toot.replies_count)
-                }
-                
-                try context.save()
-            }
+            try await FederationManager.shared.updateInteractions(for: federatedItems, in: context)
         }
         catch
         {
@@ -86,32 +78,18 @@ private extension UpdateFediverseInteractionsOperation
         do
         {
             let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-            let (appVersions, statusIDs) = await context.perform {
+            let federatedItems = await context.perform {
                 let fetchRequest = InstalledApp.supportedUpdatesFetchRequest()
                 fetchRequest.fetchLimit = MyAppsViewController.maximumCollapsedUpdatesCount
                 
                 let installedApps = InstalledApp.fetch(fetchRequest, in: context)
                 let appVersions = installedApps.compactMap { $0.storeApp?.latestSupportedVersion }
                 
-                let statusIDs = appVersions.compactMap { $0.statusID }
-                return (appVersions, Set(statusIDs))
+                let federatedItems = appVersions.compactMap { $0.federatedItem }
+                return federatedItems
             }
             
-            let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
-            let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
-            
-            try context.performAndWait {
-                for appVersion in appVersions
-                {
-                    guard let statusID = appVersion.statusID, let toot = tootsByID[statusID] else { continue }
-                    appVersion.federatedURL = toot.url
-                    appVersion.likesCount = Int32(toot.favourites_count)
-                    appVersion.boostsCount = Int32(toot.reblogs_count)
-                    appVersion.commentsCount = Int32(toot.replies_count)
-                }
-                                
-                try context.save()
-            }
+            try await FederationManager.shared.updateInteractions(for: federatedItems, in: context)
         }
         catch
         {
@@ -126,7 +104,7 @@ private extension UpdateFediverseInteractionsOperation
         {
             let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
             
-            let (storeApps, statusIDs) = try await context.perform {
+            let federatedItems = try await context.perform {
                 let fetchRequest = StoreApp.browseTabFeaturedAppsFetchRequest()
                 
                 let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: #keyPath(StoreApp._source.featuredSortID), cacheName: nil)
@@ -144,25 +122,11 @@ private extension UpdateFediverseInteractionsOperation
                     }
                 }
                 
-                let statusIDs = storeApps.compactMap { $0.statusID }
-                return (storeApps, Set(statusIDs))
+                let federatedItems = storeApps.compactMap { $0.federatedItem }
+                return federatedItems
             }
             
-            let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
-            let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
-            
-            try context.performAndWait {
-                for storeApp in storeApps
-                {
-                    guard let statusID = storeApp.statusID, let toot = tootsByID[statusID] else { continue }
-                    storeApp.federatedURL = toot.url
-                    storeApp.likesCount = Int32(toot.favourites_count)
-                    storeApp.boostsCount = Int32(toot.reblogs_count)
-                    storeApp.commentsCount = Int32(toot.replies_count)
-                }
-                                
-                try context.save()
-            }
+            try await FederationManager.shared.updateInteractions(for: federatedItems, in: context)
         }
         catch
         {

@@ -101,6 +101,20 @@ public class Keychain
     @KeychainItem(key: "palPromoExpiration")
     public var palPromoExpiration: Date?
     
+    
+    // Open Social Web
+    @KeychainItem(key: "mastodonAccessToken")
+    public var mastodonAccessToken: String?
+    
+    @KeychainItem(key: "blueskyAccessToken")
+    public var blueskyAccessToken: String?
+    
+    @KeychainItem(key: "blueskyRefreshToken")
+    public var blueskyRefreshToken: String?
+    
+    @KeychainItem(key: "socialWebAccountID")
+    public var socialWebAccountID: String?
+    
     private init()
     {
     }

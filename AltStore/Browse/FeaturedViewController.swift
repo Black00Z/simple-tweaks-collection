@@ -338,6 +338,9 @@ private extension FeaturedViewController
             let cell = cell as! LargeIconCollectionViewCell
             cell.textLabel.text = category.localizedName
             cell.imageView.image = UIImage(systemName: category.symbolName)
+            cell.isAccessibilityElement = true
+            cell.accessibilityLabel = category.localizedName + " " + String(localized: "category")
+            cell.accessibilityTraits.formUnion(.button)
             
             var background = UIBackgroundConfiguration.clear()
             background.backgroundColor = category.tintColor
@@ -553,31 +556,17 @@ private extension FeaturedViewController
             do
             {
                 let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-                let (storeApps, statusIDs) = try await context.perform {
+                let federatedItems = try await context.perform {
                     let fetchRequest = StoreApp.browseTabFeaturedAppsFetchRequest()
                     
                     let storeApps = try context.fetch(fetchRequest)
-                    let statusIDs = Set(storeApps.compactMap { $0.statusID })
-                    return (storeApps, statusIDs)
-                }
-                                
-                let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
-                let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
-                
-                try await context.perform {
-                    for storeApp in storeApps
-                    {
-                        guard let statusID = storeApp.statusID, let toot = tootsByID[statusID] else { continue }
-                        storeApp.federatedURL = toot.url
-                        storeApp.likesCount = Int32(toot.favourites_count)
-                        storeApp.boostsCount = Int32(toot.reblogs_count)
-                        storeApp.commentsCount = Int32(toot.replies_count)
-                    }
-                    
-                    try context.save()
+                    let federatedItems = Set(storeApps.compactMap { $0.federatedItem })
+                    return federatedItems
                 }
                 
-                Logger.main.info("Fetched \(toots.count) Featured app statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
+                try await FederationManager.shared.updateInteractions(for: federatedItems)
+                
+                Logger.main.info("Fetched \(federatedItems.count) Featured app statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
                 
                 self.updateFediverseInteractionsResult = .success(())
             }

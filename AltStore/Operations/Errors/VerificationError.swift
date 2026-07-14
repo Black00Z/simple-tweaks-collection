@@ -20,6 +20,7 @@ extension VerificationError
         
         // 0xx = General
         case iOSVersionNotSupported = 2
+        case unsupportedRegion = 3
         
         // 1xx = Mismatched values
         case mismatchedBundleID = 101
@@ -71,6 +72,10 @@ extension VerificationError
     static func incorrectSource(sourceURL: URL, expectedSourceURL: URL, app: AppProtocol) -> VerificationError {
         VerificationError(code: .incorrectSource, app: app, sourceURL: sourceURL, expectedSourceURL: expectedSourceURL)
     }
+    
+    static func unsupportedRegion(_ countryCode: String, app: AppProtocol) -> VerificationError {
+        VerificationError(code: .unsupportedRegion, app: app, countryCode: countryCode)
+    }
 }
 
 struct VerificationError: ALTLocalizedError
@@ -98,6 +103,8 @@ struct VerificationError: ALTLocalizedError
     
     @UserInfoValue var sourceURL: URL?
     @UserInfoValue var expectedSourceURL: URL?
+    
+    @UserInfoValue var countryCode: String?
     
     @UserInfoValue
     var permissions: [any ALTAppPermission]?
@@ -210,6 +217,12 @@ struct VerificationError: ALTLocalizedError
             }
             
             failureReason += "."
+            return failureReason
+            
+        case .unsupportedRegion:
+            let appName = self.$app.name ?? String(localized: "This app")
+            
+            let failureReason = String(localized: "\(appName) is not available in your region.")
             return failureReason
         }
     }

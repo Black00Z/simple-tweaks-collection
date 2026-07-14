@@ -13,7 +13,7 @@ import Combine
 import AltStoreCore
 import Roxas
 
-import Nuke
+import NukeExtensions
 
 extension SourceDetailViewController
 {
@@ -110,8 +110,15 @@ class SourceDetailViewController: HeaderContentViewController<SourceHeaderView, 
         
         self.navigationBarButton.addTarget(self, action: #selector(SourceDetailViewController.addSource), for: .primaryActionTriggered)
         
-        Nuke.loadImage(with: self.source.effectiveIconURL, into: self.navigationBarIconView)
-        Nuke.loadImage(with: self.source.effectiveHeaderImageURL, into: self.backgroundImageView)
+        NukeExtensions.loadImage(with: self.source.effectiveIconURL, into: self.navigationBarIconView) { result in
+            switch result
+            {
+            case .failure(let error): Logger.main.error("Failed to fetch source icon from \(self.source.effectiveIconURL?.absoluteString ?? "nil", privacy: .public). \(error.localizedDescription, privacy: .public)")
+            case .success: self.navigationBarIconView.backgroundColor = .white // In case icon has transparent background.
+            }
+        }
+        
+        NukeExtensions.loadImage(with: self.source.effectiveHeaderImageURL, into: self.backgroundImageView)
         
         self.update()
         self.preparePipeline()

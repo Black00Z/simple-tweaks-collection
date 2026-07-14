@@ -95,10 +95,40 @@ class NavigationBar: UINavigationBar
     {
         if let appearance = self.topItem?.standardAppearance as? NavigationBarAppearance, appearance.ignoresUserInteraction
         {
-            // Ignore touches.
-            return nil
+            if #available(iOS 26, *)
+            {
+                let view = super.hitTest(point, with: event)
+                if view?.bounds.width == self.bounds.width || view is UIStackView // UINavigationBar uses UIStackViews for buttons + title views.
+                {
+                    // Ignore touches on bar itself, but not on buttons.
+                    return nil
+                }
+                else
+                {
+                    return view
+                }
+            }
+            else
+            {
+                // Ignore touches.
+                return nil
+            }
         }
         
         return super.hitTest(point, with: event)
+    }
+    
+    @available(iOS 18, *)
+    override func accessibilityHitTest(_ point: CGPoint, event: UIEvent?) -> Any?
+    {
+        if let appearance = self.topItem?.standardAppearance as? NavigationBarAppearance, appearance.ignoresUserInteraction
+        {
+            let hitTest = self.hitTest(point, with: event)
+            return hitTest
+        }
+        else
+        {
+            return super.accessibilityHitTest(point, event: event)
+        }
     }
 }

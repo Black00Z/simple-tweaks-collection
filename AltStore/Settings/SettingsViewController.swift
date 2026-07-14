@@ -31,6 +31,14 @@ extension SettingsViewController
         case debug
     }
     
+    fileprivate enum AccountRow: Int, CaseIterable
+    {
+        case name
+        case email
+        case username
+        case type
+    }
+    
     fileprivate enum AppRefreshRow: Int, CaseIterable
     {
         case backgroundRefresh
@@ -68,7 +76,11 @@ extension SettingsViewController
 
 class SettingsViewController: UITableViewController
 {
+    #if MARKETPLACE
+    private var activeAccount: SocialWebAccount?
+    #else
     private var activeTeam: Team?
+    #endif
     
     private var prototypeHeaderFooterView: SettingsHeaderFooterView!
     
@@ -76,6 +88,7 @@ class SettingsViewController: UITableViewController
     private weak var debugGestureTimer: Timer?
     
     @IBOutlet private var accountNameLabel: UILabel!
+    @IBOutlet private var accountUsernameLabel: UILabel!
     @IBOutlet private var accountEmailLabel: UILabel!
     @IBOutlet private var accountTypeLabel: UILabel!
     
@@ -208,6 +221,23 @@ private extension SettingsViewController
 {
     func update()
     {
+        #if MARKETPLACE
+        
+        if let account = DatabaseManager.shared.socialWebAccount()
+        {
+            self.accountNameLabel.text = account.name
+            self.accountUsernameLabel.text = account.displayUsername
+            self.accountTypeLabel.text = account.type.localizedName
+            
+            self.activeAccount = account
+        }
+        else
+        {
+            self.activeAccount = nil
+        }
+        
+        #else
+        
         if let team = DatabaseManager.shared.activeTeam()
         {
             self.accountNameLabel.text = team.name
@@ -220,6 +250,8 @@ private extension SettingsViewController
         {
             self.activeTeam = nil
         }
+        
+        #endif
         
         self.backgroundRefreshSwitch.isOn = UserDefaults.standard.isBackgroundRefreshEnabled
         self.enforceThreeAppLimitSwitch.isOn = !UserDefaults.standard.ignoreActiveAppsLimit
@@ -245,11 +277,19 @@ private extension SettingsViewController
         case .signIn:
             if isHeader
             {
+                #if MARKETPLACE
+                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("SOCIAL WEB (BETA)", comment: "")
+                #else
                 settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("ACCOUNT", comment: "")
+                #endif
             }
             else
             {
+                #if MARKETPLACE
+                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Sign in with your social web account to like apps, updates, and news items in AltStore.", comment: "")
+                #else
                 settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Sign in with your Apple ID to download apps from AltStore.", comment: "")
+                #endif
             }
             
         case .patreon:
@@ -263,7 +303,11 @@ private extension SettingsViewController
             }
             
         case .account:
+            #if MARKETPLACE
+            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("SOCIAL WEB ACCOUNT (BETA)", comment: "")
+            #else
             settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("ACCOUNT", comment: "")
+            #endif
             
             settingsHeaderFooterView.button.setTitle(NSLocalizedString("SIGN OUT", comment: ""), for: .normal)
             settingsHeaderFooterView.button.addTarget(self, action: #selector(SettingsViewController.signOut(_:)), for: .primaryActionTriggered)
@@ -342,7 +386,7 @@ private extension SettingsViewController
         
         switch section
         {
-        case .signIn, .account, .appRefresh, .instructions, .macDirtyCow: return true
+        case .appRefresh, .instructions, .macDirtyCow: return true
         default: return false
         }
         
@@ -365,6 +409,27 @@ private extension SettingsViewController
 {
     func signIn()
     {
+        #if MARKETPLACE
+        
+        Task<Void, Never> {
+            do
+            {
+                try await FederationManager.shared.authenticate(presentingViewController: self)
+            }
+            catch is CancellationError
+            {
+                // Ignore
+            }
+            catch
+            {
+                await self.presentAlert(title: String(localized: "Unable to Sign In"), message: error.localizedDescription)
+            }
+            
+            self.update()
+        }
+        
+        #else
+        
         AppManager.shared.authenticate(presentingViewController: self) { (result) in
             DispatchQueue.main.async {
                 switch result
@@ -383,26 +448,55 @@ private extension SettingsViewController
                 self.update()
             }
         }
+        
+        #endif
     }
     
     @objc func signOut(_ sender: UIBarButtonItem)
     {
         func signOut()
         {
-            DatabaseManager.shared.signOut { (error) in
-                DispatchQueue.main.async {
-                    if let error = error
-                    {
-                        let toastView = ToastView(error: error)
-                        toastView.show(in: self)
+            Task<Void, Never> {
+                do
+                {
+                    #if MARKETPLACE
+                    
+                    await FederationManager.shared.signOut()
+                    
+                    #else
+                    
+                    try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+                        DatabaseManager.shared.signOut { (error) in
+                            if let error
+                            {
+                                continuation.resume(throwing: error)
+                            }
+                            else
+                            {
+                                continuation.resume()
+                            }
+                        }
                     }
                     
-                    self.update()
+                    #endif
                 }
+                catch
+                {
+                    let toastView = ToastView(error: error)
+                    toastView.show(in: self)
+                }
+                
+                self.update()
             }
         }
         
-        let alertController = UIAlertController(title: NSLocalizedString("Are you sure you want to sign out?", comment: ""), message: NSLocalizedString("You will no longer be able to install or refresh apps once you sign out.", comment: ""), preferredStyle: .actionSheet)
+        #if MARKETPLACE
+        let message = NSLocalizedString("You will no longer be able to like apps, updates, and news items once you sign out.", comment: "")
+        #else
+        let message = NSLocalizedString("You will no longer be able to install or refresh apps once you sign out.", comment: "")
+        #endif
+        
+        let alertController = UIAlertController(title: NSLocalizedString("Are you sure you want to sign out?", comment: ""), message: message, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Sign Out", comment: ""), style: .destructive) { _ in signOut() })
         alertController.addAction(.cancel)
         self.present(alertController, animated: true, completion: nil)
@@ -609,11 +703,36 @@ extension SettingsViewController
         switch section
         {
         case _ where isSectionHidden(section): return 0
+            
+        #if MARKETPLACE
+        case .signIn: return (self.activeAccount == nil) ? 1 : 0
+        case .account: return (self.activeAccount == nil) ? 0 : 4
+        #else
         case .signIn: return (self.activeTeam == nil) ? 1 : 0
-        case .account: return (self.activeTeam == nil) ? 0 : 3
+        case .account: return (self.activeTeam == nil) ? 0 : 4
+        #endif
+            
         case .appRefresh: return AppRefreshRow.allCases.count
         default: return super.tableView(tableView, numberOfRowsInSection: section.rawValue)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        
+        let section = Section.allCases[indexPath.section]
+        switch section
+        {
+            
+        #if MARKETPLACE
+        case .signIn:  cell.textLabel?.text = String(localized: "Sign in with Social Web Account…")
+        #endif
+            
+        default: break
+        }
+        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
@@ -622,8 +741,15 @@ extension SettingsViewController
         switch section
         {
         case _ where isSectionHidden(section): return nil
+            
+        #if MARKETPLACE
+        case .signIn where self.activeAccount != nil: return nil
+        case .account where self.activeAccount == nil: return nil
+        #else
         case .signIn where self.activeTeam != nil: return nil
         case .account where self.activeTeam == nil: return nil
+        #endif
+            
         case .signIn, .account, .patreon, .display, .appRefresh, .techyThings, .credits, .support, .macDirtyCow, .debug:
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderFooterView") as! SettingsHeaderFooterView
             self.prepare(headerView, for: section, isHeader: true)
@@ -639,7 +765,13 @@ extension SettingsViewController
         switch section
         {
         case _ where isSectionHidden(section): return nil
+            
+        #if MARKETPLACE
+        case .signIn where self.activeAccount != nil: return nil
+        #else
         case .signIn where self.activeTeam != nil: return nil
+        #endif
+            
         case .signIn, .patreon, .display, .appRefresh, .techyThings, .macDirtyCow:
             let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderFooterView") as! SettingsHeaderFooterView
             self.prepare(footerView, for: section, isHeader: false)
@@ -648,6 +780,29 @@ extension SettingsViewController
         case .account, .credits, .support, .debug, .instructions: return nil
         }
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        let section = Section.allCases[indexPath.section]
+        switch section
+        {
+        case .account:
+            let row = AccountRow.allCases[indexPath.row]
+            switch row
+            {
+            #if MARKETPLACE
+            case .email: return 0.0
+            #else
+            case .username: return 0.0
+            #endif
+            default: break
+            }
+            
+        default: break
+        }
+        
+        return super.tableView(tableView, heightForRowAt: indexPath)
+    }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
@@ -655,8 +810,15 @@ extension SettingsViewController
         switch section
         {
         case _ where isSectionHidden(section): return 1.0
+            
+        #if MARKETPLACE
+        case .signIn where self.activeAccount != nil: return 1.0
+        case .account where self.activeAccount == nil: return 1.0
+        #else
         case .signIn where self.activeTeam != nil: return 1.0
         case .account where self.activeTeam == nil: return 1.0
+        #endif
+            
         case .signIn, .account, .patreon, .display, .appRefresh, .techyThings, .credits, .support, .macDirtyCow, .debug:
             let height = self.preferredHeight(for: self.prototypeHeaderFooterView, in: section, isHeader: true)
             return height
@@ -671,8 +833,15 @@ extension SettingsViewController
         switch section
         {
         case _ where isSectionHidden(section): return 1.0
+        
+        #if MARKETPLACE
+        case .signIn where self.activeAccount != nil: return 1.0
+        case .account where self.activeAccount == nil: return 1.0
+        #else
         case .signIn where self.activeTeam != nil: return 1.0
-        case .account where self.activeTeam == nil: return 1.0            
+        case .account where self.activeTeam == nil: return 1.0
+        #endif
+            
         case .signIn, .patreon, .display, .appRefresh, .techyThings, .macDirtyCow:
             let height = self.preferredHeight(for: self.prototypeHeaderFooterView, in: section, isHeader: false)
             return height

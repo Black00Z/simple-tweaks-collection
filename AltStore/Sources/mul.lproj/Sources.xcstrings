@@ -2,19 +2,25 @@
   "sourceLanguage" : "en",
   "strings" : {
     "9aU-eh-iwq.configuration.title" : {
-      "comment" : "Class = \"UIButton\"; configuration.title = \"Discover more apps on altstore.io\"; ObjectID = \"9aU-eh-iwq\";",
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Discover more sources on explore.alt.store\"; ObjectID = \"9aU-eh-iwq\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Discover more apps on altstore.io"
+            "value" : "Discover more sources on explore.alt.store"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "altstore.ioでさらに多くのアプリを見つけましょう"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descubra mais fontes em explore.alt.store"
           }
         }
       }
@@ -34,6 +40,12 @@
             "state" : "translated",
             "value" : "ボタン"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Botão"
+          }
         }
       }
     },
@@ -51,6 +63,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "すべてのニュース"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas as novidades"
           }
         }
       }
@@ -70,6 +88,12 @@
             "state" : "translated",
             "value" : "ソース"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fontes"
+          }
         }
       }
     },
@@ -87,6 +111,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "すべてのアプリ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos os Apps"
           }
         }
       }
@@ -106,6 +136,12 @@
             "state" : "translated",
             "value" : "ソースを追加"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar fonte"
+          }
         }
       }
     },
@@ -124,6 +160,12 @@
             "state" : "translated",
             "value" : "ソース"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fontes"
+          }
         }
       }
     },
@@ -141,6 +183,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソース"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fontes"
           }
         }
       }

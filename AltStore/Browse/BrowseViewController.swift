@@ -13,6 +13,7 @@ import AltStoreCore
 import Roxas
 
 import Nuke
+import NukeExtensions
 
 class BrowseViewController: UICollectionViewController, PeekPopPreviewing
 {
@@ -318,16 +319,23 @@ private extension BrowseViewController
     
     func updateSources()
     {
-        AppManager.shared.updateAllSources { result in
-            self.collectionView.refreshControl?.endRefreshing()
+        Task<Void, Never> {
+            await FederationManager.shared.resetCache()
             
-            guard case .failure(let error) = result else { return }
-            
-            if self.dataSource.itemCount > 0
-            {
-                let toastView = ToastView(error: error)
-                toastView.addTarget(nil, action: #selector(TabBarController.presentSources), for: .touchUpInside)
-                toastView.show(in: self)
+            AppManager.shared.updateAllSources { result in
+                self.updateFediverseInteractionsResult = nil
+                self.updateFediverseInteractionsIfNeeded()
+                
+                self.collectionView.refreshControl?.endRefreshing()
+                
+                guard case .failure(let error) = result else { return }
+                
+                if self.dataSource.itemCount > 0
+                {
+                    let toastView = ToastView(error: error)
+                    toastView.addTarget(nil, action: #selector(TabBarController.presentSources), for: .touchUpInside)
+                    toastView.show(in: self)
+                }
             }
         }
     }
@@ -389,7 +397,7 @@ private extension BrowseViewController
             
             if let iconURL = source.effectiveIconURL
             {
-                Nuke.loadImage(with: iconURL, into: self.titleSourceIconView) { result in
+                NukeExtensions.loadImage(with: iconURL, into: self.titleSourceIconView) { result in
                     switch result
                     {
                     case .failure(let error): Logger.main.error("Failed to fetch source icon at \(iconURL, privacy: .public). \(error.localizedDescription, privacy: .public)")
@@ -549,30 +557,25 @@ private extension BrowseViewController
             do
             {
                 let storeApps = self.dataSource.fetchedResultsController.fetchedObjects ?? []
+                let federatedItems = storeApps.compactMap(\.federatedItem)
                 
-                let objectIDs = Set(storeApps.map(\.objectID))
-                let statusIDs = Set(storeApps.compactMap { $0.statusID })
-                
-                let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
-                let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
-                
-                let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-                try await context.perform {
-                    
-                    let storeApps = objectIDs.compactMap { context.object(with: $0) as? StoreApp }
-                    for storeApp in storeApps
+                if let storeApp = storeApps.first
+                {
+                    let context: NSManagedObjectContext
+                    if let parentContext = storeApp.managedObjectContext, storeApp.objectID.isTemporaryID
                     {
-                        guard let statusID = storeApp.statusID, let toot = tootsByID[statusID] else { continue }
-                        storeApp.federatedURL = toot.url
-                        storeApp.likesCount = Int32(toot.favourites_count)
-                        storeApp.boostsCount = Int32(toot.reblogs_count)
-                        storeApp.commentsCount = Int32(toot.replies_count)
+                        // Use child context since this a temporary context.
+                        context = DatabaseManager.shared.persistentContainer.newBackgroundContext(withParent: parentContext)
+                    }
+                    else
+                    {
+                        context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
                     }
                     
-                    try context.save()
+                    try await FederationManager.shared.updateInteractions(for: federatedItems, in: context)
                 }
                 
-                Logger.main.info("Fetched \(toots.count) app statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
+                Logger.main.info("Fetched \(federatedItems.count) app statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
                 
                 self.updateFediverseInteractionsResult = .success(())
             }

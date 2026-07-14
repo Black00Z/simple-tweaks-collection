@@ -14,6 +14,7 @@ import AltStoreCore
 import Roxas
 
 import Nuke
+import NukeExtensions
 
 private class AppBannerFooterView: UICollectionReusableView
 {
@@ -77,6 +78,7 @@ class NewsViewController: UICollectionViewController, PeekPopPreviewing
     private func initialize()
     {
         NotificationCenter.default.addObserver(self, selector: #selector(NewsViewController.importApp(_:)), name: AppDelegate.importAppDeepLinkNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewsViewController.didFetchSource(_:)), name: AppManager.didFetchSourceNotification, object: nil)
     }
     
     override func viewDidLoad()
@@ -154,6 +156,12 @@ class NewsViewController: UICollectionViewController, PeekPopPreviewing
         
         self.updateFediverseInteractionsIfNeeded()
     }
+    
+    deinit
+    {
+        NotificationCenter.default.removeObserver(self, name: AppDelegate.importAppDeepLinkNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: AppManager.didFetchSourceNotification, object: nil)
+    }
 }
 
 private extension NewsViewController
@@ -162,8 +170,8 @@ private extension NewsViewController
     {
         AppManager.shared.$updateSourcesResult
             .receive(on: RunLoop.main) // Delay to next run loop so we receive _current_ value (not previous value).
-            .sink { result in
-                self.update()
+            .sink { [weak self] result in
+                self?.update()
             }
             .store(in: &self.cancellables)
     }
@@ -200,28 +208,30 @@ private extension NewsViewController
                 cell.imageView.isHidden = true
             }
             
-            if newsItem.federatedURL != nil
+            if let federatedItem = newsItem.federatedItem
             {
                 cell.fediverseInteractionsView.isHidden = false
-                cell.fediverseInteractionsView.tintColor = newsItem.tintColor
+                cell.fediverseInteractionsView.tintColor = newsItem.effectiveTintColor
                 cell.fediverseInteractionsView.shareHandler = { [weak self] _ in self }
-                cell.fediverseInteractionsView.configure(with: newsItem, isOpaque: true)
+                cell.fediverseInteractionsView.presentingViewController = self
+                cell.fediverseInteractionsView.configure(with: federatedItem, isOpaque: true)
             }
             else
             {
                 cell.fediverseInteractionsView.isHidden = true
             }
             
-            cell.isAccessibilityElement = true
-            cell.accessibilityLabel = (cell.titleLabel.text ?? "") + ". " + (cell.captionLabel.text ?? "")
+            let stackView = cell.titleLabel.superview!
+            stackView.isAccessibilityElement = true
+            stackView.accessibilityLabel = (cell.titleLabel.text ?? "") + ". " + (cell.captionLabel.text ?? "")
             
             if newsItem.storeApp != nil || newsItem.externalURL != nil
             {
-                cell.accessibilityTraits.insert(.button)
+                stackView.accessibilityTraits.insert(.button)
             }
             else
             {
-                cell.accessibilityTraits.remove(.button)
+                stackView.accessibilityTraits.remove(.button)
             }
         }
         dataSource.prefetchHandler = { (newsItem, indexPath, completionHandler) in
@@ -257,19 +267,23 @@ private extension NewsViewController
     
     @objc func updateSources()
     {
-        AppManager.shared.updateAllSources() { result in
-            self.updateFediverseInteractionsResult = nil
-            self.updateFediverseInteractionsIfNeeded()
+        Task<Void, Never> {
+            await FederationManager.shared.resetCache()
             
-            self.collectionView.refreshControl?.endRefreshing()
-            
-            guard case .failure(let error) = result else { return }
-            
-            if self.dataSource.itemCount > 0
-            {
-                let toastView = ToastView(error: error)
-                toastView.addTarget(nil, action: #selector(TabBarController.presentSources), for: .touchUpInside)
-                toastView.show(in: self)
+            AppManager.shared.updateAllSources() { result in
+                self.updateFediverseInteractionsResult = nil
+                self.updateFediverseInteractionsIfNeeded()
+                
+                self.collectionView.refreshControl?.endRefreshing()
+                
+                guard case .failure(let error) = result else { return }
+                
+                if self.dataSource.itemCount > 0
+                {
+                    let toastView = ToastView(error: error)
+                    toastView.addTarget(nil, action: #selector(TabBarController.presentSources), for: .touchUpInside)
+                    toastView.show(in: self)
+                }
             }
         }
     }
@@ -316,30 +330,25 @@ private extension NewsViewController
             do
             {
                 let newsItems = self.dataSource.fetchedResultsController.fetchedObjects ?? []
+                let federatedItems = newsItems.compactMap(\.federatedItem)
                 
-                let objectIDs = Set(newsItems.map(\.objectID))
-                let statusIDs = Set(newsItems.compactMap { $0.statusID })
-                
-                let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
-                let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
-                
-                let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-                try await context.perform {
-                    
-                    let newsItems = objectIDs.compactMap { context.object(with: $0) as? NewsItem }
-                    for newsItem in newsItems
+                if let newsItem = newsItems.first
+                {
+                    let context: NSManagedObjectContext
+                    if let parentContext = newsItem.managedObjectContext, newsItem.objectID.isTemporaryID
                     {
-                        guard let statusID = newsItem.statusID, let toot = tootsByID[statusID] else { continue }
-                        newsItem.federatedURL = toot.url
-                        newsItem.likesCount = Int32(toot.favourites_count)
-                        newsItem.boostsCount = Int32(toot.reblogs_count)
-                        newsItem.commentsCount = Int32(toot.replies_count)
+                        // Use child context since this a temporary context.
+                        context = DatabaseManager.shared.persistentContainer.newBackgroundContext(withParent: parentContext)
+                    }
+                    else
+                    {
+                        context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
                     }
                     
-                    try context.save()
+                    try await FederationManager.shared.updateInteractions(for: federatedItems, in: context)
                 }
                 
-                Logger.main.info("Fetched \(toots.count) NewsItem statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
+                Logger.main.info("Fetched \(federatedItems.count) NewsItem statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
                 
                 self.updateFediverseInteractionsResult = .success(())
             }
@@ -354,6 +363,12 @@ private extension NewsViewController
 
 private extension NewsViewController
 {
+    @objc func didFetchSource(_ notification: Notification)
+    {
+        // Reset cache in case source has started federating.
+        self.cachedCellSizes.removeAll()
+    }
+    
     @objc func handleTapGesture(_ gestureRecognizer: UITapGestureRecognizer)
     {
         guard let footerView = gestureRecognizer.view as? UICollectionReusableView else { return }
@@ -458,7 +473,7 @@ extension NewsViewController
         if let externalURL = newsItem.externalURL
         {
             let safariViewController = SFSafariViewController(url: externalURL)
-            safariViewController.preferredControlTintColor = newsItem.tintColor
+            safariViewController.preferredControlTintColor = newsItem.effectiveTintColor
             self.present(safariViewController, animated: true, completion: nil)
         }
         else if let storeApp = newsItem.storeApp
@@ -485,7 +500,7 @@ extension NewsViewController
         footerView.bannerView.button.addTarget(self, action: #selector(NewsViewController.performAppAction(_:)), for: .primaryActionTriggered)
         footerView.tapGestureRecognizer.addTarget(self, action: #selector(NewsViewController.handleTapGesture(_:)))
         
-        Nuke.loadImage(with: storeApp.iconURL, into: footerView.bannerView.iconImageView) { result in
+        NukeExtensions.loadImage(with: storeApp.iconURL, into: footerView.bannerView.iconImageView) { result in
             footerView.bannerView.iconImageView.isIndicatingActivity = false
             
             switch result
@@ -565,7 +580,7 @@ extension NewsViewController: UIViewControllerPreviewingDelegate
             if let externalURL = newsItem.externalURL
             {
                 let safariViewController = SFSafariViewController(url: externalURL)
-                safariViewController.preferredControlTintColor = newsItem.tintColor
+                safariViewController.preferredControlTintColor = newsItem.effectiveTintColor
                 return safariViewController
             }
             else if let storeApp = newsItem.storeApp

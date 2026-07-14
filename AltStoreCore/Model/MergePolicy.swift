@@ -193,6 +193,9 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
         
         var featuredAppIDsBySourceID = [String: [String]]()
         
+        var federatedItemsSnapshotsByID = [String: NSDictionary]()
+        var sortedAccountIDsByFederatedItemID = [String: NSOrderedSet]()
+        
         for conflict in conflicts
         {
             switch conflict.databaseObject
@@ -238,14 +241,6 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
                 if let featuredSortID = databaseObject.featuredSortID
                 {
                     contextApp.featuredSortID = featuredSortID
-                }
-                
-                // Revert null Fediverse interactions to database values.
-                if contextApp.value(forKey: #keyPath(StoreApp.likesCount)) == nil || contextApp.value(forKey: #keyPath(StoreApp.boostsCount)) == nil || contextApp.value(forKey: #keyPath(StoreApp.commentsCount)) == nil
-                {
-                    contextApp.likesCount = databaseObject.likesCount
-                    contextApp.boostsCount = databaseObject.boostsCount
-                    contextApp.commentsCount = databaseObject.commentsCount
                 }
                 
             case let databaseObject as Source:
@@ -312,27 +307,20 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
                     databasePledge.managedObjectContext?.delete(databasePledge)
                 }
                 
-            case let databaseObject as NewsItem:
-                guard let contextObject = conflict.conflictingObjects.first as? NewsItem else { break }
+            case let databaseItem as FederatedItem:
+                let snapshot = conflict.snapshots.object(forKey: databaseItem)
                 
-                // Revert null Fediverse interactions to database values.
-                if contextObject.value(forKey: #keyPath(NewsItem.likesCount)) == nil || contextObject.value(forKey: #keyPath(NewsItem.boostsCount)) == nil || contextObject.value(forKey: #keyPath(NewsItem.commentsCount)) == nil
+                let filteredSnapshot = NSMutableDictionary()
+                for (key, value) in snapshot ?? [:]
                 {
-                    contextObject.likesCount = databaseObject.likesCount
-                    contextObject.boostsCount = databaseObject.boostsCount
-                    contextObject.commentsCount = databaseObject.commentsCount
+                    guard !(value is NSManagedObject) else { continue }
+                    filteredSnapshot[key] = value
                 }
                 
-            case let databaseObject as AppVersion:
-                guard let contextObject = conflict.conflictingObjects.first as? AppVersion else { break }
+                federatedItemsSnapshotsByID[databaseItem.identifier] = filteredSnapshot
                 
-                // Revert null Fediverse interactions to database values.
-                if contextObject.value(forKey: #keyPath(AppVersion.likesCount)) == nil || contextObject.value(forKey: #keyPath(AppVersion.boostsCount)) == nil || contextObject.value(forKey: #keyPath(AppVersion.commentsCount)) == nil
-                {
-                    contextObject.likesCount = databaseObject.likesCount
-                    contextObject.boostsCount = databaseObject.boostsCount
-                    contextObject.commentsCount = databaseObject.commentsCount
-                }
+                let accountIDs = databaseItem._likes.compactMap { ($0 as? Like)?.accountID }
+                sortedAccountIDsByFederatedItemID[databaseItem.identifier] = NSOrderedSet(array: accountIDs)
                 
             default: break
             }
@@ -445,6 +433,51 @@ open class MergePolicy: RSTRelationshipPreservingMergePolicy
                 // Update featuredApps post-merging to make sure relationships are correct,
                 // even if the ordering is correct.
                 databaseObject.setFeaturedApps(featuredApps)
+                
+            case let databaseObject as FederatedItem:
+                guard let snapshot = federatedItemsSnapshotsByID[databaseObject.identifier] else { break }
+                
+                // Reset values to previous database values.
+                for (key, value) in snapshot
+                {
+                    guard let key = key as? String else { continue }
+                    
+                    if key == #keyPath(FederatedItem._likes)
+                    {
+                        // Convert from NSSet to NSOrderedSet, which will be resorted below.
+                        let values = value as! Set<AnyHashable>
+                        databaseObject.setValue(NSOrderedSet(set: values), forKey: key)
+                    }
+                    else
+                    {
+                        databaseObject.setValue(value, forKey: key)
+                    }
+                }
+                
+                // Likes
+                if let sortedAccountIDs = sortedAccountIDsByFederatedItemID[databaseObject.identifier],
+                   let sortedAccountIDsArray = sortedAccountIDs.array as? [String],
+                   case let databaseSortedAccountIDs = databaseObject._likes.compactMap({ ($0 as? Like)?.accountID }),
+                   databaseSortedAccountIDs != sortedAccountIDsArray
+                {
+                    // Likes order is incorrect, so attempt to fix by re-sorting.
+                    let fixedSortedLikes = databaseObject.likes.sorted { (likeA, likeB) in
+                        let indexA = sortedAccountIDs.index(of: likeA.accountID)
+                        let indexB = sortedAccountIDs.index(of: likeB.accountID)
+                        return indexA < indexB
+                    }
+                    
+                    let accountIDs = fixedSortedLikes.compactMap { $0.accountID }
+                    if sortedAccountIDsArray == accountIDs
+                    {
+                        databaseObject.setLikes(fixedSortedLikes)
+                    }
+                    else
+                    {
+                        // Likes are still not in correct order, but not worth throwing error so ignore.
+                        Logger.main.error("Failed to re-sort likes into correct order. Expected: \(sortedAccountIDsArray.description, privacy: .public)")
+                    }
+                }
                 
             default: break
             }

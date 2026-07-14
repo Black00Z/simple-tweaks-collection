@@ -156,3 +156,11 @@ public extension UserDefaults
         #endif
     }
 }
+
+public extension UserDefaults
+{
+    // Remote flags
+    
+    @NSManaged var fediverseInteractionsDisabled: Bool
+    @NSManaged var epicGamesExcludedRegions: [String]?
+}

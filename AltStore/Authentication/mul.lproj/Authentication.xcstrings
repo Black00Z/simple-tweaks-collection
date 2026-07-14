@@ -16,6 +16,12 @@
             "state" : "translated",
             "value" : "2"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2"
+          }
         }
       }
     },
@@ -33,6 +39,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サインイン"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar"
           }
         }
       }
@@ -52,6 +64,12 @@
             "state" : "translated",
             "value" : "iTunes Wi-Fi同期を有効にし、AltServerと同じWi-Fiに接続してください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ative a Sincronização via Wi‑Fi do iTunes e conecte-se à mesma rede Wi‑Fi que o AltServer."
+          }
         }
       }
     },
@@ -69,6 +87,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltStoreを更新"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar o AltStore"
           }
         }
       }
@@ -88,6 +112,12 @@
             "state" : "translated",
             "value" : "AltServerをコンピュータのバックグラウンドで実行したままにしてください。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mantenha o AltServer em segundo plano no seu computador."
+          }
         }
       }
     },
@@ -105,6 +135,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Apple ID"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "APPLE ID"
           }
         }
       }
@@ -124,6 +160,12 @@
             "state" : "translated",
             "value" : "パスワード"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SENHA"
+          }
         }
       }
     },
@@ -142,6 +184,12 @@
             "state" : "translated",
             "value" : "仕組み"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Como funciona"
+          }
         }
       }
     },
@@ -156,6 +204,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "name@email.com"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "name@email.com"
@@ -178,6 +232,12 @@
             "state" : "translated",
             "value" : "AltStoreへようこそ。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boas-vindas ao AltStore."
+          }
         }
       }
     },
@@ -195,6 +255,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wi-Fiに接続"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conectar ao Wi-Fi"
           }
         }
       }
@@ -214,6 +280,12 @@
             "state" : "translated",
             "value" : "AltServerと同じWi-Fiに接続している場合、アプリはバックグラウンドで更新されます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os apps são atualizados em segundo plano quando estiverem na mesma rede Wi‑Fi que o AltServer."
+          }
         }
       }
     },
@@ -228,6 +300,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "4"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "4"
@@ -250,6 +328,12 @@
             "state" : "translated",
             "value" : "1"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1"
+          }
         }
       }
     },
@@ -267,6 +351,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリをダウンロード"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baixar apps"
           }
         }
       }
@@ -286,6 +376,12 @@
             "state" : "translated",
             "value" : "AltStoreから直接アプリを閲覧、ダウンロードできます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navegue e baixe apps diretamente pelo AltStore."
+          }
         }
       }
     },
@@ -303,6 +399,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "閉じる"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fechar"
           }
         }
       }
@@ -322,6 +424,12 @@
             "state" : "translated",
             "value" : "アプリは自動的に更新されます"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização automática de apps"
+          }
         }
       }
     },
@@ -336,6 +444,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "3"
@@ -358,6 +472,12 @@
             "state" : "translated",
             "value" : "Apple IDは、アプリをこのデバイスにインストールできるように設定するために使用されます。認証情報は、このデバイスのキーチェーンに安全に保存され、認証のためにのみAppleに送信されます。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu Apple ID é usado para configurar apps e permitir sua instalação neste dispositivo. Suas credenciais serão armazenadas com segurança no Chaveiro do dispositivo e enviadas apenas à Apple para autenticação."
+          }
         }
       }
     },
@@ -375,6 +495,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "なぜこれが必要ですか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por que precisamos disso?"
           }
         }
       }
@@ -394,6 +520,12 @@
             "state" : "translated",
             "value" : "後で更新"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar depois"
+          }
         }
       }
     },
@@ -412,6 +544,12 @@
             "state" : "translated",
             "value" : "わかりました"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entendi"
+          }
         }
       }
     },
@@ -426,6 +564,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "••••••••"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "••••••••"
@@ -448,6 +592,12 @@
             "state" : "translated",
             "value" : "Apple IDでサインインして始めましょう。"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entre com seu Apple ID para começar."
+          }
         }
       }
     },
@@ -466,6 +616,12 @@
             "state" : "translated",
             "value" : "今すぐ更新"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar agora"
+          }
         }
       }
     },
@@ -483,6 +639,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AltServerを起動"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir o AltServer"
           }
         }
       }

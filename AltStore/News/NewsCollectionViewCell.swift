@@ -40,7 +40,7 @@ class NewsCollectionViewCell: UICollectionViewCell
     {
         self.titleLabel.text = newsItem.title
         self.captionLabel.text = newsItem.caption
-        self.contentBackgroundView.backgroundColor = newsItem.tintColor
+        self.contentBackgroundView.backgroundColor = newsItem.effectiveTintColor
         
         // Set text color to default iOS text color if tintColor is undefined
         let textColor = newsItem.tintColor != nil ? UIColor.white : UIColor.label

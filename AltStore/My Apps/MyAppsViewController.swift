@@ -285,12 +285,13 @@ private extension MyAppsViewController
             
             cell.versionDescriptionTextView.moreButton.addTarget(self, action: #selector(MyAppsViewController.toggleUpdateCellMode(_:)), for: .primaryActionTriggered)
             
-            if latestSupportedVersion.federatedURL != nil
+            if let federatedItem = latestSupportedVersion.federatedItem
             {
                 cell.fediverseInteractionsView.isHidden = false
                 cell.fediverseInteractionsView.tintColor = app.tintColor ?? .altPrimary
                 cell.fediverseInteractionsView.shareHandler = { [weak self] _ in self }
-                cell.fediverseInteractionsView.configure(with: latestSupportedVersion)
+                cell.fediverseInteractionsView.presentingViewController = self
+                cell.fediverseInteractionsView.configure(with: federatedItem)
             }
             else
             {
@@ -744,30 +745,11 @@ private extension MyAppsViewController
             do
             {
                 let storeApps = (self.updatesDataSource.fetchedResultsController.fetchedObjects ?? []).compactMap { $0.storeApp }
+                let federatedItems = storeApps.compactMap(\.federatedItem)
                 
-                let objectIDs = Set(storeApps.map(\.objectID))
-                let statusIDs = Set(storeApps.compactMap { $0.statusID })
+                try await FederationManager.shared.updateInteractions(for: federatedItems)
                 
-                let toots = try await MastodonAPI.shared.fetchToots(ids: statusIDs)
-                let tootsByID = toots.reduce(into: [:]) { $0[$1.id] = $1 }
-                
-                let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
-                try await context.perform {
-                    
-                    let storeApps = objectIDs.compactMap { context.object(with: $0) as? StoreApp }
-                    for storeApp in storeApps
-                    {
-                        guard let statusID = storeApp.statusID, let toot = tootsByID[statusID] else { continue }
-                        storeApp.federatedURL = toot.url
-                        storeApp.likesCount = Int32(toot.favourites_count)
-                        storeApp.boostsCount = Int32(toot.reblogs_count)
-                        storeApp.commentsCount = Int32(toot.replies_count)
-                    }
-                    
-                    try context.save()
-                }
-                
-                Logger.main.info("Fetched \(toots.count) app update statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
+                Logger.main.info("Fetched \(federatedItems.count) app update statuses in \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
                 
                 self.updateFediverseInteractionsResult = .success(())
             }
@@ -1753,6 +1735,8 @@ private extension MyAppsViewController
                 toastView.addTarget(nil, action: #selector(TabBarController.presentSources), for: .touchUpInside)
                 toastView.show(in: self)
             }
+            
+            await FederationManager.shared.resetCache()
             
             self.updateFediverseInteractionsResult = nil
             self.updateFediverseInteractionsIfNeeded()

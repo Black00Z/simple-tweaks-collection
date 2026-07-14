@@ -320,7 +320,7 @@ private extension SourcesViewController
             }
             else
             {
-                cell.bannerView.iconImageView.backgroundColor = .clear
+                cell.bannerView.iconImageView.backgroundColor = .white
             }
         }
         

@@ -16,6 +16,12 @@
             "state" : "translated",
             "value" : "ライリー・テストゥ"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riley Testut"
+          }
         }
       }
     },
@@ -27,6 +33,18 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Hey y'all!\n\nIf you'd like to support my work, you can donate here. In return, you'll gain access to beta versions of all of my apps and be among the first to try the latest features.\n\nThanks for all your support 💜\nRiley"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "皆さん、こんにちは！\n\n私の活動をサポートしたい方は、こちらから寄付していただけます。そのお礼として、私のアプリすべてのベータ版にアクセスでき、最新機能をいち早くお試しいただけます。\n\nいつも応援ありがとうございます💜\nライリー"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olá, pessoal!\n\nSe vocês quiserem apoiar o meu trabalho, podem fazer uma doação aqui. Em troca, vocês terão acesso às versões beta de todos os meus apps e serão os primeiros a testar os recursos mais recentes.\n\nAgradeço todo o apoio 💜\nRiley"
           }
         }
       },
@@ -47,6 +65,12 @@
             "state" : "translated",
             "value" : "Patreonアカウントをリンク"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vincular conta do Patreon"
+          }
         }
       }
     },
@@ -64,6 +88,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "開発者"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desenvolvedor"
           }
         }
       }
@@ -83,6 +113,12 @@
             "state" : "translated",
             "value" : "オペレーション"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operações"
+          }
         }
       }
     },
@@ -101,6 +137,12 @@
             "state" : "translated",
             "value" : "パトロンになる"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tornar-se um apoiador"
+          }
         }
       }
     },
@@ -118,6 +160,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "シェーン・ギル"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shane Gill"
           }
         }
       }

@@ -3,12 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A77E3D272F3D92436FAC272 /* Pods_AltStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EEAA842DA87A88A870053B /* Pods_AltStore.framework */; };
+		820059C32F36BBAA00C22365 /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820059C22F36BBAA00C22365 /* SafariActivity.swift */; };
+		825DAD9E2F0C329C00E0EDF1 /* FediverseLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825DAD9D2F0C329C00E0EDF1 /* FediverseLikesView.swift */; };
+		82BBB9342F185B33005A472E /* AppIcon_Japan.icon in Resources */ = {isa = PBXBuildFile; fileRef = 82BBB9332F185B33005A472E /* AppIcon_Japan.icon */; };
 		82CB1FB32EBABB0100C8E822 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 82CB1FB22EBABB0100C8E822 /* AppIcon.icon */; };
+		82D6ED882EE9E62D009DC668 /* SourceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6ED872EE9E62D009DC668 /* SourceCollectionViewController.swift */; };
+		82D6ED8A2EEA137A009DC668 /* TaskGroup+Collated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6ED892EEA137A009DC668 /* TaskGroup+Collated.swift */; };
 		A8BCEBEAC0620CF80A2FD26D /* Pods_AltServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3822AB1C4CF1D4CDF7445D /* Pods_AltServer.framework */; };
 		BF02419622F2199300129732 /* RefreshAttemptsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02419522F2199300129732 /* RefreshAttemptsViewController.swift */; };
 		BF0241AA22F29CCD00129732 /* UserDefaults+AltServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0241A922F29CCD00129732 /* UserDefaults+AltServer.swift */; };
@@ -340,8 +344,10 @@
 		BFF7C9342578492100E55F36 /* ALTAnisetteData.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB49AA823834CF900D542D9 /* ALTAnisetteData.m */; };
 		D50107EC2ADF2E1A0069F2A1 /* AddSourceTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50107EB2ADF2E1A0069F2A1 /* AddSourceTextFieldCell.swift */; };
 		D50652562BA358C50055ABBE /* Task+Timeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FB7A202AA284ED00EF863D /* Task+Timeout.swift */; };
+		D5066FC22F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5066FC12F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel */; };
 		D5084CCC2B1EA80100C02160 /* FeaturedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5084CCB2B1EA80100C02160 /* FeaturedComponents.swift */; };
 		D50A33B82EF474360020665D /* CommissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A33B72EF474360020665D /* CommissionManager.swift */; };
+		D50B88732F10546400BCD79C /* FederationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50B88722F10546400BCD79C /* FederationManager.swift */; };
 		D50F7FF12C5BFEE70064F7CE /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D50F7FF02C5BFEE70064F7CE /* PrivacyInfo.xcprivacy */; };
 		D513F6162A12CE4E0061EAA1 /* SourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D571ADCD2A02FA7400B24B63 /* SourceError.swift */; };
 		D5144BA82B8684EF00738A5C /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5144BA72B8684EF00738A5C /* Icons.xcassets */; };
@@ -350,6 +356,7 @@
 		D5151BE22A90363300C96F28 /* RefreshAllAppsWidgetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5151BE02A90344300C96F28 /* RefreshAllAppsWidgetIntent.swift */; };
 		D5151BE72A90395400C96F28 /* View+AltWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5151BE52A90391900C96F28 /* View+AltWidget.swift */; };
 		D51540572C7E7BDE00DB6C44 /* AltStore17ToAltStore18.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D51540562C7E7BDE00DB6C44 /* AltStore17ToAltStore18.xcmappingmodel */; };
+		D515B73D2F5115660003684E /* UpdateRemoteFlagsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D515B73C2F5115660003684E /* UpdateRemoteFlagsOperation.swift */; };
 		D5177B0D2A26944600270065 /* AltStore12ToAltStore13.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5177B0C2A26944600270065 /* AltStore12ToAltStore13.xcmappingmodel */; };
 		D5185B802AE1E51B00646E33 /* AltStore13ToAltStore14.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5185B7F2AE1E51B00646E33 /* AltStore13ToAltStore14.xcmappingmodel */; };
 		D5185B822AE1E71D00646E33 /* Source13To14MigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5185B812AE1E71D00646E33 /* Source13To14MigrationPolicy.swift */; };
@@ -360,6 +367,9 @@
 		D51AD27F29356B7B00967AAA /* ALTWrappedError.m in Sources */ = {isa = PBXBuildFile; fileRef = D51AD27D29356B7B00967AAA /* ALTWrappedError.m */; };
 		D51AD28029356B8000967AAA /* ALTWrappedError.m in Sources */ = {isa = PBXBuildFile; fileRef = D51AD27D29356B7B00967AAA /* ALTWrappedError.m */; };
 		D51E83822B8692DF0092FC61 /* AltStore16ToAltStore17.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D51E83812B8692DF0092FC61 /* AltStore16ToAltStore17.xcmappingmodel */; };
+		D51F17452F3BAA4E0016D08B /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = D51F17442F3BAA4E0016D08B /* Nuke */; };
+		D51F17472F3BAA4E0016D08B /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = D51F17462F3BAA4E0016D08B /* NukeExtensions */; };
+		D51F17492F3BAA4E0016D08B /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = D51F17482F3BAA4E0016D08B /* NukeUI */; };
 		D526A40F2E32F75D00D2E768 /* MastodonAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526A40E2E32F75D00D2E768 /* MastodonAPI.swift */; };
 		D526A4112E32F80800D2E768 /* MastodonAPI+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526A4102E32F80700D2E768 /* MastodonAPI+Types.swift */; };
 		D52A2F972ACB40F700BDF8E3 /* Logger+AltStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52A2F962ACB40F700BDF8E3 /* Logger+AltStore.swift */; };
@@ -372,6 +382,7 @@
 		D52DD35E2AAA89A600A7F2B6 /* AltSign-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = D52DD35D2AAA89A600A7F2B6 /* AltSign-Dynamic */; };
 		D52EF2BE2A0594550096C377 /* AppDetailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52EF2BD2A0594550096C377 /* AppDetailCollectionViewController.swift */; };
 		D533E8B72727841800A9B5DD /* libAppleArchive.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D533E8B62727841800A9B5DD /* libAppleArchive.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D53447932F11C7B800808D88 /* FetchSourceCollectionsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53447922F11C7B800808D88 /* FetchSourceCollectionsOperation.swift */; };
 		D535CEE82BE95D4C00F96119 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = D535CEE72BE95D4C00F96119 /* TelemetryClient */; };
 		D537C8592AA94D94009A1E08 /* altjit in Embed AltJIT */ = {isa = PBXBuildFile; fileRef = D5FB7A132AA284BE00EF863D /* altjit */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D537C85B2AA9507A009A1E08 /* libcorecrypto.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D537C85A2AA95066009A1E08 /* libcorecrypto.tbd */; platformFilters = (macos, ); };
@@ -385,8 +396,10 @@
 		D5409F6D2E3AA75900EE8AD1 /* InstallationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5409F6C2E3AA74B00EE8AD1 /* InstallationError.swift */; };
 		D540E93828EE1BDE000F1B0F /* ErrorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D540E93728EE1BDE000F1B0F /* ErrorDetailsViewController.swift */; };
 		D5418F172AD740890014ABD6 /* AppScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5418F162AD740890014ABD6 /* AppScreenshotCollectionViewCell.swift */; };
-		D54D13E62E5D19FD00FEC355 /* Federatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D13E52E5D19FD00FEC355 /* Federatable.swift */; };
+		D548D4D52F0F013C00CAE432 /* BlueskyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D548D4D42F0F013C00CAE432 /* BlueskyAPI.swift */; };
+		D548D4D72F0F014800CAE432 /* BlueskyAPI+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D548D4D62F0F014800CAE432 /* BlueskyAPI+Types.swift */; };
 		D54D13C42E5CEEB800FEC355 /* iCloudAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D13C32E5CEEB800FEC355 /* iCloudAPI.swift */; };
+		D54D13E62E5D19FD00FEC355 /* Federatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D13E52E5D19FD00FEC355 /* Federatable.swift */; };
 		D54DED1428CBC44B008B27A0 /* ErrorLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54DED1328CBC44B008B27A0 /* ErrorLogTableViewCell.swift */; };
 		D551D02F2EE8C24F00027F33 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D551D02E2EE8C24F00027F33 /* Localizable.xcstrings */; };
 		D551D0322EE8C44500027F33 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D551D0312EE8C44500027F33 /* Authentication.storyboard */; };
@@ -406,6 +419,7 @@
 		D561B2EB28EF5A4F006752E4 /* AltSign-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = D561B2EA28EF5A4F006752E4 /* AltSign-Dynamic */; };
 		D561B2ED28EF5A4F006752E4 /* AltSign-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D561B2EA28EF5A4F006752E4 /* AltSign-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D56435E62E2ACC89007D1935 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D56435E52E2ACC89007D1935 /* KeychainAccess */; };
+		D56579932F3EDF9D0054E169 /* AltStore21ToAltStore22.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D56579922F3EDF9D0054E169 /* AltStore21ToAltStore22.xcmappingmodel */; };
 		D56842A92C62A1A800FB1AB4 /* KeyedDecodingContainer+LocalizedValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56842A82C62A1A800FB1AB4 /* KeyedDecodingContainer+LocalizedValues.swift */; };
 		D56915072AD5E91B00A2B747 /* Regex+Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56915052AD5D75B00A2B747 /* Regex+Permissions.swift */; };
 		D56915092AD5F3E800A2B747 /* AltTests+Sources.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56915082AD5F3E800A2B747 /* AltTests+Sources.swift */; };
@@ -460,13 +474,15 @@
 		D5ACE84528E3B8450021CAB9 /* ClearAppCacheOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ACE84428E3B8450021CAB9 /* ClearAppCacheOperation.swift */; };
 		D5AD66932ECFE08800964E26 /* iCloudAPI+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D13C52E5CEF2200FEC355 /* iCloudAPI+Types.swift */; };
 		D5AE997B2B64791E0068B366 /* AppMarketplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AE997A2B64791E0068B366 /* AppMarketplace.swift */; };
-		D5B15D4B2ECE8ED800F8E797 /* FediverseInteractionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B15D4A2ECE8ED000F8E797 /* FediverseInteractionsView.swift */; };
 		D5B15D432ECE664000F8E797 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D5B15D422ECE664000F8E797 /* Localizable.xcstrings */; };
+		D5B15D4B2ECE8ED800F8E797 /* FediverseInteractionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B15D4A2ECE8ED000F8E797 /* FediverseInteractionsView.swift */; };
+		D5B1E6442F3680EE00146B46 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B1E6432F3680EE00146B46 /* Like.swift */; };
 		D5B6F6A92AD75D01007EED5A /* ProcessInfo+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B6F6A82AD75D01007EED5A /* ProcessInfo+Previews.swift */; };
 		D5B6F6AB2AD76541007EED5A /* PreviewAppScreenshotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B6F6AA2AD76541007EED5A /* PreviewAppScreenshotsViewController.swift */; };
 		D5BA9E9B2A9FE1E8007C0661 /* JITManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA9E9A2A9FE1E8007C0661 /* JITManager.swift */; };
 		D5BD17D32B6474FF00BAE633 /* AltMarketplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BD17D22B6474FF00BAE633 /* AltMarketplace.swift */; };
 		D5BD17D72B6474FF00BAE633 /* AltMarketplace.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = D5BD17D02B6474FF00BAE633 /* AltMarketplace.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D5BD46572F0DC48000D26AB5 /* SocialWebAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BD46562F0DC48000D26AB5 /* SocialWebAccount.swift */; };
 		D5BE12392B89372E009C026C /* InstallAppRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BE12382B89372E009C026C /* InstallAppRequest.swift */; };
 		D5BE123D2B893ABF009C026C /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BE123C2B893ABF009C026C /* HTTPHeader.swift */; };
 		D5BE123F2B893D66009C026C /* Logger+AltMarketplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BE123E2B893D66009C026C /* Logger+AltMarketplace.swift */; };
@@ -482,6 +498,7 @@
 		D5CE309C2B4C946300DB8151 /* AltStore15ToAltStore16.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5CE309B2B4C946300DB8151 /* AltStore15ToAltStore16.xcmappingmodel */; };
 		D5CF17262B96DD27002EC4C7 /* InstallMarketplaceAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CF17252B96DD27002EC4C7 /* InstallMarketplaceAppViewController.swift */; };
 		D5CF568C2A0D8EEC006D93E2 /* VerificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CF56812A0D83F9006D93E2 /* VerificationError.swift */; };
+		D5D097132F15B3FA00CC917D /* FederatedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D097122F15B3FA00CC917D /* FederatedItem.swift */; };
 		D5D3BFB22D4D87A5000FFFAF /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D3BFB12D4D87A5000FFFAF /* Media.swift */; };
 		D5D574C52ED0FC2A00FBEE87 /* UpdateFediverseInteractionsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D574C42ED0FC1F00FBEE87 /* UpdateFediverseInteractionsOperation.swift */; };
 		D5D574C82ED1536700FBEE87 /* AltStore19ToAltStore20.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5D574C72ED1536700FBEE87 /* AltStore19ToAltStore20.xcmappingmodel */; };
@@ -491,6 +508,7 @@
 		D5DB81642B0410BC003F5F8B /* AppSorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB81632B0410BC003F5F8B /* AppSorting.swift */; };
 		D5E1E7C128077DE90016FC96 /* UpdateKnownSourcesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E1E7C028077DE90016FC96 /* UpdateKnownSourcesOperation.swift */; };
 		D5E3FB9828FDFAD90034B72C /* NSError+AltStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C336124197D700034FD24 /* NSError+AltStore.swift */; };
+		D5EA079B2FD217D0008A5321 /* AppIcon_Brazil.icon in Resources */ = {isa = PBXBuildFile; fileRef = D5EA079A2FD217D0008A5321 /* AppIcon_Brazil.icon */; };
 		D5F2F6A92720B7C20081CCF5 /* PatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F2F6A82720B7C20081CCF5 /* PatchViewController.swift */; };
 		D5F48B4829CCF21B002B52A4 /* AltStore+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F48B4729CCF21B002B52A4 /* AltStore+Async.swift */; };
 		D5F48B4C29CD0C48002B52A4 /* AsyncManaged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F48B4929CD0B67002B52A4 /* AsyncManaged.swift */; };
@@ -699,8 +717,12 @@
 /* Begin PBXFileReference section */
 		11611D46F8A7C8B928E8156B /* Pods-AltServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltServer.debug.xcconfig"; path = "Target Support Files/Pods-AltServer/Pods-AltServer.debug.xcconfig"; sourceTree = "<group>"; };
 		589BA531D903B28F292063E5 /* Pods-AltServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltServer.release.xcconfig"; path = "Target Support Files/Pods-AltServer/Pods-AltServer.release.xcconfig"; sourceTree = "<group>"; };
+		820059C22F36BBAA00C22365 /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
+		825DAD9D2F0C329C00E0EDF1 /* FediverseLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FediverseLikesView.swift; sourceTree = "<group>"; };
+		82BBB9332F185B33005A472E /* AppIcon_Japan.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon_Japan.icon; sourceTree = "<group>"; };
 		82CB1FB22EBABB0100C8E822 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
-		A136EE677716B80768E9F0A2 /* Pods-AltStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltStore.release.xcconfig"; path = "Target Support Files/Pods-AltStore/Pods-AltStore.release.xcconfig"; sourceTree = "<group>"; };
+		82D6ED872EE9E62D009DC668 /* SourceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCollectionViewController.swift; sourceTree = "<group>"; };
+		82D6ED892EEA137A009DC668 /* TaskGroup+Collated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskGroup+Collated.swift"; sourceTree = "<group>"; };
 		BF02419522F2199300129732 /* RefreshAttemptsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAttemptsViewController.swift; sourceTree = "<group>"; };
 		BF0241A922F29CCD00129732 /* UserDefaults+AltServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+AltServer.swift"; sourceTree = "<group>"; };
 		BF08858222DE795100DE9F1E /* MyAppsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppsViewController.swift; sourceTree = "<group>"; };
@@ -1034,10 +1056,12 @@
 		BFF7C93B257849C600E55F36 /* AltXPC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AltXPC.entitlements; sourceTree = "<group>"; };
 		BFF7EC4C25081E9300BDE521 /* AltStore 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 8.xcdatamodel"; sourceTree = "<group>"; };
 		BFFCFA45248835530077BFCE /* AltDaemon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AltDaemon.entitlements; sourceTree = "<group>"; };
-		C9EEAA842DA87A88A870053B /* Pods_AltStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AltStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50107EB2ADF2E1A0069F2A1 /* AddSourceTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSourceTextFieldCell.swift; sourceTree = "<group>"; };
+		D5066FC02F1393DA0055B38A /* AltStore 21.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 21.xcdatamodel"; sourceTree = "<group>"; };
+		D5066FC12F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = AltStore20ToAltStore21.xcmappingmodel; sourceTree = "<group>"; };
 		D5084CCB2B1EA80100C02160 /* FeaturedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedComponents.swift; sourceTree = "<group>"; };
 		D50A33B72EF474360020665D /* CommissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommissionManager.swift; sourceTree = "<group>"; };
+		D50B88722F10546400BCD79C /* FederationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederationManager.swift; sourceTree = "<group>"; };
 		D50F7FF02C5BFEE70064F7CE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D5144BA72B8684EF00738A5C /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		D5151BD82A8FF64300C96F28 /* RefreshAllAppsIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAllAppsIntent.swift; sourceTree = "<group>"; };
@@ -1045,6 +1069,7 @@
 		D5151BE52A90391900C96F28 /* View+AltWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+AltWidget.swift"; sourceTree = "<group>"; };
 		D51540552C7E7A2000DB6C44 /* AltStore 18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 18.xcdatamodel"; sourceTree = "<group>"; };
 		D51540562C7E7BDE00DB6C44 /* AltStore17ToAltStore18.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = AltStore17ToAltStore18.xcmappingmodel; sourceTree = "<group>"; };
+		D515B73C2F5115660003684E /* UpdateRemoteFlagsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRemoteFlagsOperation.swift; sourceTree = "<group>"; };
 		D5177B0C2A26944600270065 /* AltStore12ToAltStore13.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = AltStore12ToAltStore13.xcmappingmodel; sourceTree = "<group>"; };
 		D5185B7E2AE1E35200646E33 /* AltStore 14.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 14.xcdatamodel"; sourceTree = "<group>"; };
 		D5185B7F2AE1E51B00646E33 /* AltStore13ToAltStore14.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = AltStore13ToAltStore14.xcmappingmodel; sourceTree = "<group>"; };
@@ -1069,6 +1094,7 @@
 		D533E8B82727B61400A9B5DD /* fragmentzip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fragmentzip.h; sourceTree = "<group>"; };
 		D533E8BB2727BBEE00A9B5DD /* libfragmentzip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfragmentzip.a; path = Dependencies/fragmentzip/libfragmentzip.a; sourceTree = SOURCE_ROOT; };
 		D533E8BD2727BBF800A9B5DD /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = Dependencies/libcurl/libcurl.a; sourceTree = SOURCE_ROOT; };
+		D53447922F11C7B800808D88 /* FetchSourceCollectionsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSourceCollectionsOperation.swift; sourceTree = "<group>"; };
 		D537C85A2AA95066009A1E08 /* libcorecrypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcorecrypto.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk/usr/lib/system/libcorecrypto.tbd; sourceTree = DEVELOPER_DIR; };
 		D5390C3B2AC3A43900D17E62 /* AddSourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSourceViewController.swift; sourceTree = "<group>"; };
 		D5399FAD2BE56B030038DDEF /* JoinPatreonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinPatreonViewController.swift; sourceTree = "<group>"; };
@@ -1080,9 +1106,11 @@
 		D5409F6C2E3AA74B00EE8AD1 /* InstallationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallationError.swift; sourceTree = "<group>"; };
 		D540E93728EE1BDE000F1B0F /* ErrorDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDetailsViewController.swift; sourceTree = "<group>"; };
 		D5418F162AD740890014ABD6 /* AppScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
-		D54D13E52E5D19FD00FEC355 /* Federatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Federatable.swift; sourceTree = "<group>"; };
+		D548D4D42F0F013C00CAE432 /* BlueskyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueskyAPI.swift; sourceTree = "<group>"; };
+		D548D4D62F0F014800CAE432 /* BlueskyAPI+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueskyAPI+Types.swift"; sourceTree = "<group>"; };
 		D54D13C32E5CEEB800FEC355 /* iCloudAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudAPI.swift; sourceTree = "<group>"; };
 		D54D13C52E5CEF2200FEC355 /* iCloudAPI+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iCloudAPI+Types.swift"; sourceTree = "<group>"; };
+		D54D13E52E5D19FD00FEC355 /* Federatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Federatable.swift; sourceTree = "<group>"; };
 		D54DED1328CBC44B008B27A0 /* ErrorLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogTableViewCell.swift; sourceTree = "<group>"; };
 		D551D02E2EE8C24F00027F33 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D551D0302EE8C44500027F33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Authentication.storyboard; sourceTree = "<group>"; };
@@ -1105,6 +1133,8 @@
 		D560918A2EEA2DD60090FEDF /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/Settings.xcstrings; sourceTree = "<group>"; };
 		D560918B2EEA30AD0090FEDF /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/Main.xcstrings; sourceTree = "<group>"; };
 		D561AF812B21669400BF59C6 /* VerifyAppPledgeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyAppPledgeOperation.swift; sourceTree = "<group>"; };
+		D56579912F3EDF0E0054E169 /* AltStore 22.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 22.xcdatamodel"; sourceTree = "<group>"; };
+		D56579922F3EDF9D0054E169 /* AltStore21ToAltStore22.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = AltStore21ToAltStore22.xcmappingmodel; sourceTree = "<group>"; };
 		D56842A82C62A1A800FB1AB4 /* KeyedDecodingContainer+LocalizedValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+LocalizedValues.swift"; sourceTree = "<group>"; };
 		D56915052AD5D75B00A2B747 /* Regex+Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Regex+Permissions.swift"; sourceTree = "<group>"; };
 		D56915082AD5F3E800A2B747 /* AltTests+Sources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AltTests+Sources.swift"; sourceTree = "<group>"; };
@@ -1158,14 +1188,16 @@
 		D5A645242AF5BC7F0047D980 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		D5ACE84428E3B8450021CAB9 /* ClearAppCacheOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearAppCacheOperation.swift; sourceTree = "<group>"; };
 		D5AE997A2B64791E0068B366 /* AppMarketplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMarketplace.swift; sourceTree = "<group>"; };
-		D5B15D4A2ECE8ED000F8E797 /* FediverseInteractionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FediverseInteractionsView.swift; sourceTree = "<group>"; };
 		D5B15D422ECE664000F8E797 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		D5B15D4A2ECE8ED000F8E797 /* FediverseInteractionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FediverseInteractionsView.swift; sourceTree = "<group>"; };
+		D5B1E6432F3680EE00146B46 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		D5B6F6A82AD75D01007EED5A /* ProcessInfo+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+Previews.swift"; sourceTree = "<group>"; };
 		D5B6F6AA2AD76541007EED5A /* PreviewAppScreenshotsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewAppScreenshotsViewController.swift; sourceTree = "<group>"; };
 		D5BA9E9A2A9FE1E8007C0661 /* JITManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JITManager.swift; sourceTree = "<group>"; };
 		D5BD17D02B6474FF00BAE633 /* AltMarketplace.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = AltMarketplace.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5BD17D22B6474FF00BAE633 /* AltMarketplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltMarketplace.swift; sourceTree = "<group>"; };
 		D5BD17D42B6474FF00BAE633 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5BD46562F0DC48000D26AB5 /* SocialWebAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialWebAccount.swift; sourceTree = "<group>"; };
 		D5BE12382B89372E009C026C /* InstallAppRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallAppRequest.swift; sourceTree = "<group>"; };
 		D5BE123C2B893ABF009C026C /* HTTPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
 		D5BE123E2B893D66009C026C /* Logger+AltMarketplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+AltMarketplace.swift"; sourceTree = "<group>"; };
@@ -1182,6 +1214,7 @@
 		D5CF17242B96821D002EC4C7 /* AltMarketplace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AltMarketplace.entitlements; sourceTree = "<group>"; };
 		D5CF17252B96DD27002EC4C7 /* InstallMarketplaceAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallMarketplaceAppViewController.swift; sourceTree = "<group>"; };
 		D5CF56812A0D83F9006D93E2 /* VerificationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationError.swift; sourceTree = "<group>"; };
+		D5D097122F15B3FA00CC917D /* FederatedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederatedItem.swift; sourceTree = "<group>"; };
 		D5D3BFB12D4D87A5000FFFAF /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		D5D574C42ED0FC1F00FBEE87 /* UpdateFediverseInteractionsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFediverseInteractionsOperation.swift; sourceTree = "<group>"; };
 		D5D574C62ED1531500FBEE87 /* AltStore 20.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AltStore 20.xcdatamodel"; sourceTree = "<group>"; };
@@ -1190,6 +1223,7 @@
 		D5DB145828F9DC1000A8F606 /* ALTLocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALTLocalizedError.swift; sourceTree = "<group>"; };
 		D5DB81632B0410BC003F5F8B /* AppSorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSorting.swift; sourceTree = "<group>"; };
 		D5E1E7C028077DE90016FC96 /* UpdateKnownSourcesOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateKnownSourcesOperation.swift; sourceTree = "<group>"; };
+		D5EA079A2FD217D0008A5321 /* AppIcon_Brazil.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon_Brazil.icon; sourceTree = "<group>"; };
 		D5F2F6A82720B7C20081CCF5 /* PatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchViewController.swift; sourceTree = "<group>"; };
 		D5F48B4729CCF21B002B52A4 /* AltStore+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AltStore+Async.swift"; sourceTree = "<group>"; };
 		D5F48B4929CD0B67002B52A4 /* AsyncManaged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncManaged.swift; sourceTree = "<group>"; };
@@ -1212,7 +1246,6 @@
 		D5FD4EC42A952EAD0097BEE8 /* AltWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltWidgetBundle.swift; sourceTree = "<group>"; };
 		D5FD4EC82A9530C00097BEE8 /* AppSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSnapshot.swift; sourceTree = "<group>"; };
 		D5FD4ECA2A9532960097BEE8 /* DatabaseManager+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseManager+Async.swift"; sourceTree = "<group>"; };
-		EA79A60285C6AF5848AA16E9 /* Pods-AltStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltStore.debug.xcconfig"; path = "Target Support Files/Pods-AltStore/Pods-AltStore.debug.xcconfig"; sourceTree = "<group>"; };
 		FC3822AB1C4CF1D4CDF7445D /* Pods_AltServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AltServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1283,11 +1316,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D533E8B72727841800A9B5DD /* libAppleArchive.tbd in Frameworks */,
+				D51F17472F3BAA4E0016D08B /* NukeExtensions in Frameworks */,
 				D535CEE82BE95D4C00F96119 /* TelemetryClient in Frameworks */,
+				D51F17452F3BAA4E0016D08B /* Nuke in Frameworks */,
 				BF1614F1250822F100767AEA /* Roxas.framework in Frameworks */,
 				BF088D332501A4FF008082D9 /* OpenSSL.xcframework in Frameworks */,
+				D51F17492F3BAA4E0016D08B /* NukeUI in Frameworks */,
 				BF66EE852501AE50007EE018 /* AltStoreCore.framework in Frameworks */,
-				2A77E3D272F3D92436FAC272 /* Pods_AltStore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1331,8 +1366,6 @@
 		4460E048E3AC1C9708C4FA33 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EA79A60285C6AF5848AA16E9 /* Pods-AltStore.debug.xcconfig */,
-				A136EE677716B80768E9F0A2 /* Pods-AltStore.release.xcconfig */,
 				11611D46F8A7C8B928E8156B /* Pods-AltServer.debug.xcconfig */,
 				589BA531D903B28F292063E5 /* Pods-AltServer.release.xcconfig */,
 			);
@@ -1710,6 +1743,7 @@
 				BF66EEAB2501AECA007EE018 /* Source.swift */,
 				BF66EEC42501AECA007EE018 /* StoreApp.swift */,
 				BF66EEC22501AECA007EE018 /* Team.swift */,
+				D5BD46552F0DC45900D26AB5 /* Fediverse */,
 				D557A4862AE88232007D0DCF /* Patreon */,
 				BF66EEAC2501AECA007EE018 /* Migrations */,
 			);
@@ -1757,6 +1791,8 @@
 				D51540562C7E7BDE00DB6C44 /* AltStore17ToAltStore18.xcmappingmodel */,
 				D5557B6B2D56B5ED008839A1 /* AltStore18ToAltStore19.xcmappingmodel */,
 				D5D574C72ED1536700FBEE87 /* AltStore19ToAltStore20.xcmappingmodel */,
+				D5066FC12F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel */,
+				D56579922F3EDF9D0054E169 /* AltStore21ToAltStore22.xcmappingmodel */,
 			);
 			path = "Mapping Models";
 			sourceTree = "<group>";
@@ -1931,6 +1967,7 @@
 				D5CD805E29CA755E00E591B0 /* SourceDetailViewController.swift */,
 				D5A0537229B91DB400997551 /* SourceDetailContentViewController.swift */,
 				D5390C3B2AC3A43900D17E62 /* AddSourceViewController.swift */,
+				82D6ED872EE9E62D009DC668 /* SourceCollectionViewController.swift */,
 				D50107ED2ADF2E310069F2A1 /* Components */,
 			);
 			path = Sources;
@@ -2033,7 +2070,6 @@
 				BF4588872298DD3F00BD7491 /* libxml2.tbd */,
 				BFD247862284BB3B00981D42 /* Roxas.framework */,
 				FC3822AB1C4CF1D4CDF7445D /* Pods_AltServer.framework */,
-				C9EEAA842DA87A88A870053B /* Pods_AltStore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2071,7 +2107,9 @@
 				BF6C8FAF2429599900125131 /* TextCollectionReusableView.swift */,
 				D5CD805C29CA2C1E00E591B0 /* HeaderContentViewController.swift */,
 				D5C0E7662AD9C75900530CA4 /* AppCardCollectionViewCell.swift */,
+				825DAD9D2F0C329C00E0EDF1 /* FediverseLikesView.swift */,
 				D5B15D4A2ECE8ED000F8E797 /* FediverseInteractionsView.swift */,
+				820059C22F36BBAA00C22365 /* SafariActivity.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2088,6 +2126,8 @@
 				D5784E3E2CC2E67B00DAC00E /* AltMarketplace.cer */,
 				82CB1FB22EBABB0100C8E822 /* AppIcon.icon */,
 				D5B15D422ECE664000F8E797 /* Localizable.xcstrings */,
+				82BBB9332F185B33005A472E /* AppIcon_Japan.icon */,
+				D5EA079A2FD217D0008A5321 /* AppIcon_Brazil.icon */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2116,6 +2156,7 @@
 				D5A645202AF591980047D980 /* UTType+AltStore.swift */,
 				D52C73642B688B2200E8751C /* InstalledApp+LoadIcon.swift */,
 				D59B43DA2B97546200619B71 /* UIViewController+OpenApp.swift */,
+				82D6ED892EEA137A009DC668 /* TaskGroup+Collated.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2185,9 +2226,11 @@
 				D57F2C9026E0070200B9FA39 /* EnableJITOperation.swift */,
 				D5DAE0952804DF430034D8D4 /* UpdatePatronsOperation.swift */,
 				D5E1E7C028077DE90016FC96 /* UpdateKnownSourcesOperation.swift */,
+				D53447922F11C7B800808D88 /* FetchSourceCollectionsOperation.swift */,
 				D5ACE84428E3B8450021CAB9 /* ClearAppCacheOperation.swift */,
 				D561AF812B21669400BF59C6 /* VerifyAppPledgeOperation.swift */,
 				D5D574C42ED0FC1F00FBEE87 /* UpdateFediverseInteractionsOperation.swift */,
+				D515B73C2F5115660003684E /* UpdateRemoteFlagsOperation.swift */,
 				BF7B44062725A4B8005288A4 /* Patch App */,
 			);
 			path = Operations;
@@ -2340,8 +2383,11 @@
 		D526A40D2E32F74D00D2E768 /* Fediverse */ = {
 			isa = PBXGroup;
 			children = (
+				D50B88722F10546400BCD79C /* FederationManager.swift */,
 				D526A40E2E32F75D00D2E768 /* MastodonAPI.swift */,
 				D526A4102E32F80700D2E768 /* MastodonAPI+Types.swift */,
+				D548D4D42F0F013C00CAE432 /* BlueskyAPI.swift */,
+				D548D4D62F0F014800CAE432 /* BlueskyAPI+Types.swift */,
 				D54D13C32E5CEEB800FEC355 /* iCloudAPI.swift */,
 				D54D13C52E5CEF2200FEC355 /* iCloudAPI+Types.swift */,
 			);
@@ -2461,6 +2507,16 @@
 				D5BD17D42B6474FF00BAE633 /* Info.plist */,
 			);
 			path = AltMarketplace;
+			sourceTree = "<group>";
+		};
+		D5BD46552F0DC45900D26AB5 /* Fediverse */ = {
+			isa = PBXGroup;
+			children = (
+				D5BD46562F0DC48000D26AB5 /* SocialWebAccount.swift */,
+				D5D097122F15B3FA00CC917D /* FederatedItem.swift */,
+				D5B1E6432F3680EE00146B46 /* Like.swift */,
+			);
+			path = Fediverse;
 			sourceTree = "<group>";
 		};
 		D5BDD9712B1FC8FA001F84DE /* Permissions */ = {
@@ -2727,12 +2783,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFD2477E2284B9A700981D42 /* Build configuration list for PBXNativeTarget "AltStore" */;
 			buildPhases = (
-				FFB93342C7EB2021A1FFFB6A /* [CP] Check Pods Manifest.lock */,
 				BFD247662284B9A500981D42 /* Sources */,
 				BFD247672284B9A500981D42 /* Frameworks */,
 				BFD247682284B9A500981D42 /* Resources */,
 				BF088D2B2501A087008082D9 /* Embed Frameworks */,
-				744AE3B03F6BF664FC5705C5 /* [CP] Embed Pods Frameworks */,
 				BF98917B250AABF4002ACF50 /* Embed Foundation Extensions */,
 				D5BD17D82B6474FF00BAE633 /* Embed ExtensionKit Extensions */,
 			);
@@ -2746,6 +2800,9 @@
 			name = AltStore;
 			packageProductDependencies = (
 				D535CEE72BE95D4C00F96119 /* TelemetryClient */,
+				D51F17442F3BAA4E0016D08B /* Nuke */,
+				D51F17462F3BAA4E0016D08B /* NukeExtensions */,
+				D51F17482F3BAA4E0016D08B /* NukeUI */,
 			);
 			productName = AltStore;
 			productReference = BFD2476A2284B9A500981D42 /* AltStore.app */;
@@ -2909,6 +2966,7 @@
 				en,
 				Base,
 				ja,
+				"pt-BR",
 			);
 			mainGroup = BFD247612284B9A500981D42;
 			packageReferences = (
@@ -2916,6 +2974,7 @@
 				D5FB7A2C2AA2859400EF863D /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 				D535CEE62BE95D4C00F96119 /* XCRemoteSwiftPackageReference "SwiftClient" */,
 				D56435E42E2AC35C007D1935 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				D51F17432F3BAA4E0016D08B /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = BFD2476B2284B9A500981D42 /* Products */;
 			projectDirPath = "";
@@ -2992,9 +3051,11 @@
 				BFB4323F22DE852000B7F8BC /* UpdateCollectionViewCell.xib in Resources */,
 				D59162AD29BA616A005CBF47 /* SourceHeaderView.xib in Resources */,
 				D56091892EEA2DD60090FEDF /* Settings.storyboard in Resources */,
+				82BBB9342F185B33005A472E /* AppIcon_Japan.icon in Resources */,
 				D5144BA82B8684EF00738A5C /* Icons.xcassets in Resources */,
 				82CB1FB32EBABB0100C8E822 /* AppIcon.icon in Resources */,
 				D57DF638271E32F000677701 /* PatchApp.storyboard in Resources */,
+				D5EA079B2FD217D0008A5321 /* AppIcon_Brazil.icon in Resources */,
 				D5399FB02BE56B120038DDEF /* JoinPatreonViewController.xib in Resources */,
 				BFD2477A2284B9A700981D42 /* LaunchScreen.storyboard in Resources */,
 				BF44EEF3246B3A17002A52F2 /* AltBackup.ipa in Resources */,
@@ -3038,23 +3099,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		744AE3B03F6BF664FC5705C5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AltStore/Pods-AltStore-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AltStore/Pods-AltStore-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AltStore/Pods-AltStore-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		98BF22D155DBAEA97544E3E6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3063,9 +3107,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AltServer/Pods-AltServer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AltServer/Pods-AltServer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3106,28 +3154,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-AltServer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FFB93342C7EB2021A1FFFB6A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AltStore-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3320,6 +3346,7 @@
 				BFAECC572501B0A400528F27 /* ConnectionManager.swift in Sources */,
 				BF66EE9D2501AEC1007EE018 /* AppProtocol.swift in Sources */,
 				D519AD46292D665B004B12F9 /* Managed.swift in Sources */,
+				D5B1E6442F3680EE00146B46 /* Like.swift in Sources */,
 				D52A2F972ACB40F700BDF8E3 /* Logger+AltStore.swift in Sources */,
 				BFC712C42512D5F100AB5EBE /* XPCConnection.swift in Sources */,
 				D5CA0C4B280E141900469595 /* ManagedPatron.swift in Sources */,
@@ -3334,9 +3361,11 @@
 				BF66EEA92501AEC5007EE018 /* Tier.swift in Sources */,
 				BF66EEDB2501AECA007EE018 /* StoreApp.swift in Sources */,
 				D5CE309C2B4C946300DB8151 /* AltStore15ToAltStore16.xcmappingmodel in Sources */,
+				D56579932F3EDF9D0054E169 /* AltStore21ToAltStore22.xcmappingmodel in Sources */,
 				BF66EEDE2501AECA007EE018 /* AppID.swift in Sources */,
 				BF66EECF2501AECA007EE018 /* AltStoreToAltStore2.xcmappingmodel in Sources */,
 				BF66EEA82501AEC5007EE018 /* Patron.swift in Sources */,
+				D5BD46572F0DC48000D26AB5 /* SocialWebAccount.swift in Sources */,
 				BF66EEDD2501AECA007EE018 /* AppPermission.swift in Sources */,
 				D58916FE28C7C55C00E39C8B /* LoggedError.swift in Sources */,
 				BFBF331B2526762200B7B8C9 /* AltStore8ToAltStore9.xcmappingmodel in Sources */,
@@ -3369,6 +3398,7 @@
 				BF66EED52501AECA007EE018 /* AltStore.xcdatamodeld in Sources */,
 				BFAECC582501B0A400528F27 /* ALTConstants.m in Sources */,
 				D5F99A1A28D12B1400476A16 /* StoreApp10ToStoreApp11Policy.swift in Sources */,
+				D5066FC22F1394600055B38A /* AltStore20ToAltStore21.xcmappingmodel in Sources */,
 				D5177B0D2A26944600270065 /* AltStore12ToAltStore13.xcmappingmodel in Sources */,
 				BFAECC562501B0A400528F27 /* ALTServerError+Conveniences.swift in Sources */,
 				D56915072AD5E91B00A2B747 /* Regex+Permissions.swift in Sources */,
@@ -3379,6 +3409,7 @@
 				BF66EEE12501AECA007EE018 /* DatabaseManager.swift in Sources */,
 				D52C08EE28AEC37A006C4AE5 /* AppVersion.swift in Sources */,
 				BF66EEEA2501AED0007EE018 /* UIColor+Hex.swift in Sources */,
+				D5D097132F15B3FA00CC917D /* FederatedItem.swift in Sources */,
 				D5D3BFB22D4D87A5000FFFAF /* Media.swift in Sources */,
 				BF66EECC2501AECA007EE018 /* Source.swift in Sources */,
 				BF66EED72501AECA007EE018 /* InstalledApp.swift in Sources */,
@@ -3436,6 +3467,7 @@
 				BF56D2AC23DF8E170006506D /* FetchAppIDsOperation.swift in Sources */,
 				BFC1F38D22AEE3A4003AC21A /* DownloadAppOperation.swift in Sources */,
 				BFE6073A231ADF82002B0E8E /* SettingsViewController.swift in Sources */,
+				D548D4D72F0F014800CAE432 /* BlueskyAPI+Types.swift in Sources */,
 				D57F2C9126E0070200B9FA39 /* EnableJITOperation.swift in Sources */,
 				BF8CAE4E248AEABA004D6CCE /* UIDevice+Jailbreak.swift in Sources */,
 				D5E1E7C128077DE90016FC96 /* UpdateKnownSourcesOperation.swift in Sources */,
@@ -3443,6 +3475,7 @@
 				BFE338DF22F0EADB002E24B9 /* FetchSourceOperation.swift in Sources */,
 				D54DED1428CBC44B008B27A0 /* ErrorLogTableViewCell.swift in Sources */,
 				D5390C3C2AC3A43900D17E62 /* AddSourceViewController.swift in Sources */,
+				D515B73D2F5115660003684E /* UpdateRemoteFlagsOperation.swift in Sources */,
 				D5CD805F29CA755E00E591B0 /* SourceDetailViewController.swift in Sources */,
 				D57968CB29CB99EF00539069 /* VibrantButton.swift in Sources */,
 				BFB6B21E231870160022A802 /* NewsViewController.swift in Sources */,
@@ -3454,6 +3487,7 @@
 				D5B15D4B2ECE8ED800F8E797 /* FediverseInteractionsView.swift in Sources */,
 				BF0DCA662433BDF500E3A595 /* AnalyticsManager.swift in Sources */,
 				D5418F172AD740890014ABD6 /* AppScreenshotCollectionViewCell.swift in Sources */,
+				D548D4D52F0F013C00CAE432 /* BlueskyAPI.swift in Sources */,
 				BFCCB51A245E3401001853EA /* VerifyAppOperation.swift in Sources */,
 				BFF0B6982322CAB8007A79E1 /* InstructionsViewController.swift in Sources */,
 				D526A4112E32F80800D2E768 /* MastodonAPI+Types.swift in Sources */,
@@ -3463,6 +3497,7 @@
 				BF770E5422BC044E002A40FE /* OperationContexts.swift in Sources */,
 				BFD2478C2284C4C300981D42 /* AppIconImageView.swift in Sources */,
 				BF8F69C422E662D300049BA1 /* AppViewController.swift in Sources */,
+				825DAD9E2F0C329C00E0EDF1 /* FediverseLikesView.swift in Sources */,
 				BFF0B68E23219520007A79E1 /* PatreonViewController.swift in Sources */,
 				BFF00D302501BD7D00746320 /* Intents.intentdefinition in Sources */,
 				D5CF568C2A0D8EEC006D93E2 /* VerificationError.swift in Sources */,
@@ -3471,6 +3506,7 @@
 				D52C73652B688B2200E8751C /* InstalledApp+LoadIcon.swift in Sources */,
 				BF41B806233423AE00C593A3 /* TabBarController.swift in Sources */,
 				BFE00A202503097F00EB4D0C /* INInteraction+AltStore.swift in Sources */,
+				82D6ED8A2EEA137A009DC668 /* TaskGroup+Collated.swift in Sources */,
 				BFDB6A0B22AAEDB7007EA6D6 /* Operation.swift in Sources */,
 				BF770E6722BD57C4002A40FE /* BackgroundTaskManager.swift in Sources */,
 				BF44EEFC246B4550002A52F2 /* RemoveAppOperation.swift in Sources */,
@@ -3506,9 +3542,11 @@
 				BFD52BD422A0800A000B7ED1 /* ServerManager.swift in Sources */,
 				D57FE84428C7DB7100216002 /* ErrorLogViewController.swift in Sources */,
 				D50107EC2ADF2E1A0069F2A1 /* AddSourceTextFieldCell.swift in Sources */,
+				D50B88732F10546400BCD79C /* FederationManager.swift in Sources */,
 				D5151BD92A8FF64300C96F28 /* RefreshAllAppsIntent.swift in Sources */,
 				BFBE0007250AD0E70080826E /* ViewAppIntentHandler.swift in Sources */,
 				BFDB6A0822AAED73007EA6D6 /* ResignAppOperation.swift in Sources */,
+				820059C32F36BBAA00C22365 /* SafariActivity.swift in Sources */,
 				D55467B82A8D5E2600F4CE90 /* AppShortcuts.swift in Sources */,
 				D593F1942717749A006E82DE /* PatchAppOperation.swift in Sources */,
 				BF770E5122BB1CF6002A40FE /* InstallAppOperation.swift in Sources */,
@@ -3525,6 +3563,7 @@
 				BFF0B6942321CB85007A79E1 /* AuthenticationViewController.swift in Sources */,
 				D561AF822B21669400BF59C6 /* VerifyAppPledgeOperation.swift in Sources */,
 				BF3432FB246B894F0052F4A1 /* BackupAppOperation.swift in Sources */,
+				D53447932F11C7B800808D88 /* FetchSourceCollectionsOperation.swift in Sources */,
 				D5D574C52ED0FC2A00FBEE87 /* UpdateFediverseInteractionsOperation.swift in Sources */,
 				BF9ABA4922DD0742008935CF /* ScreenshotCollectionViewCell.swift in Sources */,
 				BF9ABA4D22DD16DE008935CF /* PillButton.swift in Sources */,
@@ -3542,6 +3581,7 @@
 				BFB6B220231870B00022A802 /* NewsCollectionViewCell.swift in Sources */,
 				D56D21402B7D9942007641C5 /* AltAppIconsViewController.swift in Sources */,
 				BFB3645A2325985F00CD0EB1 /* FindServerOperation.swift in Sources */,
+				82D6ED882EE9E62D009DC668 /* SourceCollectionViewController.swift in Sources */,
 				D52EF2BE2A0594550096C377 /* AppDetailCollectionViewController.swift in Sources */,
 				D5CF17262B96DD27002EC4C7 /* InstallMarketplaceAppViewController.swift in Sources */,
 				D569A5042AF9BC5F00A4CB8B /* ReviewPermissionsViewController.swift in Sources */,
@@ -4266,7 +4306,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 75;
+				CURRENT_PROJECT_VERSION = 87;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -4284,9 +4324,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.3.4;
+				MARKETING_VERSION = 2.3.12;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4336,7 +4376,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 75;
+				CURRENT_PROJECT_VERSION = 87;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4348,9 +4388,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.3.4;
+				MARKETING_VERSION = 2.3.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -4369,7 +4409,6 @@
 		};
 		BFD2477F2284B9A700981D42 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA79A60285C6AF5848AA16E9 /* Pods-AltStore.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4381,7 +4420,6 @@
 				DEVELOPMENT_TEAM = 6P6G44MPGD;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AltStore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4406,7 +4444,6 @@
 		};
 		BFD247802284B9A700981D42 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A136EE677716B80768E9F0A2 /* Pods-AltStore.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4418,7 +4455,6 @@
 				DEVELOPMENT_TEAM = 6P6G44MPGD;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AltStore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4570,7 +4606,6 @@
 				INFOPLIST_FILE = AltMarketplace/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AltMarketplace;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Riley Testut. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4605,7 +4640,6 @@
 				INFOPLIST_FILE = AltMarketplace/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AltMarketplace;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Riley Testut. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4831,6 +4865,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D51F17432F3BAA4E0016D08B /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
 		D535CEE62BE95D4C00F96119 /* XCRemoteSwiftPackageReference "SwiftClient" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TelemetryDeck/SwiftClient";
@@ -4878,6 +4920,21 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = "AltSign-Static";
 		};
+		D51F17442F3BAA4E0016D08B /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D51F17432F3BAA4E0016D08B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		D51F17462F3BAA4E0016D08B /* NukeExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D51F17432F3BAA4E0016D08B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeExtensions;
+		};
+		D51F17482F3BAA4E0016D08B /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D51F17432F3BAA4E0016D08B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
 		D52DD35D2AAA89A600A7F2B6 /* AltSign-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "AltSign-Dynamic";
@@ -4912,6 +4969,8 @@
 		BF66EEB72501AECA007EE018 /* AltStore.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				D56579912F3EDF0E0054E169 /* AltStore 22.xcdatamodel */,
+				D5066FC02F1393DA0055B38A /* AltStore 21.xcdatamodel */,
 				D5D574C62ED1531500FBEE87 /* AltStore 20.xcdatamodel */,
 				D5557B6A2D56B559008839A1 /* AltStore 19.xcdatamodel */,
 				D51540552C7E7A2000DB6C44 /* AltStore 18.xcdatamodel */,
@@ -4933,7 +4992,7 @@
 				BF66EEBD2501AECA007EE018 /* AltStore 2.xcdatamodel */,
 				BF66EEBE2501AECA007EE018 /* AltStore 4.xcdatamodel */,
 			);
-			currentVersion = D5D574C62ED1531500FBEE87 /* AltStore 20.xcdatamodel */;
+			currentVersion = D56579912F3EDF0E0054E169 /* AltStore 22.xcdatamodel */;
 			path = AltStore.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

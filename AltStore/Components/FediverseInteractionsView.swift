@@ -8,13 +8,18 @@
 
 import UIKit
 import SwiftUI
+import CoreData
 
 import AltStoreCore
+
+import NukeUI
 
 @Observable
 class FediverseInteractionsView: UIView
 {
     var shareHandler: ((URL) -> UIViewController?)?
+    
+    weak var presentingViewController: UIViewController?
     
     private var contentView: UIView!
     
@@ -32,7 +37,7 @@ class FediverseInteractionsView: UIView
         self.update(with: nil)
     }
     
-    func configure(with item: some Federatable, isOpaque: Bool = false)
+    func configure(with item: FederatedItem, isOpaque: Bool = false)
     {
         self.update(with: item, isOpaque: isOpaque)
     }
@@ -40,14 +45,14 @@ class FediverseInteractionsView: UIView
 
 private extension FediverseInteractionsView
 {
-    func update(with item: (any Federatable)?, isOpaque: Bool = false)
+    func update(with item: FederatedItem?, isOpaque: Bool = false)
     {
         self.contentView?.removeFromSuperview()
         
         let hostingConfiguration = UIHostingConfiguration {
-            if let item
+            if let item, !UserDefaults.shared.fediverseInteractionsDisabled
             {
-                FediverseInteractions(item: item, isOpaque: isOpaque)
+                FediverseInteractions(federatedItem: item, isOpaque: isOpaque)
                     .environment(self)
                     .tint(Color(uiColor: self.tintColor))
             }
@@ -64,14 +69,23 @@ private extension FediverseInteractionsView
 
 struct FediverseInteractions: View
 {
-    @State
-    var item: Federatable
+    @ObservedObject
+    var federatedItem: FederatedItem
     
     @State
     var isOpaque: Bool = false
     
     @State
-    private var accounts: [MastodonAPI.Account]?
+    private var accounts: [SocialWebAccount]?
+    
+    @State
+    private var isShowingLikes = false
+
+    @State
+    private var isLiked: Bool = false
+    
+    @State
+    private var likesCount: Int = 0
     
     @Namespace
     private var unionNamespace
@@ -81,6 +95,34 @@ struct FediverseInteractions: View
     
     private let preferredHeight: CGFloat = 30
     private let maximumAvatars: Int = 5
+    private var maximumSlots: Int { maximumAvatars + 1 }
+    private var avatarDiameter: Double { preferredHeight } // Same height as View itself
+    
+    private let hapticGenerator = UINotificationFeedbackGenerator()
+    
+    /* Like Animation */
+    
+    // Slots[0...4] = visible avatars, slots[5] = invisible staging area
+    @State
+    private var slots: [SocialWebAccount?] = Array(repeating: nil, count: 6)
+
+    @State
+    private var snapshot: AnimationSnapshot?
+    
+    @State
+    private var rollingState: RollingAnimationState = .idle
+    
+    @State
+    private var rollOffset: Double = 0
+    
+    @State
+    private var rollRotation: Double = 0
+    
+    @State
+    private var avatarShiftOffset: Double = 0
+    
+    @State
+    private var rollingAvatarOpacity: Double = 1.0
     
     var body: some View {
         Group {
@@ -89,36 +131,92 @@ struct FediverseInteractions: View
                 HStack {
                     // Comment + Like buttons
                     socialButtons
+                        .zIndex(3) // Above likes + rolling avatar
                     
-                    let avatarSpacing = -(preferredHeight / 2)
+                    let avatarSpacing = -(avatarDiameter / 2)
                     
-                    // Avatars
-                    SwiftUI.Button {
-                        showLikes(for: item)
-                    } label: {
-                        HStack(spacing: avatarSpacing) {
-                            if let accounts
-                            {
-                                ForEach(Array(accounts.enumerated()), id: \.element) { index, account in
-                                    AsyncImage(url: account.avatar_static) { image in
-                                        image
-                                            .resizable()
-                                            .clipShape(.circle)
-                                            .overlay(Circle().stroke(.tint, lineWidth: 1))
-                                            .frame(width: preferredHeight, height: preferredHeight)
-                                    } placeholder: {
+                    ZStack {
+                        
+                        // Avatars
+                        SwiftUI.Button {
+                            isShowingLikes = true
+                        } label: {
+                            HStack(spacing: avatarSpacing) {
+                                if hasLoadedSlots
+                                {
+                                    let accounts = Array(visibleSlots.enumerated().prefix(maximumAvatars)) // We may cache more than the visible number
+                                    
+                                    ForEach(accounts, id: \.element) { index, account in
+                                        if let avatarURL = account.avatarURL
+                                        {
+                                            LazyImage(url: avatarURL) { state in
+                                                if let image = state.image
+                                                {
+                                                    image
+                                                        .background(Color.white)
+                                                        .clipShape(.circle)
+                                                        .overlay(Circle().stroke(.tint, lineWidth: 1))
+                                                        .frame(width: preferredHeight, height: preferredHeight)
+                                                }
+                                                else if let error = state.error
+                                                {
+                                                    avatarPlaceholder
+                                                        .onAppear {
+                                                            Logger.main.error("Failed to fetch Fediverse avatar at \(avatarURL.absoluteString, privacy: .public): \(error.localizedDescription, privacy: .public)")
+                                                        }
+                                                }
+                                                else
+                                                {
+                                                    avatarPlaceholder
+                                                }
+                                            }
+                                            .zIndex(Double(-index))
+                                            .offset(x: index < 4 ? avatarShiftOffset : 0) // Don't shift fifth avatar
+                                            .opacity(index == 4 ? 1.0 - (avatarShiftOffset / shiftDistance) : 1.0) // Fade it out instead
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    let avatarsCount = min(Int(likesCount), maximumAvatars)
+                                    ForEach(0..<avatarsCount, id: \.self) { _ in
                                         avatarPlaceholder
                                     }
-                                    .zIndex(Double(-index))
                                 }
                             }
-                            else
-                            {
-                                let avatarsCount = min(Int(item.likesCount), maximumAvatars)
-                                ForEach(0..<avatarsCount, id: \.self) { _ in
+                            .frame(width: avatarContainerWidth, alignment: .leading) //RST Why?
+                        }
+                        .accessibilityValue(Text("^[\(likesCount) like](inflect: true)"))
+                        .accessibilityHint(Text("Shows all likes"))
+                        
+                        // Rolling avatar
+                        if let currentAccount = DatabaseManager.shared.socialWebAccount(), rollingState.isAnimating, let avatarURL = currentAccount.avatarURL
+                        {
+                            LazyImage(url: avatarURL) { state in
+                                if let image = state.image
+                                {
+                                    image
+                                        .background(Color.white)
+                                        .clipShape(.circle)
+                                        .overlay(Circle().stroke(.tint, lineWidth: 1))
+                                        .frame(width: preferredHeight, height: preferredHeight)
+                                }
+                                else if let error = state.error
+                                {
+                                    avatarPlaceholder
+                                        .onAppear {
+                                            Logger.main.error("Failed to fetch Fediverse avatar at \(avatarURL.absoluteString, privacy: .public): \(error.localizedDescription, privacy: .public)")
+                                        }
+                                }
+                                else
+                                {
                                     avatarPlaceholder
                                 }
                             }
+                            .rotationEffect(.degrees(rollRotation))
+                            .offset(x: rollOffset)
+                            .opacity(rollingAvatarOpacity)
+                            .zIndex(2)
                         }
                     }
                 }
@@ -133,45 +231,95 @@ struct FediverseInteractions: View
         .task(priority: .medium) { @MainActor in
             do
             {
-                guard let rawStatusID = item.statusID, let statusID = Int(rawStatusID) else { return }
+                let context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
                 
-                let accounts = try await MastodonAPI.shared.fetchFavorites(tootID: statusID, limit: maximumAvatars)
-                self.accounts = accounts
+                let _ = try await FederationManager.shared.fetchLikes(for: federatedItem, limit: maximumAvatars * 2, in: context) // Fetch double the amount we need as buffer
+                try await context.perform {
+                    try context.save()
+                }
+            }
+            catch let error as URLError where error.code == .cancelled
+            {
+                // Do nothing
             }
             catch
             {
-                Logger.main.error("Failed to fetch Fediverse interactions for \(String(describing: item), privacy: .public): \(error.localizedDescription, privacy: .public)")
+                Logger.main.error("Failed to fetch likes for \(federatedItem.url, privacy: .public): \(error.localizedDescription, privacy: .public)")
             }
+        }
+        .sheet(isPresented: $isShowingLikes) {
+            NavigationStack {
+                FediverseLikesView(federatedItem: federatedItem)
+            }
+            .presentationDetents([.medium, .large])
+        }
+        .task(priority: .medium) {
+            do
+            {
+                let context: NSManagedObjectContext
+                if let parentContext = federatedItem.managedObjectContext, federatedItem.objectID.isTemporaryID
+                {
+                    // Use child context since this a temporary context.
+                    context = DatabaseManager.shared.persistentContainer.newBackgroundContext(withParent: parentContext)
+                }
+                else
+                {
+                    context = DatabaseManager.shared.persistentContainer.newBackgroundContext()
+                }
+                
+                try await FederationManager.shared.updateInteractions(for: [federatedItem], in: context)
+            }
+            catch
+            {
+                Logger.main.error("Failed to update interactions for \(federatedItem.url, privacy: .public): \(error.localizedDescription, privacy: .public)")
+            }
+        }
+        .onAppear {
+            isLiked = federatedItem.isLiked
+            likesCount = Int(federatedItem.likesCount)
+            accounts = federatedItem.likes.compactMap { $0.account }
+        }
+        .onChange(of: federatedItem.isLiked) { oldValue, newValue in
+            isLiked = newValue
+        }
+        .onChange(of: federatedItem.likesCount) { oldValue, newValue in
+            likesCount = Int(newValue)
+        }
+        .onChange(of: federatedItem._likes) { oldValue, newValue in
+            accounts = federatedItem.likes.compactMap { $0.account }
+        }
+        .onChange(of: accounts) { oldValue, newValue in
+            updateSlots()
+        }
+        .onChange(of: isLiked) { oldValue, newValue in
+            updateSlots()
         }
     }
     
     private var socialButtonContent: some View {
         Group {
-            // Comment button
-            SwiftUI.Button {
-                showFederatedStatus(for: item)
-            } label: {
-                HStack(spacing: 2) {
-                    Image(systemName: "bubble")
-                    if item.commentsCount > 0
-                    {
-                        Text("\(item.commentsCount)")
-                    }
-                }
-            }
-            
             // Like button
             SwiftUI.Button {
-                showLikes(for: item)
+                like(federatedItem)
             } label: {
                 HStack(spacing: 2) {
-                    Image(systemName: "heart")
-                    if item.likesCount > 0
+                    if isLiked
                     {
-                        Text("\(item.likesCount)")
+                        Image(systemName: "heart.fill")
+                    }
+                    else
+                    {
+                        Image(systemName: "heart")
+                    }
+                    
+                    if likesCount > 0
+                    {
+                        Text("\(likesCount)")
                     }
                 }
             }
+            .accessibilityLabel(isLiked ? Text("Unlike") : Text("Like"))
+            .accessibilityHint(isLiked ? Text("Unlikes this item") : Text("Likes this item"))
         }
     }
     
@@ -223,49 +371,46 @@ struct FediverseInteractions: View
     
     private var shareButton: some View {
         Group {
-            if let federatedURL = item.federatedURL
+            if #available(iOS 26, *)
             {
-                if #available(iOS 26, *)
+                if isOpaque
                 {
-                    if isOpaque
-                    {
-                        // On opaque background
-                        SwiftUI.Button {
-                            share(federatedURL)
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                        }
-                        .font(.subheadline)
-                        .buttonStyle(.glassProminent) // Prominent glass
-                        .buttonBorderShape(.circle)
+                    // On opaque background
+                    SwiftUI.Button {
+                        shareItem()
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
                     }
-                    else
-                    {
-                        // On translucent background
-                        SwiftUI.Button {
-                            share(federatedURL)
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                        }
-                        .font(.subheadline)
-                        .buttonStyle(.glass) // Regular glass
-                        .buttonBorderShape(.circle)
-                    }
+                    .font(.subheadline)
+                    .buttonStyle(.glassProminent) // Prominent glass
+                    .buttonBorderShape(.circle)
                 }
                 else
                 {
+                    // On translucent background
                     SwiftUI.Button {
-                        share(federatedURL)
+                        shareItem()
                     } label: {
-                        if isOpaque
-                        {
-                            Image(systemName: "square.and.arrow.up")
-                                .tint(Color.white)
-                        }
-                        else
-                        {
-                            Image(systemName: "square.and.arrow.up")
-                        }
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .font(.subheadline)
+                    .buttonStyle(.glass) // Regular glass
+                    .buttonBorderShape(.circle)
+                }
+            }
+            else
+            {
+                SwiftUI.Button {
+                    shareItem()
+                } label: {
+                    if isOpaque
+                    {
+                        Image(systemName: "square.and.arrow.up")
+                            .tint(Color.white)
+                    }
+                    else
+                    {
+                        Image(systemName: "square.and.arrow.up")
                     }
                 }
             }
@@ -274,8 +419,9 @@ struct FediverseInteractions: View
     
     private var avatarPlaceholder: some View {
         Group {
-            if #available(iOS 26, *)
+            if #available(iOS 26, *), !rollingState.isAnimating
             {
+                // Only use glass effect when static to avoid visual bugs
                 if isOpaque
                 {
                     Circle().fill(.tint)
@@ -284,13 +430,22 @@ struct FediverseInteractions: View
                 else
                 {
                     Circle().fill(.clear)
+                        .stroke(.tint, lineWidth: 1)
                         .glassEffect(.regular)
                 }
             }
             else
             {
-                Circle().fill(.tint)
-                    .stroke(.white.opacity(0.4), lineWidth: 1)
+                if isOpaque
+                {
+                    Circle().fill(.tint)
+                        .stroke(.white.opacity(0.4), lineWidth: 1)
+                }
+                else
+                {
+                    Circle().fill(.white.opacity(0.8))
+                        .stroke(.tint, lineWidth: 1)
+                }
             }
         }
     }
@@ -298,19 +453,96 @@ struct FediverseInteractions: View
 
 private extension FediverseInteractions
 {
-    func showFederatedStatus(for item: some Federatable)
+    func like(_ item: FederatedItem)
     {
-        guard let federatedURL = item.federatedURL else { return }
+        let federatedURL = federatedItem.url
         
-        UIApplication.shared.open(federatedURL, options: [:])
-    }
-    
-    func showLikes(for item: some Federatable)
-    {
-        guard var federatedURL = item.federatedURL else { return }
-        federatedURL.append(component: "favourites")
+        guard let presentingViewController = fediverseInteractionsView.presentingViewController else { return }
         
-        UIApplication.shared.open(federatedURL, options: [:])
+        Task<Void, Never> {
+            let wasLiked = self.isLiked
+            self.isLiked.toggle()
+            
+            do
+            {
+                if self.isLiked
+                {
+                    rollIn()
+                    
+                    try await FederationManager.shared.like(item, presentingViewController: presentingViewController)
+                    
+                    // Ensure animation finishes before finalizing state.
+                    try await Task.sleep(for: .seconds(0.5))
+                    
+                    finalizeRollIn()
+                    
+                    if let account = DatabaseManager.shared.socialWebAccount()
+                    {
+                        let tempLike = Like(account: account, item: federatedItem, context: DatabaseManager.shared.viewContext)
+                        
+                        let updatedLikes = NSOrderedSet(array: [tempLike] + federatedItem.likes.filter { !$0.accountID.contains(account.identifier) })
+                        federatedItem._likes = updatedLikes
+                    }
+                }
+                else
+                {
+                    rollOut()
+                    
+                    try await FederationManager.shared.unlike(item, presentingViewController: presentingViewController)
+                    
+                    // Ensure animation finishes before finalizing state.
+                    try await Task.sleep(for: .seconds(0.5))
+                    
+                    resetAnimationState()
+                    
+                    if let account = DatabaseManager.shared.socialWebAccount()
+                    {
+                        let updatedLikes = federatedItem.likes.filter { !$0.accountID.contains(account.identifier) }
+                        federatedItem._likes = NSOrderedSet(array: updatedLikes)
+                    }
+                }
+                
+                self.hapticGenerator.notificationOccurred(.success)
+            }
+            catch is CancellationError
+            {
+                // Ignore
+                self.isLiked = wasLiked
+            }
+            catch
+            {
+                self.isLiked = wasLiked
+                Logger.main.error("Failed to favorite status \(federatedURL). Error: \(error.localizedDescription, privacy: .public)")
+                self.hapticGenerator.notificationOccurred(.error)
+                
+                let itemName: String = if item.newsItem != nil {
+                    String(localized: "News Alert")
+                } else if item.app != nil {
+                    String(localized: "App")
+                } else if item.appVersion != nil {
+                    String(localized: "App Update")
+                } else {
+                    String(localized: "Item", comment: "A generic piece of content in an app store (e.g. an app, app update, or news alert).")
+                }
+                
+                if wasLiked
+                {
+                    // Unlike failed
+                    rollBackIn()
+                    
+                    let toastView = ToastView(text: String(localized: "Unable to Unlike \(itemName)"), detailText: error.localizedDescription)
+                    toastView.show(in: presentingViewController)
+                }
+                else
+                {
+                    // Like failed
+                    rollBackOut()
+                    
+                    let toastView = ToastView(text: String(localized: "Unable to Like \(itemName)"), detailText: error.localizedDescription)
+                    toastView.show(in: presentingViewController)
+                }
+            }
+        }
     }
     
     func show(_ account: MastodonAPI.Account)
@@ -318,26 +550,213 @@ private extension FediverseInteractions
         UIApplication.shared.open(account.url, options: [:])
     }
     
-    func share(_ url: URL)
+    func shareItem()
     {
-        guard let presentingViewController = fediverseInteractionsView.shareHandler?(url) else { return }
+        let shareURL = self.federatedItem.newsItem?.shareURL ?? self.federatedItem.app?.shareURL ?? self.federatedItem.appVersion?.shareURL ?? self.federatedItem.url
+        guard let presentingViewController = self.fediverseInteractionsView.shareHandler?(shareURL) else { return }
         
-        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        // Open federated URL when opening in browser, NOT share link.
+        let federatedURL = self.federatedItem.resolvedBlueskyURL ?? self.federatedItem.url
+        let safariActivity = SafariActivity(url: federatedURL)
+        
+        let activityViewController = UIActivityViewController(activityItems: [shareURL], applicationActivities: [safariActivity])
         presentingViewController.present(activityViewController, animated: true)
     }
 }
 
-struct TestFederatable: Federatable
+private extension FediverseInteractions
 {
-    var statusID: String? = "115431859871064626"
-    var federatedURL: URL? = URL(string: "")
+    enum RollingAnimationState
+    {
+        case idle
+        case rollingIn
+        case rollingOut
+        
+        var isAnimating: Bool {
+            self != .idle
+        }
+    }
     
-    var likesCount: Int32
-    var boostsCount: Int32
-    var commentsCount: Int32
+    // Snapshot for rollback on failure
+    struct AnimationSnapshot
+    {
+        let slots: [SocialWebAccount?]
+        let likesCount: Int
+    }
+    
+    
+    enum RollDirection {
+        case `in`, out
+    }
+    
+    var animationDuration: TimeInterval { 0.4 }
+    var rotationFromRollDistance: Double { (rollInDistance / (avatarDiameter / 2)) * (180 / .pi) } // Calculate starting rotation so rolling avatar ends upright
+    
+    var rollInDistance: Double { 60 }
+    
+    var avatarSpacing: CGFloat { -avatarDiameter / 2 }
+    var shiftDistance: CGFloat { avatarDiameter + avatarSpacing }
+    
+    var avatarContainerWidth: CGFloat {
+        let totalSpacing = CGFloat(maximumAvatars - 1) * avatarSpacing
+        return CGFloat(maximumAvatars) * avatarDiameter + totalSpacing
+    }
+    
+    var avatarContainerLeadingEdge: CGFloat {
+        return 2 * avatarSpacing
+    }
+    
+    var visibleSlots: [SocialWebAccount] {
+        slots.prefix(5).compactMap { $0 }
+    }
+    
+    var hasLoadedSlots: Bool {
+        slots.contains { $0 != nil }
+    }
+    
+    var canRollOut: Bool {
+        guard let currentAccount = DatabaseManager.shared.socialWebAccount() else { return false }
+        return slots[0]?.identifier.contains(currentAccount.identifier) == true
+    }
+    
+    func updateSlots()
+    {
+        var accounts = self.accounts ?? []
+        if !isLiked, let currentAccount = DatabaseManager.shared.socialWebAccount()
+        {
+            // Mastodon server sometimes caches like for a while even after unliking,
+            // so manually filter out ourselves if we haven't liked this post.
+            accounts = accounts.filter { !$0.identifier.contains(currentAccount.identifier) } // contains() checks for direct matches AND indirect Bridgy Fed account matches
+        }
+        
+        var newSlots: [SocialWebAccount?] = Array(repeating: nil, count: maximumSlots)
+        for (index, account) in zip(0..., accounts).prefix(maximumSlots) {
+            newSlots[index] = account
+        }
+        slots = newSlots
+    }
+    
+    // MARK: - Animation
+    
+    func rollIn()
+    {
+        guard !rollingState.isAnimating else { return }
+        guard let _ = DatabaseManager.shared.socialWebAccount() else { return }
+        
+        // Capture state for potential rollback
+        snapshot = AnimationSnapshot(slots: slots, likesCount: likesCount)
+        performRollAnimation(direction: .in)
+    }
+    
+    func rollOut()
+    {
+        guard !rollingState.isAnimating, canRollOut else { return }
+        
+        snapshot = AnimationSnapshot(slots: slots, likesCount: likesCount)
+        slots = Array(slots.dropFirst()) + [nil] // Update slot positions for smooth shift
+        performRollAnimation(direction: .out)
+    }
+    
+    // Reverses rollIn (failed like)
+    func rollBackOut()
+    {
+        guard let snapshot else {
+            resetAnimationState()
+            return
+        }
+        
+        likesCount = snapshot.likesCount
+        
+        performRollAnimation(direction: .out, fromCurrentPosition: true) {
+            self.resetAnimationState()
+        }
+    }
+    
+    // Reverses rollOut (failed unlike)
+    func rollBackIn()
+    {
+        guard let snapshot else {
+            resetAnimationState()
+            return
+        }
+        
+        // Restore slot positions, since rollOut modifies before action is validated
+        slots = snapshot.slots
+        likesCount = snapshot.likesCount
+        
+        performRollAnimation(direction: .in, fromCurrentPosition: true) {
+            self.resetAnimationState()
+        }
+    }
+    
+    func finalizeRollIn()
+    {
+        if let currentAccount = DatabaseManager.shared.socialWebAccount() {
+            slots = [currentAccount] + slots.dropLast()
+        }
+        resetAnimationState()
+    }
+    
+    func resetAnimationState()
+    {
+        rollingState = .idle
+        rollOffset = 0
+        rollRotation = 0
+        avatarShiftOffset = 0
+        rollingAvatarOpacity = 1.0
+        snapshot = nil
+    }
+    
+    func performRollAnimation(direction: RollDirection, fromCurrentPosition: Bool = false, completion: (() -> Void)? = nil)
+    {
+        let inPosition = avatarContainerLeadingEdge
+        let outPosition = avatarContainerLeadingEdge - rollInDistance
+        
+        // Set initial state (unless rolling back)
+        if !fromCurrentPosition
+        {
+            switch direction
+            {
+            case .in:
+                rollOffset = outPosition
+                rollRotation = -rotationFromRollDistance
+                avatarShiftOffset = 0
+                rollingAvatarOpacity = 1.0
+            case .out:
+                rollOffset = inPosition
+                rollRotation = 0
+                avatarShiftOffset = shiftDistance
+                rollingAvatarOpacity = 1.0
+            }
+        }
+        
+        switch direction
+        {
+        case .in:
+            rollingState = .rollingIn
+            withAnimation(.spring(response: animationDuration, dampingFraction: 0.5)) {
+                rollOffset = inPosition
+                rollRotation = 0
+                rollingAvatarOpacity = 1.0
+            } completion: {
+                completion?()
+            }
+            withAnimation(.spring(duration: animationDuration, bounce: animationDuration)) {
+                avatarShiftOffset = shiftDistance
+            }
+            
+        case .out:
+            rollingState = .rollingOut
+            withAnimation(.spring(response: animationDuration, dampingFraction: 0.5)) {
+                rollOffset = outPosition
+                rollRotation = -rotationFromRollDistance
+                rollingAvatarOpacity = 0
+            } completion: {
+                completion?()
+            }
+            withAnimation(.spring(duration: animationDuration, bounce: animationDuration)) {
+                avatarShiftOffset = 0
+            }
+        }
+    }
 }
-
-#Preview {
-    FediverseInteractions(item: Federatable.Mock(statusID: "115431859871064626", federatedURL: URL(string: "https://rileytestut.com"), likesCount: 10, boostsCount: 0, commentsCount: 0), isOpaque: false)
-}
-

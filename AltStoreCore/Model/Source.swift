@@ -12,6 +12,7 @@ import UIKit
 public extension Source
 {
     static let altStoreIdentifier = try! Source.sourceID(from: Source.altStoreSourceURL)
+    static let epicGamesSourceID = "content-download-egs.distro.on.epicgames.com/ios/altstore/source.json"
     
     #if STAGING
     
@@ -284,6 +285,13 @@ public extension Source
         
         let lastUpdatedDate = allDates.sorted().last
         return lastUpdatedDate
+    }
+    
+    var shareURL: URL? {
+        guard let host = self.sourceURL.host() else { return nil }
+        
+        let shareURL = URL(string: "https://altstore.io/source/\(host)\(self.sourceURL.path())")
+        return shareURL
     }
 }
 

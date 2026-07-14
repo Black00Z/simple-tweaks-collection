@@ -14,7 +14,7 @@ import Roxas
 
 import Nuke
 
-private extension UIAction.Identifier
+extension UIAction.Identifier
 {
     static let addSource = UIAction.Identifier("io.altstore.AddSource")
 }
@@ -27,7 +27,8 @@ extension AddSourceViewController
     {
         case add
         case preview
-        case recommended
+        case featured
+        case collections
         case moreApps
     }
     
@@ -36,6 +37,12 @@ extension AddSourceViewController
         case textFieldCell = "TextFieldCell"
         case placeholderFooter = "PlaceholderFooter"
         case moreAppsFooter = "MoreAppsFooter"
+        case collectionCell = "CollectionCell"
+    }
+    
+    private enum ElementKind: String
+    {
+        case button
     }
     
     private class ViewModel: ObservableObject
@@ -65,15 +72,26 @@ class AddSourceViewController: UICollectionViewController
     private lazy var dataSource = self.makeDataSource()
     private lazy var addSourceDataSource = self.makeAddSourceDataSource()
     private lazy var sourcePreviewDataSource = self.makeSourcePreviewDataSource()
-    private lazy var recommendedSourcesDataSource = self.makeRecommendedSourcesDataSource()
+    private lazy var featuredSourcesDataSource = self.makeFeaturedSourcesDataSource()
+    private lazy var sourceCollectionsDataSource = self.makeSourceCollectionsDataSource()
     private lazy var moreAppsDataSource = self.makeMoreAppsDataSource()
     
+    private var fetchSourceCollectionsTask: Task<Void, Never>?
     private var fetchRecommendedSourcesOperation: UpdateKnownSourcesOperation?
     private var fetchRecommendedSourcesResult: Result<Void, Error>?
     private var _fetchRecommendedSourcesContext: NSManagedObjectContext?
     
     private let viewModel = ViewModel()
     private var cancellables: Set<AnyCancellable> = []
+    
+    private weak var addAllButton: UIButton?
+    private var addAllMenu: UIMenu!
+    
+    private var shouldHideAddAllButton: Bool = false {
+        didSet {
+            self.addAllButton?.isHidden = self.shouldHideAddAllButton
+        }
+    }
     
     override func viewDidLoad()
     {
@@ -87,10 +105,13 @@ class AddSourceViewController: UICollectionViewController
         
         self.collectionView.register(AppBannerCollectionViewCell.self, forCellWithReuseIdentifier: RSTCellContentGenericCellIdentifier)
         self.collectionView.register(AddSourceTextFieldCell.self, forCellWithReuseIdentifier: ReuseID.textFieldCell.rawValue)
+        self.collectionView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: ReuseID.collectionCell.rawValue)
         
         self.collectionView.register(UICollectionViewListCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: UICollectionView.elementKindSectionHeader)
         self.collectionView.register(UICollectionViewListCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: UICollectionView.elementKindSectionFooter)
+                                     
         self.collectionView.register(PlaceholderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ReuseID.placeholderFooter.rawValue)
+        self.collectionView.register(ButtonCollectionReusableView.self, forSupplementaryViewOfKind: ElementKind.button.rawValue, withReuseIdentifier: ElementKind.button.rawValue)
         
         self.collectionView.backgroundColor = .altBackground
         self.collectionView.keyboardDismissMode = .onDrag
@@ -98,6 +119,43 @@ class AddSourceViewController: UICollectionViewController
         self.collectionView.dataSource = self.dataSource
         self.collectionView.prefetchDataSource = self.dataSource
         
+        // Ensure we can see the next (and previous) columns of featured sources.
+        self.collectionView.layoutMargins.left = 16
+        self.collectionView.layoutMargins.right = 16
+        
+        let addAction = UIDeferredMenuElement.uncached { completion in
+            Task<Void, Never> { @MainActor in
+                do
+                {
+                    var sources: [Source] = []
+                    
+                    for source in self.featuredSourcesDataSource.items
+                    {
+                        let isAlreadyAdded = try await source.isAdded
+                        if !isAlreadyAdded
+                        {
+                            sources.append(source)
+                        }
+                    }
+                    
+                    let title = String(AttributedString(localized: "Add ^[\(sources.count) source](inflect: true)", comment: "").characters)
+                    let action = UIAction(title: title, image: UIImage(systemName: "plus"), handler: { [weak self] _ in
+                        self?.add(sources)
+                    })
+                    
+                    completion([action])
+                }
+                catch
+                {
+                    Logger.main.error("Failed to determine if sources were already added: \(error.localizedDescription, privacy: .public)")
+                    
+                    completion([])
+                }
+            }
+        }
+        
+        self.addAllMenu = UIMenu(children: [addAction])
+                
         self.startPipeline()
     }
     
@@ -105,10 +163,13 @@ class AddSourceViewController: UICollectionViewController
     {
         super.viewWillAppear(animated)
         
-        if self.fetchRecommendedSourcesOperation == nil
+        if self.fetchSourceCollectionsTask == nil
         {
-            self.fetchRecommendedSources()
+            self.fetchSourceCollections()
+            self.fetchFeaturedSources()
         }
+        
+        self.update()
     }
 }
 
@@ -176,38 +237,62 @@ private extension AddSourceViewController
                 
                 return layoutSection
                 
-            case .recommended:
-                var configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
-                configuration.showsSeparators = false
-                configuration.backgroundColor = .clear
+            case .featured:
+                let spacing = 10.0
+                let interSectionSpacing = 30.0
                 
-                if #available(iOS 15, *), isPreviewingSource
-                {
-                    // If previewing source, ensure there is additional padding.
-                    configuration.headerTopPadding = 10
-                }
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(AppBannerView.standardHeight))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(AppBannerView.standardHeight * 2 + spacing))
+                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item, item]) // 2 items per group
+                group.interItemSpacing = .fixed(4)
+                
+                let layoutSection = NSCollectionLayoutSection(group: group)
+                layoutSection.interGroupSpacing = spacing
+                layoutSection.orthogonalScrollingBehavior = .groupPagingCentered
+                layoutSection.contentInsets.bottom = interSectionSpacing
+                layoutSection.contentInsets.top = -6
+                layoutSection.contentInsetsReference = .layoutMargins
+                
+                let headerSize = NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(44))
+                let titleHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
+                
+                let buttonSize = NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(44))
+                let buttonHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: buttonSize, elementKind: ElementKind.button.rawValue, alignment: .topTrailing, absoluteOffset: CGPoint(x: 0, y: -6)) // offset used to align baseline with title
+                
+                let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+                let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+                
+                var boundaryItems = [titleHeader, buttonHeader]
                 
                 switch self.fetchRecommendedSourcesResult
                 {
-                case nil:
-                    configuration.headerMode = .supplementary
-                    configuration.footerMode = .supplementary
-                    
-                case .failure: configuration.footerMode = .supplementary
-                case .success where (UserDefaults.shared.recommendedSources ?? []).isEmpty:
-                    configuration.headerMode = .supplementary
-                    configuration.footerMode = .supplementary
-                    
-                case .success: configuration.headerMode = .supplementary
+                case nil: boundaryItems = [titleHeader, buttonHeader, sectionFooter]
+                case .success: boundaryItems = [titleHeader, buttonHeader]
+                case .failure: boundaryItems = [sectionFooter]
                 }
                 
+                layoutSection.boundarySupplementaryItems = boundaryItems
+                
+                return layoutSection
+                
+            case .collections:
+                var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+                configuration.showsSeparators = false
+                configuration.backgroundColor = .clear
+                
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
+                
+                sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: -8, bottom: 0, trailing: 0)
+                                
                 let layoutSection = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
                 
-                if configuration.footerMode == .none
-                {
-                    // No footer, so keep padding to minimum to ensure "Discover more apps" button is visible.
-                    layoutSection.contentInsets.bottom = 4
-                }
+                layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 30, trailing: 16)
+                layoutSection.interGroupSpacing = 10
+                
+                layoutSection.boundarySupplementaryItems = [sectionHeader]
                 
                 return layoutSection
                 
@@ -244,12 +329,15 @@ private extension AddSourceViewController
         return layout
     }
     
-    func makeDataSource() -> RSTCompositeCollectionViewPrefetchingDataSource<Source, UIImage>
+    func makeDataSource() -> RSTCompositeCollectionViewPrefetchingDataSource<NSObject, UIImage>
     {
-        let dataSource = RSTCompositeCollectionViewPrefetchingDataSource<Source, UIImage>(dataSources: [self.addSourceDataSource, 
-                                                                                                        self.sourcePreviewDataSource,
-                                                                                                        self.recommendedSourcesDataSource,
-                                                                                                        self.moreAppsDataSource])
+        let dataSource = RSTCompositeCollectionViewPrefetchingDataSource<NSObject, UIImage>(dataSources: [
+            self.addSourceDataSource as! RSTDynamicCollectionViewPrefetchingDataSource<NSObject, UIImage>,
+            self.sourcePreviewDataSource as! RSTArrayCollectionViewPrefetchingDataSource<NSObject, UIImage>,
+            self.featuredSourcesDataSource as! RSTArrayCollectionViewPrefetchingDataSource<NSObject, UIImage>,
+            self.sourceCollectionsDataSource as! RSTArrayCollectionViewPrefetchingDataSource<NSObject, UIImage>,
+            self.moreAppsDataSource as! RSTDynamicCollectionViewPrefetchingDataSource<NSObject, UIImage>
+        ])
         dataSource.proxy = self
         return dataSource
     }
@@ -292,6 +380,10 @@ private extension AddSourceViewController
             
             let cell = cell as! AppBannerCollectionViewCell
             self.configure(cell, with: source)
+            
+            // Fixes incorrect insets after calling configure().
+            cell.contentView.layoutMargins.left = self.view.layoutMargins.left
+            cell.contentView.layoutMargins.right = self.view.layoutMargins.right
         }
         dataSource.prefetchHandler = { (source, indexPath, completionHandler) in
             guard let imageURL = source.effectiveIconURL else { return nil }
@@ -315,29 +407,26 @@ private extension AddSourceViewController
             
             if let error
             {
-                Logger.main.error("Failed to load app icon in source preview: \(error.localizedDescription, privacy: .public)")
+                Logger.main.error("Failed to load source icon in source preview: \(error.localizedDescription, privacy: .public)")
             }
             else
             {
-                cell.bannerView.iconImageView.backgroundColor = .clear
+                cell.bannerView.iconImageView.backgroundColor = .white
             }
         }
         
         return dataSource
     }
     
-    func makeRecommendedSourcesDataSource() -> RSTArrayCollectionViewPrefetchingDataSource<Source, UIImage>
+    func makeFeaturedSourcesDataSource() -> RSTArrayCollectionViewPrefetchingDataSource<Source, UIImage>
     {
         let dataSource = RSTArrayCollectionViewPrefetchingDataSource<Source, UIImage>(items: [])
-        dataSource.cellConfigurationHandler = { [weak self] cell, source, indexPath in
-            guard let self else { return }
-            
+        dataSource.cellConfigurationHandler = { cell, source, indexPath in
             let cell = cell as! AppBannerCollectionViewCell
             self.configure(cell, with: source)
         }
         dataSource.prefetchHandler = { (source, indexPath, completionHandler) in
             guard let imageURL = source.effectiveIconURL else { return nil }
-            
             return RSTAsyncBlockOperation() { (operation) in
                 ImagePipeline.shared.loadImage(with: imageURL, progress: nil) { result in
                     guard !operation.isCancelled else { return operation.finish() }
@@ -357,12 +446,80 @@ private extension AddSourceViewController
             
             if let error
             {
-                Logger.main.error("Failed to load app icon in recommended sources: \(error.localizedDescription, privacy: .public)")
+                Logger.main.error("Failed to load source icon in recommended sources: \(error.localizedDescription, privacy: .public)")
             }
             else
             {
-                cell.bannerView.iconImageView.backgroundColor = .clear
+                cell.bannerView.iconImageView.backgroundColor = .white
             }
+        }
+        
+        return dataSource
+    }
+    
+    func makeSourceCollectionsDataSource() -> RSTArrayCollectionViewPrefetchingDataSource<SourceCollection, UIImage>
+    {
+        let dataSource = RSTArrayCollectionViewPrefetchingDataSource<SourceCollection, UIImage>(items: [])
+        dataSource.cellIdentifierHandler = { _ in ReuseID.collectionCell.rawValue }
+        dataSource.cellConfigurationHandler = { cell, collection, indexPath in
+            let cell = cell as! UICollectionViewListCell
+            
+            var config = UIListContentConfiguration.cell()
+            config.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 14, leading: 16, bottom: 14, trailing: 16)
+            
+            config.text = collection.localizedTitle
+            config.textProperties.font = .boldSystemFont(ofSize: 19)
+            
+            // Icon background
+            let iconSize: CGFloat = 38
+            let iconView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize, height: iconSize))
+            iconView.backgroundColor = collection.tintColor
+            iconView.layer.cornerRadius = iconSize / 2
+            iconView.layer.masksToBounds = true
+            
+            // Emoji
+            let icon = UILabel(frame: iconView.bounds)
+            icon.text = collection.emoji
+            icon.font = .preferredFont(forTextStyle: .body)
+            icon.textAlignment = .center
+            iconView.addSubview(icon)
+            
+            let renderer = UIGraphicsImageRenderer(bounds: iconView.bounds)
+            let iconImage = renderer.image { context in
+                iconView.layer.render(in: context.cgContext)
+            }
+            
+            config.image = iconImage
+            config.imageProperties.maximumSize = CGSize(width: iconSize, height: iconSize)
+            config.imageProperties.cornerRadius = iconSize / 2
+            
+            cell.contentConfiguration = config
+            
+            var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
+            backgroundConfig.backgroundColor = .tertiarySystemBackground
+            backgroundConfig.cornerRadius = 26
+            backgroundConfig.strokeWidth = 0
+                        
+            if #available(iOS 18, *)
+            {
+                backgroundConfig.shadowProperties.color = UIColor.black
+                backgroundConfig.shadowProperties.opacity = 0.2
+                backgroundConfig.shadowProperties.radius = 10
+                backgroundConfig.shadowProperties.offset = CGSize(width: 0, height: 5)
+            }
+            else
+            {
+                cell.layer.shadowOffset = CGSize(width: 0, height: 5)
+                cell.layer.shadowOpacity = 0.15
+                cell.layer.shadowRadius = 5
+                cell.layer.shadowColor = UIColor.black.cgColor
+            }
+            
+            cell.backgroundConfiguration = backgroundConfig
+            
+            cell.contentView.clipsToBounds = false
+
+            cell.accessories = [.disclosureIndicator()]
         }
         
         return dataSource
@@ -480,15 +637,26 @@ private extension AddSourceViewController
                 return sourceID
             }
             .receive(on: RunLoop.main)
-            .compactMap { [dataSource = recommendedSourcesDataSource] sourceID -> IndexPath? in
-                guard let index = dataSource.items.firstIndex(where: { $0.identifier == sourceID }) else { return nil }
+            .map { [featuredSourcesDataSource, sourcePreviewDataSource] sourceID -> [IndexPath] in
+                var indexPaths = [IndexPath]()
                 
-                let indexPath = IndexPath(item: index, section: Section.recommended.rawValue)
-                return indexPath
+                if let index = featuredSourcesDataSource.items.firstIndex(where: { $0.identifier == sourceID })
+                {
+                    let indexPath = IndexPath(item: index, section: Section.featured.rawValue)
+                    indexPaths.append(indexPath)
+                }
+                
+                if let index = sourcePreviewDataSource.items.firstIndex(where: { $0.identifier == sourceID })
+                {
+                    let indexPath = IndexPath(item: index, section: Section.preview.rawValue)
+                    indexPaths.append(indexPath)
+                }
+                
+                return indexPaths
             }
-            .sink { [weak self] indexPath in
+            .sink { [weak self] indexPaths in
                 // Added or removed a recommended source, so make sure to update its state.
-                self?.collectionView.reloadItems(at: [indexPath])
+                self?.collectionView.reloadItems(at: indexPaths)
             }
             .store(in: &self.cancellables)
     }
@@ -574,32 +742,70 @@ private extension AddSourceViewController
 
 private extension AddSourceViewController
 {
+    func update()
+    {
+        guard self.isViewLoaded else { return }
+                
+        do
+        {
+            let fetchRequest = Source.fetchRequest()
+            
+            let sources = try DatabaseManager.shared.viewContext.fetch(fetchRequest)
+            let sourceIDs = Set(sources.map(\.identifier))
+            
+            let allFeaturedSourcesAdded = self.featuredSourcesDataSource.items.allSatisfy({ sourceIDs.contains($0.identifier) })
+            self.shouldHideAddAllButton = allFeaturedSourcesAdded
+        }
+        catch
+        {
+            Logger.main.info("Failed to check if sources are already added: \(error.localizedDescription, privacy: .public)")
+        }
+    }
+    
     func configure(_ cell: AppBannerCollectionViewCell, with source: Source)
     {
         cell.bannerView.style = .source
-        cell.layoutMargins.top = 5
-        cell.layoutMargins.bottom = 5
-        cell.layoutMargins.left = self.view.layoutMargins.left
-        cell.layoutMargins.right = self.view.layoutMargins.right
+        
+        // External margins
         cell.contentView.backgroundColor = .altBackground
+        cell.contentView.preservesSuperviewLayoutMargins = false
+        cell.contentView.layoutMargins.top = 5
+        cell.contentView.layoutMargins.bottom = 5
+        cell.contentView.layoutMargins.left = 0
+        cell.contentView.layoutMargins.right = 0
         
         cell.bannerView.configure(for: source)
+        
+        if source.subtitle == nil
+        {
+            let attributedOutput = AttributedString(localized: "^[\(source.apps.count) App](inflect: true)")
+            cell.bannerView.subtitleLabel.text = String(attributedOutput.characters)
+        }
+        
+        cell.bannerView.subtitleLabel.minimumScaleFactor = 1.0
         cell.bannerView.subtitleLabel.numberOfLines = 2
         
         cell.bannerView.iconImageView.image = nil
         cell.bannerView.iconImageView.isIndicatingActivity = true
+
+        let config = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .medium)
+        let image = UIImage(systemName: "plus", withConfiguration: config)?.withTintColor(.white, renderingMode: .alwaysOriginal)
         
-        let config = UIImage.SymbolConfiguration(scale: .medium)
-        let image = UIImage(systemName: "plus.circle.fill", withConfiguration: config)?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        cell.bannerView.button.setImage(image, for: .normal)
-        cell.bannerView.button.setImage(image, for: .highlighted)
+        cell.bannerView.button.icon = image // Ensures image persists when alert is presented
         cell.bannerView.button.setTitle(nil, for: .normal)
-        cell.bannerView.button.imageView?.contentMode = .scaleAspectFit
-        cell.bannerView.button.contentHorizontalAlignment = .fill // Fill entire button with imageView
-        cell.bannerView.button.contentVerticalAlignment = .fill
-        cell.bannerView.button.contentEdgeInsets = .zero
         cell.bannerView.button.tintColor = .clear
+        cell.bannerView.button.contentHorizontalAlignment = .fill
+        cell.bannerView.button.contentVerticalAlignment = .fill
+        
         cell.bannerView.button.isHidden = false
+        
+        if #available(iOS 26, *)
+        {
+            cell.bannerView.button.prefersGlassAppearance = true
+        }
+        
+        // Internal margins (padding)
+        cell.bannerView.layoutMargins.left = 16
         
         let action = UIAction(identifier: .addSource) { [weak self] _ in
             self?.add(source)
@@ -652,7 +858,29 @@ private extension AddSourceViewController
         }
     }
     
-    func fetchRecommendedSources()
+    func fetchSourceCollections()
+    {
+        self.fetchSourceCollectionsTask = Task {
+            do
+            {
+                let collections = try await AppManager.shared.fetchSourceCollections()
+                
+                let sectionUpdate = RSTCellContentChange(type: .update, sectionIndex: 0)
+                self.sourceCollectionsDataSource.setItems(collections, with: [sectionUpdate])
+            }
+            catch
+            {
+                Logger.main.error("Error fetching recommended sources: \(error.localizedDescription, privacy: .public)")
+                
+                let sectionUpdate = RSTCellContentChange(type: .update, sectionIndex: 0)
+                self.featuredSourcesDataSource.setItems([], with: [sectionUpdate])
+            }
+            
+            self.update()
+        }
+    }
+    
+    func fetchFeaturedSources()
     {
         // Closure instead of local function so we can capture `self` weakly.
         let finish: (Result<[Source], Error>) -> Void = { [weak self] result in
@@ -662,18 +890,24 @@ private extension AddSourceViewController
                 do
                 {
                     let sources = try result.get()
-                    print("Fetched recommended sources:", sources.map { $0.identifier })
+                    let sortedSources = sources.sorted { sourceA, sourceB in
+                        let dateA = sourceA.lastUpdatedDate ?? .distantFuture
+                        let dateB = sourceB.lastUpdatedDate ?? .distantFuture
+                        return dateA > dateB // Newest dates first
+                    }
                     
                     let sectionUpdate = RSTCellContentChange(type: .update, sectionIndex: 0)
-                    self?.recommendedSourcesDataSource.setItems(sources, with: [sectionUpdate])
+                    self?.featuredSourcesDataSource.setItems(sortedSources, with: [sectionUpdate])
                 }
                 catch
                 {
                     print("Error fetching recommended sources:", error)
                     
                     let sectionUpdate = RSTCellContentChange(type: .update, sectionIndex: 0)
-                    self?.recommendedSourcesDataSource.setItems([], with: [sectionUpdate])
+                    self?.featuredSourcesDataSource.setItems([], with: [sectionUpdate])
                 }
+                
+                self?.update()
             }
         }
         
@@ -747,8 +981,8 @@ private extension AddSourceViewController
                     // Use default message
                     try await AppManager.shared.add(source, presentingViewController: self)
                 }
-                
-                self.dismiss()
+                                
+                self.update()
                 
             }
             catch is CancellationError {}
@@ -756,6 +990,63 @@ private extension AddSourceViewController
             {
                 let errorTitle = NSLocalizedString("Unable to Add Source", comment: "")
                 await self.presentAlert(title: errorTitle, message: error.localizedDescription)
+            }
+        }
+    }
+    
+    func add(_ sources: [Source])
+    {
+        Task<Void, Never> {
+            let results = await withCollatingTaskGroup(for: sources) { source in
+                try await AppManager.shared.add(source, message: nil, showConfirmationAlert: false, presentingViewController: self)
+            }
+            
+            let successes = results.successes
+            let failures = results.failures
+            
+            self.update()
+            
+            if failures.isEmpty
+            {
+                let title = AttributedString(localized: "^[\(successes.count) Source](inflect: true) Added")
+                let message = NSLocalizedString("All sources were added successfully.", comment: "")
+                await self.presentAlert(title: String(title.characters), message: message)
+            }
+            else if successes.isEmpty
+            {
+                let errorCode = results.errors.first?.localizedErrorCode ?? ""
+                var errorsMatch = true
+                
+                for (source, error) in failures
+                {
+                    Logger.main.error("Failed to add source at URL: \(source.sourceURL, privacy: .public). Message: \(error.localizedDescription, privacy: .public))")
+                    
+                    if error.localizedErrorCode != errorCode
+                    {
+                        errorsMatch = false
+                    }
+                }
+                
+                let title = AttributedString(localized: "Unable to add ^[\(failures.count) source](inflect: true)")
+                var message = NSLocalizedString("For more details, check the Error Log in settings.", comment: "")
+                
+                if let error = results.errors.first, errorsMatch
+                {
+                    message = error.localizedDescription
+                }
+                
+                await self.presentAlert(title: String(title.characters), message: message)
+            }
+            else
+            {
+                for (source, error) in failures
+                {
+                    Logger.main.error("Failed to add source at URL: \(source.sourceURL, privacy: .public). Message: \(error.localizedDescription, privacy: .public))")
+                }
+                
+                let title = NSLocalizedString("Some Sources Added", comment: "")
+                let message = AttributedString(localized: "Successfully added ^[\(successes.count) source](inflect: true), but ^[\(failures.count) source](inflect: true) failed.\n\nFor more details, check the Error Log in settings.")
+                await self.presentAlert(title: title, message: String(message.characters))
             }
         }
     }
@@ -771,7 +1062,7 @@ private extension AddSourceViewController
     
     @objc func viewMoreApps()
     {
-        let openURL = URL(string: "https://altstore.io/discover-apps")!
+        let openURL = URL(string: "https://explore.alt.store/directory")!
         UIApplication.shared.open(openURL)
     }
 }
@@ -795,18 +1086,29 @@ extension AddSourceViewController
 {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) 
     {
-        guard Section(rawValue: indexPath.section) != .add else { return }
-        
-        var source = self.dataSource.item(at: indexPath)
-        
-        let predicate = NSPredicate(format: "%K == %@", #keyPath(Source.identifier), source.identifier)
-        if let localSource = Source.first(satisfying: predicate, in: DatabaseManager.shared.viewContext)
+        let section = Section(rawValue: indexPath.section)!
+        switch section
         {
-            // This source exists locally, so show local version instead.
-            source = localSource
+        case .preview, .featured:
+            var source = self.dataSource.item(at: indexPath) as! Source
+            
+            let predicate = NSPredicate(format: "%K == %@", #keyPath(Source.identifier), source.identifier)
+            if let localSource = Source.first(satisfying: predicate, in: DatabaseManager.shared.viewContext)
+            {
+                // This source exists locally, so show local version instead.
+                source = localSource
+            }
+            
+            self.performSegue(withIdentifier: "showSourceDetails", sender: source)
+            
+        case .collections:
+            let sourceCollection = self.sourceCollectionsDataSource.item(at: IndexPath(item: indexPath.item, section: 0))
+            let sourceCollectionViewController = SourceCollectionViewController(sourceCollection: sourceCollection)
+            
+            self.navigationController?.pushViewController(sourceCollectionViewController, animated: true)
+            
+        case .add, .moreApps: break
         }
-        
-        self.performSegue(withIdentifier: "showSourceDetails", sender: source)
     }
 }
 
@@ -834,19 +1136,36 @@ extension AddSourceViewController: UICollectionViewDelegateFlowLayout
             self.configure(footerView, with: self.viewModel.sourcePreviewResult)
             
             return footerView
-                        
-        case (.recommended, UICollectionView.elementKindSectionHeader):
+            
+        case (.featured, UICollectionView.elementKindSectionHeader):
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kind, for: indexPath) as! UICollectionViewListCell
             
-            var configuation = UIListContentConfiguration.groupedHeader()
-            configuation.text = NSLocalizedString("Recommended Sources", comment: "")
-            configuation.textProperties.color = .secondaryLabel
+            var configuration = UIListContentConfiguration.prominentInsetGroupedHeader()
             
-            headerView.contentConfiguration = configuation
+            let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title2).bolded()
+            configuration.textProperties.font = UIFont(descriptor: fontDescriptor, size: 0.0)
+            configuration.text = NSLocalizedString("Featured", comment: "")
+            
+            headerView.contentConfiguration = configuration
             
             return headerView
             
-        case (.recommended, UICollectionView.elementKindSectionFooter):
+        case (.featured, ElementKind.button.rawValue):
+            let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kind, for: indexPath)
+            
+            let buttonView = supplementaryView as! ButtonCollectionReusableView
+            buttonView.button.setTitle(NSLocalizedString("Add All", comment: ""), for: .normal)
+            buttonView.button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
+            
+            buttonView.button.menu = self.addAllMenu
+            buttonView.button.showsMenuAsPrimaryAction = true
+            buttonView.button.isHidden = self.shouldHideAddAllButton
+            
+            self.addAllButton = buttonView.button
+            
+            return supplementaryView
+            
+        case (.featured, UICollectionView.elementKindSectionFooter):
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ReuseID.placeholderFooter.rawValue, for: indexPath) as! PlaceholderCollectionReusableView
             
             footerView.placeholderView.stackView.spacing = 15
@@ -857,7 +1176,7 @@ extension AddSourceViewController: UICollectionViewDelegateFlowLayout
             {
                 footerView.placeholderView.textLabel.isHidden = false
                 footerView.placeholderView.textLabel.font = UIFont.preferredFont(forTextStyle: .headline)
-                footerView.placeholderView.textLabel.text = NSLocalizedString("Unable to Load Recommended Sources", comment: "")
+                footerView.placeholderView.textLabel.text = NSLocalizedString("Unable to Load Featured Sources", comment: "")
                 
                 footerView.placeholderView.detailTextLabel.isHidden = false
                 footerView.placeholderView.detailTextLabel.text = error.localizedDescription
@@ -883,6 +1202,17 @@ extension AddSourceViewController: UICollectionViewDelegateFlowLayout
             }
             
             return footerView
+            
+        case (.collections, UICollectionView.elementKindSectionHeader):
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kind, for: indexPath) as! UICollectionViewListCell
+            
+            var configuration = UIListContentConfiguration.prominentInsetGroupedHeader()
+            let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title2).bolded()
+            configuration.textProperties.font = UIFont(descriptor: fontDescriptor, size: 0.0)
+            configuration.text = NSLocalizedString("Collections", comment: "")
+            headerView.contentConfiguration = configuration
+            
+            return headerView
             
         case (.moreApps, UICollectionView.elementKindSectionHeader): // Despite being called MoreAppsFooterView, we use as header to minimize spacing.
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ReuseID.moreAppsFooter.rawValue, for: indexPath) as! MoreAppsFooterView

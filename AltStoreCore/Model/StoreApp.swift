@@ -113,6 +113,8 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
     }
     @NSManaged @objc(marketplaceID) public private(set) var _marketplaceID: String? // Ugh, we used String in 2.0rc and now we're stuck with it.
     
+    @NSManaged public var federatedID: String?
+    
     @NSManaged public var isPledged: Bool
     @NSManaged public private(set) var isPledgeRequired: Bool
     @NSManaged public private(set) var isHiddenWithoutPledge: Bool
@@ -121,13 +123,6 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
     
     @nonobjc public var pledgeAmount: Decimal? { _pledgeAmount as? Decimal }
     @NSManaged @objc(pledgeAmount) private var _pledgeAmount: NSDecimalNumber?
-    
-    // Federation
-    @NSManaged public var statusID: String?
-    @NSManaged public var federatedURL: URL?
-    @NSManaged public var likesCount: Int32
-    @NSManaged public var boostsCount: Int32
-    @NSManaged public var commentsCount: Int32
     
     @NSManaged public var sortIndex: Int32
     @NSManaged public var featuredSortID: String?
@@ -179,6 +174,18 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
     @NSManaged @objc(versions) public private(set) var _versions: NSOrderedSet
     
     @NSManaged public private(set) var loggedErrors: NSSet /* Set<LoggedError> */ // Use NSSet to avoid eagerly fetching values.
+    
+    @NSManaged public var federatedItem: FederatedItem?
+    
+    public var availableRegions: Set<String>? {
+        guard let regions, let availableRegions = regions["include"] as? [String] else { return nil }
+        return Set(availableRegions.lazy.map { $0.lowercased() })
+    }
+    public var unavailableRegions: Set<String>? {
+        guard let regions, let unavailableRegions = regions["exclude"] as? [String] else { return nil }
+        return Set(unavailableRegions.lazy.map { $0.lowercased() })
+    }
+    @NSManaged private var regions: NSDictionary?
     
     /* Non-Core Data Properties */
     
@@ -232,6 +239,7 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
         case versions
         case patreon
         case category
+        case regions = "_regions"
         
         // Localized
         case localizedDescriptions
@@ -435,6 +443,23 @@ public class StoreApp: NSManagedObject, Decodable, Fetchable, Federatable, @unch
                 self._tierIDs = nil
                 self._rewardID = nil
             }
+            
+            if let regions = try container.decodeIfPresent([String: [String]].self, forKey: .regions)
+            {
+                self.regions = regions as NSDictionary
+            }
+            else if let sourceURL = decoder.sourceURL, let sourceID = try? Source.sourceID(from: sourceURL), sourceID == Source.epicGamesSourceID
+            {
+                if let overrideExcludedRegions = UserDefaults.shared.epicGamesExcludedRegions
+                {
+                    self.regions = ["exclude": overrideExcludedRegions]
+                }
+                else
+                {
+                    // Default Epic's source to excluding Japan and Brazil until specified otherwise.
+                    self.regions = ["exclude": ["jp", "br"]]
+                }
+            }
         }
         catch
         {
@@ -516,8 +541,14 @@ internal extension StoreApp
         
         // Use Int32(exactly:) initializer to avoid crash when size is larger than 2GB.
         // This is purely for backwards compatibility, so just fall back to 0 if size is too large.
-        let size = Int32(exactly: NSNumber(value: latestVersion.size))
-        self._size = size ?? 0
+        if let versionSize = latestVersion.size, let size = Int32(exactly: NSNumber(value: versionSize))
+        {
+            self._size = size
+        }
+        else
+        {
+            self._size = 0
+        }
     }
     
     func setPermissions(_ permissions: Set<AppPermission>)
@@ -621,6 +652,13 @@ public extension StoreApp
         {
             return nil
         }
+    }
+    
+    var shareURL: URL? {
+        guard let sourceURL = self.source?.sourceURL, let host = sourceURL.host() else { return nil }
+        
+        let shareURL = URL(string: "https://altstore.io/source/\(host)\(sourceURL.path())?app=\(self.bundleIdentifier)")
+        return shareURL
     }
 }
 

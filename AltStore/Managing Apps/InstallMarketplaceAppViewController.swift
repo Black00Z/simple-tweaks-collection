@@ -260,6 +260,8 @@ private extension InstallMarketplaceAppViewController
         actionButton.cornerRadius = 15
         actionButton.tintColor = .white
         actionButton.isEnabled = true
+        actionButton.accessibilityLabel = buttonTitle
+        actionButton.accessibilityTraits.formUnion(.button)
         self.actionButton = actionButton
     }
 }

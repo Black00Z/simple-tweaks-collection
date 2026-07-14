@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension KeyedDecodingContainer
+public extension KeyedDecodingContainer
 {
     func decodeLocalizedValue<T: Decodable>(_ type: T.Type, forKey key: Key) throws -> T?
     {
@@ -47,6 +47,13 @@ extension KeyedDecodingContainer
             return nil
         }.first
         
-        return localizedValue
+        if let localizedValue
+        {
+            return localizedValue
+        }
+        
+        // Fall back to base translation.
+        let baseValue = localizedValues["base"]
+        return baseValue
     }
 }

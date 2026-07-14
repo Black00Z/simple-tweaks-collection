@@ -106,6 +106,8 @@ actor AppMarketplace: NSObject
     
     nonisolated let tracker = AppTracker()
     
+    nonisolated(unsafe) private(set) var catalogRegion: String? // Loaded async at launch for later sync retrieval (YOLO)
+    
     private let session = URLSession(configuration: .sharedCookies)
     private let pinnedCertificates: [SecCertificate]
     
@@ -125,6 +127,11 @@ actor AppMarketplace: NSObject
         {
             Logger.main.error("Failed to configure pinned certificates. \(error.localizedDescription, privacy: .public)")
             self.pinnedCertificates = []
+        }
+        
+        Task<Void, Never>.detached {
+            guard #available(iOS 26.2, *) else { return }
+            AppMarketplace.shared.catalogRegion = await AppLibrary.current.catalogRegion
         }
     }
 }
@@ -360,9 +367,7 @@ private extension AppMarketplace
         do
         {
             // Verify app version is supported
-            try await $storeApp.perform { _ in
-                try self.verify(appVersion)
-            }
+            try await self.verify(appVersion, for: storeApp)
         }
         catch let error as VerificationError where error.code == .iOSVersionNotSupported
         {
@@ -444,15 +449,34 @@ private extension AppMarketplace
         }
     }
     
-    nonisolated func verify(_ appVersion: AltStoreCore.AppVersion) throws
+    func verify(@AsyncManaged _ appVersion: AltStoreCore.AppVersion, @AsyncManaged for app: StoreApp) async throws
     {
-        if let minOSVersion = appVersion.minOSVersion, !ProcessInfo.processInfo.isOperatingSystemAtLeast(minOSVersion)
+        let (minOSVersion, maxOSVersion, availableRegions, unavailableRegions) = await $appVersion.perform { ($0.minOSVersion, $0.maxOSVersion, app.availableRegions, app.unavailableRegions) }
+        
+        if let minOSVersion, !ProcessInfo.processInfo.isOperatingSystemAtLeast(minOSVersion)
         {
             throw VerificationError.iOSVersionNotSupported(app: appVersion, requiredOSVersion: minOSVersion)
         }
-        else if let maxOSVersion = appVersion.maxOSVersion, ProcessInfo.processInfo.operatingSystemVersion > maxOSVersion
+        else if let maxOSVersion, ProcessInfo.processInfo.operatingSystemVersion > maxOSVersion
         {
             throw VerificationError.iOSVersionNotSupported(app: appVersion, requiredOSVersion: maxOSVersion)
+        }
+        
+        if #available(iOS 26.2, *), let region = await AppLibrary.current.catalogRegion
+        {
+            if let unavailableRegions
+            {
+                // If explicit unavailable regions, check current region is NOT included.
+                // This has precedent over availableRegions, in case both specify the same region.
+                guard !unavailableRegions.contains(region) else { throw VerificationError.unsupportedRegion(region, app: app) }
+            }
+            
+            // Not `else`, because both might be specified.
+            if let availableRegions
+            {
+                // If explicit available regions, current region MUST be included.
+                guard availableRegions.contains(region) else { throw VerificationError.unsupportedRegion(region, app: app) }
+            }
         }
     }
     

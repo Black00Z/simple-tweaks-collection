@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import MarketplaceKit
 
 import AltStoreCore
 import Roxas
 
 import Nuke
+import NukeExtensions
 
 extension AppBannerView
 {
@@ -90,6 +92,7 @@ class AppBannerView: RSTNibView
     @IBOutlet private var accessibilityView: UIView!
     
     @IBOutlet private var iconImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var pillButtonHeightConstraint: NSLayoutConstraint!
     
     override init(frame: CGRect)
     {
@@ -110,7 +113,7 @@ class AppBannerView: RSTNibView
         self.accessibilityView.accessibilityTraits.formUnion(.button)
         
         self.isAccessibilityElement = false
-        self.accessibilityElements = [self.accessibilityView, self.button].compactMap { $0 }
+        self.accessibilityElements = [self.button, self.accessibilityView].compactMap { $0 }
         
         self.betaBadgeView.isHidden = true
         
@@ -215,7 +218,7 @@ extension AppBannerView
             
             if let iconURL = source.effectiveIconURL
             {
-                if let image = ImageCache.shared[iconURL]
+                if let image = ImagePipeline.shared.cache[iconURL]
                 {
                     self.sourceIconImageView.backgroundColor = .white
                     self.sourceIconImageView.image = image.image
@@ -224,7 +227,7 @@ extension AppBannerView
                 {
                     self.sourceIconImageView.image = nil
                     
-                    Nuke.loadImage(with: iconURL, into: self.sourceIconImageView) { result in
+                    NukeExtensions.loadImage(with: iconURL, into: self.sourceIconImageView) { result in
                         switch result
                         {
                         case .failure(let error): Logger.main.error("Failed to fetch source icon from \(iconURL, privacy: .public). \(error.localizedDescription, privacy: .public)")
@@ -312,7 +315,19 @@ extension AppBannerView
                     }
                     else if let amount = storeApp.pledgeAmount, let currencyCode = storeApp.pledgeCurrency, !storeApp.prefersCustomPledge, #available(iOS 15, *)
                     {
-                        let price = amount.formatted(.currency(code: currencyCode).presentation(.narrow).precision(.fractionLength(0...2)))
+                        let countryCode: String
+                        if currencyCode.uppercased() == "USD" && AppMarketplace.shared.catalogRegion?.uppercased() == "BR"
+                        {
+                            // Append "US" before price for Brazilian users to clarify this isn't Brazilian real ($).
+                            countryCode = "US"
+                        }
+                        else
+                        {
+                            // Hide country code for other regions (for now)
+                            countryCode = ""
+                        }
+                        
+                        let price = countryCode + amount.formatted(.currency(code: currencyCode).presentation(.narrow).precision(.fractionLength(0...2)))
                         
                         let buttonTitle = String(format: NSLocalizedString("%@/mo", comment: ""), price)
                         self.button.setTitle(buttonTitle, for: .normal)
@@ -370,6 +385,8 @@ extension AppBannerView
         {
             self.button.progress = nil
         }
+        
+        self.pillButtonHeightConstraint.constant = PillButton.minimumSize.height
     }
     
     func configure(for source: Source)
@@ -398,6 +415,8 @@ extension AppBannerView
         
         let accessibilityLabel = source.name + "\n" + subtitle
         self.accessibilityLabel = accessibilityLabel
+        
+        self.pillButtonHeightConstraint.constant = 36
     }
 }
 

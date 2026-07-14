@@ -78,6 +78,23 @@ class PillButton: UIButton
         }
     }
     
+    @available(iOS 26, *)
+    var prefersGlassAppearance: Bool {
+        get { _prefersGlassAppearance }
+        set {
+            _prefersGlassAppearance = newValue
+            self.update()
+        }
+    }
+    private var _prefersGlassAppearance: Bool = false
+    
+    var icon: UIImage? {
+        didSet {
+            self.setImage(self.icon, for: .normal)
+            self.setImage(self.icon, for: .highlighted)
+        }
+    }
+    
     private let progressView = UIProgressView(progressViewStyle: .default)
     
     private lazy var displayLink: CADisplayLink = {
@@ -205,6 +222,12 @@ private extension PillButton
         case .custom: break // Don't update insets in case client has updated them.
         case .pill:
             self.contentEdgeInsets = UIEdgeInsets(top: Self.contentInsets.top, left: Self.contentInsets.leading, bottom: Self.contentInsets.bottom, right: Self.contentInsets.trailing)
+        }
+        
+        if #available(iOS 26.0, *), self.prefersGlassAppearance
+        {
+            self.configuration = .clearGlass()
+            self.configuration?.image = self.icon // Ensures image persists when alert is presented
         }
     }
     
