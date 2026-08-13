@@ -33,8 +33,8 @@ jobs:
           set -e
           DEB="$(find packages -maxdepth 1 -name '*_iphoneos-arm64.deb' -print -quit)"
           test -n "$DEB"
-          dpkg-deb -I "$DEB"
-          dpkg-deb -c "$DEB"
+          file "$DEB" 
+          ar -t "$DEB"
           shasum -a 256 "$DEB" | tee package-sha256.txt
           file .theos/obj/TGExtra.dylib || true
 
