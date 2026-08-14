@@ -1,4 +1,4 @@
-# TGExtra
+# TGExtra (but with PR's merged)
 A simple Telegram iOS Tweak.
 
 To Open Tweak menu : Longpress screen with 3 finger (if no flex injected) of 4 fingers.
