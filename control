@@ -1,0 +1,9 @@
+Package: com.black00z.cc.wifi
+Name: WiFiToggle18
+Version: 0.1.1
+Architecture: iphoneos-arm64
+Description: A simple Control Center Wi-Fi toggle for iOS 18.
+Maintainer: infjblack
+Author: infjblack
+Section: Tweaks
+Depends: firmware (>= 18.0), firmware (<< 18.1), com.opa334.ccsupport

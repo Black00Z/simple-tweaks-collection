@@ -1,0 +1,117 @@
+name: Build WiFiToggle18 rootless
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["WiFiToggle18"]
+
+permissions:
+  contents: read
+
+jobs:
+  build-rootless:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v7
+
+      - name: Install build dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v gmake >/dev/null 2>&1 || brew install make
+          command -v ldid >/dev/null 2>&1 || brew install ldid
+          if ! command -v dpkg >/dev/null 2>&1 || ! command -v dpkg-deb >/dev/null 2>&1; then
+            brew install dpkg
+          fi
+          command -v xz >/dev/null 2>&1 || brew install xz
+          command -v gmake
+          command -v ldid
+          command -v dpkg
+          command -v dpkg-deb
+          command -v xz
+
+      - name: Install Theos
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --recursive https://github.com/theos/theos.git "$HOME/theos"
+          echo "THEOS=$HOME/theos" >> "$GITHUB_ENV"
+          echo "$HOME/theos/bin" >> "$GITHUB_PATH"
+
+      - name: Install iPhoneOS 16.5 SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          sdk_archive="$RUNNER_TEMP/iPhoneOS16.5.sdk.tar.xz"
+          curl --fail --location --retry 3 --retry-delay 2 \
+            --output "$sdk_archive" \
+            https://github.com/theos/sdks/releases/download/master-146e41f/iPhoneOS16.5.sdk.tar.xz
+          mkdir -p "$HOME/theos/sdks"
+          tar -xJf "$sdk_archive" -C "$HOME/theos/sdks"
+          test -d "$HOME/theos/sdks/iPhoneOS16.5.sdk"
+
+      - name: Show toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcode-select -p
+          xcodebuild -version
+          clang --version | head -n 1
+          gmake --version | head -n 1
+          dpkg-deb --version | head -n 1
+          test -d "$THEOS/sdks/iPhoneOS16.5.sdk"
+          test -f "$THEOS/sdks/iPhoneOS16.5.sdk/System/Library/PrivateFrameworks/ControlCenterUIKit.framework/ControlCenterUIKit.tbd"
+
+      - name: Build rootless package
+        shell: bash
+        run: |
+          set -o pipefail
+          gmake clean package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless STRIP=0 2>&1 | tee build-wifitoggle18-rootless.log
+
+      - name: Verify package and bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          DEB="$(find packages -maxdepth 1 -name '*_iphoneos-arm64.deb' -print -quit)"
+          test -n "$DEB"
+          dpkg-deb -I "$DEB" | tee package-metadata.txt
+          grep -q 'Package: com.black00z.cc.wifi' package-metadata.txt
+          grep -q 'Architecture: iphoneos-arm64' package-metadata.txt
+          grep -q 'com.opa334.ccsupport' package-metadata.txt
+          dpkg-deb -c "$DEB" | tee package-contents.txt
+          grep -q 'var/jb/Library/ControlCenter/Bundles/WiFiToggle18.bundle/Info.plist' package-contents.txt
+          grep -q 'var/jb/Library/ControlCenter/Bundles/WiFiToggle18.bundle/WiFiToggle18' package-contents.txt
+
+          EXTRACT_DIR="$RUNNER_TEMP/wifitoggle18-deb"
+          mkdir -p "$EXTRACT_DIR"
+          dpkg-deb -x "$DEB" "$EXTRACT_DIR"
+          BUNDLE="$EXTRACT_DIR/var/jb/Library/ControlCenter/Bundles/WiFiToggle18.bundle"
+          BIN="$BUNDLE/WiFiToggle18"
+          INFO="$BUNDLE/Info.plist"
+          test -f "$BIN"
+          test -f "$INFO"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$INFO")" = "com.black00z.cc.wifi"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :NSPrincipalClass' "$INFO")" = "WiFiToggle18Module"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CCSModuleSize:Portrait:Width' "$INFO")" = "1"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CCSModuleSize:Portrait:Height' "$INFO")" = "1"
+          file "$BIN" | tee bundle-file.txt
+          lipo -info "$BIN" | tee bundle-architectures.txt
+          otool -L "$BIN" | tee bundle-linked-libraries.txt
+          shasum -a 256 "$DEB" | tee package-sha256.txt
+
+      - name: Upload DEB and diagnostics
+        uses: actions/upload-artifact@v7
+        with:
+          name: WiFiToggle18-rootless
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            packages/*_iphoneos-arm64.deb
+            build-wifitoggle18-rootless.log
+            package-metadata.txt
+            package-contents.txt
+            package-sha256.txt
+            bundle-file.txt
+            bundle-architectures.txt
+            bundle-linked-libraries.txt
