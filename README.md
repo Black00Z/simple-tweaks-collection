@@ -3,6 +3,10 @@
 > [!IMPORTANT]
 > This fork contains **AltDaemonModern**, a source-level repair for rootless jailbreaks with modern anisette v3 support. See the [AltDaemonModern documentation](AltDaemon/README.md) for scope, build instructions, security notes, and device-testing guidance. The installed daemon is never modified by the build scripts.
 
+## Credit
+
+Thanks to [emp0ry](https://github.com/emp0ry) for the [AltDaemonModern project](https://github.com/emp0ry/AltDaemonModern) and its rootless/anisette v3 work.
+
 > AltStore is an alternative app store for non-jailbroken iOS devices. 
 
 [![Swift Version](https://img.shields.io/badge/swift-5.0-orange.svg)](https://swift.org/)
